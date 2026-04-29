@@ -31,11 +31,11 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Required: true,
 			BodyPath: "version",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -44,7 +44,7 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "Options for AI-powered parsing tiers (cost_effective, agentic, agentic_plus).\n\nThese options customize how the AI processes and interprets document content.\nOnly applicable when using non-fast tiers.",
 			BodyPath: "agentic_options",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "client-name",
 			Usage:    "Identifier for the client/application making the request. Used for analytics and debugging. Example: 'my-app-v2'",
 			BodyPath: "client_name",
@@ -54,7 +54,7 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "Crop boundaries to process only a portion of each page. Values are ratios 0-1 from page edges",
 			BodyPath: "crop_box",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*bool]{
 			Name:     "disable-cache",
 			Usage:    "Bypass result caching and force re-parsing. Use when document content may have changed or you need fresh results",
 			BodyPath: "disable_cache",
@@ -64,12 +64,12 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "Options for fast tier parsing (rule-based, no AI).\n\nFast tier uses deterministic algorithms for text extraction without AI enhancement.\nIt's the fastest and most cost-effective option, best suited for simple documents\nwith standard layouts. Currently has no configurable options but reserved for\nfuture expansion.",
 			BodyPath: "fast_options",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "file-id",
 			Usage:    "ID of an existing file in the project to parse. Mutually exclusive with source_url",
 			BodyPath: "file_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "http-proxy",
 			Usage:    "HTTP/HTTPS proxy for fetching source_url. Ignored if using file_id",
 			BodyPath: "http_proxy",
@@ -99,7 +99,7 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "Document processing options including OCR, table extraction, and chart parsing",
 			BodyPath: "processing_options",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "source-url",
 			Usage:    "Public URL of the document to parse. Mutually exclusive with file_id",
 			BodyPath: "source_url",
@@ -114,29 +114,29 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 	HideHelpCommand: true,
 }, map[string][]requestflag.HasOuterFlag{
 	"agentic-options": {
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "agentic-options.custom-prompt",
 			Usage:      "Custom instructions for the AI parser. Use to guide extraction behavior, specify output formatting, or provide domain-specific context. Example: 'Extract financial tables with currency symbols. Format dates as YYYY-MM-DD.'",
 			InnerField: "custom_prompt",
 		},
 	},
 	"crop-box": {
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "crop-box.bottom",
 			Usage:      "Bottom boundary as ratio (0-1). 0=top edge, 1=bottom edge. Content below this line is excluded",
 			InnerField: "bottom",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "crop-box.left",
 			Usage:      "Left boundary as ratio (0-1). 0=left edge, 1=right edge. Content left of this line is excluded",
 			InnerField: "left",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "crop-box.right",
 			Usage:      "Right boundary as ratio (0-1). 0=left edge, 1=right edge. Content right of this line is excluded",
 			InnerField: "right",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "crop-box.top",
 			Usage:      "Top boundary as ratio (0-1). 0=top edge, 1=bottom edge. Content above this line is excluded",
 			InnerField: "top",
@@ -165,7 +165,7 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 	},
 	"output-options": {
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "output-options.extract-printed-page-number",
 			Usage:      "Extract the printed page number as it appears in the document (e.g., 'Page 5 of 10', 'v', 'A-3'). Useful for referencing original page numbers",
 			InnerField: "extract_printed_page_number",
@@ -192,12 +192,12 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 	},
 	"page-ranges": {
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*int64]{
 			Name:       "page-ranges.max-pages",
 			Usage:      "Maximum number of pages to process. Pages are processed in order starting from page 1. If both max_pages and target_pages are set, target_pages takes precedence",
 			InnerField: "max_pages",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "page-ranges.target-pages",
 			Usage:      "Comma-separated list of specific pages to process using 1-based indexing. Supports individual pages and ranges. Examples: '1,3,5' (pages 1, 3, 5), '1-5' (pages 1 through 5 inclusive), '1,3,5-8,10' (pages 1, 3, 5-8, and 10). Pages are sorted and deduplicated automatically. Duplicate pages cause an error",
 			InnerField: "target_pages",
@@ -216,7 +216,7 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 	},
 	"processing-options": {
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "processing-options.aggressive-table-extraction",
 			Usage:      "Use aggressive heuristics to detect table boundaries, even without visible borders. Useful for documents with borderless or complex tables",
 			InnerField: "aggressive_table_extraction",
@@ -231,7 +231,7 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "Cost optimizer configuration for reducing parsing costs on simpler pages.\n\nWhen enabled, the parser analyzes each page and routes simpler pages to faster,\ncheaper processing while preserving quality for complex pages. Only works with\n'agentic' or 'agentic_plus' tiers.",
 			InnerField: "cost_optimizer",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "processing-options.disable-heuristics",
 			Usage:      "Disable automatic heuristics including outlined table extraction and adaptive long table handling. Use when heuristics produce incorrect results",
 			InnerField: "disable_heuristics",
@@ -246,7 +246,7 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "OCR configuration including language detection settings",
 			InnerField: "ocr_parameters",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "processing-options.specialized-chart-parsing",
 			Usage:      "Enable AI-powered chart analysis. Modes: 'efficient' (fast, lower cost), 'agentic' (balanced), 'agentic_plus' (highest accuracy). Automatically enables extract_layout and precise_bounding_box when set",
 			InnerField: "specialized_chart_parsing",
@@ -263,7 +263,7 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "Custom HTTP headers to include in webhook requests. Use for authentication tokens or custom routing. Example: {'Authorization': 'Bearer xyz'}",
 			InnerField: "webhook_headers",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "webhook-configuration.webhook-url",
 			Usage:      "HTTPS URL to receive webhook POST requests. Must be publicly accessible",
 			InnerField: "webhook_url",
@@ -291,25 +291,25 @@ var parsingList = cli.Command{
 			Usage:     "Filter by specific job IDs",
 			QueryPath: "job_ids",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:      "page-size",
 			Usage:     "Number of items per page",
 			QueryPath: "page_size",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "page-token",
 			Usage:     "Token for pagination",
 			QueryPath: "page_token",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "status",
 			Usage:     "Filter by job status (PENDING, RUNNING, COMPLETED, FAILED, CANCELLED)",
 			QueryPath: "status",
@@ -337,16 +337,16 @@ var parsingGet = cli.Command{
 			Usage:     "Fields to include: text, markdown, items, metadata, job_metadata, text_content_metadata, markdown_content_metadata, items_content_metadata, metadata_content_metadata, raw_words_content_metadata, xlsx_content_metadata, output_pdf_content_metadata, images_content_metadata. Metadata fields include presigned URLs.",
 			QueryPath: "expand",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "image-filenames",
 			Usage:     "Filter to specific image filenames (optional). Example: image_0.png,image_1.jpg",
 			QueryPath: "image_filenames",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},

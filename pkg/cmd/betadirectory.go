@@ -25,20 +25,20 @@ var betaDirectoriesCreate = cli.Command{
 			Required: true,
 			BodyPath: "name",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "data-source-id",
 			Usage:    "Optional data source id the directory syncs from.",
 			BodyPath: "data_source_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "description",
 			Usage:    "Optional description shown to users.",
 			BodyPath: "description",
@@ -57,20 +57,20 @@ var betaDirectoriesUpdate = cli.Command{
 			Name:     "directory-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "description",
 			Usage:    "Updated description for the directory.",
 			BodyPath: "description",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "name",
 			Usage:    "Updated name for the directory.",
 			BodyPath: "name",
@@ -85,7 +85,7 @@ var betaDirectoriesList = cli.Command{
 	Usage:   "List Directories",
 	Suggest: true,
 	Flags: []cli.Flag{
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "data-source-id",
 			QueryPath: "data_source_id",
 		},
@@ -94,27 +94,27 @@ var betaDirectoriesList = cli.Command{
 			Default:   false,
 			QueryPath: "include_deleted",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "name",
 			QueryPath: "name",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:      "page-size",
 			QueryPath: "page_size",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "page-token",
 			QueryPath: "page_token",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "type",
 			Usage:     `Allowed values: "user", "index".`,
 			QueryPath: "type",
@@ -137,11 +137,11 @@ var betaDirectoriesDelete = cli.Command{
 			Name:     "directory-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -159,11 +159,11 @@ var betaDirectoriesGet = cli.Command{
 			Name:     "directory-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},

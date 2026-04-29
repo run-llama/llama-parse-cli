@@ -41,7 +41,7 @@ var pipelinesDocumentsCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:       "body.text",
 			InnerField: "text",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "body.id",
 			InnerField: "id",
 		},
@@ -70,7 +70,7 @@ var pipelinesDocumentsList = cli.Command{
 			Name:     "pipeline-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "file-id",
 			QueryPath: "file_id",
 		},
@@ -79,14 +79,14 @@ var pipelinesDocumentsList = cli.Command{
 			Default:   10,
 			QueryPath: "limit",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*bool]{
 			Name:      "only-api-data-source-documents",
-			Default:   false,
+			Default:   requestflag.Ptr[bool](false),
 			QueryPath: "only_api_data_source_documents",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*bool]{
 			Name:      "only-direct-upload",
-			Default:   false,
+			Default:   requestflag.Ptr[bool](false),
 			QueryPath: "only_direct_upload",
 		},
 		&requestflag.Flag[int64]{
@@ -226,7 +226,7 @@ var pipelinesDocumentsUpsert = requestflag.WithInnerFlags(cli.Command{
 			Name:       "body.text",
 			InnerField: "text",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "body.id",
 			InnerField: "id",
 		},

@@ -19,11 +19,11 @@ var classifyCreate = requestflag.WithInnerFlags(cli.Command{
 	Usage:   "Create a classify job.",
 	Suggest: true,
 	Flags: []cli.Flag{
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -32,27 +32,27 @@ var classifyCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "Configuration for a classify job.",
 			BodyPath: "configuration",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "configuration-id",
 			Usage:    "Saved configuration ID",
 			BodyPath: "configuration_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "file-id",
 			Usage:    "Deprecated: use file_input instead",
 			BodyPath: "file_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "file-input",
 			Usage:    "File ID or parse job ID to classify",
 			BodyPath: "file_input",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "parse-job-id",
 			Usage:    "Deprecated: use file_input instead",
 			BodyPath: "parse_job_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "transaction-id",
 			Usage:    "Idempotency key scoped to the project",
 			BodyPath: "transaction_id",
@@ -85,7 +85,7 @@ var classifyList = cli.Command{
 	Usage:   "List classify jobs with optional filtering and pagination.",
 	Suggest: true,
 	Flags: []cli.Flag{
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "configuration-id",
 			Usage:     "Filter by configuration ID",
 			QueryPath: "configuration_id",
@@ -105,25 +105,25 @@ var classifyList = cli.Command{
 			Usage:     "Filter by specific job IDs",
 			QueryPath: "job_ids",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:      "page-size",
 			Usage:     "Number of items per page",
 			QueryPath: "page_size",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "page-token",
 			Usage:     "Token for pagination",
 			QueryPath: "page_token",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "status",
 			Usage:     "Filter by job status",
 			QueryPath: "status",
@@ -146,11 +146,11 @@ var classifyGet = cli.Command{
 			Name:     "job-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},

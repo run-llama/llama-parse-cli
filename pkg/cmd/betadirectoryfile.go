@@ -27,20 +27,20 @@ var betaDirectoriesFilesUpdate = cli.Command{
 			Name:     "directory-file-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "directory-id",
 			Usage:    "Move file to a different directory.",
 			BodyPath: "directory_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "display-name",
 			Usage:    "Updated display name.",
 			BodyPath: "display_name",
@@ -50,7 +50,7 @@ var betaDirectoriesFilesUpdate = cli.Command{
 			Usage:    "User-defined metadata key-value pairs. Replaces the user metadata layer.",
 			BodyPath: "metadata",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "unique-id",
 			Usage:    "Updated unique identifier.",
 			BodyPath: "unique_id",
@@ -69,15 +69,15 @@ var betaDirectoriesFilesList = cli.Command{
 			Name:     "directory-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "display-name",
 			QueryPath: "display_name",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "display-name-contains",
 			QueryPath: "display_name_contains",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "file-id",
 			QueryPath: "file_id",
 		},
@@ -86,23 +86,23 @@ var betaDirectoriesFilesList = cli.Command{
 			Default:   false,
 			QueryPath: "include_deleted",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:      "page-size",
 			QueryPath: "page_size",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "page-token",
 			QueryPath: "page_token",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "unique-id",
 			QueryPath: "unique_id",
 		},
@@ -128,11 +128,11 @@ var betaDirectoriesFilesDelete = cli.Command{
 			Name:     "directory-file-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -156,15 +156,15 @@ var betaDirectoriesFilesAdd = cli.Command{
 			Required: true,
 			BodyPath: "file_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "display-name",
 			Usage:    "Display name for the file. If not provided, will use the file's name.",
 			BodyPath: "display_name",
@@ -174,7 +174,7 @@ var betaDirectoriesFilesAdd = cli.Command{
 			Usage:    "User-defined metadata key-value pairs to associate with the file.",
 			BodyPath: "metadata",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "unique-id",
 			Usage:    "Unique identifier for the file in the directory. If not provided, will use the file's external_file_id or name.",
 			BodyPath: "unique_id",
@@ -197,11 +197,11 @@ var betaDirectoriesFilesGet = cli.Command{
 			Name:     "directory-file-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -225,23 +225,23 @@ var betaDirectoriesFilesUpload = cli.Command{
 			BodyPath:  "upload_file",
 			FileInput: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "display-name",
 			BodyPath: "display_name",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "external-file-id",
 			BodyPath: "external_file_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "unique-id",
 			BodyPath: "unique_id",
 		},

@@ -32,15 +32,15 @@ var filesCreate = cli.Command{
 			Required: true,
 			BodyPath: "purpose",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "external-file-id",
 			Usage:    "The ID of the file in the external system",
 			BodyPath: "external_file_id",
@@ -55,7 +55,7 @@ var filesList = cli.Command{
 	Usage:   "List files with optional filtering and pagination.",
 	Suggest: true,
 	Flags: []cli.Flag{
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "external-file-id",
 			Usage:     "Filter by external file ID.",
 			QueryPath: "external_file_id",
@@ -65,31 +65,31 @@ var filesList = cli.Command{
 			Usage:     "Filter by specific file IDs.",
 			QueryPath: "file_ids",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "file-name",
 			Usage:     "Filter by file name (exact match).",
 			QueryPath: "file_name",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "order-by",
 			Usage:     "A comma-separated list of fields to order by, sorted in ascending order. Use 'field_name desc' to specify descending order.",
 			QueryPath: "order_by",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:      "page-size",
 			Usage:     "The maximum number of items to return. Defaults to 50, maximum is 1000.",
 			QueryPath: "page_size",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "page-token",
 			Usage:     "A page token received from a previous list call. Provide this to retrieve the subsequent page.",
 			QueryPath: "page_token",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -111,11 +111,11 @@ var filesDelete = cli.Command{
 			Name:     "file-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -133,15 +133,15 @@ var filesGet = cli.Command{
 			Name:     "file-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:      "expires-at-seconds",
 			QueryPath: "expires_at_seconds",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -155,11 +155,11 @@ var filesQuery = requestflag.WithInnerFlags(cli.Command{
 	Usage:   "Query files with flexible filtering and pagination.",
 	Suggest: true,
 	Flags: []cli.Flag{
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -168,17 +168,17 @@ var filesQuery = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "Filter parameters for file queries.",
 			BodyPath: "filter",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "order-by",
 			Usage:    "A comma-separated list of fields to order by, sorted in ascending order. Use 'field_name desc' to specify descending order.",
 			BodyPath: "order_by",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:     "page-size",
 			Usage:    "The maximum number of items to return. The service may return fewer than this value. If unspecified, a default page size will be used. The maximum value is typically 1000; values above this will be coerced to the maximum.",
 			BodyPath: "page_size",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "page-token",
 			Usage:    "A page token, received from a previous list call. Provide this to retrieve the subsequent page.",
 			BodyPath: "page_token",
@@ -188,12 +188,12 @@ var filesQuery = requestflag.WithInnerFlags(cli.Command{
 	HideHelpCommand: true,
 }, map[string][]requestflag.HasOuterFlag{
 	"filter": {
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "filter.data-source-id",
 			Usage:      "Filter by data source ID",
 			InnerField: "data_source_id",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "filter.external-file-id",
 			Usage:      "Filter by external file ID",
 			InnerField: "external_file_id",
@@ -203,17 +203,17 @@ var filesQuery = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "Filter by specific file IDs",
 			InnerField: "file_ids",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "filter.file-name",
 			Usage:      "Filter by file name",
 			InnerField: "file_name",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "filter.only-manually-uploaded",
 			Usage:      "Filter only manually uploaded files (data_source_id is null)",
 			InnerField: "only_manually_uploaded",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "filter.project-id",
 			Usage:      "Filter by project ID",
 			InnerField: "project_id",

@@ -25,11 +25,11 @@ var betaSplitCreate = requestflag.WithInnerFlags(cli.Command{
 			Required: true,
 			BodyPath: "document_input",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -38,7 +38,7 @@ var betaSplitCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "Split configuration with categories and splitting strategy.",
 			BodyPath: "configuration",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "configuration-id",
 			Usage:    "Saved split configuration ID.",
 			BodyPath: "configuration_id",
@@ -93,23 +93,23 @@ var betaSplitList = cli.Command{
 			Usage:     "Filter by specific job IDs",
 			QueryPath: "job_ids",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:      "page-size",
 			QueryPath: "page_size",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "page-token",
 			QueryPath: "page_token",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "status",
 			Usage:     "Filter by job status (pending, processing, completed, failed, cancelled)",
 			QueryPath: "status",
@@ -132,11 +132,11 @@ var betaSplitGet = cli.Command{
 			Name:     "split-job-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},

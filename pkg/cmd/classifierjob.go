@@ -31,11 +31,11 @@ var classifierJobsCreate = requestflag.WithInnerFlags(cli.Command{
 			Required: true,
 			BodyPath: "rules",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -77,7 +77,7 @@ var classifierJobsCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "Enum for representing the languages supported by the parser.",
 			InnerField: "lang",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*int64]{
 			Name:       "parsing-configuration.max-pages",
 			Usage:      "The maximum number of pages to parse",
 			InnerField: "max_pages",
@@ -99,7 +99,7 @@ var classifierJobsCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "Custom HTTP headers to include in webhook requests. Use for authentication tokens or custom routing. Example: {'Authorization': 'Bearer xyz'}",
 			InnerField: "webhook_headers",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "webhook-configuration.webhook-url",
 			Usage:      "HTTPS URL to receive webhook POST requests. Must be publicly accessible",
 			InnerField: "webhook_url",
@@ -112,19 +112,19 @@ var classifierJobsList = cli.Command{
 	Usage:   "List classify jobs. Experimental: This endpoint is not yet ready for production\nuse and is subject to change at any time.",
 	Suggest: true,
 	Flags: []cli.Flag{
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:      "page-size",
 			QueryPath: "page_size",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "page-token",
 			QueryPath: "page_token",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -146,11 +146,11 @@ var classifierJobsGet = cli.Command{
 			Name:     "classify-job-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -168,11 +168,11 @@ var classifierJobsGetResults = cli.Command{
 			Name:     "classify-job-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},

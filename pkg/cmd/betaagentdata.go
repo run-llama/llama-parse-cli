@@ -29,11 +29,11 @@ var betaAgentDataCreate = cli.Command{
 			Required: true,
 			BodyPath: "deployment_name",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -61,11 +61,11 @@ var betaAgentDataUpdate = cli.Command{
 			Required: true,
 			BodyPath: "data",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -83,11 +83,11 @@ var betaAgentDataDelete = cli.Command{
 			Name:     "item-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -107,11 +107,11 @@ var betaAgentDataAggregate = cli.Command{
 			Required: true,
 			BodyPath: "deployment_name",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -121,10 +121,10 @@ var betaAgentDataAggregate = cli.Command{
 			Default:  "default",
 			BodyPath: "collection",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*bool]{
 			Name:     "count",
 			Usage:    "Whether to count the number of items in each group",
-			Default:  false,
+			Default:  requestflag.Ptr[bool](false),
 			BodyPath: "count",
 		},
 		&requestflag.Flag[map[string]any]{
@@ -132,10 +132,10 @@ var betaAgentDataAggregate = cli.Command{
 			Usage:    "A filter object or expression that filters resources listed in the response.",
 			BodyPath: "filter",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*bool]{
 			Name:     "first",
 			Usage:    "Whether to return the first item in each group (Sorted by created_at)",
-			Default:  false,
+			Default:  requestflag.Ptr[bool](false),
 			BodyPath: "first",
 		},
 		&requestflag.Flag[any]{
@@ -143,23 +143,23 @@ var betaAgentDataAggregate = cli.Command{
 			Usage:    "The fields to group by. If empty, the entire dataset is grouped on. e.g. if left out, can be used for simple count operations",
 			BodyPath: "group_by",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:     "offset",
 			Usage:    "The offset to start from. If not provided, the first page is returned",
-			Default:  0,
+			Default:  requestflag.Ptr[int64](0),
 			BodyPath: "offset",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "order-by",
 			Usage:    "A comma-separated list of fields to order by, sorted in ascending order. Use 'field_name desc' to specify descending order.",
 			BodyPath: "order_by",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:     "page-size",
 			Usage:    "The maximum number of items to return. The service may return fewer than this value. If unspecified, a default page size will be used. The maximum value is typically 1000; values above this will be coerced to the maximum.",
 			BodyPath: "page_size",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "page-token",
 			Usage:    "A page token, received from a previous list call. Provide this to retrieve the subsequent page.",
 			BodyPath: "page_token",
@@ -184,11 +184,11 @@ var betaAgentDataDeleteByQuery = cli.Command{
 			Required: true,
 			BodyPath: "deployment_name",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -217,11 +217,11 @@ var betaAgentDataGet = cli.Command{
 			Name:     "item-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -241,11 +241,11 @@ var betaAgentDataSearch = cli.Command{
 			Required: true,
 			BodyPath: "deployment_name",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -266,23 +266,23 @@ var betaAgentDataSearch = cli.Command{
 			Default:  false,
 			BodyPath: "include_total",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:     "offset",
 			Usage:    "The offset to start from. If not provided, the first page is returned",
-			Default:  0,
+			Default:  requestflag.Ptr[int64](0),
 			BodyPath: "offset",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "order-by",
 			Usage:    "A comma-separated list of fields to order by, sorted in ascending order. Use 'field_name desc' to specify descending order.",
 			BodyPath: "order_by",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:     "page-size",
 			Usage:    "The maximum number of items to return. The service may return fewer than this value. If unspecified, a default page size will be used. The maximum value is typically 1000; values above this will be coerced to the maximum.",
 			BodyPath: "page_size",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "page-token",
 			Usage:    "A page token, received from a previous list call. Provide this to retrieve the subsequent page.",
 			BodyPath: "page_token",

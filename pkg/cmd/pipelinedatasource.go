@@ -27,7 +27,7 @@ var pipelinesDataSourcesUpdate = cli.Command{
 			Name:     "data-source-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*float64]{
 			Name:     "sync-interval",
 			Usage:    "The interval at which the data source should be synced.",
 			BodyPath: "sync_interval",
@@ -115,7 +115,7 @@ var pipelinesDataSourcesUpdateDataSources = requestflag.WithInnerFlags(cli.Comma
 			Usage:      "The ID of the data source.",
 			InnerField: "data_source_id",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "body.sync-interval",
 			Usage:      "The interval at which the data source should be synced. Valid values are: 21600, 43200, 86400",
 			InnerField: "sync_interval",

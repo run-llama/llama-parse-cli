@@ -37,11 +37,11 @@ var dataSourcesCreate = cli.Command{
 			Required: true,
 			BodyPath: "source_type",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -70,7 +70,7 @@ var dataSourcesUpdate = cli.Command{
 			Required: true,
 			BodyPath: "source_type",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "component",
 			Usage:    "Component that implements the data source",
 			BodyPath: "component",
@@ -80,7 +80,7 @@ var dataSourcesUpdate = cli.Command{
 			Usage:    "Custom metadata that will be present on all data loaded from the data source",
 			BodyPath: "custom_metadata",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "name",
 			Usage:    "The name of the data source.",
 			BodyPath: "name",
@@ -95,11 +95,11 @@ var dataSourcesList = cli.Command{
 	Usage:   "List data sources for a given project. If project_id is not provided, uses the\ndefault project.",
 	Suggest: true,
 	Flags: []cli.Flag{
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},

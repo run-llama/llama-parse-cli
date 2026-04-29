@@ -25,11 +25,11 @@ var betaSheetsCreate = requestflag.WithInnerFlags(cli.Command{
 			Required: true,
 			BodyPath: "file_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -43,7 +43,7 @@ var betaSheetsCreate = requestflag.WithInnerFlags(cli.Command{
 	HideHelpCommand: true,
 }, map[string][]requestflag.HasOuterFlag{
 	"config": {
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "config.extraction-range",
 			Usage:      "A1 notation of the range to extract a single region from. If None, the entire sheet is used.",
 			InnerField: "extraction_range",
@@ -68,7 +68,7 @@ var betaSheetsCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "The names of the sheets to extract regions from. If empty, all sheets will be processed.",
 			InnerField: "sheet_names",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "config.specialization",
 			Usage:      "Optional specialization mode for domain-specific extraction. Supported values: 'financial-standard', 'financial-enhanced', 'financial-precise'. Default None uses the general-purpose pipeline.",
 			InnerField: "specialization",
@@ -111,23 +111,23 @@ var betaSheetsList = cli.Command{
 			Usage:     "Filter by specific job IDs",
 			QueryPath: "job_ids",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:      "page-size",
 			QueryPath: "page_size",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "page-token",
 			QueryPath: "page_token",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[*string]{
 			Name:      "status",
 			Usage:     "Enum for representing the status of a job",
 			QueryPath: "status",
@@ -150,11 +150,11 @@ var betaSheetsDeleteJob = cli.Command{
 			Name:     "spreadsheet-job-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -177,11 +177,11 @@ var betaSheetsGet = cli.Command{
 			Default:   true,
 			QueryPath: "include_results",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -208,15 +208,15 @@ var betaSheetsGetResultTable = cli.Command{
 			Usage:    `Allowed values: "table", "extra", "cell_metadata".`,
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:      "expires-at-seconds",
 			QueryPath: "expires_at_seconds",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},

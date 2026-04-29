@@ -37,11 +37,11 @@ var dataSinksCreate = cli.Command{
 			Required: true,
 			BodyPath: "sink_type",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -65,12 +65,12 @@ var dataSinksUpdate = cli.Command{
 			Required: true,
 			BodyPath: "sink_type",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "component",
 			Usage:    "Component that implements the data sink",
 			BodyPath: "component",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "name",
 			Usage:    "The name of the data sink.",
 			BodyPath: "name",
@@ -85,11 +85,11 @@ var dataSinksList = cli.Command{
 	Usage:   "List data sinks for a given project.",
 	Suggest: true,
 	Flags: []cli.Flag{
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},

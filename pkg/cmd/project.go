@@ -19,11 +19,11 @@ var projectsList = cli.Command{
 	Usage:   "List projects or get one by name",
 	Suggest: true,
 	Flags: []cli.Flag{
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-name",
 			QueryPath: "project_name",
 		},
@@ -41,7 +41,7 @@ var projectsGet = cli.Command{
 			Name:     "project-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
