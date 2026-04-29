@@ -20,12 +20,14 @@ var betaDirectoriesFilesUpdate = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "directory-id",
-			Required: true,
+			Name:      "directory-id",
+			Required:  true,
+			PathParam: "directory_id",
 		},
 		&requestflag.Flag[string]{
-			Name:     "directory-file-id",
-			Required: true,
+			Name:      "directory-file-id",
+			Required:  true,
+			PathParam: "directory_file_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -66,8 +68,9 @@ var betaDirectoriesFilesList = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "directory-id",
-			Required: true,
+			Name:      "directory-id",
+			Required:  true,
+			PathParam: "directory_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "display-name",
@@ -121,12 +124,14 @@ var betaDirectoriesFilesDelete = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "directory-id",
-			Required: true,
+			Name:      "directory-id",
+			Required:  true,
+			PathParam: "directory_id",
 		},
 		&requestflag.Flag[string]{
-			Name:     "directory-file-id",
-			Required: true,
+			Name:      "directory-file-id",
+			Required:  true,
+			PathParam: "directory_file_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -147,8 +152,9 @@ var betaDirectoriesFilesAdd = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "directory-id",
-			Required: true,
+			Name:      "directory-id",
+			Required:  true,
+			PathParam: "directory_id",
 		},
 		&requestflag.Flag[string]{
 			Name:     "file-id",
@@ -190,12 +196,14 @@ var betaDirectoriesFilesGet = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "directory-id",
-			Required: true,
+			Name:      "directory-id",
+			Required:  true,
+			PathParam: "directory_id",
 		},
 		&requestflag.Flag[string]{
-			Name:     "directory-file-id",
-			Required: true,
+			Name:      "directory-file-id",
+			Required:  true,
+			PathParam: "directory_file_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -216,8 +224,9 @@ var betaDirectoriesFilesUpload = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "directory-id",
-			Required: true,
+			Name:      "directory-id",
+			Required:  true,
+			PathParam: "directory_id",
 		},
 		&requestflag.Flag[string]{
 			Name:      "upload-file",
@@ -261,10 +270,6 @@ func handleBetaDirectoriesFilesUpdate(ctx context.Context, cmd *cli.Command) err
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaDirectoryFileUpdateParams{
-		DirectoryID: cmd.Value("directory-id").(string),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -274,6 +279,10 @@ func handleBetaDirectoriesFilesUpdate(ctx context.Context, cmd *cli.Command) err
 	)
 	if err != nil {
 		return err
+	}
+
+	params := llamacloudprod.BetaDirectoryFileUpdateParams{
+		DirectoryID: cmd.Value("directory-id").(string),
 	}
 
 	var res []byte
@@ -312,8 +321,6 @@ func handleBetaDirectoriesFilesList(ctx context.Context, cmd *cli.Command) error
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaDirectoryFileListParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -324,6 +331,8 @@ func handleBetaDirectoriesFilesList(ctx context.Context, cmd *cli.Command) error
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaDirectoryFileListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -380,10 +389,6 @@ func handleBetaDirectoriesFilesDelete(ctx context.Context, cmd *cli.Command) err
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaDirectoryFileDeleteParams{
-		DirectoryID: cmd.Value("directory-id").(string),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -393,6 +398,10 @@ func handleBetaDirectoriesFilesDelete(ctx context.Context, cmd *cli.Command) err
 	)
 	if err != nil {
 		return err
+	}
+
+	params := llamacloudprod.BetaDirectoryFileDeleteParams{
+		DirectoryID: cmd.Value("directory-id").(string),
 	}
 
 	return client.Beta.Directories.Files.Delete(
@@ -414,8 +423,6 @@ func handleBetaDirectoriesFilesAdd(ctx context.Context, cmd *cli.Command) error 
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaDirectoryFileAddParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -426,6 +433,8 @@ func handleBetaDirectoriesFilesAdd(ctx context.Context, cmd *cli.Command) error 
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaDirectoryFileAddParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -463,10 +472,6 @@ func handleBetaDirectoriesFilesGet(ctx context.Context, cmd *cli.Command) error 
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaDirectoryFileGetParams{
-		DirectoryID: cmd.Value("directory-id").(string),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -476,6 +481,10 @@ func handleBetaDirectoriesFilesGet(ctx context.Context, cmd *cli.Command) error 
 	)
 	if err != nil {
 		return err
+	}
+
+	params := llamacloudprod.BetaDirectoryFileGetParams{
+		DirectoryID: cmd.Value("directory-id").(string),
 	}
 
 	var res []byte
@@ -514,8 +523,6 @@ func handleBetaDirectoriesFilesUpload(ctx context.Context, cmd *cli.Command) err
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaDirectoryFileUploadParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -526,6 +533,8 @@ func handleBetaDirectoriesFilesUpload(ctx context.Context, cmd *cli.Command) err
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaDirectoryFileUploadParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

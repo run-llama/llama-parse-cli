@@ -694,8 +694,9 @@ var pipelinesRetrieve = requestflag.WithInnerFlags(cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 		&requestflag.Flag[string]{
 			Name:     "query",
@@ -812,8 +813,9 @@ var pipelinesUpdate = requestflag.WithInnerFlags(cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 		&requestflag.Flag[map[string]any]{
 			Name:     "data-sink",
@@ -1507,8 +1509,9 @@ var pipelinesDelete = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 	},
 	Action:          handlePipelinesDelete,
@@ -1521,8 +1524,9 @@ var pipelinesGet = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 	},
 	Action:          handlePipelinesGet,
@@ -1535,8 +1539,9 @@ var pipelinesGetStatus = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 		&requestflag.Flag[*bool]{
 			Name:      "full-details",
@@ -2229,8 +2234,6 @@ func handlePipelinesCreate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineNewParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -2241,6 +2244,8 @@ func handlePipelinesCreate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.PipelineNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -2273,8 +2278,6 @@ func handlePipelinesRetrieve(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineGetParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -2285,6 +2288,8 @@ func handlePipelinesRetrieve(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.PipelineGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -2322,8 +2327,6 @@ func handlePipelinesUpdate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineUpdateParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -2334,6 +2337,8 @@ func handlePipelinesUpdate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.PipelineUpdateParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -2368,8 +2373,6 @@ func handlePipelinesList(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineListParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -2380,6 +2383,8 @@ func handlePipelinesList(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.PipelineListParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -2479,8 +2484,6 @@ func handlePipelinesGetStatus(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineGetStatusParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -2491,6 +2494,8 @@ func handlePipelinesGetStatus(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.PipelineGetStatusParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -2525,8 +2530,6 @@ func handlePipelinesUpsert(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineUpsertParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -2537,6 +2540,8 @@ func handlePipelinesUpsert(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.PipelineUpsertParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

@@ -53,8 +53,9 @@ var betaAgentDataUpdate = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "item-id",
-			Required: true,
+			Name:      "item-id",
+			Required:  true,
+			PathParam: "item_id",
 		},
 		&requestflag.Flag[map[string]any]{
 			Name:     "data",
@@ -80,8 +81,9 @@ var betaAgentDataDelete = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "item-id",
-			Required: true,
+			Name:      "item-id",
+			Required:  true,
+			PathParam: "item_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -214,8 +216,9 @@ var betaAgentDataGet = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "item-id",
-			Required: true,
+			Name:      "item-id",
+			Required:  true,
+			PathParam: "item_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -304,8 +307,6 @@ func handleBetaAgentDataCreate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaAgentDataNewParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -316,6 +317,8 @@ func handleBetaAgentDataCreate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaAgentDataNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -348,8 +351,6 @@ func handleBetaAgentDataUpdate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaAgentDataUpdateParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -360,6 +361,8 @@ func handleBetaAgentDataUpdate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaAgentDataUpdateParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -397,8 +400,6 @@ func handleBetaAgentDataDelete(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaAgentDataDeleteParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -409,6 +410,8 @@ func handleBetaAgentDataDelete(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaAgentDataDeleteParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -443,8 +446,6 @@ func handleBetaAgentDataAggregate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaAgentDataAggregateParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -455,6 +456,8 @@ func handleBetaAgentDataAggregate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaAgentDataAggregateParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -498,8 +501,6 @@ func handleBetaAgentDataDeleteByQuery(ctx context.Context, cmd *cli.Command) err
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaAgentDataDeleteByQueryParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -510,6 +511,8 @@ func handleBetaAgentDataDeleteByQuery(ctx context.Context, cmd *cli.Command) err
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaAgentDataDeleteByQueryParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -542,8 +545,6 @@ func handleBetaAgentDataGet(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaAgentDataGetParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -554,6 +555,8 @@ func handleBetaAgentDataGet(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaAgentDataGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -588,8 +591,6 @@ func handleBetaAgentDataSearch(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaAgentDataSearchParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -600,6 +601,8 @@ func handleBetaAgentDataSearch(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaAgentDataSearchParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")

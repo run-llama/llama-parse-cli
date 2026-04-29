@@ -20,8 +20,9 @@ var retrieversRetrieverSearch = requestflag.WithInnerFlags(cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "retriever-id",
-			Required: true,
+			Name:      "retriever-id",
+			Required:  true,
+			PathParam: "retriever_id",
 		},
 		&requestflag.Flag[string]{
 			Name:     "query",
@@ -80,8 +81,6 @@ func handleRetrieversRetrieverSearch(ctx context.Context, cmd *cli.Command) erro
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.RetrieverRetrieverSearchParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -92,6 +91,8 @@ func handleRetrieversRetrieverSearch(ctx context.Context, cmd *cli.Command) erro
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.RetrieverRetrieverSearchParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

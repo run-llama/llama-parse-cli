@@ -20,8 +20,9 @@ var pipelinesDocumentsCreate = requestflag.WithInnerFlags(cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 		&requestflag.Flag[[]map[string]any]{
 			Name:     "body",
@@ -67,8 +68,9 @@ var pipelinesDocumentsList = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "file-id",
@@ -115,12 +117,14 @@ var pipelinesDocumentsDelete = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 		&requestflag.Flag[string]{
-			Name:     "document-id",
-			Required: true,
+			Name:      "document-id",
+			Required:  true,
+			PathParam: "document_id",
 		},
 	},
 	Action:          handlePipelinesDocumentsDelete,
@@ -133,12 +137,14 @@ var pipelinesDocumentsGet = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 		&requestflag.Flag[string]{
-			Name:     "document-id",
-			Required: true,
+			Name:      "document-id",
+			Required:  true,
+			PathParam: "document_id",
 		},
 	},
 	Action:          handlePipelinesDocumentsGet,
@@ -151,12 +157,14 @@ var pipelinesDocumentsGetChunks = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 		&requestflag.Flag[string]{
-			Name:     "document-id",
-			Required: true,
+			Name:      "document-id",
+			Required:  true,
+			PathParam: "document_id",
 		},
 	},
 	Action:          handlePipelinesDocumentsGetChunks,
@@ -169,12 +177,14 @@ var pipelinesDocumentsGetStatus = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 		&requestflag.Flag[string]{
-			Name:     "document-id",
-			Required: true,
+			Name:      "document-id",
+			Required:  true,
+			PathParam: "document_id",
 		},
 	},
 	Action:          handlePipelinesDocumentsGetStatus,
@@ -187,12 +197,14 @@ var pipelinesDocumentsSync = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 		&requestflag.Flag[string]{
-			Name:     "document-id",
-			Required: true,
+			Name:      "document-id",
+			Required:  true,
+			PathParam: "document_id",
 		},
 	},
 	Action:          handlePipelinesDocumentsSync,
@@ -205,8 +217,9 @@ var pipelinesDocumentsUpsert = requestflag.WithInnerFlags(cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 		&requestflag.Flag[[]map[string]any]{
 			Name:     "body",
@@ -257,8 +270,6 @@ func handlePipelinesDocumentsCreate(ctx context.Context, cmd *cli.Command) error
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineDocumentNewParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -269,6 +280,8 @@ func handlePipelinesDocumentsCreate(ctx context.Context, cmd *cli.Command) error
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.PipelineDocumentNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -306,8 +319,6 @@ func handlePipelinesDocumentsList(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineDocumentListParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -318,6 +329,8 @@ func handlePipelinesDocumentsList(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.PipelineDocumentListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -374,10 +387,6 @@ func handlePipelinesDocumentsDelete(ctx context.Context, cmd *cli.Command) error
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineDocumentDeleteParams{
-		PipelineID: cmd.Value("pipeline-id").(string),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -387,6 +396,10 @@ func handlePipelinesDocumentsDelete(ctx context.Context, cmd *cli.Command) error
 	)
 	if err != nil {
 		return err
+	}
+
+	params := llamacloudprod.PipelineDocumentDeleteParams{
+		PipelineID: cmd.Value("pipeline-id").(string),
 	}
 
 	return client.Pipelines.Documents.Delete(
@@ -408,10 +421,6 @@ func handlePipelinesDocumentsGet(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineDocumentGetParams{
-		PipelineID: cmd.Value("pipeline-id").(string),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -421,6 +430,10 @@ func handlePipelinesDocumentsGet(ctx context.Context, cmd *cli.Command) error {
 	)
 	if err != nil {
 		return err
+	}
+
+	params := llamacloudprod.PipelineDocumentGetParams{
+		PipelineID: cmd.Value("pipeline-id").(string),
 	}
 
 	var res []byte
@@ -459,10 +472,6 @@ func handlePipelinesDocumentsGetChunks(ctx context.Context, cmd *cli.Command) er
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineDocumentGetChunksParams{
-		PipelineID: cmd.Value("pipeline-id").(string),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -472,6 +481,10 @@ func handlePipelinesDocumentsGetChunks(ctx context.Context, cmd *cli.Command) er
 	)
 	if err != nil {
 		return err
+	}
+
+	params := llamacloudprod.PipelineDocumentGetChunksParams{
+		PipelineID: cmd.Value("pipeline-id").(string),
 	}
 
 	var res []byte
@@ -510,10 +523,6 @@ func handlePipelinesDocumentsGetStatus(ctx context.Context, cmd *cli.Command) er
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineDocumentGetStatusParams{
-		PipelineID: cmd.Value("pipeline-id").(string),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -523,6 +532,10 @@ func handlePipelinesDocumentsGetStatus(ctx context.Context, cmd *cli.Command) er
 	)
 	if err != nil {
 		return err
+	}
+
+	params := llamacloudprod.PipelineDocumentGetStatusParams{
+		PipelineID: cmd.Value("pipeline-id").(string),
 	}
 
 	var res []byte
@@ -561,10 +574,6 @@ func handlePipelinesDocumentsSync(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineDocumentSyncParams{
-		PipelineID: cmd.Value("pipeline-id").(string),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -574,6 +583,10 @@ func handlePipelinesDocumentsSync(ctx context.Context, cmd *cli.Command) error {
 	)
 	if err != nil {
 		return err
+	}
+
+	params := llamacloudprod.PipelineDocumentSyncParams{
+		PipelineID: cmd.Value("pipeline-id").(string),
 	}
 
 	var res []byte
@@ -612,8 +625,6 @@ func handlePipelinesDocumentsUpsert(ctx context.Context, cmd *cli.Command) error
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineDocumentUpsertParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -624,6 +635,8 @@ func handlePipelinesDocumentsUpsert(ctx context.Context, cmd *cli.Command) error
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.PipelineDocumentUpsertParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

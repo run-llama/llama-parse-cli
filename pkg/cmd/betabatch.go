@@ -118,8 +118,9 @@ var betaBatchCancel = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "job-id",
-			Required: true,
+			Name:      "job-id",
+			Required:  true,
+			PathParam: "job_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -149,8 +150,9 @@ var betaBatchGetStatus = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "job-id",
-			Required: true,
+			Name:      "job-id",
+			Required:  true,
+			PathParam: "job_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -173,8 +175,6 @@ func handleBetaBatchCreate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaBatchNewParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -185,6 +185,8 @@ func handleBetaBatchCreate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaBatchNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -214,8 +216,6 @@ func handleBetaBatchList(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaBatchListParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -226,6 +226,8 @@ func handleBetaBatchList(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaBatchListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -272,8 +274,6 @@ func handleBetaBatchCancel(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaBatchCancelParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -284,6 +284,8 @@ func handleBetaBatchCancel(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaBatchCancelParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -321,8 +323,6 @@ func handleBetaBatchGetStatus(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaBatchGetStatusParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -333,6 +333,8 @@ func handleBetaBatchGetStatus(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaBatchGetStatusParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

@@ -108,8 +108,9 @@ var filesDelete = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "file-id",
-			Required: true,
+			Name:      "file-id",
+			Required:  true,
+			PathParam: "file_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -130,8 +131,9 @@ var filesGet = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "file-id",
-			Required: true,
+			Name:      "file-id",
+			Required:  true,
+			PathParam: "file_id",
 		},
 		&requestflag.Flag[*int64]{
 			Name:      "expires-at-seconds",
@@ -229,8 +231,6 @@ func handleFilesCreate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.FileNewParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -241,6 +241,8 @@ func handleFilesCreate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.FileNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -270,8 +272,6 @@ func handleFilesList(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.FileListParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -282,6 +282,8 @@ func handleFilesList(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.FileListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -328,8 +330,6 @@ func handleFilesDelete(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.FileDeleteParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -340,6 +340,8 @@ func handleFilesDelete(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.FileDeleteParams{}
 
 	return client.Files.Delete(
 		ctx,
@@ -360,8 +362,6 @@ func handleFilesGet(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.FileGetParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -372,6 +372,8 @@ func handleFilesGet(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.FileGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -406,8 +408,6 @@ func handleFilesQuery(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.FileQueryParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -418,6 +418,8 @@ func handleFilesQuery(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.FileQueryParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

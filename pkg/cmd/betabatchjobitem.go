@@ -20,8 +20,9 @@ var betaBatchJobItemsList = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "job-id",
-			Required: true,
+			Name:      "job-id",
+			Required:  true,
+			PathParam: "job_id",
 		},
 		&requestflag.Flag[int64]{
 			Name:      "limit",
@@ -63,8 +64,9 @@ var betaBatchJobItemsGetProcessingResults = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "item-id",
-			Required: true,
+			Name:      "item-id",
+			Required:  true,
+			PathParam: "item_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "job-type",
@@ -95,8 +97,6 @@ func handleBetaBatchJobItemsList(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaBatchJobItemListParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -107,6 +107,8 @@ func handleBetaBatchJobItemsList(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaBatchJobItemListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -163,8 +165,6 @@ func handleBetaBatchJobItemsGetProcessingResults(ctx context.Context, cmd *cli.C
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaBatchJobItemGetProcessingResultsParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -175,6 +175,8 @@ func handleBetaBatchJobItemsGetProcessingResults(ctx context.Context, cmd *cli.C
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaBatchJobItemGetProcessingResultsParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

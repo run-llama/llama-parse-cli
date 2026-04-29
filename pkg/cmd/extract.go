@@ -220,8 +220,9 @@ var extractDelete = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "job-id",
-			Required: true,
+			Name:      "job-id",
+			Required:  true,
+			PathParam: "job_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -280,8 +281,9 @@ var extractGet = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "job-id",
-			Required: true,
+			Name:      "job-id",
+			Required:  true,
+			PathParam: "job_id",
 		},
 		&requestflag.Flag[[]string]{
 			Name:      "expand",
@@ -325,8 +327,6 @@ func handleExtractCreate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.ExtractNewParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -337,6 +337,8 @@ func handleExtractCreate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.ExtractNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -366,8 +368,6 @@ func handleExtractList(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.ExtractListParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -378,6 +378,8 @@ func handleExtractList(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.ExtractListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -424,8 +426,6 @@ func handleExtractDelete(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.ExtractDeleteParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -436,6 +436,8 @@ func handleExtractDelete(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.ExtractDeleteParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -470,8 +472,6 @@ func handleExtractGenerateSchema(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.ExtractGenerateSchemaParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -482,6 +482,8 @@ func handleExtractGenerateSchema(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.ExtractGenerateSchemaParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -514,8 +516,6 @@ func handleExtractGet(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.ExtractGetParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -526,6 +526,8 @@ func handleExtractGet(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.ExtractGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -560,8 +562,6 @@ func handleExtractValidateSchema(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.ExtractValidateSchemaParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -572,6 +572,8 @@ func handleExtractValidateSchema(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.ExtractValidateSchemaParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

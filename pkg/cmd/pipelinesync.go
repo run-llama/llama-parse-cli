@@ -20,8 +20,9 @@ var pipelinesSyncCreate = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 	},
 	Action:          handlePipelinesSyncCreate,
@@ -34,8 +35,9 @@ var pipelinesSyncCancel = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 	},
 	Action:          handlePipelinesSyncCancel,
