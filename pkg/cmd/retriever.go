@@ -72,8 +72,9 @@ var retrieversUpdate = requestflag.WithInnerFlags(cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "retriever-id",
-			Required: true,
+			Name:      "retriever-id",
+			Required:  true,
+			PathParam: "retriever_id",
 		},
 		&requestflag.Flag[any]{
 			Name:     "pipeline",
@@ -154,8 +155,9 @@ var retrieversDelete = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "retriever-id",
-			Required: true,
+			Name:      "retriever-id",
+			Required:  true,
+			PathParam: "retriever_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -176,8 +178,9 @@ var retrieversGet = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "retriever-id",
-			Required: true,
+			Name:      "retriever-id",
+			Required:  true,
+			PathParam: "retriever_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -330,8 +333,6 @@ func handleRetrieversCreate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.RetrieverNewParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -342,6 +343,8 @@ func handleRetrieversCreate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.RetrieverNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -374,8 +377,6 @@ func handleRetrieversUpdate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.RetrieverUpdateParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -386,6 +387,8 @@ func handleRetrieversUpdate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.RetrieverUpdateParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -420,8 +423,6 @@ func handleRetrieversList(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.RetrieverListParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -432,6 +433,8 @@ func handleRetrieversList(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.RetrieverListParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -464,8 +467,6 @@ func handleRetrieversDelete(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.RetrieverDeleteParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -476,6 +477,8 @@ func handleRetrieversDelete(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.RetrieverDeleteParams{}
 
 	return client.Retrievers.Delete(
 		ctx,
@@ -496,8 +499,6 @@ func handleRetrieversGet(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.RetrieverGetParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -508,6 +509,8 @@ func handleRetrieversGet(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.RetrieverGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -542,8 +545,6 @@ func handleRetrieversSearch(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.RetrieverSearchParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -554,6 +555,8 @@ func handleRetrieversSearch(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.RetrieverSearchParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -583,8 +586,6 @@ func handleRetrieversUpsert(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.RetrieverUpsertParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -595,6 +596,8 @@ func handleRetrieversUpsert(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.RetrieverUpsertParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

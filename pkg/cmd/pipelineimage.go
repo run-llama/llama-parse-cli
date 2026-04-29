@@ -20,16 +20,19 @@ var pipelinesImagesGetPageFigure = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "id",
-			Required: true,
+			Name:      "id",
+			Required:  true,
+			PathParam: "id",
 		},
 		&requestflag.Flag[int64]{
-			Name:     "page-index",
-			Required: true,
+			Name:      "page-index",
+			Required:  true,
+			PathParam: "page_index",
 		},
 		&requestflag.Flag[string]{
-			Name:     "figure-name",
-			Required: true,
+			Name:      "figure-name",
+			Required:  true,
+			PathParam: "figure_name",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -50,12 +53,14 @@ var pipelinesImagesGetPageScreenshot = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "id",
-			Required: true,
+			Name:      "id",
+			Required:  true,
+			PathParam: "id",
 		},
 		&requestflag.Flag[int64]{
-			Name:     "page-index",
-			Required: true,
+			Name:      "page-index",
+			Required:  true,
+			PathParam: "page_index",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -76,8 +81,9 @@ var pipelinesImagesListPageFigures = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "id",
-			Required: true,
+			Name:      "id",
+			Required:  true,
+			PathParam: "id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -98,8 +104,9 @@ var pipelinesImagesListPageScreenshots = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "id",
-			Required: true,
+			Name:      "id",
+			Required:  true,
+			PathParam: "id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -125,11 +132,6 @@ func handlePipelinesImagesGetPageFigure(ctx context.Context, cmd *cli.Command) e
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineImageGetPageFigureParams{
-		ID:        cmd.Value("id").(string),
-		PageIndex: cmd.Value("page-index").(int64),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -139,6 +141,11 @@ func handlePipelinesImagesGetPageFigure(ctx context.Context, cmd *cli.Command) e
 	)
 	if err != nil {
 		return err
+	}
+
+	params := llamacloudprod.PipelineImageGetPageFigureParams{
+		ID:        cmd.Value("id").(string),
+		PageIndex: cmd.Value("page-index").(int64),
 	}
 
 	var res []byte
@@ -177,10 +184,6 @@ func handlePipelinesImagesGetPageScreenshot(ctx context.Context, cmd *cli.Comman
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineImageGetPageScreenshotParams{
-		ID: cmd.Value("id").(string),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -190,6 +193,10 @@ func handlePipelinesImagesGetPageScreenshot(ctx context.Context, cmd *cli.Comman
 	)
 	if err != nil {
 		return err
+	}
+
+	params := llamacloudprod.PipelineImageGetPageScreenshotParams{
+		ID: cmd.Value("id").(string),
 	}
 
 	var res []byte
@@ -228,8 +235,6 @@ func handlePipelinesImagesListPageFigures(ctx context.Context, cmd *cli.Command)
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineImageListPageFiguresParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -240,6 +245,8 @@ func handlePipelinesImagesListPageFigures(ctx context.Context, cmd *cli.Command)
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.PipelineImageListPageFiguresParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -277,8 +284,6 @@ func handlePipelinesImagesListPageScreenshots(ctx context.Context, cmd *cli.Comm
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineImageListPageScreenshotsParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -289,6 +294,8 @@ func handlePipelinesImagesListPageScreenshots(ctx context.Context, cmd *cli.Comm
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.PipelineImageListPageScreenshotsParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

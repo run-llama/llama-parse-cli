@@ -20,8 +20,9 @@ var pipelinesMetadataCreate = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 		&requestflag.Flag[string]{
 			Name:      "upload-file",
@@ -40,8 +41,9 @@ var pipelinesMetadataDeleteAll = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 	},
 	Action:          handlePipelinesMetadataDeleteAll,
@@ -59,8 +61,6 @@ func handlePipelinesMetadataCreate(ctx context.Context, cmd *cli.Command) error 
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineMetadataNewParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -71,6 +71,8 @@ func handlePipelinesMetadataCreate(ctx context.Context, cmd *cli.Command) error 
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.PipelineMetadataNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

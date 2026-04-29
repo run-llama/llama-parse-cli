@@ -129,8 +129,9 @@ var betaSplitGet = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "split-job-id",
-			Required: true,
+			Name:      "split-job-id",
+			Required:  true,
+			PathParam: "split_job_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -153,8 +154,6 @@ func handleBetaSplitCreate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaSplitNewParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -165,6 +164,8 @@ func handleBetaSplitCreate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaSplitNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -194,8 +195,6 @@ func handleBetaSplitList(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaSplitListParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -206,6 +205,8 @@ func handleBetaSplitList(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaSplitListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -252,8 +253,6 @@ func handleBetaSplitGet(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaSplitGetParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -264,6 +263,8 @@ func handleBetaSplitGet(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaSplitGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

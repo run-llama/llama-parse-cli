@@ -38,8 +38,9 @@ var projectsGet = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "project-id",
-			Required: true,
+			Name:      "project-id",
+			Required:  true,
+			PathParam: "project_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -58,8 +59,6 @@ func handleProjectsList(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.ProjectListParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -70,6 +69,8 @@ func handleProjectsList(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.ProjectListParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -102,8 +103,6 @@ func handleProjectsGet(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.ProjectGetParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -114,6 +113,8 @@ func handleProjectsGet(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.ProjectGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

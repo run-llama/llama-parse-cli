@@ -56,8 +56,9 @@ var dataSinksUpdate = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "data-sink-id",
-			Required: true,
+			Name:      "data-sink-id",
+			Required:  true,
+			PathParam: "data_sink_id",
 		},
 		&requestflag.Flag[string]{
 			Name:     "sink-type",
@@ -104,8 +105,9 @@ var dataSinksDelete = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "data-sink-id",
-			Required: true,
+			Name:      "data-sink-id",
+			Required:  true,
+			PathParam: "data_sink_id",
 		},
 	},
 	Action:          handleDataSinksDelete,
@@ -118,8 +120,9 @@ var dataSinksGet = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "data-sink-id",
-			Required: true,
+			Name:      "data-sink-id",
+			Required:  true,
+			PathParam: "data_sink_id",
 		},
 	},
 	Action:          handleDataSinksGet,
@@ -134,8 +137,6 @@ func handleDataSinksCreate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.DataSinkNewParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -146,6 +147,8 @@ func handleDataSinksCreate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.DataSinkNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -178,8 +181,6 @@ func handleDataSinksUpdate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.DataSinkUpdateParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -190,6 +191,8 @@ func handleDataSinksUpdate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.DataSinkUpdateParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -224,8 +227,6 @@ func handleDataSinksList(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.DataSinkListParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -236,6 +237,8 @@ func handleDataSinksList(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.DataSinkListParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

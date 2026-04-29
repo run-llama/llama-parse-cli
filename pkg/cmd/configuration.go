@@ -50,8 +50,9 @@ var configurationsRetrieve = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "config-id",
-			Required: true,
+			Name:      "config-id",
+			Required:  true,
+			PathParam: "config_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -72,8 +73,9 @@ var configurationsUpdate = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "config-id",
-			Required: true,
+			Name:      "config-id",
+			Required:  true,
+			PathParam: "config_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -152,8 +154,9 @@ var configurationsDelete = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "config-id",
-			Required: true,
+			Name:      "config-id",
+			Required:  true,
+			PathParam: "config_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -176,8 +179,6 @@ func handleConfigurationsCreate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.ConfigurationNewParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -188,6 +189,8 @@ func handleConfigurationsCreate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.ConfigurationNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -220,8 +223,6 @@ func handleConfigurationsRetrieve(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.ConfigurationGetParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -232,6 +233,8 @@ func handleConfigurationsRetrieve(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.ConfigurationGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -269,8 +272,6 @@ func handleConfigurationsUpdate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.ConfigurationUpdateParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -281,6 +282,8 @@ func handleConfigurationsUpdate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.ConfigurationUpdateParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -315,8 +318,6 @@ func handleConfigurationsList(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.ConfigurationListParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -327,6 +328,8 @@ func handleConfigurationsList(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.ConfigurationListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -373,8 +376,6 @@ func handleConfigurationsDelete(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.ConfigurationDeleteParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -385,6 +386,8 @@ func handleConfigurationsDelete(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.ConfigurationDeleteParams{}
 
 	return client.Configurations.Delete(
 		ctx,

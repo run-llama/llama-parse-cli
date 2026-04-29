@@ -143,8 +143,9 @@ var classifierJobsGet = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "classify-job-id",
-			Required: true,
+			Name:      "classify-job-id",
+			Required:  true,
+			PathParam: "classify_job_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -165,8 +166,9 @@ var classifierJobsGetResults = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "classify-job-id",
-			Required: true,
+			Name:      "classify-job-id",
+			Required:  true,
+			PathParam: "classify_job_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -189,8 +191,6 @@ func handleClassifierJobsCreate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.ClassifierJobNewParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -201,6 +201,8 @@ func handleClassifierJobsCreate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.ClassifierJobNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -230,8 +232,6 @@ func handleClassifierJobsList(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.ClassifierJobListParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -242,6 +242,8 @@ func handleClassifierJobsList(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.ClassifierJobListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -288,8 +290,6 @@ func handleClassifierJobsGet(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.ClassifierJobGetParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -300,6 +300,8 @@ func handleClassifierJobsGet(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.ClassifierJobGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -337,8 +339,6 @@ func handleClassifierJobsGetResults(ctx context.Context, cmd *cli.Command) error
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.ClassifierJobGetResultsParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -349,6 +349,8 @@ func handleClassifierJobsGetResults(ctx context.Context, cmd *cli.Command) error
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.ClassifierJobGetResultsParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

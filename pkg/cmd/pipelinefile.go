@@ -20,8 +20,9 @@ var pipelinesFilesCreate = requestflag.WithInnerFlags(cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 		&requestflag.Flag[[]map[string]any]{
 			Name:     "body",
@@ -52,12 +53,14 @@ var pipelinesFilesUpdate = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 		&requestflag.Flag[string]{
-			Name:     "file-id",
-			Required: true,
+			Name:      "file-id",
+			Required:  true,
+			PathParam: "file_id",
 		},
 		&requestflag.Flag[map[string]any]{
 			Name:     "custom-metadata",
@@ -75,8 +78,9 @@ var pipelinesFilesList = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "data-source-id",
@@ -123,12 +127,14 @@ var pipelinesFilesDelete = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 		&requestflag.Flag[string]{
-			Name:     "file-id",
-			Required: true,
+			Name:      "file-id",
+			Required:  true,
+			PathParam: "file_id",
 		},
 	},
 	Action:          handlePipelinesFilesDelete,
@@ -141,12 +147,14 @@ var pipelinesFilesGetStatus = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 		&requestflag.Flag[string]{
-			Name:     "file-id",
-			Required: true,
+			Name:      "file-id",
+			Required:  true,
+			PathParam: "file_id",
 		},
 	},
 	Action:          handlePipelinesFilesGetStatus,
@@ -159,8 +167,9 @@ var pipelinesFilesGetStatusCounts = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "data-source-id",
@@ -187,8 +196,6 @@ func handlePipelinesFilesCreate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineFileNewParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -199,6 +206,8 @@ func handlePipelinesFilesCreate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.PipelineFileNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -236,10 +245,6 @@ func handlePipelinesFilesUpdate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineFileUpdateParams{
-		PipelineID: cmd.Value("pipeline-id").(string),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -249,6 +254,10 @@ func handlePipelinesFilesUpdate(ctx context.Context, cmd *cli.Command) error {
 	)
 	if err != nil {
 		return err
+	}
+
+	params := llamacloudprod.PipelineFileUpdateParams{
+		PipelineID: cmd.Value("pipeline-id").(string),
 	}
 
 	var res []byte
@@ -287,8 +296,6 @@ func handlePipelinesFilesList(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineFileListParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -299,6 +306,8 @@ func handlePipelinesFilesList(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.PipelineFileListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -355,10 +364,6 @@ func handlePipelinesFilesDelete(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineFileDeleteParams{
-		PipelineID: cmd.Value("pipeline-id").(string),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -368,6 +373,10 @@ func handlePipelinesFilesDelete(ctx context.Context, cmd *cli.Command) error {
 	)
 	if err != nil {
 		return err
+	}
+
+	params := llamacloudprod.PipelineFileDeleteParams{
+		PipelineID: cmd.Value("pipeline-id").(string),
 	}
 
 	return client.Pipelines.Files.Delete(
@@ -389,10 +398,6 @@ func handlePipelinesFilesGetStatus(ctx context.Context, cmd *cli.Command) error 
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineFileGetStatusParams{
-		PipelineID: cmd.Value("pipeline-id").(string),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -402,6 +407,10 @@ func handlePipelinesFilesGetStatus(ctx context.Context, cmd *cli.Command) error 
 	)
 	if err != nil {
 		return err
+	}
+
+	params := llamacloudprod.PipelineFileGetStatusParams{
+		PipelineID: cmd.Value("pipeline-id").(string),
 	}
 
 	var res []byte
@@ -440,8 +449,6 @@ func handlePipelinesFilesGetStatusCounts(ctx context.Context, cmd *cli.Command) 
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineFileGetStatusCountsParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -452,6 +459,8 @@ func handlePipelinesFilesGetStatusCounts(ctx context.Context, cmd *cli.Command) 
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.PipelineFileGetStatusCountsParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

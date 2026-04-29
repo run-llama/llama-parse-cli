@@ -147,8 +147,9 @@ var betaSheetsDeleteJob = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "spreadsheet-job-id",
-			Required: true,
+			Name:      "spreadsheet-job-id",
+			Required:  true,
+			PathParam: "spreadsheet_job_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -169,8 +170,9 @@ var betaSheetsGet = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "spreadsheet-job-id",
-			Required: true,
+			Name:      "spreadsheet-job-id",
+			Required:  true,
+			PathParam: "spreadsheet_job_id",
 		},
 		&requestflag.Flag[bool]{
 			Name:      "include-results",
@@ -196,17 +198,20 @@ var betaSheetsGetResultTable = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "spreadsheet-job-id",
-			Required: true,
+			Name:      "spreadsheet-job-id",
+			Required:  true,
+			PathParam: "spreadsheet_job_id",
 		},
 		&requestflag.Flag[string]{
-			Name:     "region-id",
-			Required: true,
+			Name:      "region-id",
+			Required:  true,
+			PathParam: "region_id",
 		},
 		&requestflag.Flag[string]{
-			Name:     "region-type",
-			Usage:    `Allowed values: "table", "extra", "cell_metadata".`,
-			Required: true,
+			Name:      "region-type",
+			Usage:     `Allowed values: "table", "extra", "cell_metadata".`,
+			Required:  true,
+			PathParam: "region_type",
 		},
 		&requestflag.Flag[*int64]{
 			Name:      "expires-at-seconds",
@@ -233,8 +238,6 @@ func handleBetaSheetsCreate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaSheetNewParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -245,6 +248,8 @@ func handleBetaSheetsCreate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaSheetNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -274,8 +279,6 @@ func handleBetaSheetsList(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaSheetListParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -286,6 +289,8 @@ func handleBetaSheetsList(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaSheetListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -332,8 +337,6 @@ func handleBetaSheetsDeleteJob(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaSheetDeleteJobParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -344,6 +347,8 @@ func handleBetaSheetsDeleteJob(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaSheetDeleteJobParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -381,8 +386,6 @@ func handleBetaSheetsGet(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaSheetGetParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -393,6 +396,8 @@ func handleBetaSheetsGet(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaSheetGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -430,11 +435,6 @@ func handleBetaSheetsGetResultTable(ctx context.Context, cmd *cli.Command) error
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaSheetGetResultTableParams{
-		SpreadsheetJobID: cmd.Value("spreadsheet-job-id").(string),
-		RegionID:         cmd.Value("region-id").(string),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -444,6 +444,11 @@ func handleBetaSheetsGetResultTable(ctx context.Context, cmd *cli.Command) error
 	)
 	if err != nil {
 		return err
+	}
+
+	params := llamacloudprod.BetaSheetGetResultTableParams{
+		SpreadsheetJobID: cmd.Value("spreadsheet-job-id").(string),
+		RegionID:         cmd.Value("region-id").(string),
 	}
 
 	var res []byte

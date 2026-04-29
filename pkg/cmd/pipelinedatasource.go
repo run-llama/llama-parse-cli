@@ -20,12 +20,14 @@ var pipelinesDataSourcesUpdate = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 		&requestflag.Flag[string]{
-			Name:     "data-source-id",
-			Required: true,
+			Name:      "data-source-id",
+			Required:  true,
+			PathParam: "data_source_id",
 		},
 		&requestflag.Flag[*float64]{
 			Name:     "sync-interval",
@@ -43,8 +45,9 @@ var pipelinesDataSourcesGetDataSources = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 	},
 	Action:          handlePipelinesDataSourcesGetDataSources,
@@ -57,12 +60,14 @@ var pipelinesDataSourcesGetStatus = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 		&requestflag.Flag[string]{
-			Name:     "data-source-id",
-			Required: true,
+			Name:      "data-source-id",
+			Required:  true,
+			PathParam: "data_source_id",
 		},
 	},
 	Action:          handlePipelinesDataSourcesGetStatus,
@@ -75,12 +80,14 @@ var pipelinesDataSourcesSync = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 		&requestflag.Flag[string]{
-			Name:     "data-source-id",
-			Required: true,
+			Name:      "data-source-id",
+			Required:  true,
+			PathParam: "data_source_id",
 		},
 		&requestflag.Flag[any]{
 			Name:     "pipeline-file-id",
@@ -97,8 +104,9 @@ var pipelinesDataSourcesUpdateDataSources = requestflag.WithInnerFlags(cli.Comma
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "pipeline-id",
-			Required: true,
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
 		},
 		&requestflag.Flag[[]map[string]any]{
 			Name:     "body",
@@ -134,10 +142,6 @@ func handlePipelinesDataSourcesUpdate(ctx context.Context, cmd *cli.Command) err
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineDataSourceUpdateParams{
-		PipelineID: cmd.Value("pipeline-id").(string),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -147,6 +151,10 @@ func handlePipelinesDataSourcesUpdate(ctx context.Context, cmd *cli.Command) err
 	)
 	if err != nil {
 		return err
+	}
+
+	params := llamacloudprod.PipelineDataSourceUpdateParams{
+		PipelineID: cmd.Value("pipeline-id").(string),
 	}
 
 	var res []byte
@@ -227,10 +235,6 @@ func handlePipelinesDataSourcesGetStatus(ctx context.Context, cmd *cli.Command) 
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineDataSourceGetStatusParams{
-		PipelineID: cmd.Value("pipeline-id").(string),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -240,6 +244,10 @@ func handlePipelinesDataSourcesGetStatus(ctx context.Context, cmd *cli.Command) 
 	)
 	if err != nil {
 		return err
+	}
+
+	params := llamacloudprod.PipelineDataSourceGetStatusParams{
+		PipelineID: cmd.Value("pipeline-id").(string),
 	}
 
 	var res []byte
@@ -278,10 +286,6 @@ func handlePipelinesDataSourcesSync(ctx context.Context, cmd *cli.Command) error
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineDataSourceSyncParams{
-		PipelineID: cmd.Value("pipeline-id").(string),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -291,6 +295,10 @@ func handlePipelinesDataSourcesSync(ctx context.Context, cmd *cli.Command) error
 	)
 	if err != nil {
 		return err
+	}
+
+	params := llamacloudprod.PipelineDataSourceSyncParams{
+		PipelineID: cmd.Value("pipeline-id").(string),
 	}
 
 	var res []byte
@@ -329,8 +337,6 @@ func handlePipelinesDataSourcesUpdateDataSources(ctx context.Context, cmd *cli.C
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.PipelineDataSourceUpdateDataSourcesParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -341,6 +347,8 @@ func handlePipelinesDataSourcesUpdateDataSources(ctx context.Context, cmd *cli.C
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.PipelineDataSourceUpdateDataSourcesParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

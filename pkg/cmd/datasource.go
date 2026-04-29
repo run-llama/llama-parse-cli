@@ -61,8 +61,9 @@ var dataSourcesUpdate = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "data-source-id",
-			Required: true,
+			Name:      "data-source-id",
+			Required:  true,
+			PathParam: "data_source_id",
 		},
 		&requestflag.Flag[string]{
 			Name:     "source-type",
@@ -114,8 +115,9 @@ var dataSourcesDelete = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "data-source-id",
-			Required: true,
+			Name:      "data-source-id",
+			Required:  true,
+			PathParam: "data_source_id",
 		},
 	},
 	Action:          handleDataSourcesDelete,
@@ -128,8 +130,9 @@ var dataSourcesGet = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "data-source-id",
-			Required: true,
+			Name:      "data-source-id",
+			Required:  true,
+			PathParam: "data_source_id",
 		},
 	},
 	Action:          handleDataSourcesGet,
@@ -144,8 +147,6 @@ func handleDataSourcesCreate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.DataSourceNewParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -156,6 +157,8 @@ func handleDataSourcesCreate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.DataSourceNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -188,8 +191,6 @@ func handleDataSourcesUpdate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.DataSourceUpdateParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -200,6 +201,8 @@ func handleDataSourcesUpdate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.DataSourceUpdateParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -234,8 +237,6 @@ func handleDataSourcesList(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.DataSourceListParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -246,6 +247,8 @@ func handleDataSourcesList(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.DataSourceListParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

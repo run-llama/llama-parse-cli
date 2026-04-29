@@ -54,8 +54,9 @@ var betaDirectoriesUpdate = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "directory-id",
-			Required: true,
+			Name:      "directory-id",
+			Required:  true,
+			PathParam: "directory_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -134,8 +135,9 @@ var betaDirectoriesDelete = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "directory-id",
-			Required: true,
+			Name:      "directory-id",
+			Required:  true,
+			PathParam: "directory_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -156,8 +158,9 @@ var betaDirectoriesGet = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "directory-id",
-			Required: true,
+			Name:      "directory-id",
+			Required:  true,
+			PathParam: "directory_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -180,8 +183,6 @@ func handleBetaDirectoriesCreate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaDirectoryNewParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -192,6 +193,8 @@ func handleBetaDirectoriesCreate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaDirectoryNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -224,8 +227,6 @@ func handleBetaDirectoriesUpdate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaDirectoryUpdateParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -236,6 +237,8 @@ func handleBetaDirectoriesUpdate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaDirectoryUpdateParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -270,8 +273,6 @@ func handleBetaDirectoriesList(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaDirectoryListParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -282,6 +283,8 @@ func handleBetaDirectoriesList(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaDirectoryListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -328,8 +331,6 @@ func handleBetaDirectoriesDelete(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaDirectoryDeleteParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -340,6 +341,8 @@ func handleBetaDirectoriesDelete(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaDirectoryDeleteParams{}
 
 	return client.Beta.Directories.Delete(
 		ctx,
@@ -360,8 +363,6 @@ func handleBetaDirectoriesGet(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := llamacloudprod.BetaDirectoryGetParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -372,6 +373,8 @@ func handleBetaDirectoriesGet(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := llamacloudprod.BetaDirectoryGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
