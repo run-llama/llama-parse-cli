@@ -78,19 +78,19 @@ var pipelinesFilesList = cli.Command{
 			Name:     "pipeline-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "data-source-id",
 			QueryPath: "data_source_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "file-name-contains",
 			QueryPath: "file_name_contains",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:      "limit",
 			QueryPath: "limit",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:      "offset",
 			QueryPath: "offset",
 		},
@@ -99,7 +99,7 @@ var pipelinesFilesList = cli.Command{
 			Default:   false,
 			QueryPath: "only_manually_uploaded",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "order-by",
 			QueryPath: "order_by",
 		},
@@ -162,7 +162,7 @@ var pipelinesFilesGetStatusCounts = cli.Command{
 			Name:     "pipeline-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "data-source-id",
 			QueryPath: "data_source_id",
 		},

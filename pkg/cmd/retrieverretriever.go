@@ -29,11 +29,11 @@ var retrieversRetrieverSearch = requestflag.WithInnerFlags(cli.Command{
 			Required: true,
 			BodyPath: "query",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -46,7 +46,7 @@ var retrieversRetrieverSearch = requestflag.WithInnerFlags(cli.Command{
 			Name:     "rerank-config",
 			BodyPath: "rerank_config",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:     "rerank-top-n",
 			Usage:    "(use rerank_config.top_n instead) The number of nodes to retrieve after reranking over retrieved nodes from all retrieval tools.",
 			BodyPath: "rerank_top_n",

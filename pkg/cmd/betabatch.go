@@ -25,20 +25,20 @@ var betaBatchCreate = cli.Command{
 			Required: true,
 			BodyPath: "job_config",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:     "continue-as-new-threshold",
 			Usage:    "Maximum files to process per execution cycle in directory mode. Defaults to page_size.",
 			BodyPath: "continue_as_new_threshold",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "directory-id",
 			Usage:    "ID of the directory containing files to process",
 			BodyPath: "directory_id",
@@ -68,12 +68,12 @@ var betaBatchList = cli.Command{
 	Usage:   "List batch processing jobs with optional filtering.",
 	Suggest: true,
 	Flags: []cli.Flag{
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "directory-id",
 			Usage:     "Filter by directory ID",
 			QueryPath: "directory_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "job-type",
 			Usage:     "Filter by job type (PARSE, EXTRACT, CLASSIFY)",
 			QueryPath: "job_type",
@@ -90,15 +90,15 @@ var betaBatchList = cli.Command{
 			Default:   0,
 			QueryPath: "offset",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "status",
 			Usage:     "Filter by job status (PENDING, RUNNING, COMPLETED, FAILED, CANCELLED)",
 			QueryPath: "status",
@@ -121,15 +121,15 @@ var betaBatchCancel = cli.Command{
 			Name:     "job-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "reason",
 			Usage:    "Optional reason for cancelling the job",
 			BodyPath: "reason",
@@ -152,11 +152,11 @@ var betaBatchGetStatus = cli.Command{
 			Name:     "job-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},

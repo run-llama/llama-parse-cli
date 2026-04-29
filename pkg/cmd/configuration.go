@@ -31,11 +31,11 @@ var configurationsCreate = cli.Command{
 			Required: true,
 			BodyPath: "parameters",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -53,11 +53,11 @@ var configurationsRetrieve = cli.Command{
 			Name:     "config-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -75,20 +75,20 @@ var configurationsUpdate = cli.Command{
 			Name:     "config-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "name",
 			Usage:    "Updated name (omit to leave unchanged).",
 			BodyPath: "name",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "parameters",
 			Usage:    "Updated parameters (omit to leave unchanged).",
 			BodyPath: "parameters",
@@ -109,21 +109,21 @@ var configurationsList = cli.Command{
 			Default:   false,
 			QueryPath: "latest_only",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "name",
 			Usage:     "Filter by configuration name.",
 			QueryPath: "name",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:      "page-size",
 			Usage:     "Number of items per page.",
 			QueryPath: "page_size",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "page-token",
 			Usage:     "Pagination token.",
 			QueryPath: "page_token",
@@ -133,7 +133,7 @@ var configurationsList = cli.Command{
 			Usage:     "Filter by one or more product types. Repeat the parameter for multiple values.",
 			QueryPath: "product_type",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -155,11 +155,11 @@ var configurationsDelete = cli.Command{
 			Name:     "config-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},

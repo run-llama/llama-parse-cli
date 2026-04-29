@@ -25,11 +25,11 @@ var retrieversCreate = requestflag.WithInnerFlags(cli.Command{
 			Required: true,
 			BodyPath: "name",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -43,12 +43,12 @@ var retrieversCreate = requestflag.WithInnerFlags(cli.Command{
 	HideHelpCommand: true,
 }, map[string][]requestflag.HasOuterFlag{
 	"pipeline": {
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "pipeline.description",
 			Usage:      "A description of the retriever tool.",
 			InnerField: "description",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "pipeline.name",
 			Usage:      "A name for the retriever tool. Will default to the pipeline name if not provided.",
 			InnerField: "name",
@@ -81,15 +81,15 @@ var retrieversUpdate = requestflag.WithInnerFlags(cli.Command{
 			Required: true,
 			BodyPath: "pipelines",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "name",
 			Usage:    "A name for the retriever.",
 			BodyPath: "name",
@@ -99,25 +99,29 @@ var retrieversUpdate = requestflag.WithInnerFlags(cli.Command{
 	HideHelpCommand: true,
 }, map[string][]requestflag.HasOuterFlag{
 	"pipeline": {
-		&requestflag.InnerFlag[any]{
-			Name:       "pipeline.description",
-			Usage:      "A description of the retriever tool.",
-			InnerField: "description",
+		&requestflag.InnerFlag[*string]{
+			Name:                  "pipeline.description",
+			Usage:                 "A description of the retriever tool.",
+			InnerField:            "description",
+			OuterIsArrayOfObjects: true,
 		},
-		&requestflag.InnerFlag[any]{
-			Name:       "pipeline.name",
-			Usage:      "A name for the retriever tool. Will default to the pipeline name if not provided.",
-			InnerField: "name",
+		&requestflag.InnerFlag[*string]{
+			Name:                  "pipeline.name",
+			Usage:                 "A name for the retriever tool. Will default to the pipeline name if not provided.",
+			InnerField:            "name",
+			OuterIsArrayOfObjects: true,
 		},
 		&requestflag.InnerFlag[string]{
-			Name:       "pipeline.pipeline-id",
-			Usage:      "The ID of the pipeline this tool uses.",
-			InnerField: "pipeline_id",
+			Name:                  "pipeline.pipeline-id",
+			Usage:                 "The ID of the pipeline this tool uses.",
+			InnerField:            "pipeline_id",
+			OuterIsArrayOfObjects: true,
 		},
 		&requestflag.InnerFlag[map[string]any]{
-			Name:       "pipeline.preset-retrieval-parameters",
-			Usage:      "Schema for the search params for an retrieval execution that can be preset for a pipeline.",
-			InnerField: "preset_retrieval_parameters",
+			Name:                  "pipeline.preset-retrieval-parameters",
+			Usage:                 "Schema for the search params for an retrieval execution that can be preset for a pipeline.",
+			InnerField:            "preset_retrieval_parameters",
+			OuterIsArrayOfObjects: true,
 		},
 	},
 })
@@ -127,15 +131,15 @@ var retrieversList = cli.Command{
 	Usage:   "List Retrievers for a project.",
 	Suggest: true,
 	Flags: []cli.Flag{
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "name",
 			QueryPath: "name",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -153,11 +157,11 @@ var retrieversDelete = cli.Command{
 			Name:     "retriever-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -175,11 +179,11 @@ var retrieversGet = cli.Command{
 			Name:     "retriever-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -199,11 +203,11 @@ var retrieversSearch = requestflag.WithInnerFlags(cli.Command{
 			Required: true,
 			BodyPath: "query",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -221,7 +225,7 @@ var retrieversSearch = requestflag.WithInnerFlags(cli.Command{
 			Name:     "rerank-config",
 			BodyPath: "rerank_config",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:     "rerank-top-n",
 			Usage:    "(use rerank_config.top_n instead) The number of nodes to retrieve after reranking over retrieved nodes from all retrieval tools.",
 			BodyPath: "rerank_top_n",
@@ -231,12 +235,12 @@ var retrieversSearch = requestflag.WithInnerFlags(cli.Command{
 	HideHelpCommand: true,
 }, map[string][]requestflag.HasOuterFlag{
 	"pipeline": {
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "pipeline.description",
 			Usage:      "A description of the retriever tool.",
 			InnerField: "description",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "pipeline.name",
 			Usage:      "A name for the retriever tool. Will default to the pipeline name if not provided.",
 			InnerField: "name",
@@ -277,11 +281,11 @@ var retrieversUpsert = requestflag.WithInnerFlags(cli.Command{
 			Required: true,
 			BodyPath: "name",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -295,12 +299,12 @@ var retrieversUpsert = requestflag.WithInnerFlags(cli.Command{
 	HideHelpCommand: true,
 }, map[string][]requestflag.HasOuterFlag{
 	"pipeline": {
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "pipeline.description",
 			Usage:      "A description of the retriever tool.",
 			InnerField: "description",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "pipeline.name",
 			Usage:      "A name for the retriever tool. Will default to the pipeline name if not provided.",
 			InnerField: "name",

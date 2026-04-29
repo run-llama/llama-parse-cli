@@ -35,15 +35,15 @@ var betaBatchJobItemsList = cli.Command{
 			Default:   0,
 			QueryPath: "offset",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "status",
 			Usage:     "Filter items by status",
 			QueryPath: "status",
@@ -66,16 +66,16 @@ var betaBatchJobItemsGetProcessingResults = cli.Command{
 			Name:     "item-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "job-type",
 			Usage:     "Filter results by job type",
 			QueryPath: "job_type",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},

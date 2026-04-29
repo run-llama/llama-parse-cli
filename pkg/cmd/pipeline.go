@@ -24,11 +24,11 @@ var pipelinesCreate = requestflag.WithInnerFlags(cli.Command{
 			Required: true,
 			BodyPath: "name",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -37,16 +37,16 @@ var pipelinesCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "Schema for creating a data sink.",
 			BodyPath: "data_sink",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "data-sink-id",
 			Usage:    "Data sink ID. When provided instead of data_sink, the data sink will be looked up by ID.",
 			BodyPath: "data_sink_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "embedding-config",
 			BodyPath: "embedding_config",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "embedding-model-config-id",
 			Usage:    "Embedding model config ID. When provided instead of embedding_config, the embedding model config will be looked up by ID.",
 			BodyPath: "embedding_model_config_id",
@@ -55,7 +55,7 @@ var pipelinesCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:     "llama-parse-parameters",
 			BodyPath: "llama_parse_parameters",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "managed-pipeline-id",
 			Usage:    "The ID of the ManagedPipeline this playground pipeline is linked to.",
 			BodyPath: "managed_pipeline_id",
@@ -79,12 +79,12 @@ var pipelinesCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "Configuration for sparse embedding models used in hybrid search.\n\nThis allows users to choose between Splade and BM25 models for\nsparse retrieval in managed data sinks.",
 			BodyPath: "sparse_model_config",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "status",
 			Usage:    "Status of the pipeline deployment.",
 			BodyPath: "status",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "transform-config",
 			Usage:    "Configuration for the transformation.",
 			BodyPath: "transform_config",
@@ -111,179 +111,179 @@ var pipelinesCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 	},
 	"llama-parse-parameters": {
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.adaptive-long-table",
 			InnerField: "adaptive_long_table",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.aggressive-table-extraction",
 			InnerField: "aggressive_table_extraction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.annotate-links",
 			InnerField: "annotate_links",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.auto-mode",
 			InnerField: "auto_mode",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.auto-mode-configuration-json",
 			InnerField: "auto_mode_configuration_json",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.auto-mode-trigger-on-image-in-page",
 			InnerField: "auto_mode_trigger_on_image_in_page",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.auto-mode-trigger-on-regexp-in-page",
 			InnerField: "auto_mode_trigger_on_regexp_in_page",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.auto-mode-trigger-on-table-in-page",
 			InnerField: "auto_mode_trigger_on_table_in_page",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.auto-mode-trigger-on-text-in-page",
 			InnerField: "auto_mode_trigger_on_text_in_page",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.azure-openai-api-version",
 			InnerField: "azure_openai_api_version",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.azure-openai-deployment-name",
 			InnerField: "azure_openai_deployment_name",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.azure-openai-endpoint",
 			InnerField: "azure_openai_endpoint",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.azure-openai-key",
 			InnerField: "azure_openai_key",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "llama-parse-parameters.bbox-bottom",
 			InnerField: "bbox_bottom",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "llama-parse-parameters.bbox-left",
 			InnerField: "bbox_left",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "llama-parse-parameters.bbox-right",
 			InnerField: "bbox_right",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "llama-parse-parameters.bbox-top",
 			InnerField: "bbox_top",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.bounding-box",
 			InnerField: "bounding_box",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.compact-markdown-table",
 			InnerField: "compact_markdown_table",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.complemental-formatting-instruction",
 			InnerField: "complemental_formatting_instruction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.content-guideline-instruction",
 			InnerField: "content_guideline_instruction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.continuous-mode",
 			InnerField: "continuous_mode",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.disable-image-extraction",
 			InnerField: "disable_image_extraction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.disable-ocr",
 			InnerField: "disable_ocr",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.disable-reconstruction",
 			InnerField: "disable_reconstruction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.do-not-cache",
 			InnerField: "do_not_cache",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.do-not-unroll-columns",
 			InnerField: "do_not_unroll_columns",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.enable-cost-optimizer",
 			InnerField: "enable_cost_optimizer",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.extract-charts",
 			InnerField: "extract_charts",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.extract-layout",
 			InnerField: "extract_layout",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.extract-printed-page-number",
 			InnerField: "extract_printed_page_number",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.fast-mode",
 			InnerField: "fast_mode",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.formatting-instruction",
 			InnerField: "formatting_instruction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.gpt4o-api-key",
 			InnerField: "gpt4o_api_key",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.gpt4o-mode",
 			InnerField: "gpt4o_mode",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.guess-xlsx-sheet-name",
 			InnerField: "guess_xlsx_sheet_name",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.hide-footers",
 			InnerField: "hide_footers",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.hide-headers",
 			InnerField: "hide_headers",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.high-res-ocr",
 			InnerField: "high_res_ocr",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.html-make-all-elements-visible",
 			InnerField: "html_make_all_elements_visible",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.html-remove-fixed-elements",
 			InnerField: "html_remove_fixed_elements",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.html-remove-navigation-elements",
 			InnerField: "html_remove_navigation_elements",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.http-proxy",
 			InnerField: "http_proxy",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.ignore-document-elements-for-layout-detection",
 			InnerField: "ignore_document_elements_for_layout_detection",
 		},
@@ -291,43 +291,43 @@ var pipelinesCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:       "llama-parse-parameters.images-to-save",
 			InnerField: "images_to_save",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.inline-images-in-markdown",
 			InnerField: "inline_images_in_markdown",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.input-s3-path",
 			InnerField: "input_s3_path",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.input-s3-region",
 			InnerField: "input_s3_region",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.input-url",
 			InnerField: "input_url",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.internal-is-screenshot-job",
 			InnerField: "internal_is_screenshot_job",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.invalidate-cache",
 			InnerField: "invalidate_cache",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.is-formatting-instruction",
 			InnerField: "is_formatting_instruction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "llama-parse-parameters.job-timeout-extra-time-per-page-in-seconds",
 			InnerField: "job_timeout_extra_time_per_page_in_seconds",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "llama-parse-parameters.job-timeout-in-seconds",
 			InnerField: "job_timeout_in_seconds",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.keep-page-separator-when-merging-tables",
 			InnerField: "keep_page_separator_when_merging_tables",
 		},
@@ -335,250 +335,250 @@ var pipelinesCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:       "llama-parse-parameters.languages",
 			InnerField: "languages",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.layout-aware",
 			InnerField: "layout_aware",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.line-level-bounding-box",
 			InnerField: "line_level_bounding_box",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.markdown-table-multiline-header-separator",
 			InnerField: "markdown_table_multiline_header_separator",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*int64]{
 			Name:       "llama-parse-parameters.max-pages",
 			InnerField: "max_pages",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*int64]{
 			Name:       "llama-parse-parameters.max-pages-enforced",
 			InnerField: "max_pages_enforced",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.merge-tables-across-pages-in-markdown",
 			InnerField: "merge_tables_across_pages_in_markdown",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.model",
 			InnerField: "model",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.outlined-table-extraction",
 			InnerField: "outlined_table_extraction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.output-pdf-of-document",
 			InnerField: "output_pdf_of_document",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.output-s3-path-prefix",
 			InnerField: "output_s3_path_prefix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.output-s3-region",
 			InnerField: "output_s3_region",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.output-tables-as-html",
 			InnerField: "output_tables_as_HTML",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "llama-parse-parameters.page-error-tolerance",
 			InnerField: "page_error_tolerance",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.page-footer-prefix",
 			InnerField: "page_footer_prefix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.page-footer-suffix",
 			InnerField: "page_footer_suffix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.page-header-prefix",
 			InnerField: "page_header_prefix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.page-header-suffix",
 			InnerField: "page_header_suffix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.page-prefix",
 			InnerField: "page_prefix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.page-separator",
 			InnerField: "page_separator",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.page-suffix",
 			InnerField: "page_suffix",
 		},
-		&requestflag.InnerFlag[string]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.parse-mode",
 			Usage:      "Enum for representing the mode of parsing to be used.",
 			InnerField: "parse_mode",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.parsing-instruction",
 			InnerField: "parsing_instruction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.precise-bounding-box",
 			InnerField: "precise_bounding_box",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.premium-mode",
 			InnerField: "premium_mode",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.presentation-out-of-bounds-content",
 			InnerField: "presentation_out_of_bounds_content",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.presentation-skip-embedded-data",
 			InnerField: "presentation_skip_embedded_data",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.preserve-layout-alignment-across-pages",
 			InnerField: "preserve_layout_alignment_across_pages",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.preserve-very-small-text",
 			InnerField: "preserve_very_small_text",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.preset",
 			InnerField: "preset",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.priority",
 			Usage:      "The priority for the request. This field may be ignored or overwritten depending on the organization tier.",
 			InnerField: "priority",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.project-id",
 			InnerField: "project_id",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.remove-hidden-text",
 			InnerField: "remove_hidden_text",
 		},
-		&requestflag.InnerFlag[string]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.replace-failed-page-mode",
 			Usage:      "Enum for representing the different available page error handling modes.",
 			InnerField: "replace_failed_page_mode",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.replace-failed-page-with-error-message-prefix",
 			InnerField: "replace_failed_page_with_error_message_prefix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.replace-failed-page-with-error-message-suffix",
 			InnerField: "replace_failed_page_with_error_message_suffix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.save-images",
 			InnerField: "save_images",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.skip-diagonal-text",
 			InnerField: "skip_diagonal_text",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.specialized-chart-parsing-agentic",
 			InnerField: "specialized_chart_parsing_agentic",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.specialized-chart-parsing-efficient",
 			InnerField: "specialized_chart_parsing_efficient",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.specialized-chart-parsing-plus",
 			InnerField: "specialized_chart_parsing_plus",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.specialized-image-parsing",
 			InnerField: "specialized_image_parsing",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.spreadsheet-extract-sub-tables",
 			InnerField: "spreadsheet_extract_sub_tables",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.spreadsheet-force-formula-computation",
 			InnerField: "spreadsheet_force_formula_computation",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.spreadsheet-include-hidden-sheets",
 			InnerField: "spreadsheet_include_hidden_sheets",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.strict-mode-buggy-font",
 			InnerField: "strict_mode_buggy_font",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.strict-mode-image-extraction",
 			InnerField: "strict_mode_image_extraction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.strict-mode-image-ocr",
 			InnerField: "strict_mode_image_ocr",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.strict-mode-reconstruction",
 			InnerField: "strict_mode_reconstruction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.structured-output",
 			InnerField: "structured_output",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.structured-output-json-schema",
 			InnerField: "structured_output_json_schema",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.structured-output-json-schema-name",
 			InnerField: "structured_output_json_schema_name",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.system-prompt",
 			InnerField: "system_prompt",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.system-prompt-append",
 			InnerField: "system_prompt_append",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.take-screenshot",
 			InnerField: "take_screenshot",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.target-pages",
 			InnerField: "target_pages",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.tier",
 			InnerField: "tier",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.use-vendor-multimodal-model",
 			InnerField: "use_vendor_multimodal_model",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.user-prompt",
 			InnerField: "user_prompt",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.vendor-multimodal-api-key",
 			InnerField: "vendor_multimodal_api_key",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.vendor-multimodal-model-name",
 			InnerField: "vendor_multimodal_model_name",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.version",
 			InnerField: "version",
 		},
@@ -587,7 +587,7 @@ var pipelinesCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "Outbound webhook endpoints to notify on job status changes",
 			InnerField: "webhook_configurations",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.webhook-url",
 			InnerField: "webhook_url",
 		},
@@ -605,7 +605,7 @@ var pipelinesCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 	},
 	"preset-retrieval-parameters": {
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "preset-retrieval-parameters.alpha",
 			Usage:      "Alpha value for hybrid retrieval to determine the weights between dense and sparse retrieval. 0 is sparse retrieval and 1 is dense retrieval.",
 			InnerField: "alpha",
@@ -614,27 +614,27 @@ var pipelinesCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:       "preset-retrieval-parameters.class-name",
 			InnerField: "class_name",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "preset-retrieval-parameters.dense-similarity-cutoff",
 			Usage:      "Minimum similarity score wrt query for retrieval",
 			InnerField: "dense_similarity_cutoff",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*int64]{
 			Name:       "preset-retrieval-parameters.dense-similarity-top-k",
 			Usage:      "Number of nodes for dense retrieval.",
 			InnerField: "dense_similarity_top_k",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "preset-retrieval-parameters.enable-reranking",
 			Usage:      "Enable reranking for retrieval",
 			InnerField: "enable_reranking",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*int64]{
 			Name:       "preset-retrieval-parameters.files-top-k",
 			Usage:      "Number of files to retrieve (only for retrieval mode files_via_metadata and files_via_content).",
 			InnerField: "files_top_k",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*int64]{
 			Name:       "preset-retrieval-parameters.rerank-top-n",
 			Usage:      "Number of reranked nodes for returning.",
 			InnerField: "rerank_top_n",
@@ -669,7 +669,7 @@ var pipelinesCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "JSON Schema that will be used to infer search_filters. Omit or leave as null to skip inference.",
 			InnerField: "search_filters_inference_schema",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*int64]{
 			Name:       "preset-retrieval-parameters.sparse-similarity-top-k",
 			Usage:      "Number of nodes for sparse retrieval.",
 			InnerField: "sparse_similarity_top_k",
@@ -703,15 +703,15 @@ var pipelinesRetrieve = requestflag.WithInnerFlags(cli.Command{
 			Required: true,
 			BodyPath: "query",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*float64]{
 			Name:     "alpha",
 			Usage:    "Alpha value for hybrid retrieval to determine the weights between dense and sparse retrieval. 0 is sparse retrieval and 1 is dense retrieval.",
 			BodyPath: "alpha",
@@ -721,33 +721,33 @@ var pipelinesRetrieve = requestflag.WithInnerFlags(cli.Command{
 			Default:  "base_component",
 			BodyPath: "class_name",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*float64]{
 			Name:     "dense-similarity-cutoff",
 			Usage:    "Minimum similarity score wrt query for retrieval",
-			Default:  0,
+			Default:  requestflag.Ptr[float64](0),
 			BodyPath: "dense_similarity_cutoff",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:     "dense-similarity-top-k",
 			Usage:    "Number of nodes for dense retrieval.",
-			Default:  30,
+			Default:  requestflag.Ptr[int64](30),
 			BodyPath: "dense_similarity_top_k",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*bool]{
 			Name:     "enable-reranking",
 			Usage:    "Enable reranking for retrieval",
 			BodyPath: "enable_reranking",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:     "files-top-k",
 			Usage:    "Number of files to retrieve (only for retrieval mode files_via_metadata and files_via_content).",
-			Default:  1,
+			Default:  requestflag.Ptr[int64](1),
 			BodyPath: "files_top_k",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:     "rerank-top-n",
 			Usage:    "Number of reranked nodes for returning.",
-			Default:  6,
+			Default:  requestflag.Ptr[int64](6),
 			BodyPath: "rerank_top_n",
 		},
 		&requestflag.Flag[string]{
@@ -783,10 +783,10 @@ var pipelinesRetrieve = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "JSON Schema that will be used to infer search_filters. Omit or leave as null to skip inference.",
 			BodyPath: "search_filters_inference_schema",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:     "sparse-similarity-top-k",
 			Usage:    "Number of nodes for sparse retrieval.",
-			Default:  30,
+			Default:  requestflag.Ptr[int64](30),
 			BodyPath: "sparse_similarity_top_k",
 		},
 	},
@@ -798,7 +798,7 @@ var pipelinesRetrieve = requestflag.WithInnerFlags(cli.Command{
 			Name:       "search-filters.filters",
 			InnerField: "filters",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "search-filters.condition",
 			Usage:      "Vector store filter conditions to combine different filters.",
 			InnerField: "condition",
@@ -820,16 +820,16 @@ var pipelinesUpdate = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "Schema for creating a data sink.",
 			BodyPath: "data_sink",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "data-sink-id",
 			Usage:    "Data sink ID. When provided instead of data_sink, the data sink will be looked up by ID.",
 			BodyPath: "data_sink_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "embedding-config",
 			BodyPath: "embedding_config",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "embedding-model-config-id",
 			Usage:    "Embedding model config ID. When provided instead of embedding_config, the embedding model config will be looked up by ID.",
 			BodyPath: "embedding_model_config_id",
@@ -838,7 +838,7 @@ var pipelinesUpdate = requestflag.WithInnerFlags(cli.Command{
 			Name:     "llama-parse-parameters",
 			BodyPath: "llama_parse_parameters",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "managed-pipeline-id",
 			Usage:    "The ID of the ManagedPipeline this playground pipeline is linked to.",
 			BodyPath: "managed_pipeline_id",
@@ -847,7 +847,7 @@ var pipelinesUpdate = requestflag.WithInnerFlags(cli.Command{
 			Name:     "metadata-config",
 			BodyPath: "metadata_config",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "name",
 			BodyPath: "name",
 		},
@@ -861,12 +861,12 @@ var pipelinesUpdate = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "Configuration for sparse embedding models used in hybrid search.\n\nThis allows users to choose between Splade and BM25 models for\nsparse retrieval in managed data sinks.",
 			BodyPath: "sparse_model_config",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "status",
 			Usage:    "Status of the pipeline deployment.",
 			BodyPath: "status",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "transform-config",
 			Usage:    "Configuration for the transformation.",
 			BodyPath: "transform_config",
@@ -893,179 +893,179 @@ var pipelinesUpdate = requestflag.WithInnerFlags(cli.Command{
 		},
 	},
 	"llama-parse-parameters": {
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.adaptive-long-table",
 			InnerField: "adaptive_long_table",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.aggressive-table-extraction",
 			InnerField: "aggressive_table_extraction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.annotate-links",
 			InnerField: "annotate_links",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.auto-mode",
 			InnerField: "auto_mode",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.auto-mode-configuration-json",
 			InnerField: "auto_mode_configuration_json",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.auto-mode-trigger-on-image-in-page",
 			InnerField: "auto_mode_trigger_on_image_in_page",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.auto-mode-trigger-on-regexp-in-page",
 			InnerField: "auto_mode_trigger_on_regexp_in_page",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.auto-mode-trigger-on-table-in-page",
 			InnerField: "auto_mode_trigger_on_table_in_page",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.auto-mode-trigger-on-text-in-page",
 			InnerField: "auto_mode_trigger_on_text_in_page",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.azure-openai-api-version",
 			InnerField: "azure_openai_api_version",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.azure-openai-deployment-name",
 			InnerField: "azure_openai_deployment_name",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.azure-openai-endpoint",
 			InnerField: "azure_openai_endpoint",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.azure-openai-key",
 			InnerField: "azure_openai_key",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "llama-parse-parameters.bbox-bottom",
 			InnerField: "bbox_bottom",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "llama-parse-parameters.bbox-left",
 			InnerField: "bbox_left",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "llama-parse-parameters.bbox-right",
 			InnerField: "bbox_right",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "llama-parse-parameters.bbox-top",
 			InnerField: "bbox_top",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.bounding-box",
 			InnerField: "bounding_box",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.compact-markdown-table",
 			InnerField: "compact_markdown_table",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.complemental-formatting-instruction",
 			InnerField: "complemental_formatting_instruction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.content-guideline-instruction",
 			InnerField: "content_guideline_instruction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.continuous-mode",
 			InnerField: "continuous_mode",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.disable-image-extraction",
 			InnerField: "disable_image_extraction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.disable-ocr",
 			InnerField: "disable_ocr",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.disable-reconstruction",
 			InnerField: "disable_reconstruction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.do-not-cache",
 			InnerField: "do_not_cache",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.do-not-unroll-columns",
 			InnerField: "do_not_unroll_columns",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.enable-cost-optimizer",
 			InnerField: "enable_cost_optimizer",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.extract-charts",
 			InnerField: "extract_charts",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.extract-layout",
 			InnerField: "extract_layout",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.extract-printed-page-number",
 			InnerField: "extract_printed_page_number",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.fast-mode",
 			InnerField: "fast_mode",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.formatting-instruction",
 			InnerField: "formatting_instruction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.gpt4o-api-key",
 			InnerField: "gpt4o_api_key",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.gpt4o-mode",
 			InnerField: "gpt4o_mode",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.guess-xlsx-sheet-name",
 			InnerField: "guess_xlsx_sheet_name",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.hide-footers",
 			InnerField: "hide_footers",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.hide-headers",
 			InnerField: "hide_headers",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.high-res-ocr",
 			InnerField: "high_res_ocr",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.html-make-all-elements-visible",
 			InnerField: "html_make_all_elements_visible",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.html-remove-fixed-elements",
 			InnerField: "html_remove_fixed_elements",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.html-remove-navigation-elements",
 			InnerField: "html_remove_navigation_elements",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.http-proxy",
 			InnerField: "http_proxy",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.ignore-document-elements-for-layout-detection",
 			InnerField: "ignore_document_elements_for_layout_detection",
 		},
@@ -1073,43 +1073,43 @@ var pipelinesUpdate = requestflag.WithInnerFlags(cli.Command{
 			Name:       "llama-parse-parameters.images-to-save",
 			InnerField: "images_to_save",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.inline-images-in-markdown",
 			InnerField: "inline_images_in_markdown",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.input-s3-path",
 			InnerField: "input_s3_path",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.input-s3-region",
 			InnerField: "input_s3_region",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.input-url",
 			InnerField: "input_url",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.internal-is-screenshot-job",
 			InnerField: "internal_is_screenshot_job",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.invalidate-cache",
 			InnerField: "invalidate_cache",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.is-formatting-instruction",
 			InnerField: "is_formatting_instruction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "llama-parse-parameters.job-timeout-extra-time-per-page-in-seconds",
 			InnerField: "job_timeout_extra_time_per_page_in_seconds",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "llama-parse-parameters.job-timeout-in-seconds",
 			InnerField: "job_timeout_in_seconds",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.keep-page-separator-when-merging-tables",
 			InnerField: "keep_page_separator_when_merging_tables",
 		},
@@ -1117,250 +1117,250 @@ var pipelinesUpdate = requestflag.WithInnerFlags(cli.Command{
 			Name:       "llama-parse-parameters.languages",
 			InnerField: "languages",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.layout-aware",
 			InnerField: "layout_aware",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.line-level-bounding-box",
 			InnerField: "line_level_bounding_box",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.markdown-table-multiline-header-separator",
 			InnerField: "markdown_table_multiline_header_separator",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*int64]{
 			Name:       "llama-parse-parameters.max-pages",
 			InnerField: "max_pages",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*int64]{
 			Name:       "llama-parse-parameters.max-pages-enforced",
 			InnerField: "max_pages_enforced",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.merge-tables-across-pages-in-markdown",
 			InnerField: "merge_tables_across_pages_in_markdown",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.model",
 			InnerField: "model",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.outlined-table-extraction",
 			InnerField: "outlined_table_extraction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.output-pdf-of-document",
 			InnerField: "output_pdf_of_document",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.output-s3-path-prefix",
 			InnerField: "output_s3_path_prefix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.output-s3-region",
 			InnerField: "output_s3_region",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.output-tables-as-html",
 			InnerField: "output_tables_as_HTML",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "llama-parse-parameters.page-error-tolerance",
 			InnerField: "page_error_tolerance",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.page-footer-prefix",
 			InnerField: "page_footer_prefix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.page-footer-suffix",
 			InnerField: "page_footer_suffix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.page-header-prefix",
 			InnerField: "page_header_prefix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.page-header-suffix",
 			InnerField: "page_header_suffix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.page-prefix",
 			InnerField: "page_prefix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.page-separator",
 			InnerField: "page_separator",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.page-suffix",
 			InnerField: "page_suffix",
 		},
-		&requestflag.InnerFlag[string]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.parse-mode",
 			Usage:      "Enum for representing the mode of parsing to be used.",
 			InnerField: "parse_mode",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.parsing-instruction",
 			InnerField: "parsing_instruction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.precise-bounding-box",
 			InnerField: "precise_bounding_box",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.premium-mode",
 			InnerField: "premium_mode",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.presentation-out-of-bounds-content",
 			InnerField: "presentation_out_of_bounds_content",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.presentation-skip-embedded-data",
 			InnerField: "presentation_skip_embedded_data",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.preserve-layout-alignment-across-pages",
 			InnerField: "preserve_layout_alignment_across_pages",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.preserve-very-small-text",
 			InnerField: "preserve_very_small_text",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.preset",
 			InnerField: "preset",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.priority",
 			Usage:      "The priority for the request. This field may be ignored or overwritten depending on the organization tier.",
 			InnerField: "priority",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.project-id",
 			InnerField: "project_id",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.remove-hidden-text",
 			InnerField: "remove_hidden_text",
 		},
-		&requestflag.InnerFlag[string]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.replace-failed-page-mode",
 			Usage:      "Enum for representing the different available page error handling modes.",
 			InnerField: "replace_failed_page_mode",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.replace-failed-page-with-error-message-prefix",
 			InnerField: "replace_failed_page_with_error_message_prefix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.replace-failed-page-with-error-message-suffix",
 			InnerField: "replace_failed_page_with_error_message_suffix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.save-images",
 			InnerField: "save_images",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.skip-diagonal-text",
 			InnerField: "skip_diagonal_text",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.specialized-chart-parsing-agentic",
 			InnerField: "specialized_chart_parsing_agentic",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.specialized-chart-parsing-efficient",
 			InnerField: "specialized_chart_parsing_efficient",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.specialized-chart-parsing-plus",
 			InnerField: "specialized_chart_parsing_plus",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.specialized-image-parsing",
 			InnerField: "specialized_image_parsing",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.spreadsheet-extract-sub-tables",
 			InnerField: "spreadsheet_extract_sub_tables",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.spreadsheet-force-formula-computation",
 			InnerField: "spreadsheet_force_formula_computation",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.spreadsheet-include-hidden-sheets",
 			InnerField: "spreadsheet_include_hidden_sheets",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.strict-mode-buggy-font",
 			InnerField: "strict_mode_buggy_font",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.strict-mode-image-extraction",
 			InnerField: "strict_mode_image_extraction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.strict-mode-image-ocr",
 			InnerField: "strict_mode_image_ocr",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.strict-mode-reconstruction",
 			InnerField: "strict_mode_reconstruction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.structured-output",
 			InnerField: "structured_output",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.structured-output-json-schema",
 			InnerField: "structured_output_json_schema",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.structured-output-json-schema-name",
 			InnerField: "structured_output_json_schema_name",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.system-prompt",
 			InnerField: "system_prompt",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.system-prompt-append",
 			InnerField: "system_prompt_append",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.take-screenshot",
 			InnerField: "take_screenshot",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.target-pages",
 			InnerField: "target_pages",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.tier",
 			InnerField: "tier",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.use-vendor-multimodal-model",
 			InnerField: "use_vendor_multimodal_model",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.user-prompt",
 			InnerField: "user_prompt",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.vendor-multimodal-api-key",
 			InnerField: "vendor_multimodal_api_key",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.vendor-multimodal-model-name",
 			InnerField: "vendor_multimodal_model_name",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.version",
 			InnerField: "version",
 		},
@@ -1369,7 +1369,7 @@ var pipelinesUpdate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "Outbound webhook endpoints to notify on job status changes",
 			InnerField: "webhook_configurations",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.webhook-url",
 			InnerField: "webhook_url",
 		},
@@ -1387,7 +1387,7 @@ var pipelinesUpdate = requestflag.WithInnerFlags(cli.Command{
 		},
 	},
 	"preset-retrieval-parameters": {
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "preset-retrieval-parameters.alpha",
 			Usage:      "Alpha value for hybrid retrieval to determine the weights between dense and sparse retrieval. 0 is sparse retrieval and 1 is dense retrieval.",
 			InnerField: "alpha",
@@ -1396,27 +1396,27 @@ var pipelinesUpdate = requestflag.WithInnerFlags(cli.Command{
 			Name:       "preset-retrieval-parameters.class-name",
 			InnerField: "class_name",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "preset-retrieval-parameters.dense-similarity-cutoff",
 			Usage:      "Minimum similarity score wrt query for retrieval",
 			InnerField: "dense_similarity_cutoff",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*int64]{
 			Name:       "preset-retrieval-parameters.dense-similarity-top-k",
 			Usage:      "Number of nodes for dense retrieval.",
 			InnerField: "dense_similarity_top_k",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "preset-retrieval-parameters.enable-reranking",
 			Usage:      "Enable reranking for retrieval",
 			InnerField: "enable_reranking",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*int64]{
 			Name:       "preset-retrieval-parameters.files-top-k",
 			Usage:      "Number of files to retrieve (only for retrieval mode files_via_metadata and files_via_content).",
 			InnerField: "files_top_k",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*int64]{
 			Name:       "preset-retrieval-parameters.rerank-top-n",
 			Usage:      "Number of reranked nodes for returning.",
 			InnerField: "rerank_top_n",
@@ -1451,7 +1451,7 @@ var pipelinesUpdate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "JSON Schema that will be used to infer search_filters. Omit or leave as null to skip inference.",
 			InnerField: "search_filters_inference_schema",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*int64]{
 			Name:       "preset-retrieval-parameters.sparse-similarity-top-k",
 			Usage:      "Number of nodes for sparse retrieval.",
 			InnerField: "sparse_similarity_top_k",
@@ -1475,24 +1475,24 @@ var pipelinesList = cli.Command{
 	Usage:   "Search for pipelines by name, type, or project.",
 	Suggest: true,
 	Flags: []cli.Flag{
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "pipeline-name",
 			QueryPath: "pipeline_name",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[*string]{
 			Name:      "pipeline-type",
 			Usage:     "Enum for representing the type of a pipeline",
 			QueryPath: "pipeline_type",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-name",
 			QueryPath: "project_name",
 		},
@@ -1538,7 +1538,7 @@ var pipelinesGetStatus = cli.Command{
 			Name:     "pipeline-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*bool]{
 			Name:      "full-details",
 			QueryPath: "full_details",
 		},
@@ -1557,11 +1557,11 @@ var pipelinesUpsert = requestflag.WithInnerFlags(cli.Command{
 			Required: true,
 			BodyPath: "name",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -1570,16 +1570,16 @@ var pipelinesUpsert = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "Schema for creating a data sink.",
 			BodyPath: "data_sink",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "data-sink-id",
 			Usage:    "Data sink ID. When provided instead of data_sink, the data sink will be looked up by ID.",
 			BodyPath: "data_sink_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "embedding-config",
 			BodyPath: "embedding_config",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "embedding-model-config-id",
 			Usage:    "Embedding model config ID. When provided instead of embedding_config, the embedding model config will be looked up by ID.",
 			BodyPath: "embedding_model_config_id",
@@ -1588,7 +1588,7 @@ var pipelinesUpsert = requestflag.WithInnerFlags(cli.Command{
 			Name:     "llama-parse-parameters",
 			BodyPath: "llama_parse_parameters",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "managed-pipeline-id",
 			Usage:    "The ID of the ManagedPipeline this playground pipeline is linked to.",
 			BodyPath: "managed_pipeline_id",
@@ -1612,12 +1612,12 @@ var pipelinesUpsert = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "Configuration for sparse embedding models used in hybrid search.\n\nThis allows users to choose between Splade and BM25 models for\nsparse retrieval in managed data sinks.",
 			BodyPath: "sparse_model_config",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "status",
 			Usage:    "Status of the pipeline deployment.",
 			BodyPath: "status",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "transform-config",
 			Usage:    "Configuration for the transformation.",
 			BodyPath: "transform_config",
@@ -1644,179 +1644,179 @@ var pipelinesUpsert = requestflag.WithInnerFlags(cli.Command{
 		},
 	},
 	"llama-parse-parameters": {
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.adaptive-long-table",
 			InnerField: "adaptive_long_table",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.aggressive-table-extraction",
 			InnerField: "aggressive_table_extraction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.annotate-links",
 			InnerField: "annotate_links",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.auto-mode",
 			InnerField: "auto_mode",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.auto-mode-configuration-json",
 			InnerField: "auto_mode_configuration_json",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.auto-mode-trigger-on-image-in-page",
 			InnerField: "auto_mode_trigger_on_image_in_page",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.auto-mode-trigger-on-regexp-in-page",
 			InnerField: "auto_mode_trigger_on_regexp_in_page",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.auto-mode-trigger-on-table-in-page",
 			InnerField: "auto_mode_trigger_on_table_in_page",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.auto-mode-trigger-on-text-in-page",
 			InnerField: "auto_mode_trigger_on_text_in_page",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.azure-openai-api-version",
 			InnerField: "azure_openai_api_version",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.azure-openai-deployment-name",
 			InnerField: "azure_openai_deployment_name",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.azure-openai-endpoint",
 			InnerField: "azure_openai_endpoint",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.azure-openai-key",
 			InnerField: "azure_openai_key",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "llama-parse-parameters.bbox-bottom",
 			InnerField: "bbox_bottom",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "llama-parse-parameters.bbox-left",
 			InnerField: "bbox_left",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "llama-parse-parameters.bbox-right",
 			InnerField: "bbox_right",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "llama-parse-parameters.bbox-top",
 			InnerField: "bbox_top",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.bounding-box",
 			InnerField: "bounding_box",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.compact-markdown-table",
 			InnerField: "compact_markdown_table",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.complemental-formatting-instruction",
 			InnerField: "complemental_formatting_instruction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.content-guideline-instruction",
 			InnerField: "content_guideline_instruction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.continuous-mode",
 			InnerField: "continuous_mode",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.disable-image-extraction",
 			InnerField: "disable_image_extraction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.disable-ocr",
 			InnerField: "disable_ocr",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.disable-reconstruction",
 			InnerField: "disable_reconstruction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.do-not-cache",
 			InnerField: "do_not_cache",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.do-not-unroll-columns",
 			InnerField: "do_not_unroll_columns",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.enable-cost-optimizer",
 			InnerField: "enable_cost_optimizer",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.extract-charts",
 			InnerField: "extract_charts",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.extract-layout",
 			InnerField: "extract_layout",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.extract-printed-page-number",
 			InnerField: "extract_printed_page_number",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.fast-mode",
 			InnerField: "fast_mode",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.formatting-instruction",
 			InnerField: "formatting_instruction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.gpt4o-api-key",
 			InnerField: "gpt4o_api_key",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.gpt4o-mode",
 			InnerField: "gpt4o_mode",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.guess-xlsx-sheet-name",
 			InnerField: "guess_xlsx_sheet_name",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.hide-footers",
 			InnerField: "hide_footers",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.hide-headers",
 			InnerField: "hide_headers",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.high-res-ocr",
 			InnerField: "high_res_ocr",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.html-make-all-elements-visible",
 			InnerField: "html_make_all_elements_visible",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.html-remove-fixed-elements",
 			InnerField: "html_remove_fixed_elements",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.html-remove-navigation-elements",
 			InnerField: "html_remove_navigation_elements",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.http-proxy",
 			InnerField: "http_proxy",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.ignore-document-elements-for-layout-detection",
 			InnerField: "ignore_document_elements_for_layout_detection",
 		},
@@ -1824,43 +1824,43 @@ var pipelinesUpsert = requestflag.WithInnerFlags(cli.Command{
 			Name:       "llama-parse-parameters.images-to-save",
 			InnerField: "images_to_save",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.inline-images-in-markdown",
 			InnerField: "inline_images_in_markdown",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.input-s3-path",
 			InnerField: "input_s3_path",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.input-s3-region",
 			InnerField: "input_s3_region",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.input-url",
 			InnerField: "input_url",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.internal-is-screenshot-job",
 			InnerField: "internal_is_screenshot_job",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.invalidate-cache",
 			InnerField: "invalidate_cache",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.is-formatting-instruction",
 			InnerField: "is_formatting_instruction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "llama-parse-parameters.job-timeout-extra-time-per-page-in-seconds",
 			InnerField: "job_timeout_extra_time_per_page_in_seconds",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "llama-parse-parameters.job-timeout-in-seconds",
 			InnerField: "job_timeout_in_seconds",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.keep-page-separator-when-merging-tables",
 			InnerField: "keep_page_separator_when_merging_tables",
 		},
@@ -1868,250 +1868,250 @@ var pipelinesUpsert = requestflag.WithInnerFlags(cli.Command{
 			Name:       "llama-parse-parameters.languages",
 			InnerField: "languages",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.layout-aware",
 			InnerField: "layout_aware",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.line-level-bounding-box",
 			InnerField: "line_level_bounding_box",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.markdown-table-multiline-header-separator",
 			InnerField: "markdown_table_multiline_header_separator",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*int64]{
 			Name:       "llama-parse-parameters.max-pages",
 			InnerField: "max_pages",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*int64]{
 			Name:       "llama-parse-parameters.max-pages-enforced",
 			InnerField: "max_pages_enforced",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.merge-tables-across-pages-in-markdown",
 			InnerField: "merge_tables_across_pages_in_markdown",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.model",
 			InnerField: "model",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.outlined-table-extraction",
 			InnerField: "outlined_table_extraction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.output-pdf-of-document",
 			InnerField: "output_pdf_of_document",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.output-s3-path-prefix",
 			InnerField: "output_s3_path_prefix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.output-s3-region",
 			InnerField: "output_s3_region",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.output-tables-as-html",
 			InnerField: "output_tables_as_HTML",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "llama-parse-parameters.page-error-tolerance",
 			InnerField: "page_error_tolerance",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.page-footer-prefix",
 			InnerField: "page_footer_prefix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.page-footer-suffix",
 			InnerField: "page_footer_suffix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.page-header-prefix",
 			InnerField: "page_header_prefix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.page-header-suffix",
 			InnerField: "page_header_suffix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.page-prefix",
 			InnerField: "page_prefix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.page-separator",
 			InnerField: "page_separator",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.page-suffix",
 			InnerField: "page_suffix",
 		},
-		&requestflag.InnerFlag[string]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.parse-mode",
 			Usage:      "Enum for representing the mode of parsing to be used.",
 			InnerField: "parse_mode",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.parsing-instruction",
 			InnerField: "parsing_instruction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.precise-bounding-box",
 			InnerField: "precise_bounding_box",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.premium-mode",
 			InnerField: "premium_mode",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.presentation-out-of-bounds-content",
 			InnerField: "presentation_out_of_bounds_content",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.presentation-skip-embedded-data",
 			InnerField: "presentation_skip_embedded_data",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.preserve-layout-alignment-across-pages",
 			InnerField: "preserve_layout_alignment_across_pages",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.preserve-very-small-text",
 			InnerField: "preserve_very_small_text",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.preset",
 			InnerField: "preset",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.priority",
 			Usage:      "The priority for the request. This field may be ignored or overwritten depending on the organization tier.",
 			InnerField: "priority",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.project-id",
 			InnerField: "project_id",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.remove-hidden-text",
 			InnerField: "remove_hidden_text",
 		},
-		&requestflag.InnerFlag[string]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.replace-failed-page-mode",
 			Usage:      "Enum for representing the different available page error handling modes.",
 			InnerField: "replace_failed_page_mode",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.replace-failed-page-with-error-message-prefix",
 			InnerField: "replace_failed_page_with_error_message_prefix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.replace-failed-page-with-error-message-suffix",
 			InnerField: "replace_failed_page_with_error_message_suffix",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.save-images",
 			InnerField: "save_images",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.skip-diagonal-text",
 			InnerField: "skip_diagonal_text",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.specialized-chart-parsing-agentic",
 			InnerField: "specialized_chart_parsing_agentic",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.specialized-chart-parsing-efficient",
 			InnerField: "specialized_chart_parsing_efficient",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.specialized-chart-parsing-plus",
 			InnerField: "specialized_chart_parsing_plus",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.specialized-image-parsing",
 			InnerField: "specialized_image_parsing",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.spreadsheet-extract-sub-tables",
 			InnerField: "spreadsheet_extract_sub_tables",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.spreadsheet-force-formula-computation",
 			InnerField: "spreadsheet_force_formula_computation",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.spreadsheet-include-hidden-sheets",
 			InnerField: "spreadsheet_include_hidden_sheets",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.strict-mode-buggy-font",
 			InnerField: "strict_mode_buggy_font",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.strict-mode-image-extraction",
 			InnerField: "strict_mode_image_extraction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.strict-mode-image-ocr",
 			InnerField: "strict_mode_image_ocr",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.strict-mode-reconstruction",
 			InnerField: "strict_mode_reconstruction",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.structured-output",
 			InnerField: "structured_output",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.structured-output-json-schema",
 			InnerField: "structured_output_json_schema",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.structured-output-json-schema-name",
 			InnerField: "structured_output_json_schema_name",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.system-prompt",
 			InnerField: "system_prompt",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.system-prompt-append",
 			InnerField: "system_prompt_append",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.take-screenshot",
 			InnerField: "take_screenshot",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.target-pages",
 			InnerField: "target_pages",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.tier",
 			InnerField: "tier",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.use-vendor-multimodal-model",
 			InnerField: "use_vendor_multimodal_model",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.user-prompt",
 			InnerField: "user_prompt",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.vendor-multimodal-api-key",
 			InnerField: "vendor_multimodal_api_key",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.vendor-multimodal-model-name",
 			InnerField: "vendor_multimodal_model_name",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.version",
 			InnerField: "version",
 		},
@@ -2120,7 +2120,7 @@ var pipelinesUpsert = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "Outbound webhook endpoints to notify on job status changes",
 			InnerField: "webhook_configurations",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.webhook-url",
 			InnerField: "webhook_url",
 		},
@@ -2138,7 +2138,7 @@ var pipelinesUpsert = requestflag.WithInnerFlags(cli.Command{
 		},
 	},
 	"preset-retrieval-parameters": {
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "preset-retrieval-parameters.alpha",
 			Usage:      "Alpha value for hybrid retrieval to determine the weights between dense and sparse retrieval. 0 is sparse retrieval and 1 is dense retrieval.",
 			InnerField: "alpha",
@@ -2147,27 +2147,27 @@ var pipelinesUpsert = requestflag.WithInnerFlags(cli.Command{
 			Name:       "preset-retrieval-parameters.class-name",
 			InnerField: "class_name",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*float64]{
 			Name:       "preset-retrieval-parameters.dense-similarity-cutoff",
 			Usage:      "Minimum similarity score wrt query for retrieval",
 			InnerField: "dense_similarity_cutoff",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*int64]{
 			Name:       "preset-retrieval-parameters.dense-similarity-top-k",
 			Usage:      "Number of nodes for dense retrieval.",
 			InnerField: "dense_similarity_top_k",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*bool]{
 			Name:       "preset-retrieval-parameters.enable-reranking",
 			Usage:      "Enable reranking for retrieval",
 			InnerField: "enable_reranking",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*int64]{
 			Name:       "preset-retrieval-parameters.files-top-k",
 			Usage:      "Number of files to retrieve (only for retrieval mode files_via_metadata and files_via_content).",
 			InnerField: "files_top_k",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*int64]{
 			Name:       "preset-retrieval-parameters.rerank-top-n",
 			Usage:      "Number of reranked nodes for returning.",
 			InnerField: "rerank_top_n",
@@ -2202,7 +2202,7 @@ var pipelinesUpsert = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "JSON Schema that will be used to infer search_filters. Omit or leave as null to skip inference.",
 			InnerField: "search_filters_inference_schema",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*int64]{
 			Name:       "preset-retrieval-parameters.sparse-similarity-top-k",
 			Usage:      "Number of nodes for sparse retrieval.",
 			InnerField: "sparse_similarity_top_k",

@@ -25,11 +25,11 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 			Required: true,
 			BodyPath: "file_input",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -38,7 +38,7 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "Extract configuration combining parse and extract settings.",
 			BodyPath: "configuration",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "configuration-id",
 			Usage:    "Saved configuration ID",
 			BodyPath: "configuration_id",
@@ -78,27 +78,27 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "Granularity of extraction: per_doc returns one object per document, per_page returns one object per page, per_table_row returns one object per table row",
 			InnerField: "extraction_target",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*int64]{
 			Name:       "configuration.max-pages",
 			Usage:      "Maximum number of pages to process. Omit for no limit.",
 			InnerField: "max_pages",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "configuration.parse-config-id",
 			Usage:      "Saved parse configuration ID to control how the document is parsed before extraction",
 			InnerField: "parse_config_id",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "configuration.parse-tier",
 			Usage:      "Parse tier to use before extraction. Defaults to the extract tier if not specified.",
 			InnerField: "parse_tier",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "configuration.system-prompt",
 			Usage:      "Custom system prompt to guide extraction behavior",
 			InnerField: "system_prompt",
 		},
-		&requestflag.InnerFlag[any]{
+		&requestflag.InnerFlag[*string]{
 			Name:       "configuration.target-pages",
 			Usage:      "Comma-separated page numbers or ranges to process (1-based). Omit to process all pages.",
 			InnerField: "target_pages",
@@ -111,24 +111,28 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 	},
 	"webhook-configuration": {
 		&requestflag.InnerFlag[any]{
-			Name:       "webhook-configuration.webhook-events",
-			Usage:      "Events to subscribe to (e.g. 'parse.success', 'extract.error'). If null, all events are delivered.",
-			InnerField: "webhook_events",
+			Name:                  "webhook-configuration.webhook-events",
+			Usage:                 "Events to subscribe to (e.g. 'parse.success', 'extract.error'). If null, all events are delivered.",
+			InnerField:            "webhook_events",
+			OuterIsArrayOfObjects: true,
 		},
 		&requestflag.InnerFlag[map[string]any]{
-			Name:       "webhook-configuration.webhook-headers",
-			Usage:      "Custom HTTP headers sent with each webhook request (e.g. auth tokens)",
-			InnerField: "webhook_headers",
+			Name:                  "webhook-configuration.webhook-headers",
+			Usage:                 "Custom HTTP headers sent with each webhook request (e.g. auth tokens)",
+			InnerField:            "webhook_headers",
+			OuterIsArrayOfObjects: true,
 		},
-		&requestflag.InnerFlag[any]{
-			Name:       "webhook-configuration.webhook-output-format",
-			Usage:      "Response format sent to the webhook: 'string' (default) or 'json'",
-			InnerField: "webhook_output_format",
+		&requestflag.InnerFlag[*string]{
+			Name:                  "webhook-configuration.webhook-output-format",
+			Usage:                 "Response format sent to the webhook: 'string' (default) or 'json'",
+			InnerField:            "webhook_output_format",
+			OuterIsArrayOfObjects: true,
 		},
-		&requestflag.InnerFlag[any]{
-			Name:       "webhook-configuration.webhook-url",
-			Usage:      "URL to receive webhook POST notifications",
-			InnerField: "webhook_url",
+		&requestflag.InnerFlag[*string]{
+			Name:                  "webhook-configuration.webhook-url",
+			Usage:                 "URL to receive webhook POST notifications",
+			InnerField:            "webhook_url",
+			OuterIsArrayOfObjects: true,
 		},
 	},
 })
@@ -138,7 +142,7 @@ var extractList = cli.Command{
 	Usage:   "List extraction jobs with optional filtering and pagination.",
 	Suggest: true,
 	Flags: []cli.Flag{
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "configuration-id",
 			Usage:     "Filter by configuration ID",
 			QueryPath: "configuration_id",
@@ -153,12 +157,12 @@ var extractList = cli.Command{
 			Usage:     "Include items created at or before this timestamp (inclusive)",
 			QueryPath: "created_at_on_or_before",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "document-input-type",
 			Usage:     "Filter by document input type (file_id or parse_job_id)",
 			QueryPath: "document_input_type",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "document-input-value",
 			Usage:     "Deprecated: use file_input instead",
 			QueryPath: "document_input_value",
@@ -168,7 +172,7 @@ var extractList = cli.Command{
 			Usage:     "Additional fields to include: configuration, extract_metadata",
 			QueryPath: "expand",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "file-input",
 			Usage:     "Filter by file input value",
 			QueryPath: "file_input",
@@ -178,25 +182,25 @@ var extractList = cli.Command{
 			Usage:     "Filter by specific job IDs",
 			QueryPath: "job_ids",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*int64]{
 			Name:      "page-size",
 			Usage:     "Number of items per page",
 			QueryPath: "page_size",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "page-token",
 			Usage:     "Token for pagination",
 			QueryPath: "page_token",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "status",
 			Usage:     "Filter by status",
 			QueryPath: "status",
@@ -219,11 +223,11 @@ var extractDelete = cli.Command{
 			Name:     "job-id",
 			Required: true,
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -237,11 +241,11 @@ var extractGenerateSchema = cli.Command{
 	Usage:   "Generate a JSON schema and return a product configuration request.",
 	Suggest: true,
 	Flags: []cli.Flag{
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
@@ -250,17 +254,17 @@ var extractGenerateSchema = cli.Command{
 			Usage:    "Optional schema to validate, refine, or extend",
 			BodyPath: "data_schema",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "file-id",
 			Usage:    "Optional file ID to analyze for schema generation",
 			BodyPath: "file_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "name",
 			Usage:    "Name for the generated configuration (auto-generated if omitted)",
 			BodyPath: "name",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "prompt",
 			Usage:    "Natural language description of the data structure to extract",
 			BodyPath: "prompt",
@@ -284,11 +288,11 @@ var extractGet = cli.Command{
 			Usage:     "Additional fields to include: configuration, extract_metadata",
 			QueryPath: "expand",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
