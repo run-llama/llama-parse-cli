@@ -34,11 +34,6 @@ var betaDirectoriesCreate = cli.Command{
 			QueryPath: "project_id",
 		},
 		&requestflag.Flag[*string]{
-			Name:     "data-source-id",
-			Usage:    "Optional data source id the directory syncs from.",
-			BodyPath: "data_source_id",
-		},
-		&requestflag.Flag[*string]{
 			Name:     "description",
 			Usage:    "Optional description shown to users.",
 			BodyPath: "description",
@@ -86,10 +81,6 @@ var betaDirectoriesList = cli.Command{
 	Usage:   "List Directories",
 	Suggest: true,
 	Flags: []cli.Flag{
-		&requestflag.Flag[*string]{
-			Name:      "data-source-id",
-			QueryPath: "data_source_id",
-		},
 		&requestflag.Flag[bool]{
 			Name:      "include-deleted",
 			Default:   false,
