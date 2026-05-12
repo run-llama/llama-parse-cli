@@ -55,6 +55,11 @@ var filesList = cli.Command{
 	Usage:   "List files with optional filtering and pagination.",
 	Suggest: true,
 	Flags: []cli.Flag{
+		&requestflag.Flag[any]{
+			Name:      "expand",
+			Usage:     "Fields to expand on each file.",
+			QueryPath: "expand",
+		},
 		&requestflag.Flag[*string]{
 			Name:      "external-file-id",
 			Usage:     "Filter by external file ID.",

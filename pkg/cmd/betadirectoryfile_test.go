@@ -58,6 +58,7 @@ func TestBetaDirectoriesFilesList(t *testing.T) {
 			"--directory-id", "directory_id",
 			"--display-name", "display_name",
 			"--display-name-contains", "display_name_contains",
+			"--expand", "[string, string]",
 			"--file-id", "file_id",
 			"--include-deleted=true",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -65,6 +66,8 @@ func TestBetaDirectoriesFilesList(t *testing.T) {
 			"--page-token", "page_token",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--unique-id", "unique_id",
+			"--updated-at-on-or-after", "'2019-12-27T18:11:19.117Z'",
+			"--updated-at-on-or-before", "'2019-12-27T18:11:19.117Z'",
 		)
 	})
 }
@@ -129,6 +132,7 @@ func TestBetaDirectoriesFilesGet(t *testing.T) {
 			"beta:directories:files", "get",
 			"--directory-id", "directory_id",
 			"--directory-file-id", "directory_file_id",
+			"--expand", "[string, string]",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
@@ -148,6 +152,7 @@ func TestBetaDirectoriesFilesUpload(t *testing.T) {
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--display-name", "display_name",
 			"--external-file-id", "external_file_id",
+			"--metadata", `{"source": "web", "priority": 1}`,
 			"--unique-id", "unique_id",
 		)
 	})
@@ -159,6 +164,7 @@ func TestBetaDirectoriesFilesUpload(t *testing.T) {
 			"upload_file: Example data\n" +
 			"display_name: display_name\n" +
 			"external_file_id: external_file_id\n" +
+			"metadata: '{\"source\": \"web\", \"priority\": 1}'\n" +
 			"unique_id: unique_id\n"
 		pipeDataStr = strings.ReplaceAll(pipeDataStr, "Example data", testFile)
 		pipeData := []byte(pipeDataStr)

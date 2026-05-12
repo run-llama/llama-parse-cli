@@ -80,6 +80,11 @@ var betaDirectoriesFilesList = cli.Command{
 			Name:      "display-name-contains",
 			QueryPath: "display_name_contains",
 		},
+		&requestflag.Flag[any]{
+			Name:      "expand",
+			Usage:     "Fields to expand on each directory file.",
+			QueryPath: "expand",
+		},
 		&requestflag.Flag[*string]{
 			Name:      "file-id",
 			QueryPath: "file_id",
@@ -108,6 +113,16 @@ var betaDirectoriesFilesList = cli.Command{
 		&requestflag.Flag[*string]{
 			Name:      "unique-id",
 			QueryPath: "unique_id",
+		},
+		&requestflag.Flag[any]{
+			Name:      "updated-at-on-or-after",
+			Usage:     "Include items updated at or after this timestamp (inclusive)",
+			QueryPath: "updated_at_on_or_after",
+		},
+		&requestflag.Flag[any]{
+			Name:      "updated-at-on-or-before",
+			Usage:     "Include items updated at or before this timestamp (inclusive)",
+			QueryPath: "updated_at_on_or_before",
 		},
 		&requestflag.Flag[int64]{
 			Name:  "max-items",
@@ -205,6 +220,11 @@ var betaDirectoriesFilesGet = cli.Command{
 			Required:  true,
 			PathParam: "directory_file_id",
 		},
+		&requestflag.Flag[any]{
+			Name:      "expand",
+			Usage:     "Fields to expand.",
+			QueryPath: "expand",
+		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
@@ -249,6 +269,11 @@ var betaDirectoriesFilesUpload = cli.Command{
 		&requestflag.Flag[*string]{
 			Name:     "external-file-id",
 			BodyPath: "external_file_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:     "metadata",
+			Usage:    "User metadata as a JSON object string.",
+			BodyPath: "metadata",
 		},
 		&requestflag.Flag[*string]{
 			Name:     "unique-id",

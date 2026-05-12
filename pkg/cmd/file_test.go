@@ -52,6 +52,7 @@ func TestFilesList(t *testing.T) {
 			"--api-key", "string",
 			"files", "list",
 			"--max-items", "10",
+			"--expand", "[string, string]",
 			"--external-file-id", "external_file_id",
 			"--file-id", "[182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e, 182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e]",
 			"--file-name", "file_name",

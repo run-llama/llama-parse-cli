@@ -18,7 +18,6 @@ func TestBetaDirectoriesCreate(t *testing.T) {
 			"--name", "x",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--data-source-id", "data_source_id",
 			"--description", "description",
 		)
 	})
@@ -27,7 +26,6 @@ func TestBetaDirectoriesCreate(t *testing.T) {
 		// Test piping YAML data over stdin
 		pipeData := []byte("" +
 			"name: x\n" +
-			"data_source_id: data_source_id\n" +
 			"description: description\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
@@ -78,7 +76,6 @@ func TestBetaDirectoriesList(t *testing.T) {
 			"--api-key", "string",
 			"beta:directories", "list",
 			"--max-items", "10",
-			"--data-source-id", "data_source_id",
 			"--include-deleted=true",
 			"--name", "name",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
