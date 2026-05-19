@@ -292,6 +292,17 @@ func init() {
 				},
 			},
 			{
+				Name:     "beta:indexes",
+				Category: "API RESOURCE",
+				Suggest:  true,
+				Commands: []*cli.Command{
+					&betaIndexesCreate,
+					&betaIndexesDelete,
+					&betaIndexesGet,
+					&betaIndexesSync,
+				},
+			},
+			{
 				Name:     "beta:agent-data",
 				Category: "API RESOURCE",
 				Suggest:  true,
