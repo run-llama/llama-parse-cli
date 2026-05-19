@@ -303,6 +303,31 @@ func init() {
 				},
 			},
 			{
+				Name:     "beta:retrieval",
+				Category: "API RESOURCE",
+				Suggest:  true,
+				Commands: []*cli.Command{
+					&betaRetrievalRetrieve,
+					&betaRetrievalGrep,
+					&betaRetrievalRead,
+					&betaRetrievalSearch,
+				},
+			},
+			{
+				Name:     "beta:chat",
+				Category: "API RESOURCE",
+				Suggest:  true,
+				Commands: []*cli.Command{
+					&betaChatCreate,
+					&betaChatRetrieve,
+					&betaChatList,
+					&betaChatDelete,
+					&betaChatGetSummary,
+					&betaChatSetTitle,
+					&betaChatStream,
+				},
+			},
+			{
 				Name:     "beta:agent-data",
 				Category: "API RESOURCE",
 				Suggest:  true,
