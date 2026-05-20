@@ -308,6 +308,7 @@ func init() {
 				Suggest:  true,
 				Commands: []*cli.Command{
 					&betaRetrievalRetrieve,
+					&betaRetrievalFind,
 					&betaRetrievalGrep,
 					&betaRetrievalRead,
 				},
