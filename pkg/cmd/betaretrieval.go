@@ -140,9 +140,14 @@ var betaRetrievalGrep = cli.Command{
 			BodyPath: "context_chars",
 		},
 		&requestflag.Flag[*int64]{
-			Name:     "limit",
-			Usage:    "Maximum number of matches to return.",
-			BodyPath: "limit",
+			Name:     "page-size",
+			Usage:    "The maximum number of items to return. The service may return fewer than this value. If unspecified, a default page size will be used. The maximum value is typically 1000; values above this will be coerced to the maximum.",
+			BodyPath: "page_size",
+		},
+		&requestflag.Flag[*string]{
+			Name:     "page-token",
+			Usage:    "A page token, received from a previous list call. Provide this to retrieve the subsequent page.",
+			BodyPath: "page_token",
 		},
 	},
 	Action:          handleBetaRetrievalGrep,
@@ -187,45 +192,6 @@ var betaRetrievalRead = cli.Command{
 		},
 	},
 	Action:          handleBetaRetrievalRead,
-	HideHelpCommand: true,
-}
-
-var betaRetrievalSearch = cli.Command{
-	Name:    "search",
-	Usage:   "Search for files by name.",
-	Suggest: true,
-	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
-			Name:     "index-id",
-			Usage:    "ID of the index to search within.",
-			Required: true,
-			BodyPath: "index_id",
-		},
-		&requestflag.Flag[*string]{
-			Name:      "organization-id",
-			QueryPath: "organization_id",
-		},
-		&requestflag.Flag[*string]{
-			Name:      "project-id",
-			QueryPath: "project_id",
-		},
-		&requestflag.Flag[*string]{
-			Name:     "file-name",
-			Usage:    "Exact file name to match.",
-			BodyPath: "file_name",
-		},
-		&requestflag.Flag[*string]{
-			Name:     "file-name-contains",
-			Usage:    "Substring match on file name (case-insensitive).",
-			BodyPath: "file_name_contains",
-		},
-		&requestflag.Flag[*int64]{
-			Name:     "limit",
-			Usage:    "Maximum number of files to return.",
-			BodyPath: "limit",
-		},
-	},
-	Action:          handleBetaRetrievalSearch,
 	HideHelpCommand: true,
 }
 
@@ -348,47 +314,6 @@ func handleBetaRetrievalRead(ctx context.Context, cmd *cli.Command) error {
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
 		Title:          "beta:retrieval read",
-		Transform:      transform,
-	})
-}
-
-func handleBetaRetrievalSearch(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
-	unusedArgs := cmd.Args().Slice()
-
-	if len(unusedArgs) > 0 {
-		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
-	}
-
-	options, err := flagOptions(
-		cmd,
-		apiquery.NestedQueryFormatBrackets,
-		apiquery.ArrayQueryFormatRepeat,
-		ApplicationJSON,
-		false,
-	)
-	if err != nil {
-		return err
-	}
-
-	params := llamacloudprod.BetaRetrievalSearchParams{}
-
-	var res []byte
-	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Beta.Retrieval.Search(ctx, params, options...)
-	if err != nil {
-		return err
-	}
-
-	obj := gjson.ParseBytes(res)
-	format := cmd.Root().String("format")
-	explicitFormat := cmd.Root().IsSet("format")
-	transform := cmd.Root().String("transform")
-	return ShowJSON(obj, ShowJSONOpts{
-		ExplicitFormat: explicitFormat,
-		Format:         format,
-		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "beta:retrieval search",
 		Transform:      transform,
 	})
 }

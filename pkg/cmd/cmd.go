@@ -310,7 +310,6 @@ func init() {
 					&betaRetrievalRetrieve,
 					&betaRetrievalGrep,
 					&betaRetrievalRead,
-					&betaRetrievalSearch,
 				},
 			},
 			{
