@@ -103,6 +103,54 @@ var betaRetrievalRetrieve = requestflag.WithInnerFlags(cli.Command{
 	},
 })
 
+var betaRetrievalFind = cli.Command{
+	Name:    "find",
+	Usage:   "Search for files by name.",
+	Suggest: true,
+	Flags: []cli.Flag{
+		&requestflag.Flag[string]{
+			Name:     "index-id",
+			Usage:    "ID of the index to search within.",
+			Required: true,
+			BodyPath: "index_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "organization-id",
+			QueryPath: "organization_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:     "file-name",
+			Usage:    "Exact file name to match.",
+			BodyPath: "file_name",
+		},
+		&requestflag.Flag[*string]{
+			Name:     "file-name-contains",
+			Usage:    "Substring match on file name (case-insensitive).",
+			BodyPath: "file_name_contains",
+		},
+		&requestflag.Flag[*int64]{
+			Name:     "page-size",
+			Usage:    "The maximum number of items to return. The service may return fewer than this value. If unspecified, a default page size will be used. The maximum value is typically 1000; values above this will be coerced to the maximum.",
+			BodyPath: "page_size",
+		},
+		&requestflag.Flag[*string]{
+			Name:     "page-token",
+			Usage:    "A page token, received from a previous list call. Provide this to retrieve the subsequent page.",
+			BodyPath: "page_token",
+		},
+		&requestflag.Flag[int64]{
+			Name:  "max-items",
+			Usage: "The maximum number of items to return (use -1 for unlimited).",
+		},
+	},
+	Action:          handleBetaRetrievalFind,
+	HideHelpCommand: true,
+}
+
 var betaRetrievalGrep = cli.Command{
 	Name:    "grep",
 	Usage:   "Grep within a file's parsed content using a regex pattern.",
@@ -148,6 +196,10 @@ var betaRetrievalGrep = cli.Command{
 			Name:     "page-token",
 			Usage:    "A page token, received from a previous list call. Provide this to retrieve the subsequent page.",
 			BodyPath: "page_token",
+		},
+		&requestflag.Flag[int64]{
+			Name:  "max-items",
+			Usage: "The maximum number of items to return (use -1 for unlimited).",
 		},
 	},
 	Action:          handleBetaRetrievalGrep,
@@ -236,6 +288,61 @@ func handleBetaRetrievalRetrieve(ctx context.Context, cmd *cli.Command) error {
 	})
 }
 
+func handleBetaRetrievalFind(ctx context.Context, cmd *cli.Command) error {
+	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	unusedArgs := cmd.Args().Slice()
+
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
+
+	options, err := flagOptions(
+		cmd,
+		apiquery.NestedQueryFormatBrackets,
+		apiquery.ArrayQueryFormatRepeat,
+		ApplicationJSON,
+		false,
+	)
+	if err != nil {
+		return err
+	}
+
+	params := llamacloudprod.BetaRetrievalFindParams{}
+
+	format := cmd.Root().String("format")
+	explicitFormat := cmd.Root().IsSet("format")
+	transform := cmd.Root().String("transform")
+	if format == "raw" {
+		var res []byte
+		options = append(options, option.WithResponseBodyInto(&res))
+		_, err = client.Beta.Retrieval.Find(ctx, params, options...)
+		if err != nil {
+			return err
+		}
+		obj := gjson.ParseBytes(res)
+		return ShowJSON(obj, ShowJSONOpts{
+			ExplicitFormat: explicitFormat,
+			Format:         format,
+			RawOutput:      cmd.Root().Bool("raw-output"),
+			Title:          "beta:retrieval find",
+			Transform:      transform,
+		})
+	} else {
+		iter := client.Beta.Retrieval.FindAutoPaging(ctx, params, options...)
+		maxItems := int64(-1)
+		if cmd.IsSet("max-items") {
+			maxItems = cmd.Value("max-items").(int64)
+		}
+		return ShowJSONIterator(iter, maxItems, ShowJSONOpts{
+			ExplicitFormat: explicitFormat,
+			Format:         format,
+			RawOutput:      cmd.Root().Bool("raw-output"),
+			Title:          "beta:retrieval find",
+			Transform:      transform,
+		})
+	}
+}
+
 func handleBetaRetrievalGrep(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
@@ -257,24 +364,38 @@ func handleBetaRetrievalGrep(ctx context.Context, cmd *cli.Command) error {
 
 	params := llamacloudprod.BetaRetrievalGrepParams{}
 
-	var res []byte
-	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Beta.Retrieval.Grep(ctx, params, options...)
-	if err != nil {
-		return err
-	}
-
-	obj := gjson.ParseBytes(res)
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
 	transform := cmd.Root().String("transform")
-	return ShowJSON(obj, ShowJSONOpts{
-		ExplicitFormat: explicitFormat,
-		Format:         format,
-		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "beta:retrieval grep",
-		Transform:      transform,
-	})
+	if format == "raw" {
+		var res []byte
+		options = append(options, option.WithResponseBodyInto(&res))
+		_, err = client.Beta.Retrieval.Grep(ctx, params, options...)
+		if err != nil {
+			return err
+		}
+		obj := gjson.ParseBytes(res)
+		return ShowJSON(obj, ShowJSONOpts{
+			ExplicitFormat: explicitFormat,
+			Format:         format,
+			RawOutput:      cmd.Root().Bool("raw-output"),
+			Title:          "beta:retrieval grep",
+			Transform:      transform,
+		})
+	} else {
+		iter := client.Beta.Retrieval.GrepAutoPaging(ctx, params, options...)
+		maxItems := int64(-1)
+		if cmd.IsSet("max-items") {
+			maxItems = cmd.Value("max-items").(int64)
+		}
+		return ShowJSONIterator(iter, maxItems, ShowJSONOpts{
+			ExplicitFormat: explicitFormat,
+			Format:         format,
+			RawOutput:      cmd.Root().Bool("raw-output"),
+			Title:          "beta:retrieval grep",
+			Transform:      transform,
+		})
+	}
 }
 
 func handleBetaRetrievalRead(ctx context.Context, cmd *cli.Command) error {

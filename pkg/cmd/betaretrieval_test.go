@@ -87,6 +87,43 @@ func TestBetaRetrievalRetrieve(t *testing.T) {
 	})
 }
 
+func TestBetaRetrievalFind(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
+	t.Run("regular flags", func(t *testing.T) {
+		mocktest.TestRunMockTestWithFlags(
+			t,
+			"--api-key", "string",
+			"beta:retrieval", "find",
+			"--max-items", "10",
+			"--index-id", "idx-abc123",
+			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--file-name", "file_name",
+			"--file-name-contains", "file_name_contains",
+			"--page-size", "0",
+			"--page-token", "page_token",
+		)
+	})
+
+	t.Run("piping data", func(t *testing.T) {
+		// Test piping YAML data over stdin
+		pipeData := []byte("" +
+			"index_id: idx-abc123\n" +
+			"file_name: file_name\n" +
+			"file_name_contains: file_name_contains\n" +
+			"page_size: 0\n" +
+			"page_token: page_token\n")
+		mocktest.TestRunMockTestWithPipeAndFlags(
+			t, pipeData,
+			"--api-key", "string",
+			"beta:retrieval", "find",
+			"--max-items", "10",
+			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+		)
+	})
+}
+
 func TestBetaRetrievalGrep(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
@@ -94,6 +131,7 @@ func TestBetaRetrievalGrep(t *testing.T) {
 			t,
 			"--api-key", "string",
 			"beta:retrieval", "grep",
+			"--max-items", "10",
 			"--file-id", "file_id",
 			"--index-id", "idx-abc123",
 			"--pattern", "revenue|profit",
@@ -118,6 +156,7 @@ func TestBetaRetrievalGrep(t *testing.T) {
 			t, pipeData,
 			"--api-key", "string",
 			"beta:retrieval", "grep",
+			"--max-items", "10",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
