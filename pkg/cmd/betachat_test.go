@@ -95,34 +95,6 @@ func TestBetaChatGetSummary(t *testing.T) {
 	})
 }
 
-func TestBetaChatSetTitle(t *testing.T) {
-	t.Skip("Mock server tests are disabled")
-	t.Run("regular flags", func(t *testing.T) {
-		mocktest.TestRunMockTestWithFlags(
-			t,
-			"--api-key", "string",
-			"beta:chat", "set-title",
-			"--session-id", "session_id",
-			"--first-message", "What were the main findings in Q3?",
-			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-		)
-	})
-
-	t.Run("piping data", func(t *testing.T) {
-		// Test piping YAML data over stdin
-		pipeData := []byte("first_message: What were the main findings in Q3?")
-		mocktest.TestRunMockTestWithPipeAndFlags(
-			t, pipeData,
-			"--api-key", "string",
-			"beta:chat", "set-title",
-			"--session-id", "session_id",
-			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-		)
-	})
-}
-
 func TestBetaChatStream(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {

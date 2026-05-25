@@ -38,10 +38,26 @@ var betaIndexesCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "Optional description of the index.",
 			BodyPath: "description",
 		},
+		&requestflag.Flag[*string]{
+			Name:     "name",
+			Usage:    "Optional display name for the index. If omitted, the index is named after the source directory.",
+			BodyPath: "name",
+		},
 		&requestflag.Flag[any]{
 			Name:     "product",
 			Usage:    "Product configurations for syncing. Omit to use a default parse configuration. Include an explicit entry per product type (e.g. parse, extract) to override the default.",
 			BodyPath: "products",
+		},
+		&requestflag.Flag[any]{
+			Name:     "store-attachment",
+			Usage:    "Attachment kinds to store alongside parsed output. Each entry must be one of: screenshots, items. For example, ['screenshots'] renders and stores per-page screenshots; ['items'] stores structured items with bounding boxes. Omit or pass an empty list to skip attachments.",
+			BodyPath: "store_attachments",
+		},
+		&requestflag.Flag[string]{
+			Name:     "sync-frequency",
+			Usage:    "How often to re-run the sync. One of: manual, daily, on_source_change. Defaults to manual.",
+			Default:  "manual",
+			BodyPath: "sync_frequency",
 		},
 	},
 	Action:          handleBetaIndexesCreate,
@@ -56,7 +72,7 @@ var betaIndexesCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.InnerFlag[string]{
 			Name:                  "product.product-type",
-			Usage:                 "Product type: parse or extract.",
+			Usage:                 "Product type. One of: parse, extract.",
 			InnerField:            "product_type",
 			OuterIsArrayOfObjects: true,
 		},

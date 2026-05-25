@@ -16,7 +16,7 @@ import (
 
 var betaDirectoriesFilesUpdate = cli.Command{
 	Name:    "update",
-	Usage:   "Update file metadata within the specified directory.",
+	Usage:   "Update directory-file metadata by `directory_file_id`; set `directory_id` to\nmove the file to a different directory. To resolve from `unique_id`, list with a\nfilter first.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
@@ -38,11 +38,6 @@ var betaDirectoriesFilesUpdate = cli.Command{
 			QueryPath: "project_id",
 		},
 		&requestflag.Flag[*string]{
-			Name:     "directory-id",
-			Usage:    "Move file to a different directory.",
-			BodyPath: "directory_id",
-		},
-		&requestflag.Flag[*string]{
 			Name:     "display-name",
 			Usage:    "Updated display name.",
 			BodyPath: "display_name",
@@ -51,6 +46,11 @@ var betaDirectoriesFilesUpdate = cli.Command{
 			Name:     "metadata",
 			Usage:    "User-defined metadata key-value pairs. Replaces the user metadata layer.",
 			BodyPath: "metadata",
+		},
+		&requestflag.Flag[*string]{
+			Name:     "target-directory-id",
+			Usage:    "Move file to a different directory.",
+			BodyPath: "target_directory_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:     "unique-id",
@@ -135,7 +135,7 @@ var betaDirectoriesFilesList = cli.Command{
 
 var betaDirectoriesFilesDelete = cli.Command{
 	Name:    "delete",
-	Usage:   "Delete a file from the specified directory.",
+	Usage:   "Delete a directory file by `directory_file_id`; to resolve from `unique_id`,\nlist with a filter first.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
@@ -163,7 +163,7 @@ var betaDirectoriesFilesDelete = cli.Command{
 
 var betaDirectoriesFilesAdd = cli.Command{
 	Name:    "add",
-	Usage:   "Create a new file within the specified directory.",
+	Usage:   "Create a new file within the specified directory; the directory must exist in\nthe project and `file_id` must reference an existing file.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
@@ -207,7 +207,7 @@ var betaDirectoriesFilesAdd = cli.Command{
 
 var betaDirectoriesFilesGet = cli.Command{
 	Name:    "get",
-	Usage:   "Get a file by its directory_file_id within the specified directory. If you're\ntrying to get a file by its unique_id, use the list endpoint with a filter\ninstead.",
+	Usage:   "Get a directory file by `directory_file_id`; to look up by `unique_id`, use the\nlist endpoint with a filter.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
@@ -240,7 +240,7 @@ var betaDirectoriesFilesGet = cli.Command{
 
 var betaDirectoriesFilesUpload = cli.Command{
 	Name:    "upload",
-	Usage:   "Upload a file directly to a directory.",
+	Usage:   "Upload a file and create its directory entry in one call; `unique_id` /\n`display_name` default to values derived from file metadata.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{

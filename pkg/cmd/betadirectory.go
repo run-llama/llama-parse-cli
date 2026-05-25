@@ -38,6 +38,22 @@ var betaDirectoriesCreate = cli.Command{
 			Usage:    "Optional description shown to users.",
 			BodyPath: "description",
 		},
+		&requestflag.Flag[any]{
+			Name:     "expires-at",
+			Usage:    "When this directory expires. Required for ephemeral directories.",
+			BodyPath: "expires_at",
+		},
+		&requestflag.Flag[map[string]any]{
+			Name:     "system-metadata",
+			Usage:    "Reserved system-managed metadata.",
+			BodyPath: "system_metadata",
+		},
+		&requestflag.Flag[string]{
+			Name:     "type",
+			Usage:    "Directory type. Use 'ephemeral' for batch processing with automatic cleanup.",
+			Default:  "user",
+			BodyPath: "type",
+		},
 	},
 	Action:          handleBetaDirectoriesCreate,
 	HideHelpCommand: true,
@@ -108,7 +124,7 @@ var betaDirectoriesList = cli.Command{
 		},
 		&requestflag.Flag[*string]{
 			Name:      "type",
-			Usage:     `Allowed values: "user", "index".`,
+			Usage:     `Allowed values: "user", "index", "ephemeral".`,
 			QueryPath: "type",
 		},
 		&requestflag.Flag[int64]{

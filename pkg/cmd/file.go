@@ -159,7 +159,7 @@ var filesGet = cli.Command{
 
 var filesQuery = requestflag.WithInnerFlags(cli.Command{
 	Name:    "query",
-	Usage:   "Query files with flexible filtering and pagination.",
+	Usage:   "Query files with filtering and pagination. Deprecated: use `GET /files`.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[*string]{

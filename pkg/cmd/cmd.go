@@ -323,7 +323,6 @@ func init() {
 					&betaChatList,
 					&betaChatDelete,
 					&betaChatGetSummary,
-					&betaChatSetTitle,
 					&betaChatStream,
 				},
 			},
