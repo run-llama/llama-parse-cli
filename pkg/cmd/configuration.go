@@ -16,7 +16,7 @@ import (
 
 var configurationsCreate = cli.Command{
 	Name:    "create",
-	Usage:   "Create or update a product configuration.",
+	Usage:   "Upsert a product configuration; updates if one with the same name + product\ntype + project exists, otherwise creates.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{

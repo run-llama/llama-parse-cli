@@ -20,7 +20,10 @@ func TestBetaIndexesCreate(t *testing.T) {
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--description", "description",
+			"--name", "name",
 			"--product", "[{product_config_id: cfg-abc123, product_type: parse}]",
+			"--store-attachment", "[screenshots]",
+			"--sync-frequency", "manual",
 		)
 	})
 
@@ -37,8 +40,11 @@ func TestBetaIndexesCreate(t *testing.T) {
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--description", "description",
+			"--name", "name",
 			"--product.product-config-id", "cfg-abc123",
 			"--product.product-type", "parse",
+			"--store-attachment", "[screenshots]",
+			"--sync-frequency", "manual",
 		)
 	})
 
@@ -47,9 +53,13 @@ func TestBetaIndexesCreate(t *testing.T) {
 		pipeData := []byte("" +
 			"source_directory_id: dir-abc123\n" +
 			"description: description\n" +
+			"name: name\n" +
 			"products:\n" +
 			"  - product_config_id: cfg-abc123\n" +
-			"    product_type: parse\n")
+			"    product_type: parse\n" +
+			"store_attachments:\n" +
+			"  - screenshots\n" +
+			"sync_frequency: manual\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",

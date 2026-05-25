@@ -16,7 +16,7 @@ import (
 
 var classifierJobsCreate = requestflag.WithInnerFlags(cli.Command{
 	Name:    "create",
-	Usage:   "Create a classify job. Experimental: This endpoint is not yet ready for\nproduction use and is subject to change at any time.",
+	Usage:   "Create a classify job. Experimental: not production-ready and subject to change.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[[]string]{
@@ -109,7 +109,7 @@ var classifierJobsCreate = requestflag.WithInnerFlags(cli.Command{
 
 var classifierJobsList = cli.Command{
 	Name:    "list",
-	Usage:   "List classify jobs. Experimental: This endpoint is not yet ready for production\nuse and is subject to change at any time.",
+	Usage:   "List classify jobs. Experimental: not production-ready and subject to change.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[*string]{
@@ -139,7 +139,7 @@ var classifierJobsList = cli.Command{
 
 var classifierJobsGet = cli.Command{
 	Name:    "get",
-	Usage:   "Get a classify job. Experimental: This endpoint is not yet ready for production\nuse and is subject to change at any time.",
+	Usage:   "Get a classify job. Experimental: not production-ready and subject to change.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
@@ -162,7 +162,7 @@ var classifierJobsGet = cli.Command{
 
 var classifierJobsGetResults = cli.Command{
 	Name:    "get-results",
-	Usage:   "Get the results of a classify job. Experimental: This endpoint is not yet ready\nfor production use and is subject to change at any time.",
+	Usage:   "Get the results of a classify job. Experimental: not production-ready and\nsubject to change.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{

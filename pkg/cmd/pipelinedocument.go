@@ -113,7 +113,7 @@ var pipelinesDocumentsList = cli.Command{
 
 var pipelinesDocumentsDelete = cli.Command{
 	Name:    "delete",
-	Usage:   "Delete a document from a pipeline. Initiates an async job that will:",
+	Usage:   "Delete a document from a pipeline; runs async (vectors first, then MongoDB\nrecord).",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{

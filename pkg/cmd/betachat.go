@@ -136,35 +136,6 @@ var betaChatGetSummary = cli.Command{
 	HideHelpCommand: true,
 }
 
-var betaChatSetTitle = cli.Command{
-	Name:    "set-title",
-	Usage:   "Generate a title for a session from its first user message.",
-	Suggest: true,
-	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
-			Name:      "session-id",
-			Required:  true,
-			PathParam: "session_id",
-		},
-		&requestflag.Flag[string]{
-			Name:     "first-message",
-			Usage:    "First user message of the session, used to infer a short title.",
-			Required: true,
-			BodyPath: "first_message",
-		},
-		&requestflag.Flag[*string]{
-			Name:      "organization-id",
-			QueryPath: "organization_id",
-		},
-		&requestflag.Flag[*string]{
-			Name:      "project-id",
-			QueryPath: "project_id",
-		},
-	},
-	Action:          handleBetaChatSetTitle,
-	HideHelpCommand: true,
-}
-
 var betaChatStream = cli.Command{
 	Name:    "stream",
 	Usage:   "Stream agent events for a chat turn as Server-Sent Events.",
@@ -422,55 +393,6 @@ func handleBetaChatGetSummary(ctx context.Context, cmd *cli.Command) error {
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
 		Title:          "beta:chat get-summary",
-		Transform:      transform,
-	})
-}
-
-func handleBetaChatSetTitle(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
-	unusedArgs := cmd.Args().Slice()
-	if !cmd.IsSet("session-id") && len(unusedArgs) > 0 {
-		cmd.Set("session-id", unusedArgs[0])
-		unusedArgs = unusedArgs[1:]
-	}
-	if len(unusedArgs) > 0 {
-		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
-	}
-
-	options, err := flagOptions(
-		cmd,
-		apiquery.NestedQueryFormatBrackets,
-		apiquery.ArrayQueryFormatRepeat,
-		ApplicationJSON,
-		false,
-	)
-	if err != nil {
-		return err
-	}
-
-	params := llamacloudprod.BetaChatSetTitleParams{}
-
-	var res []byte
-	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Beta.Chat.SetTitle(
-		ctx,
-		cmd.Value("session-id").(string),
-		params,
-		options...,
-	)
-	if err != nil {
-		return err
-	}
-
-	obj := gjson.ParseBytes(res)
-	format := cmd.Root().String("format")
-	explicitFormat := cmd.Root().IsSet("format")
-	transform := cmd.Root().String("transform")
-	return ShowJSON(obj, ShowJSONOpts{
-		ExplicitFormat: explicitFormat,
-		Format:         format,
-		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "beta:chat set-title",
 		Transform:      transform,
 	})
 }

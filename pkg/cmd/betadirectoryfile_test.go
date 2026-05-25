@@ -20,9 +20,9 @@ func TestBetaDirectoriesFilesUpdate(t *testing.T) {
 			"--directory-file-id", "directory_file_id",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--directory-id", "directory_id",
 			"--display-name", "display_name",
 			"--metadata", "{foo: string}",
+			"--target-directory-id", "target_directory_id",
 			"--unique-id", "x",
 		)
 	})
@@ -30,10 +30,10 @@ func TestBetaDirectoriesFilesUpdate(t *testing.T) {
 	t.Run("piping data", func(t *testing.T) {
 		// Test piping YAML data over stdin
 		pipeData := []byte("" +
-			"directory_id: directory_id\n" +
 			"display_name: display_name\n" +
 			"metadata:\n" +
 			"  foo: string\n" +
+			"target_directory_id: target_directory_id\n" +
 			"unique_id: x\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,

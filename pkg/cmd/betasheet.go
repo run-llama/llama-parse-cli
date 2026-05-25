@@ -16,7 +16,7 @@ import (
 
 var betaSheetsCreate = requestflag.WithInnerFlags(cli.Command{
 	Name:    "create",
-	Usage:   "Create a spreadsheet parsing job. Experimental: This endpoint is not yet ready\nfor production use and is subject to change at any time.",
+	Usage:   "Create a spreadsheet parsing job. Experimental: not production-ready and subject\nto change.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
@@ -88,7 +88,7 @@ var betaSheetsCreate = requestflag.WithInnerFlags(cli.Command{
 
 var betaSheetsList = cli.Command{
 	Name:    "list",
-	Usage:   "List spreadsheet parsing jobs. Experimental: This endpoint is not yet ready for\nproduction use and is subject to change at any time.",
+	Usage:   "List spreadsheet parsing jobs. Experimental: not production-ready and subject to\nchange.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[any]{
@@ -143,7 +143,7 @@ var betaSheetsList = cli.Command{
 
 var betaSheetsDeleteJob = cli.Command{
 	Name:    "delete-job",
-	Usage:   "Delete a spreadsheet parsing job and its associated data. Experimental: This\nendpoint is not yet ready for production use and is subject to change at any\ntime.",
+	Usage:   "Delete a spreadsheet parsing job and its associated data. Experimental: not\nproduction-ready and subject to change.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
@@ -166,7 +166,7 @@ var betaSheetsDeleteJob = cli.Command{
 
 var betaSheetsGet = cli.Command{
 	Name:    "get",
-	Usage:   "Get a spreadsheet parsing job.",
+	Usage:   "Get a spreadsheet parsing job. When `include_results=True` (default), embeds\nextracted regions and results if complete, skipping the separate `/results`\ncall. Experimental: not production-ready and subject to change.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
@@ -194,7 +194,7 @@ var betaSheetsGet = cli.Command{
 
 var betaSheetsGetResultTable = cli.Command{
 	Name:    "get-result-table",
-	Usage:   "Generate a presigned URL to download a specific extracted region. Experimental:\nThis endpoint is not yet ready for production use and is subject to change at\nany time.",
+	Usage:   "Generate a presigned URL to download a specific extracted region. Experimental:\nnot production-ready and subject to change.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{

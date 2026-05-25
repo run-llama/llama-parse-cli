@@ -76,7 +76,7 @@ var pipelinesDataSourcesGetStatus = cli.Command{
 
 var pipelinesDataSourcesSync = cli.Command{
 	Name:    "sync",
-	Usage:   "Run ingestion for the pipeline data source by incrementally updating the\ndata-sink with upstream changes from data-source.",
+	Usage:   "Run incremental ingestion: pull upstream changes from the data source into the\ndata sink.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
