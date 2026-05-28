@@ -73,6 +73,23 @@ func TestBetaIndexesCreate(t *testing.T) {
 	})
 }
 
+func TestBetaIndexesList(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
+	t.Run("regular flags", func(t *testing.T) {
+		mocktest.TestRunMockTestWithFlags(
+			t,
+			"--api-key", "string",
+			"beta:indexes", "list",
+			"--max-items", "10",
+			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--page-size", "0",
+			"--page-token", "page_token",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--source-directory-id", "source_directory_id",
+		)
+	})
+}
+
 func TestBetaIndexesDelete(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {

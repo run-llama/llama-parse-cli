@@ -131,6 +131,16 @@ func init() {
 				},
 			},
 			{
+				Name:     "batches",
+				Category: "API RESOURCE",
+				Suggest:  true,
+				Commands: []*cli.Command{
+					&batchesCreate,
+					&batchesList,
+					&batchesGet,
+				},
+			},
+			{
 				Name:     "classify",
 				Category: "API RESOURCE",
 				Suggest:  true,
@@ -297,6 +307,7 @@ func init() {
 				Suggest:  true,
 				Commands: []*cli.Command{
 					&betaIndexesCreate,
+					&betaIndexesList,
 					&betaIndexesDelete,
 					&betaIndexesGet,
 					&betaIndexesSync,
