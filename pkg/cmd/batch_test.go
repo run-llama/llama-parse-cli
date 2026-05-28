@@ -16,7 +16,7 @@ func TestBatchesCreate(t *testing.T) {
 			t,
 			"--api-key", "string",
 			"batches", "create",
-			"--config", "{job: {configuration_id: cfg-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee, type: parse_v2}}",
+			"--config", "{job: {configuration_id: cfg-PARSE_AGENTIC, type: parse_v2}}",
 			"--source-directory-id", "dir-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -32,7 +32,7 @@ func TestBatchesCreate(t *testing.T) {
 			t,
 			"--api-key", "string",
 			"batches", "create",
-			"--config.job", "{configuration_id: cfg-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee, type: parse_v2}",
+			"--config.job", "{configuration_id: cfg-PARSE_AGENTIC, type: parse_v2}",
 			"--source-directory-id", "dir-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -44,7 +44,7 @@ func TestBatchesCreate(t *testing.T) {
 		pipeData := []byte("" +
 			"config:\n" +
 			"  job:\n" +
-			"    configuration_id: cfg-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee\n" +
+			"    configuration_id: cfg-PARSE_AGENTIC\n" +
 			"    type: parse_v2\n" +
 			"source_directory_id: dir-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
