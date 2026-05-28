@@ -59,6 +59,12 @@ var betaIndexesCreate = requestflag.WithInnerFlags(cli.Command{
 			Default:  "manual",
 			BodyPath: "sync_frequency",
 		},
+		&requestflag.Flag[string]{
+			Name:     "vector-target",
+			Usage:    "Vector export destination for the index. 'DEFAULT' exports to the managed vector DB destination resolved from configuration. 'DISABLED' skips vector export — the export destination falls back to 'Download'.",
+			Default:  "DEFAULT",
+			BodyPath: "vector_target",
+		},
 	},
 	Action:          handleBetaIndexesCreate,
 	HideHelpCommand: true,

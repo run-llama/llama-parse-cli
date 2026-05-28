@@ -24,6 +24,7 @@ func TestBetaIndexesCreate(t *testing.T) {
 			"--product", "[{product_config_id: cfg-abc123, product_type: parse}]",
 			"--store-attachment", "[screenshots]",
 			"--sync-frequency", "manual",
+			"--vector-target", "DEFAULT",
 		)
 	})
 
@@ -45,6 +46,7 @@ func TestBetaIndexesCreate(t *testing.T) {
 			"--product.product-type", "parse",
 			"--store-attachment", "[screenshots]",
 			"--sync-frequency", "manual",
+			"--vector-target", "DEFAULT",
 		)
 	})
 
@@ -59,7 +61,8 @@ func TestBetaIndexesCreate(t *testing.T) {
 			"    product_type: parse\n" +
 			"store_attachments:\n" +
 			"  - screenshots\n" +
-			"sync_frequency: manual\n")
+			"sync_frequency: manual\n" +
+			"vector_target: DEFAULT\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
