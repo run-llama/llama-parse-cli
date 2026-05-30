@@ -70,7 +70,7 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.InnerFlag[string]{
 			Name:       "configuration.extract-version",
-			Usage:      "Extract algorithm version. Use 'latest' for the default pipeline or a date string (e.g. '2026-01-08') to pin to a specific release.",
+			Usage:      "Use 'latest' for the default pipeline or a date string (YYYY-MM-DD format) to pin to a specific release.",
 			InnerField: "extract_version",
 		},
 		&requestflag.InnerFlag[string]{
