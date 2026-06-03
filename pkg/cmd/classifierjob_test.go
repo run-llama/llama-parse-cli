@@ -22,7 +22,7 @@ func TestClassifierJobsCreate(t *testing.T) {
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--mode", "FAST",
 			"--parsing-configuration", "{lang: af, max_pages: 0, target_pages: [0]}",
-			"--webhook-configuration", "{webhook_events: [string], webhook_headers: {foo: bar}, webhook_url: 'https:'}",
+			"--webhook-configuration", "{webhook_events: [string], webhook_headers: {foo: bar}, webhook_output_format: json, webhook_url: 'https:'}",
 		)
 	})
 
@@ -46,6 +46,7 @@ func TestClassifierJobsCreate(t *testing.T) {
 			"--parsing-configuration.target-pages", "[0]",
 			"--webhook-configuration.webhook-events", "[string]",
 			"--webhook-configuration.webhook-headers", "{foo: bar}",
+			"--webhook-configuration.webhook-output-format", "json",
 			"--webhook-configuration.webhook-url", "https:",
 		)
 	})
@@ -69,6 +70,7 @@ func TestClassifierJobsCreate(t *testing.T) {
 			"      - string\n" +
 			"    webhook_headers:\n" +
 			"      foo: bar\n" +
+			"    webhook_output_format: json\n" +
 			"    webhook_url: 'https:'\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
