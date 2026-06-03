@@ -269,6 +269,11 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			InnerField: "webhook_headers",
 		},
 		&requestflag.InnerFlag[*string]{
+			Name:       "webhook-configuration.webhook-output-format",
+			Usage:      "Format of the webhook payload body. 'string' (default) sends the payload as a JSON-encoded string; 'json' sends it as a JSON object.",
+			InnerField: "webhook_output_format",
+		},
+		&requestflag.InnerFlag[*string]{
 			Name:       "webhook-configuration.webhook-url",
 			Usage:      "HTTPS URL to receive webhook POST requests. Must be publicly accessible",
 			InnerField: "webhook_url",
