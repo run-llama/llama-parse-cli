@@ -57,6 +57,11 @@ var classifyCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "Idempotency key scoped to the project",
 			BodyPath: "transaction_id",
 		},
+		&requestflag.Flag[any]{
+			Name:     "webhook-configuration",
+			Usage:    "Outbound webhook endpoints to notify on job status changes",
+			BodyPath: "webhook_configurations",
+		},
 	},
 	Action:          handleClassifyCreate,
 	HideHelpCommand: true,
@@ -76,6 +81,32 @@ var classifyCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:       "configuration.parsing-configuration",
 			Usage:      "Parsing configuration for classify jobs.",
 			InnerField: "parsing_configuration",
+		},
+	},
+	"webhook-configuration": {
+		&requestflag.InnerFlag[any]{
+			Name:                  "webhook-configuration.webhook-events",
+			Usage:                 "Events to subscribe to (e.g. 'parse.success', 'extract.error'). If null, all events are delivered.",
+			InnerField:            "webhook_events",
+			OuterIsArrayOfObjects: true,
+		},
+		&requestflag.InnerFlag[map[string]any]{
+			Name:                  "webhook-configuration.webhook-headers",
+			Usage:                 "Custom HTTP headers sent with each webhook request (e.g. auth tokens)",
+			InnerField:            "webhook_headers",
+			OuterIsArrayOfObjects: true,
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:                  "webhook-configuration.webhook-output-format",
+			Usage:                 "Response format sent to the webhook: 'string' (default) or 'json'",
+			InnerField:            "webhook_output_format",
+			OuterIsArrayOfObjects: true,
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:                  "webhook-configuration.webhook-url",
+			Usage:                 "URL to receive webhook POST notifications",
+			InnerField:            "webhook_url",
+			OuterIsArrayOfObjects: true,
 		},
 	},
 })

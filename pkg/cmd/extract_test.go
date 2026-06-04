@@ -19,7 +19,7 @@ func TestExtractCreate(t *testing.T) {
 			"--file-input", "dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--configuration", "{data_schema: {properties: {vendor_name: bar, total_amount: bar}, required: [vendor_name, total_amount], type: object}, cite_sources: true, confidence_scores: true, extract_version: latest, extraction_target: per_doc, max_pages: 10, parse_config_id: cfg-11111111-2222-3333-4444-555555555555, parse_tier: fast, system_prompt: 'Extract all monetary values in USD. If a currency is not specified, assume USD.', target_pages: '1,3,5-7', tier: cost_effective}",
+			"--configuration", "{data_schema: {properties: {vendor_name: bar, total_amount: bar}, required: [vendor_name, total_amount], type: object}, cite_sources: true, confidence_scores: true, extraction_target: per_doc, max_pages: 10, parse_config_id: cfg-11111111-2222-3333-4444-555555555555, parse_tier: fast, system_prompt: 'Extract all monetary values in USD. If a currency is not specified, assume USD.', target_pages: '1,3,5-7', tier: cost_effective, version: latest}",
 			"--configuration-id", "cfg-11111111-2222-3333-4444-555555555555",
 			"--webhook-configuration", "[{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_url: https://example.com/webhooks/llamacloud}]",
 		)
@@ -40,7 +40,6 @@ func TestExtractCreate(t *testing.T) {
 			"--configuration.data-schema", "{properties: {vendor_name: bar, total_amount: bar}, required: [vendor_name, total_amount], type: object}",
 			"--configuration.cite-sources=true",
 			"--configuration.confidence-scores=true",
-			"--configuration.extract-version", "latest",
 			"--configuration.extraction-target", "per_doc",
 			"--configuration.max-pages", "10",
 			"--configuration.parse-config-id", "cfg-11111111-2222-3333-4444-555555555555",
@@ -48,6 +47,7 @@ func TestExtractCreate(t *testing.T) {
 			"--configuration.system-prompt", "Extract all monetary values in USD. If a currency is not specified, assume USD.",
 			"--configuration.target-pages", "1,3,5-7",
 			"--configuration.tier", "cost_effective",
+			"--configuration.version", "latest",
 			"--configuration-id", "cfg-11111111-2222-3333-4444-555555555555",
 			"--webhook-configuration.webhook-events", "[parse.success, parse.error]",
 			"--webhook-configuration.webhook-headers", "{Authorization: Bearer sk-...}",
@@ -71,7 +71,6 @@ func TestExtractCreate(t *testing.T) {
 			"    type: object\n" +
 			"  cite_sources: true\n" +
 			"  confidence_scores: true\n" +
-			"  extract_version: latest\n" +
 			"  extraction_target: per_doc\n" +
 			"  max_pages: 10\n" +
 			"  parse_config_id: cfg-11111111-2222-3333-4444-555555555555\n" +
@@ -81,6 +80,7 @@ func TestExtractCreate(t *testing.T) {
 			"    USD.\n" +
 			"  target_pages: 1,3,5-7\n" +
 			"  tier: cost_effective\n" +
+			"  version: latest\n" +
 			"configuration_id: cfg-11111111-2222-3333-4444-555555555555\n" +
 			"webhook_configurations:\n" +
 			"  - webhook_events:\n" +
