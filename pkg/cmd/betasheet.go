@@ -16,7 +16,7 @@ import (
 
 var betaSheetsCreate = requestflag.WithInnerFlags(cli.Command{
 	Name:    "create",
-	Usage:   "Create a spreadsheet parsing job. Experimental: not production-ready and subject\nto change.",
+	Usage:   "Create a spreadsheet parsing job.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
@@ -37,6 +37,21 @@ var betaSheetsCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:     "config",
 			Usage:    "Configuration for spreadsheet parsing and region extraction",
 			BodyPath: "config",
+		},
+		&requestflag.Flag[map[string]any]{
+			Name:     "configuration",
+			Usage:    "Configuration for spreadsheet parsing and region extraction",
+			BodyPath: "configuration",
+		},
+		&requestflag.Flag[*string]{
+			Name:     "configuration-id",
+			Usage:    "Saved configuration ID",
+			BodyPath: "configuration_id",
+		},
+		&requestflag.Flag[any]{
+			Name:     "webhook-configuration",
+			Usage:    "Outbound webhook endpoints to notify on job status changes",
+			BodyPath: "webhook_configurations",
 		},
 	},
 	Action:          handleBetaSheetsCreate,
@@ -84,6 +99,74 @@ var betaSheetsCreate = requestflag.WithInnerFlags(cli.Command{
 			InnerField: "use_experimental_processing",
 		},
 	},
+	"configuration": {
+		&requestflag.InnerFlag[*string]{
+			Name:       "configuration.extraction-range",
+			Usage:      "A1 notation of the range to extract a single region from. If None, the entire sheet is used.",
+			InnerField: "extraction_range",
+		},
+		&requestflag.InnerFlag[bool]{
+			Name:       "configuration.flatten-hierarchical-tables",
+			Usage:      "Return a flattened dataframe when a detected table is recognized as hierarchical.",
+			InnerField: "flatten_hierarchical_tables",
+		},
+		&requestflag.InnerFlag[bool]{
+			Name:       "configuration.generate-additional-metadata",
+			Usage:      "Whether to generate additional metadata (title, description) for each extracted region.",
+			InnerField: "generate_additional_metadata",
+		},
+		&requestflag.InnerFlag[bool]{
+			Name:       "configuration.include-hidden-cells",
+			Usage:      "Whether to include hidden cells when extracting regions from the spreadsheet.",
+			InnerField: "include_hidden_cells",
+		},
+		&requestflag.InnerFlag[any]{
+			Name:       "configuration.sheet-names",
+			Usage:      "The names of the sheets to extract regions from. If empty, all sheets will be processed.",
+			InnerField: "sheet_names",
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:       "configuration.specialization",
+			Usage:      "Optional specialization mode for domain-specific extraction. Supported values: 'financial-standard', 'financial-enhanced', 'financial-precise'. Default None uses the general-purpose pipeline.",
+			InnerField: "specialization",
+		},
+		&requestflag.InnerFlag[string]{
+			Name:       "configuration.table-merge-sensitivity",
+			Usage:      "Influences how likely similar-looking regions are merged into a single table. Useful for spreadsheets that either have sparse tables (strong merging) or many distinct tables close together (weak merging).",
+			InnerField: "table_merge_sensitivity",
+		},
+		&requestflag.InnerFlag[bool]{
+			Name:       "configuration.use-experimental-processing",
+			Usage:      "Enables experimental processing. Accuracy may be impacted.",
+			InnerField: "use_experimental_processing",
+		},
+	},
+	"webhook-configuration": {
+		&requestflag.InnerFlag[any]{
+			Name:                  "webhook-configuration.webhook-events",
+			Usage:                 "Events to subscribe to (e.g. 'parse.success', 'extract.error'). If null, all events are delivered.",
+			InnerField:            "webhook_events",
+			OuterIsArrayOfObjects: true,
+		},
+		&requestflag.InnerFlag[map[string]any]{
+			Name:                  "webhook-configuration.webhook-headers",
+			Usage:                 "Custom HTTP headers sent with each webhook request (e.g. auth tokens)",
+			InnerField:            "webhook_headers",
+			OuterIsArrayOfObjects: true,
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:                  "webhook-configuration.webhook-output-format",
+			Usage:                 "Response format sent to the webhook: 'string' (default) or 'json'",
+			InnerField:            "webhook_output_format",
+			OuterIsArrayOfObjects: true,
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:                  "webhook-configuration.webhook-url",
+			Usage:                 "URL to receive webhook POST notifications",
+			InnerField:            "webhook_url",
+			OuterIsArrayOfObjects: true,
+		},
+	},
 })
 
 var betaSheetsList = cli.Command{
@@ -91,6 +174,11 @@ var betaSheetsList = cli.Command{
 	Usage:   "List spreadsheet parsing jobs. Experimental: not production-ready and subject to\nchange.",
 	Suggest: true,
 	Flags: []cli.Flag{
+		&requestflag.Flag[*string]{
+			Name:      "configuration-id",
+			Usage:     "Filter by saved configuration ID",
+			QueryPath: "configuration_id",
+		},
 		&requestflag.Flag[any]{
 			Name:      "created-at-on-or-after",
 			Usage:     "Include items created at or after this timestamp (inclusive)",
@@ -129,7 +217,7 @@ var betaSheetsList = cli.Command{
 		},
 		&requestflag.Flag[*string]{
 			Name:      "status",
-			Usage:     "Enum for representing the status of a job",
+			Usage:     "Filter by job status",
 			QueryPath: "status",
 		},
 		&requestflag.Flag[int64]{
@@ -173,6 +261,11 @@ var betaSheetsGet = cli.Command{
 			Name:      "spreadsheet-job-id",
 			Required:  true,
 			PathParam: "spreadsheet_job_id",
+		},
+		&requestflag.Flag[[]string]{
+			Name:      "expand",
+			Usage:     "Optional fields to populate on the response. Valid values: metadata_state_transitions.",
+			QueryPath: "expand",
 		},
 		&requestflag.Flag[bool]{
 			Name:      "include-results",

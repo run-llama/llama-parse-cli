@@ -20,6 +20,9 @@ func TestBetaSheetsCreate(t *testing.T) {
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--config", "{extraction_range: extraction_range, flatten_hierarchical_tables: true, generate_additional_metadata: true, include_hidden_cells: true, sheet_names: [string], specialization: specialization, table_merge_sensitivity: strong, use_experimental_processing: true}",
+			"--configuration", "{extraction_range: extraction_range, flatten_hierarchical_tables: true, generate_additional_metadata: true, include_hidden_cells: true, sheet_names: [string], specialization: specialization, table_merge_sensitivity: strong, use_experimental_processing: true}",
+			"--configuration-id", "cfg-11111111-2222-3333-4444-555555555555",
+			"--webhook-configuration", "[{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_url: https://example.com/webhooks/llamacloud}]",
 		)
 	})
 
@@ -43,6 +46,19 @@ func TestBetaSheetsCreate(t *testing.T) {
 			"--config.specialization", "specialization",
 			"--config.table-merge-sensitivity", "strong",
 			"--config.use-experimental-processing=true",
+			"--configuration.extraction-range", "extraction_range",
+			"--configuration.flatten-hierarchical-tables=true",
+			"--configuration.generate-additional-metadata=true",
+			"--configuration.include-hidden-cells=true",
+			"--configuration.sheet-names", "[string]",
+			"--configuration.specialization", "specialization",
+			"--configuration.table-merge-sensitivity", "strong",
+			"--configuration.use-experimental-processing=true",
+			"--configuration-id", "cfg-11111111-2222-3333-4444-555555555555",
+			"--webhook-configuration.webhook-events", "[parse.success, parse.error]",
+			"--webhook-configuration.webhook-headers", "{Authorization: Bearer sk-...}",
+			"--webhook-configuration.webhook-output-format", "json",
+			"--webhook-configuration.webhook-url", "https://example.com/webhooks/llamacloud",
 		)
 	})
 
@@ -59,7 +75,26 @@ func TestBetaSheetsCreate(t *testing.T) {
 			"    - string\n" +
 			"  specialization: specialization\n" +
 			"  table_merge_sensitivity: strong\n" +
-			"  use_experimental_processing: true\n")
+			"  use_experimental_processing: true\n" +
+			"configuration:\n" +
+			"  extraction_range: extraction_range\n" +
+			"  flatten_hierarchical_tables: true\n" +
+			"  generate_additional_metadata: true\n" +
+			"  include_hidden_cells: true\n" +
+			"  sheet_names:\n" +
+			"    - string\n" +
+			"  specialization: specialization\n" +
+			"  table_merge_sensitivity: strong\n" +
+			"  use_experimental_processing: true\n" +
+			"configuration_id: cfg-11111111-2222-3333-4444-555555555555\n" +
+			"webhook_configurations:\n" +
+			"  - webhook_events:\n" +
+			"      - parse.success\n" +
+			"      - parse.error\n" +
+			"    webhook_headers:\n" +
+			"      Authorization: Bearer sk-...\n" +
+			"    webhook_output_format: json\n" +
+			"    webhook_url: https://example.com/webhooks/llamacloud\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
@@ -78,6 +113,7 @@ func TestBetaSheetsList(t *testing.T) {
 			"--api-key", "string",
 			"beta:sheets", "list",
 			"--max-items", "10",
+			"--configuration-id", "configuration_id",
 			"--created-at-on-or-after", "'2019-12-27T18:11:19.117Z'",
 			"--created-at-on-or-before", "'2019-12-27T18:11:19.117Z'",
 			"--include-results=true",
@@ -113,6 +149,7 @@ func TestBetaSheetsGet(t *testing.T) {
 			"--api-key", "string",
 			"beta:sheets", "get",
 			"--spreadsheet-job-id", "spreadsheet_job_id",
+			"--expand", "string",
 			"--include-results=true",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",

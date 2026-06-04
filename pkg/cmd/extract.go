@@ -69,11 +69,6 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 			InnerField: "confidence_scores",
 		},
 		&requestflag.InnerFlag[string]{
-			Name:       "configuration.extract-version",
-			Usage:      "Use 'latest' for the default pipeline or a date string (YYYY-MM-DD format) to pin to a specific release.",
-			InnerField: "extract_version",
-		},
-		&requestflag.InnerFlag[string]{
 			Name:       "configuration.extraction-target",
 			Usage:      "Granularity of extraction: per_doc returns one object per document, per_page returns one object per page, per_table_row returns one object per table row",
 			InnerField: "extraction_target",
@@ -107,6 +102,11 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:       "configuration.tier",
 			Usage:      "Extract tier: cost_effective (5 credits/page) or agentic (15 credits/page)",
 			InnerField: "tier",
+		},
+		&requestflag.InnerFlag[string]{
+			Name:       "configuration.version",
+			Usage:      "Use 'latest' for the latest release for the selected tier or a date string (YYYY-MM-DD format) to pin to the nearest release at or before that date.",
+			InnerField: "version",
 		},
 	},
 	"webhook-configuration": {

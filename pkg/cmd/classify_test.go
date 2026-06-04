@@ -24,6 +24,7 @@ func TestClassifyCreate(t *testing.T) {
 			"--file-input", "dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 			"--parse-job-id", "pjb-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 			"--transaction-id", "tx-unique-idempotency-key",
+			"--webhook-configuration", "[{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_url: https://example.com/webhooks/llamacloud}]",
 		)
 	})
 
@@ -46,6 +47,10 @@ func TestClassifyCreate(t *testing.T) {
 			"--file-input", "dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 			"--parse-job-id", "pjb-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 			"--transaction-id", "tx-unique-idempotency-key",
+			"--webhook-configuration.webhook-events", "[parse.success, parse.error]",
+			"--webhook-configuration.webhook-headers", "{Authorization: Bearer sk-...}",
+			"--webhook-configuration.webhook-output-format", "json",
+			"--webhook-configuration.webhook-url", "https://example.com/webhooks/llamacloud",
 		)
 	})
 
@@ -65,7 +70,15 @@ func TestClassifyCreate(t *testing.T) {
 			"file_id: dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee\n" +
 			"file_input: dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee\n" +
 			"parse_job_id: pjb-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee\n" +
-			"transaction_id: tx-unique-idempotency-key\n")
+			"transaction_id: tx-unique-idempotency-key\n" +
+			"webhook_configurations:\n" +
+			"  - webhook_events:\n" +
+			"      - parse.success\n" +
+			"      - parse.error\n" +
+			"    webhook_headers:\n" +
+			"      Authorization: Bearer sk-...\n" +
+			"    webhook_output_format: json\n" +
+			"    webhook_url: https://example.com/webhooks/llamacloud\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",

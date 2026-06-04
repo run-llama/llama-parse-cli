@@ -27,7 +27,7 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.Flag[string]{
 			Name:     "version",
-			Usage:    "Version for the selected tier. Use `latest`, or pin one of that tier's dated versions.\n\nCurrent `latest` by tier:\n- `fast`: `2025-12-11`\n- `cost_effective`: `2026-05-28`\n- `agentic`: `2026-05-21`\n- `agentic_plus`: `2026-05-21`\n\nFull list: `GET /api/v2/parse/versions`.",
+			Usage:    "Version for the selected tier. Use `latest`, or pin one of that tier's dated versions.\n\nCurrent `latest` by tier:\n- `fast`: `2025-12-11`\n- `cost_effective`: `2026-05-28`\n- `agentic`: `2026-06-01`\n- `agentic_plus`: `2026-06-01`\n\nFull list: `GET /api/v2/parse/versions`.",
 			Required: true,
 			BodyPath: "version",
 		},
@@ -260,7 +260,7 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 	"webhook-configuration": {
 		&requestflag.InnerFlag[any]{
 			Name:       "webhook-configuration.webhook-events",
-			Usage:      "Events that trigger this webhook. Options: 'parse.success' (job completed), 'parse.failure' (job failed), 'parse.partial' (some pages failed). If not specified, webhook fires for all events",
+			Usage:      "Events that trigger this webhook. Options: 'parse.success' (job completed), 'parse.error' (job failed), 'parse.partial_success' (some pages failed), 'parse.pending', 'parse.running', 'parse.cancelled'. If not specified, webhook fires for all events",
 			InnerField: "webhook_events",
 		},
 		&requestflag.InnerFlag[map[string]any]{
