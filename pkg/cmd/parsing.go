@@ -27,7 +27,7 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.Flag[string]{
 			Name:     "version",
-			Usage:    "Version for the selected tier. Use `latest`, or pin one of that tier's dated versions.\n\nCurrent `latest` by tier:\n- `fast`: `2025-12-11`\n- `cost_effective`: `2026-05-28`\n- `agentic`: `2026-06-01`\n- `agentic_plus`: `2026-06-01`\n\nFull list: `GET /api/v2/parse/versions`.",
+			Usage:    "Version for the selected tier. Use `latest`, or pin one of that tier's dated versions.\n\nCurrent `latest` by tier:\n- `fast`: `2025-12-11`\n- `cost_effective`: `2026-06-05`\n- `agentic`: `2026-06-04`\n- `agentic_plus`: `2026-06-04`\n\nFull list: `GET /api/v2/parse/versions`.",
 			Required: true,
 			BodyPath: "version",
 		},
@@ -174,6 +174,11 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:       "output-options.extract-printed-page-number",
 			Usage:      "Extract the printed page number as it appears in the document (e.g., 'Page 5 of 10', 'v', 'A-3'). Useful for referencing original page numbers",
 			InnerField: "extract_printed_page_number",
+		},
+		&requestflag.InnerFlag[[]string]{
+			Name:       "output-options.granular-bboxes",
+			Usage:      "Bounding-box granularity levels to compute for the parse. 'word' computes one bounding box per detected word; 'line' computes one per text line; 'cell' computes one per table cell. Multiple levels can be requested. Empty list (default) disables granular bboxes — only item-level layout boxes are returned on the result. When set, the computed boxes are not inlined on the result items; they are written to a separate `grounded_items` sidecar (JSONL, one row per page) and exposed as `result_content_metadata.grounded_items` (a presigned download URL) on the parse result. Each row matches the `GroundedJsonItem` shape.",
+			InnerField: "granular_bboxes",
 		},
 		&requestflag.InnerFlag[[]string]{
 			Name:       "output-options.images-to-save",
