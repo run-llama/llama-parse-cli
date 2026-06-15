@@ -5,8 +5,8 @@ package cmd
 import (
 	"testing"
 
-	"github.com/stainless-sdks/llamacloud-prod-cli/internal/mocktest"
-	"github.com/stainless-sdks/llamacloud-prod-cli/internal/requestflag"
+	"github.com/run-llama/llama-parse-cli/internal/mocktest"
+	"github.com/run-llama/llama-parse-cli/internal/requestflag"
 )
 
 func TestRetrieversCreate(t *testing.T) {

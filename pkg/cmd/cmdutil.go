@@ -16,8 +16,8 @@ import (
 	"strings"
 	"syscall"
 
+	"github.com/run-llama/llama-parse-cli/internal/jsonview"
 	"github.com/run-llama/llama-parse-go/option"
-	"github.com/stainless-sdks/llamacloud-prod-cli/internal/jsonview"
 
 	"github.com/charmbracelet/x/term"
 	"github.com/itchyny/json2yaml"
