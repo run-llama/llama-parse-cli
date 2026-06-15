@@ -5,7 +5,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 # Mark the necessary Go modules as private to avoid Go's proxy
-export GOPRIVATE="${GOPRIVATE:+$GOPRIVATE,}github.com/stainless-sdks/llamacloud-prod-go"
+export GOPRIVATE="${GOPRIVATE:+$GOPRIVATE,}github.com/run-llama/llama-parse-go,github.com/stainless-sdks/llamacloud-prod-go"
 
 echo "==> Building llamacloud-prod"
 go build ./cmd/llamacloud-prod

@@ -15,7 +15,7 @@ on:
       - 'stl-preview-base/**'
 
 env:
-  GOPRIVATE: github.com/stainless-sdks/llamacloud-prod-go
+  GOPRIVATE: github.com/run-llama/llama-parse-go,github.com/stainless-sdks/llamacloud-prod-go
 
 jobs:
   lint:
