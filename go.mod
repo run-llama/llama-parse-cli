@@ -1,4 +1,4 @@
-module github.com/stainless-sdks/llamacloud-prod-cli
+module github.com/run-llama/llama-parse-cli
 
 go 1.25
 

@@ -16,11 +16,11 @@ import (
 	"strings"
 	"unicode/utf8"
 
+	"github.com/run-llama/llama-parse-cli/internal/apiform"
+	"github.com/run-llama/llama-parse-cli/internal/apiquery"
+	"github.com/run-llama/llama-parse-cli/internal/debugmiddleware"
+	"github.com/run-llama/llama-parse-cli/internal/requestflag"
 	"github.com/run-llama/llama-parse-go/option"
-	"github.com/stainless-sdks/llamacloud-prod-cli/internal/apiform"
-	"github.com/stainless-sdks/llamacloud-prod-cli/internal/apiquery"
-	"github.com/stainless-sdks/llamacloud-prod-cli/internal/debugmiddleware"
-	"github.com/stainless-sdks/llamacloud-prod-cli/internal/requestflag"
 
 	"github.com/goccy/go-yaml"
 	"github.com/urfave/cli/v3"
