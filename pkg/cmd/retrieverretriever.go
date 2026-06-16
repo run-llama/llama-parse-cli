@@ -14,7 +14,7 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
-var retrieversQuerySearch = requestflag.WithInnerFlags(cli.Command{
+var retrieversRetrieverSearch = requestflag.WithInnerFlags(cli.Command{
 	Name:    "search",
 	Usage:   "Retrieve data using a Retriever.",
 	Suggest: true,
@@ -53,7 +53,7 @@ var retrieversQuerySearch = requestflag.WithInnerFlags(cli.Command{
 			BodyPath: "rerank_top_n",
 		},
 	},
-	Action:          handleRetrieversQuerySearch,
+	Action:          handleRetrieversRetrieverSearch,
 	HideHelpCommand: true,
 }, map[string][]requestflag.HasOuterFlag{
 	"rerank-config": {
@@ -70,7 +70,7 @@ var retrieversQuerySearch = requestflag.WithInnerFlags(cli.Command{
 	},
 })
 
-func handleRetrieversQuerySearch(ctx context.Context, cmd *cli.Command) error {
+func handleRetrieversRetrieverSearch(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("retriever-id") && len(unusedArgs) > 0 {
@@ -92,11 +92,11 @@ func handleRetrieversQuerySearch(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.RetrieverQuerySearchParams{}
+	params := llamacloudprod.RetrieverRetrieverSearchParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Retrievers.Query.Search(
+	_, err = client.Retrievers.Retriever.Search(
 		ctx,
 		cmd.Value("retriever-id").(string),
 		params,
@@ -114,7 +114,7 @@ func handleRetrieversQuerySearch(ctx context.Context, cmd *cli.Command) error {
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "retrievers:query search",
+		Title:          "retrievers:retriever search",
 		Transform:      transform,
 	})
 }

@@ -9,13 +9,13 @@ import (
 	"github.com/run-llama/llama-parse-cli/internal/requestflag"
 )
 
-func TestRetrieversQuerySearch(t *testing.T) {
+func TestRetrieversRetrieverSearch(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"retrievers:query", "search",
+			"retrievers:retriever", "search",
 			"--retriever-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--query", "x",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -28,13 +28,13 @@ func TestRetrieversQuerySearch(t *testing.T) {
 
 	t.Run("inner flags", func(t *testing.T) {
 		// Check that inner flags have been set up correctly
-		requestflag.CheckInnerFlags(retrieversQuerySearch)
+		requestflag.CheckInnerFlags(retrieversRetrieverSearch)
 
 		// Alternative argument passing style using inner flags
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"retrievers:query", "search",
+			"retrievers:retriever", "search",
 			"--retriever-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--query", "x",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -58,7 +58,7 @@ func TestRetrieversQuerySearch(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"retrievers:query", "search",
+			"retrievers:retriever", "search",
 			"--retriever-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
