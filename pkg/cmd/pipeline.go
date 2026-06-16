@@ -688,125 +688,6 @@ var pipelinesCreate = requestflag.WithInnerFlags(cli.Command{
 	},
 })
 
-var pipelinesRetrieve = requestflag.WithInnerFlags(cli.Command{
-	Name:    "retrieve",
-	Usage:   "Run a retrieval query against a managed pipeline.",
-	Suggest: true,
-	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
-			Name:      "pipeline-id",
-			Required:  true,
-			PathParam: "pipeline_id",
-		},
-		&requestflag.Flag[string]{
-			Name:     "query",
-			Usage:    "The query to retrieve against.",
-			Required: true,
-			BodyPath: "query",
-		},
-		&requestflag.Flag[*string]{
-			Name:      "organization-id",
-			QueryPath: "organization_id",
-		},
-		&requestflag.Flag[*string]{
-			Name:      "project-id",
-			QueryPath: "project_id",
-		},
-		&requestflag.Flag[*float64]{
-			Name:     "alpha",
-			Usage:    "Alpha value for hybrid retrieval to determine the weights between dense and sparse retrieval. 0 is sparse retrieval and 1 is dense retrieval.",
-			BodyPath: "alpha",
-		},
-		&requestflag.Flag[string]{
-			Name:     "class-name",
-			Default:  "base_component",
-			BodyPath: "class_name",
-		},
-		&requestflag.Flag[*float64]{
-			Name:     "dense-similarity-cutoff",
-			Usage:    "Minimum similarity score wrt query for retrieval",
-			Default:  requestflag.Ptr[float64](0),
-			BodyPath: "dense_similarity_cutoff",
-		},
-		&requestflag.Flag[*int64]{
-			Name:     "dense-similarity-top-k",
-			Usage:    "Number of nodes for dense retrieval.",
-			Default:  requestflag.Ptr[int64](30),
-			BodyPath: "dense_similarity_top_k",
-		},
-		&requestflag.Flag[*bool]{
-			Name:     "enable-reranking",
-			Usage:    "Enable reranking for retrieval",
-			BodyPath: "enable_reranking",
-		},
-		&requestflag.Flag[*int64]{
-			Name:     "files-top-k",
-			Usage:    "Number of files to retrieve (only for retrieval mode files_via_metadata and files_via_content).",
-			Default:  requestflag.Ptr[int64](1),
-			BodyPath: "files_top_k",
-		},
-		&requestflag.Flag[*int64]{
-			Name:     "rerank-top-n",
-			Usage:    "Number of reranked nodes for returning.",
-			Default:  requestflag.Ptr[int64](6),
-			BodyPath: "rerank_top_n",
-		},
-		&requestflag.Flag[string]{
-			Name:     "retrieval-mode",
-			Usage:    `Allowed values: "chunks", "files_via_metadata", "files_via_content", "auto_routed".`,
-			BodyPath: "retrieval_mode",
-		},
-		&requestflag.Flag[bool]{
-			Name:     "retrieve-image-nodes",
-			Usage:    "Whether to retrieve image nodes.",
-			Default:  false,
-			BodyPath: "retrieve_image_nodes",
-		},
-		&requestflag.Flag[bool]{
-			Name:     "retrieve-page-figure-nodes",
-			Usage:    "Whether to retrieve page figure nodes.",
-			Default:  false,
-			BodyPath: "retrieve_page_figure_nodes",
-		},
-		&requestflag.Flag[bool]{
-			Name:     "retrieve-page-screenshot-nodes",
-			Usage:    "Whether to retrieve page screenshot nodes.",
-			Default:  false,
-			BodyPath: "retrieve_page_screenshot_nodes",
-		},
-		&requestflag.Flag[map[string]any]{
-			Name:     "search-filters",
-			Usage:    "Metadata filters for vector stores.",
-			BodyPath: "search_filters",
-		},
-		&requestflag.Flag[map[string]any]{
-			Name:     "search-filters-inference-schema",
-			Usage:    "JSON Schema that will be used to infer search_filters. Omit or leave as null to skip inference.",
-			BodyPath: "search_filters_inference_schema",
-		},
-		&requestflag.Flag[*int64]{
-			Name:     "sparse-similarity-top-k",
-			Usage:    "Number of nodes for sparse retrieval.",
-			Default:  requestflag.Ptr[int64](30),
-			BodyPath: "sparse_similarity_top_k",
-		},
-	},
-	Action:          handlePipelinesRetrieve,
-	HideHelpCommand: true,
-}, map[string][]requestflag.HasOuterFlag{
-	"search-filters": {
-		&requestflag.InnerFlag[[]map[string]any]{
-			Name:       "search-filters.filters",
-			InnerField: "filters",
-		},
-		&requestflag.InnerFlag[*string]{
-			Name:       "search-filters.condition",
-			Usage:      "Vector store filter conditions to combine different filters.",
-			InnerField: "condition",
-		},
-	},
-})
-
 var pipelinesUpdate = requestflag.WithInnerFlags(cli.Command{
 	Name:    "update",
 	Usage:   "Update an existing pipeline's configuration.",
@@ -1552,6 +1433,125 @@ var pipelinesGetStatus = cli.Command{
 	HideHelpCommand: true,
 }
 
+var pipelinesRunSearch = requestflag.WithInnerFlags(cli.Command{
+	Name:    "run-search",
+	Usage:   "Run a retrieval query against a managed pipeline.",
+	Suggest: true,
+	Flags: []cli.Flag{
+		&requestflag.Flag[string]{
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
+		},
+		&requestflag.Flag[string]{
+			Name:     "query",
+			Usage:    "The query to retrieve against.",
+			Required: true,
+			BodyPath: "query",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "organization-id",
+			QueryPath: "organization_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
+		&requestflag.Flag[*float64]{
+			Name:     "alpha",
+			Usage:    "Alpha value for hybrid retrieval to determine the weights between dense and sparse retrieval. 0 is sparse retrieval and 1 is dense retrieval.",
+			BodyPath: "alpha",
+		},
+		&requestflag.Flag[string]{
+			Name:     "class-name",
+			Default:  "base_component",
+			BodyPath: "class_name",
+		},
+		&requestflag.Flag[*float64]{
+			Name:     "dense-similarity-cutoff",
+			Usage:    "Minimum similarity score wrt query for retrieval",
+			Default:  requestflag.Ptr[float64](0),
+			BodyPath: "dense_similarity_cutoff",
+		},
+		&requestflag.Flag[*int64]{
+			Name:     "dense-similarity-top-k",
+			Usage:    "Number of nodes for dense retrieval.",
+			Default:  requestflag.Ptr[int64](30),
+			BodyPath: "dense_similarity_top_k",
+		},
+		&requestflag.Flag[*bool]{
+			Name:     "enable-reranking",
+			Usage:    "Enable reranking for retrieval",
+			BodyPath: "enable_reranking",
+		},
+		&requestflag.Flag[*int64]{
+			Name:     "files-top-k",
+			Usage:    "Number of files to retrieve (only for retrieval mode files_via_metadata and files_via_content).",
+			Default:  requestflag.Ptr[int64](1),
+			BodyPath: "files_top_k",
+		},
+		&requestflag.Flag[*int64]{
+			Name:     "rerank-top-n",
+			Usage:    "Number of reranked nodes for returning.",
+			Default:  requestflag.Ptr[int64](6),
+			BodyPath: "rerank_top_n",
+		},
+		&requestflag.Flag[string]{
+			Name:     "retrieval-mode",
+			Usage:    `Allowed values: "chunks", "files_via_metadata", "files_via_content", "auto_routed".`,
+			BodyPath: "retrieval_mode",
+		},
+		&requestflag.Flag[bool]{
+			Name:     "retrieve-image-nodes",
+			Usage:    "Whether to retrieve image nodes.",
+			Default:  false,
+			BodyPath: "retrieve_image_nodes",
+		},
+		&requestflag.Flag[bool]{
+			Name:     "retrieve-page-figure-nodes",
+			Usage:    "Whether to retrieve page figure nodes.",
+			Default:  false,
+			BodyPath: "retrieve_page_figure_nodes",
+		},
+		&requestflag.Flag[bool]{
+			Name:     "retrieve-page-screenshot-nodes",
+			Usage:    "Whether to retrieve page screenshot nodes.",
+			Default:  false,
+			BodyPath: "retrieve_page_screenshot_nodes",
+		},
+		&requestflag.Flag[map[string]any]{
+			Name:     "search-filters",
+			Usage:    "Metadata filters for vector stores.",
+			BodyPath: "search_filters",
+		},
+		&requestflag.Flag[map[string]any]{
+			Name:     "search-filters-inference-schema",
+			Usage:    "JSON Schema that will be used to infer search_filters. Omit or leave as null to skip inference.",
+			BodyPath: "search_filters_inference_schema",
+		},
+		&requestflag.Flag[*int64]{
+			Name:     "sparse-similarity-top-k",
+			Usage:    "Number of nodes for sparse retrieval.",
+			Default:  requestflag.Ptr[int64](30),
+			BodyPath: "sparse_similarity_top_k",
+		},
+	},
+	Action:          handlePipelinesRunSearch,
+	HideHelpCommand: true,
+}, map[string][]requestflag.HasOuterFlag{
+	"search-filters": {
+		&requestflag.InnerFlag[[]map[string]any]{
+			Name:       "search-filters.filters",
+			InnerField: "filters",
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:       "search-filters.condition",
+			Usage:      "Vector store filter conditions to combine different filters.",
+			InnerField: "condition",
+		},
+	},
+})
+
 var pipelinesUpsert = requestflag.WithInnerFlags(cli.Command{
 	Name:    "upsert",
 	Usage:   "Upsert a pipeline.",
@@ -2267,55 +2267,6 @@ func handlePipelinesCreate(ctx context.Context, cmd *cli.Command) error {
 	})
 }
 
-func handlePipelinesRetrieve(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
-	unusedArgs := cmd.Args().Slice()
-	if !cmd.IsSet("pipeline-id") && len(unusedArgs) > 0 {
-		cmd.Set("pipeline-id", unusedArgs[0])
-		unusedArgs = unusedArgs[1:]
-	}
-	if len(unusedArgs) > 0 {
-		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
-	}
-
-	options, err := flagOptions(
-		cmd,
-		apiquery.NestedQueryFormatBrackets,
-		apiquery.ArrayQueryFormatRepeat,
-		ApplicationJSON,
-		false,
-	)
-	if err != nil {
-		return err
-	}
-
-	params := llamacloudprod.PipelineGetParams{}
-
-	var res []byte
-	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Pipelines.Get(
-		ctx,
-		cmd.Value("pipeline-id").(string),
-		params,
-		options...,
-	)
-	if err != nil {
-		return err
-	}
-
-	obj := gjson.ParseBytes(res)
-	format := cmd.Root().String("format")
-	explicitFormat := cmd.Root().IsSet("format")
-	transform := cmd.Root().String("transform")
-	return ShowJSON(obj, ShowJSONOpts{
-		ExplicitFormat: explicitFormat,
-		Format:         format,
-		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "pipelines retrieve",
-		Transform:      transform,
-	})
-}
-
 func handlePipelinesUpdate(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
@@ -2518,6 +2469,55 @@ func handlePipelinesGetStatus(ctx context.Context, cmd *cli.Command) error {
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
 		Title:          "pipelines get-status",
+		Transform:      transform,
+	})
+}
+
+func handlePipelinesRunSearch(ctx context.Context, cmd *cli.Command) error {
+	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	unusedArgs := cmd.Args().Slice()
+	if !cmd.IsSet("pipeline-id") && len(unusedArgs) > 0 {
+		cmd.Set("pipeline-id", unusedArgs[0])
+		unusedArgs = unusedArgs[1:]
+	}
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
+
+	options, err := flagOptions(
+		cmd,
+		apiquery.NestedQueryFormatBrackets,
+		apiquery.ArrayQueryFormatRepeat,
+		ApplicationJSON,
+		false,
+	)
+	if err != nil {
+		return err
+	}
+
+	params := llamacloudprod.PipelineRunSearchParams{}
+
+	var res []byte
+	options = append(options, option.WithResponseBodyInto(&res))
+	_, err = client.Pipelines.RunSearch(
+		ctx,
+		cmd.Value("pipeline-id").(string),
+		params,
+		options...,
+	)
+	if err != nil {
+		return err
+	}
+
+	obj := gjson.ParseBytes(res)
+	format := cmd.Root().String("format")
+	explicitFormat := cmd.Root().IsSet("format")
+	transform := cmd.Root().String("transform")
+	return ShowJSON(obj, ShowJSONOpts{
+		ExplicitFormat: explicitFormat,
+		Format:         format,
+		RawOutput:      cmd.Root().Bool("raw-output"),
+		Title:          "pipelines run-search",
 		Transform:      transform,
 	})
 }

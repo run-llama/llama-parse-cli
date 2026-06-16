@@ -201,12 +201,12 @@ func init() {
 				Suggest:  true,
 				Commands: []*cli.Command{
 					&pipelinesCreate,
-					&pipelinesRetrieve,
 					&pipelinesUpdate,
 					&pipelinesList,
 					&pipelinesDelete,
 					&pipelinesGet,
 					&pipelinesGetStatus,
+					&pipelinesRunSearch,
 					&pipelinesUpsert,
 				},
 			},
