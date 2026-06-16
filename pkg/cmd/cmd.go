@@ -294,11 +294,11 @@ func init() {
 				},
 			},
 			{
-				Name:     "retrievers:retriever",
+				Name:     "retrievers:query",
 				Category: "API RESOURCE",
 				Suggest:  true,
 				Commands: []*cli.Command{
-					&retrieversRetrieverSearch,
+					&retrieversQuerySearch,
 				},
 			},
 			{
