@@ -26,16 +26,21 @@ jobs:
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          # Don't persist the job's GITHUB_TOKEN as a git auth header — it
+          # would override the SDK_WRITE_TOKEN injected below and break the
+          # cross-repo fetch of the internal go SDK.
+          persist-credentials: false
 
-      # If your Go SDK repo is private, uncomment the step below and add a
-      # fine-grained GitHub PAT with `Contents: Read` on the Go SDK repo
-      # as a secret named `GO_REPO_READ_TOKEN` in this repo. Apply this
-      # edit as custom code so stlc preserves it across regenerations.
-      # - name: Authenticate git for the private Go SDK repo
-      #   shell: bash
-      #   env:
-      #     GO_MODULE_REPO: ${{ github.repository == 'run-llama/llamacloud-prod-cli' && 'run-llama/llamacloud-prod-go' || 'run-llama/llama-parse-go' }}
-      #   run: git config --global url."https://x-access-token:${{ secrets.GO_REPO_READ_TOKEN }}@github.com/${GO_MODULE_REPO}".insteadOf "https://github.com/${GO_MODULE_REPO}"
+      # Authenticate git for the internal staging Go SDK repo
+      # (run-llama/llamacloud-prod-go) using the org-level SDK_WRITE_TOKEN
+      # secret, so the verify gate and `go build` can read it. Kept as
+      # custom code so stlc preserves it across regenerations.
+      - name: Authenticate git for the private Go SDK repo
+        shell: bash
+        env:
+          GO_MODULE_REPO: ${{ github.repository == 'run-llama/llamacloud-prod-cli' && 'run-llama/llamacloud-prod-go' || 'run-llama/llama-parse-go' }}
+        run: git config --global url."https://x-access-token:${{ secrets.SDK_WRITE_TOKEN }}@github.com/${GO_MODULE_REPO}".insteadOf "https://github.com/${GO_MODULE_REPO}"
       - uses: ./.github/actions/setup-go
 
       - name: Link staging branch
@@ -59,16 +64,21 @@ jobs:
     if: (github.event_name == 'push' || github.event.pull_request.head.repo.fork) && (github.event_name != 'push' || github.event.head_commit.message != 'codegen metadata')
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          # Don't persist the job's GITHUB_TOKEN as a git auth header — it
+          # would override the SDK_WRITE_TOKEN injected below and break the
+          # cross-repo fetch of the internal go SDK.
+          persist-credentials: false
 
-      # If your Go SDK repo is private, uncomment the step below and add a
-      # fine-grained GitHub PAT with `Contents: Read` on the Go SDK repo
-      # as a secret named `GO_REPO_READ_TOKEN` in this repo. Apply this
-      # edit as custom code so stlc preserves it across regenerations.
-      # - name: Authenticate git for the private Go SDK repo
-      #   shell: bash
-      #   env:
-      #     GO_MODULE_REPO: ${{ github.repository == 'run-llama/llamacloud-prod-cli' && 'run-llama/llamacloud-prod-go' || 'run-llama/llama-parse-go' }}
-      #   run: git config --global url."https://x-access-token:${{ secrets.GO_REPO_READ_TOKEN }}@github.com/${GO_MODULE_REPO}".insteadOf "https://github.com/${GO_MODULE_REPO}"
+      # Authenticate git for the internal staging Go SDK repo
+      # (run-llama/llamacloud-prod-go) using the org-level SDK_WRITE_TOKEN
+      # secret, so the verify gate and `go build` can read it. Kept as
+      # custom code so stlc preserves it across regenerations.
+      - name: Authenticate git for the private Go SDK repo
+        shell: bash
+        env:
+          GO_MODULE_REPO: ${{ github.repository == 'run-llama/llamacloud-prod-cli' && 'run-llama/llamacloud-prod-go' || 'run-llama/llama-parse-go' }}
+        run: git config --global url."https://x-access-token:${{ secrets.SDK_WRITE_TOKEN }}@github.com/${GO_MODULE_REPO}".insteadOf "https://github.com/${GO_MODULE_REPO}"
       - uses: ./.github/actions/setup-go
 
       - name: Link staging branch
@@ -98,16 +108,21 @@ jobs:
     if: github.event_name == 'push' || github.event.pull_request.head.repo.fork
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          # Don't persist the job's GITHUB_TOKEN as a git auth header — it
+          # would override the SDK_WRITE_TOKEN injected below and break the
+          # cross-repo fetch of the internal go SDK.
+          persist-credentials: false
 
-      # If your Go SDK repo is private, uncomment the step below and add a
-      # fine-grained GitHub PAT with `Contents: Read` on the Go SDK repo
-      # as a secret named `GO_REPO_READ_TOKEN` in this repo. Apply this
-      # edit as custom code so stlc preserves it across regenerations.
-      # - name: Authenticate git for the private Go SDK repo
-      #   shell: bash
-      #   env:
-      #     GO_MODULE_REPO: ${{ github.repository == 'run-llama/llamacloud-prod-cli' && 'run-llama/llamacloud-prod-go' || 'run-llama/llama-parse-go' }}
-      #   run: git config --global url."https://x-access-token:${{ secrets.GO_REPO_READ_TOKEN }}@github.com/${GO_MODULE_REPO}".insteadOf "https://github.com/${GO_MODULE_REPO}"
+      # Authenticate git for the internal staging Go SDK repo
+      # (run-llama/llamacloud-prod-go) using the org-level SDK_WRITE_TOKEN
+      # secret, so the verify gate and `go build` can read it. Kept as
+      # custom code so stlc preserves it across regenerations.
+      - name: Authenticate git for the private Go SDK repo
+        shell: bash
+        env:
+          GO_MODULE_REPO: ${{ github.repository == 'run-llama/llamacloud-prod-cli' && 'run-llama/llamacloud-prod-go' || 'run-llama/llama-parse-go' }}
+        run: git config --global url."https://x-access-token:${{ secrets.SDK_WRITE_TOKEN }}@github.com/${GO_MODULE_REPO}".insteadOf "https://github.com/${GO_MODULE_REPO}"
       - uses: ./.github/actions/setup-go
 
       - name: Link staging branch
