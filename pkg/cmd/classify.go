@@ -54,7 +54,7 @@ var classifyCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.Flag[*string]{
 			Name:     "transaction-id",
-			Usage:    "Idempotency key scoped to the project",
+			Usage:    "Idempotency key scoped to the project. Reusing a key returns the original job; the new request body is ignored.",
 			BodyPath: "transaction_id",
 		},
 		&requestflag.Flag[any]{
