@@ -97,6 +97,18 @@ func init() {
 				},
 			},
 			{
+				Name:     "sheets",
+				Category: "API RESOURCE",
+				Suggest:  true,
+				Commands: []*cli.Command{
+					&sheetsCreate,
+					&sheetsList,
+					&sheetsDeleteJob,
+					&sheetsGet,
+					&sheetsGetResultTable,
+				},
+			},
+			{
 				Name:     "parsing",
 				Category: "API RESOURCE",
 				Suggest:  true,
