@@ -12,8 +12,8 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/stainless-sdks/llamacloud-prod-cli/internal/autocomplete"
-	"github.com/stainless-sdks/llamacloud-prod-cli/internal/requestflag"
+	"github.com/run-llama/llama-parse-cli/internal/autocomplete"
+	"github.com/run-llama/llama-parse-cli/internal/requestflag"
 	docs "github.com/urfave/cli-docs/v3"
 	"github.com/urfave/cli/v3"
 )
@@ -94,6 +94,18 @@ func init() {
 					&filesDelete,
 					&filesGet,
 					&filesQuery,
+				},
+			},
+			{
+				Name:     "sheets",
+				Category: "API RESOURCE",
+				Suggest:  true,
+				Commands: []*cli.Command{
+					&sheetsCreate,
+					&sheetsList,
+					&sheetsDeleteJob,
+					&sheetsGet,
+					&sheetsGetResultTable,
 				},
 			},
 			{
@@ -201,12 +213,12 @@ func init() {
 				Suggest:  true,
 				Commands: []*cli.Command{
 					&pipelinesCreate,
-					&pipelinesRetrieve,
 					&pipelinesUpdate,
 					&pipelinesList,
 					&pipelinesDelete,
 					&pipelinesGet,
 					&pipelinesGetStatus,
+					&pipelinesRunSearch,
 					&pipelinesUpsert,
 				},
 			},

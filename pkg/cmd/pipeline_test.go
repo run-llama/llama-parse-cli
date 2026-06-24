@@ -5,8 +5,8 @@ package cmd
 import (
 	"testing"
 
-	"github.com/stainless-sdks/llamacloud-prod-cli/internal/mocktest"
-	"github.com/stainless-sdks/llamacloud-prod-cli/internal/requestflag"
+	"github.com/run-llama/llama-parse-cli/internal/mocktest"
+	"github.com/run-llama/llama-parse-cli/internal/requestflag"
 )
 
 func TestPipelinesCreate(t *testing.T) {
@@ -397,101 +397,6 @@ func TestPipelinesCreate(t *testing.T) {
 			t, pipeData,
 			"--api-key", "string",
 			"pipelines", "create",
-			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-		)
-	})
-}
-
-func TestPipelinesRetrieve(t *testing.T) {
-	t.Skip("Mock server tests are disabled")
-	t.Run("regular flags", func(t *testing.T) {
-		mocktest.TestRunMockTestWithFlags(
-			t,
-			"--api-key", "string",
-			"pipelines", "retrieve",
-			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--query", "x",
-			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--alpha", "0",
-			"--class-name", "class_name",
-			"--dense-similarity-cutoff", "0",
-			"--dense-similarity-top-k", "1",
-			"--enable-reranking=true",
-			"--files-top-k", "1",
-			"--rerank-top-n", "1",
-			"--retrieval-mode", "chunks",
-			"--retrieve-image-nodes=true",
-			"--retrieve-page-figure-nodes=true",
-			"--retrieve-page-screenshot-nodes=true",
-			"--search-filters", "{filters: [{key: key, value: 0, operator: '=='}], condition: and}",
-			"--search-filters-inference-schema", "{foo: {foo: bar}}",
-			"--sparse-similarity-top-k", "1",
-		)
-	})
-
-	t.Run("inner flags", func(t *testing.T) {
-		// Check that inner flags have been set up correctly
-		requestflag.CheckInnerFlags(pipelinesRetrieve)
-
-		// Alternative argument passing style using inner flags
-		mocktest.TestRunMockTestWithFlags(
-			t,
-			"--api-key", "string",
-			"pipelines", "retrieve",
-			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--query", "x",
-			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--alpha", "0",
-			"--class-name", "class_name",
-			"--dense-similarity-cutoff", "0",
-			"--dense-similarity-top-k", "1",
-			"--enable-reranking=true",
-			"--files-top-k", "1",
-			"--rerank-top-n", "1",
-			"--retrieval-mode", "chunks",
-			"--retrieve-image-nodes=true",
-			"--retrieve-page-figure-nodes=true",
-			"--retrieve-page-screenshot-nodes=true",
-			"--search-filters.filters", "[{key: key, value: 0, operator: '=='}]",
-			"--search-filters.condition", "and",
-			"--search-filters-inference-schema", "{foo: {foo: bar}}",
-			"--sparse-similarity-top-k", "1",
-		)
-	})
-
-	t.Run("piping data", func(t *testing.T) {
-		// Test piping YAML data over stdin
-		pipeData := []byte("" +
-			"query: x\n" +
-			"alpha: 0\n" +
-			"class_name: class_name\n" +
-			"dense_similarity_cutoff: 0\n" +
-			"dense_similarity_top_k: 1\n" +
-			"enable_reranking: true\n" +
-			"files_top_k: 1\n" +
-			"rerank_top_n: 1\n" +
-			"retrieval_mode: chunks\n" +
-			"retrieve_image_nodes: true\n" +
-			"retrieve_page_figure_nodes: true\n" +
-			"retrieve_page_screenshot_nodes: true\n" +
-			"search_filters:\n" +
-			"  filters:\n" +
-			"    - key: key\n" +
-			"      value: 0\n" +
-			"      operator: '=='\n" +
-			"  condition: and\n" +
-			"search_filters_inference_schema:\n" +
-			"  foo:\n" +
-			"    foo: bar\n" +
-			"sparse_similarity_top_k: 1\n")
-		mocktest.TestRunMockTestWithPipeAndFlags(
-			t, pipeData,
-			"--api-key", "string",
-			"pipelines", "retrieve",
-			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
@@ -935,6 +840,101 @@ func TestPipelinesGetStatus(t *testing.T) {
 			"pipelines", "get-status",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--full-details=true",
+		)
+	})
+}
+
+func TestPipelinesRunSearch(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
+	t.Run("regular flags", func(t *testing.T) {
+		mocktest.TestRunMockTestWithFlags(
+			t,
+			"--api-key", "string",
+			"pipelines", "run-search",
+			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--query", "x",
+			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--alpha", "0",
+			"--class-name", "class_name",
+			"--dense-similarity-cutoff", "0",
+			"--dense-similarity-top-k", "1",
+			"--enable-reranking=true",
+			"--files-top-k", "1",
+			"--rerank-top-n", "1",
+			"--retrieval-mode", "chunks",
+			"--retrieve-image-nodes=true",
+			"--retrieve-page-figure-nodes=true",
+			"--retrieve-page-screenshot-nodes=true",
+			"--search-filters", "{filters: [{key: key, value: 0, operator: '=='}], condition: and}",
+			"--search-filters-inference-schema", "{foo: {foo: bar}}",
+			"--sparse-similarity-top-k", "1",
+		)
+	})
+
+	t.Run("inner flags", func(t *testing.T) {
+		// Check that inner flags have been set up correctly
+		requestflag.CheckInnerFlags(pipelinesRunSearch)
+
+		// Alternative argument passing style using inner flags
+		mocktest.TestRunMockTestWithFlags(
+			t,
+			"--api-key", "string",
+			"pipelines", "run-search",
+			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--query", "x",
+			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--alpha", "0",
+			"--class-name", "class_name",
+			"--dense-similarity-cutoff", "0",
+			"--dense-similarity-top-k", "1",
+			"--enable-reranking=true",
+			"--files-top-k", "1",
+			"--rerank-top-n", "1",
+			"--retrieval-mode", "chunks",
+			"--retrieve-image-nodes=true",
+			"--retrieve-page-figure-nodes=true",
+			"--retrieve-page-screenshot-nodes=true",
+			"--search-filters.filters", "[{key: key, value: 0, operator: '=='}]",
+			"--search-filters.condition", "and",
+			"--search-filters-inference-schema", "{foo: {foo: bar}}",
+			"--sparse-similarity-top-k", "1",
+		)
+	})
+
+	t.Run("piping data", func(t *testing.T) {
+		// Test piping YAML data over stdin
+		pipeData := []byte("" +
+			"query: x\n" +
+			"alpha: 0\n" +
+			"class_name: class_name\n" +
+			"dense_similarity_cutoff: 0\n" +
+			"dense_similarity_top_k: 1\n" +
+			"enable_reranking: true\n" +
+			"files_top_k: 1\n" +
+			"rerank_top_n: 1\n" +
+			"retrieval_mode: chunks\n" +
+			"retrieve_image_nodes: true\n" +
+			"retrieve_page_figure_nodes: true\n" +
+			"retrieve_page_screenshot_nodes: true\n" +
+			"search_filters:\n" +
+			"  filters:\n" +
+			"    - key: key\n" +
+			"      value: 0\n" +
+			"      operator: '=='\n" +
+			"  condition: and\n" +
+			"search_filters_inference_schema:\n" +
+			"  foo:\n" +
+			"    foo: bar\n" +
+			"sparse_similarity_top_k: 1\n")
+		mocktest.TestRunMockTestWithPipeAndFlags(
+			t, pipeData,
+			"--api-key", "string",
+			"pipelines", "run-search",
+			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }

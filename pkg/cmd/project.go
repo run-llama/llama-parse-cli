@@ -6,10 +6,10 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/run-llama/llama-parse-cli/internal/apiquery"
+	"github.com/run-llama/llama-parse-cli/internal/requestflag"
 	"github.com/run-llama/llama-parse-go"
 	"github.com/run-llama/llama-parse-go/option"
-	"github.com/stainless-sdks/llamacloud-prod-cli/internal/apiquery"
-	"github.com/stainless-sdks/llamacloud-prod-cli/internal/requestflag"
 	"github.com/tidwall/gjson"
 	"github.com/urfave/cli/v3"
 )

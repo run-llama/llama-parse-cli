@@ -10,8 +10,8 @@ import (
 	"os"
 	"slices"
 
+	"github.com/run-llama/llama-parse-cli/pkg/cmd"
 	"github.com/run-llama/llama-parse-go"
-	"github.com/stainless-sdks/llamacloud-prod-cli/pkg/cmd"
 	"github.com/tidwall/gjson"
 	"github.com/urfave/cli/v3"
 )

@@ -12,7 +12,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/tidwall/gjson"
 
-	"github.com/stainless-sdks/llamacloud-prod-cli/internal/jsonview"
+	"github.com/run-llama/llama-parse-cli/internal/jsonview"
 )
 
 func TestStreamOutput(t *testing.T) {

@@ -6,10 +6,10 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/run-llama/llama-parse-cli/internal/apiquery"
+	"github.com/run-llama/llama-parse-cli/internal/requestflag"
 	"github.com/run-llama/llama-parse-go"
 	"github.com/run-llama/llama-parse-go/option"
-	"github.com/stainless-sdks/llamacloud-prod-cli/internal/apiquery"
-	"github.com/stainless-sdks/llamacloud-prod-cli/internal/requestflag"
 	"github.com/tidwall/gjson"
 	"github.com/urfave/cli/v3"
 )
@@ -54,7 +54,7 @@ var classifyCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.Flag[*string]{
 			Name:     "transaction-id",
-			Usage:    "Idempotency key scoped to the project",
+			Usage:    "Idempotency key scoped to the project. Reusing a key returns the original job; the new request body is ignored.",
 			BodyPath: "transaction_id",
 		},
 		&requestflag.Flag[any]{

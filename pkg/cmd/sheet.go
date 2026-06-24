@@ -14,16 +14,16 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
-var extractCreate = requestflag.WithInnerFlags(cli.Command{
+var sheetsCreate = requestflag.WithInnerFlags(cli.Command{
 	Name:    "create",
-	Usage:   "Create an extraction job.",
+	Usage:   "Create a spreadsheet parsing job.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "file-input",
-			Usage:    "File ID or parse job ID to extract from",
+			Name:     "file-id",
+			Usage:    "The ID of the file to parse",
 			Required: true,
-			BodyPath: "file_input",
+			BodyPath: "file_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -34,8 +34,13 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 			QueryPath: "project_id",
 		},
 		&requestflag.Flag[map[string]any]{
+			Name:     "config",
+			Usage:    "Configuration for spreadsheet parsing and region extraction",
+			BodyPath: "config",
+		},
+		&requestflag.Flag[map[string]any]{
 			Name:     "configuration",
-			Usage:    "Extract configuration combining parse and extract settings.",
+			Usage:    "Configuration for spreadsheet parsing and region extraction",
 			BodyPath: "configuration",
 		},
 		&requestflag.Flag[*string]{
@@ -49,64 +54,91 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 			BodyPath: "webhook_configurations",
 		},
 	},
-	Action:          handleExtractCreate,
+	Action:          handleSheetsCreate,
 	HideHelpCommand: true,
 }, map[string][]requestflag.HasOuterFlag{
+	"config": {
+		&requestflag.InnerFlag[*string]{
+			Name:       "config.extraction-range",
+			Usage:      "A1 notation of the range to extract a single region from. If None, the entire sheet is used.",
+			InnerField: "extraction_range",
+		},
+		&requestflag.InnerFlag[bool]{
+			Name:       "config.flatten-hierarchical-tables",
+			Usage:      "Return a flattened dataframe when a detected table is recognized as hierarchical.",
+			InnerField: "flatten_hierarchical_tables",
+		},
+		&requestflag.InnerFlag[bool]{
+			Name:       "config.generate-additional-metadata",
+			Usage:      "Whether to generate additional metadata (title, description) for each extracted region.",
+			InnerField: "generate_additional_metadata",
+		},
+		&requestflag.InnerFlag[bool]{
+			Name:       "config.include-hidden-cells",
+			Usage:      "Whether to include hidden cells when extracting regions from the spreadsheet.",
+			InnerField: "include_hidden_cells",
+		},
+		&requestflag.InnerFlag[any]{
+			Name:       "config.sheet-names",
+			Usage:      "The names of the sheets to extract regions from. If empty, all sheets will be processed.",
+			InnerField: "sheet_names",
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:       "config.specialization",
+			Usage:      "Optional specialization mode for domain-specific extraction. Supported values: 'financial-standard', 'financial-enhanced', 'financial-precise'. Default None uses the general-purpose pipeline.",
+			InnerField: "specialization",
+		},
+		&requestflag.InnerFlag[string]{
+			Name:       "config.table-merge-sensitivity",
+			Usage:      "Influences how likely similar-looking regions are merged into a single table. Useful for spreadsheets that either have sparse tables (strong merging) or many distinct tables close together (weak merging).",
+			InnerField: "table_merge_sensitivity",
+		},
+		&requestflag.InnerFlag[bool]{
+			Name:       "config.use-experimental-processing",
+			Usage:      "Enables experimental processing. Accuracy may be impacted.",
+			InnerField: "use_experimental_processing",
+		},
+	},
 	"configuration": {
-		&requestflag.InnerFlag[map[string]any]{
-			Name:       "configuration.data-schema",
-			Usage:      "JSON Schema defining the fields to extract. Validate with the /schema/validate endpoint first.",
-			InnerField: "data_schema",
+		&requestflag.InnerFlag[*string]{
+			Name:       "configuration.extraction-range",
+			Usage:      "A1 notation of the range to extract a single region from. If None, the entire sheet is used.",
+			InnerField: "extraction_range",
 		},
 		&requestflag.InnerFlag[bool]{
-			Name:       "configuration.cite-sources",
-			Usage:      "Include citations in results",
-			InnerField: "cite_sources",
+			Name:       "configuration.flatten-hierarchical-tables",
+			Usage:      "Return a flattened dataframe when a detected table is recognized as hierarchical.",
+			InnerField: "flatten_hierarchical_tables",
 		},
 		&requestflag.InnerFlag[bool]{
-			Name:       "configuration.confidence-scores",
-			Usage:      "Include confidence scores in results",
-			InnerField: "confidence_scores",
+			Name:       "configuration.generate-additional-metadata",
+			Usage:      "Whether to generate additional metadata (title, description) for each extracted region.",
+			InnerField: "generate_additional_metadata",
+		},
+		&requestflag.InnerFlag[bool]{
+			Name:       "configuration.include-hidden-cells",
+			Usage:      "Whether to include hidden cells when extracting regions from the spreadsheet.",
+			InnerField: "include_hidden_cells",
+		},
+		&requestflag.InnerFlag[any]{
+			Name:       "configuration.sheet-names",
+			Usage:      "The names of the sheets to extract regions from. If empty, all sheets will be processed.",
+			InnerField: "sheet_names",
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:       "configuration.specialization",
+			Usage:      "Optional specialization mode for domain-specific extraction. Supported values: 'financial-standard', 'financial-enhanced', 'financial-precise'. Default None uses the general-purpose pipeline.",
+			InnerField: "specialization",
 		},
 		&requestflag.InnerFlag[string]{
-			Name:       "configuration.extraction-target",
-			Usage:      "Granularity of extraction: per_doc returns one object per document, per_page returns one object per page, per_table_row returns one object per table row",
-			InnerField: "extraction_target",
+			Name:       "configuration.table-merge-sensitivity",
+			Usage:      "Influences how likely similar-looking regions are merged into a single table. Useful for spreadsheets that either have sparse tables (strong merging) or many distinct tables close together (weak merging).",
+			InnerField: "table_merge_sensitivity",
 		},
-		&requestflag.InnerFlag[*int64]{
-			Name:       "configuration.max-pages",
-			Usage:      "Maximum number of pages to process. Omit for no limit.",
-			InnerField: "max_pages",
-		},
-		&requestflag.InnerFlag[*string]{
-			Name:       "configuration.parse-config-id",
-			Usage:      "Saved parse configuration ID to control how the document is parsed before extraction",
-			InnerField: "parse_config_id",
-		},
-		&requestflag.InnerFlag[*string]{
-			Name:       "configuration.parse-tier",
-			Usage:      "Parse tier to use before extraction. Defaults to the extract tier if not specified.",
-			InnerField: "parse_tier",
-		},
-		&requestflag.InnerFlag[*string]{
-			Name:       "configuration.system-prompt",
-			Usage:      "Custom system prompt to guide extraction behavior",
-			InnerField: "system_prompt",
-		},
-		&requestflag.InnerFlag[*string]{
-			Name:       "configuration.target-pages",
-			Usage:      "Comma-separated page numbers or ranges to process (1-based). Omit to process all pages.",
-			InnerField: "target_pages",
-		},
-		&requestflag.InnerFlag[string]{
-			Name:       "configuration.tier",
-			Usage:      "Extract tier: cost_effective (5 credits/page) or agentic (15 credits/page)",
-			InnerField: "tier",
-		},
-		&requestflag.InnerFlag[string]{
-			Name:       "configuration.version",
-			Usage:      "Use 'latest' for the latest release for the selected tier or a date string (YYYY-MM-DD format) to pin to the nearest release at or before that date. Job responses always report the concrete resolved version the job runs, fixed at job creation; saved configurations keep the value as provided.",
-			InnerField: "version",
+		&requestflag.InnerFlag[bool]{
+			Name:       "configuration.use-experimental-processing",
+			Usage:      "Enables experimental processing. Accuracy may be impacted.",
+			InnerField: "use_experimental_processing",
 		},
 	},
 	"webhook-configuration": {
@@ -137,14 +169,14 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 	},
 })
 
-var extractList = cli.Command{
+var sheetsList = cli.Command{
 	Name:    "list",
-	Usage:   "List extraction jobs with optional filtering and pagination.",
+	Usage:   "List spreadsheet parsing jobs.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[*string]{
 			Name:      "configuration-id",
-			Usage:     "Filter by configuration ID",
+			Usage:     "Filter by saved configuration ID",
 			QueryPath: "configuration_id",
 		},
 		&requestflag.Flag[any]{
@@ -157,25 +189,10 @@ var extractList = cli.Command{
 			Usage:     "Include items created at or before this timestamp (inclusive)",
 			QueryPath: "created_at_on_or_before",
 		},
-		&requestflag.Flag[*string]{
-			Name:      "document-input-type",
-			Usage:     "Filter by document input type (file_id or parse_job_id)",
-			QueryPath: "document_input_type",
-		},
-		&requestflag.Flag[*string]{
-			Name:      "document-input-value",
-			Usage:     "Deprecated: use file_input instead",
-			QueryPath: "document_input_value",
-		},
-		&requestflag.Flag[[]string]{
-			Name:      "expand",
-			Usage:     "Additional fields to include: configuration, extract_metadata",
-			QueryPath: "expand",
-		},
-		&requestflag.Flag[*string]{
-			Name:      "file-input",
-			Usage:     "Filter by file input value",
-			QueryPath: "file_input",
+		&requestflag.Flag[bool]{
+			Name:      "include-results",
+			Default:   false,
+			QueryPath: "include_results",
 		},
 		&requestflag.Flag[any]{
 			Name:      "job-id",
@@ -188,12 +205,10 @@ var extractList = cli.Command{
 		},
 		&requestflag.Flag[*int64]{
 			Name:      "page-size",
-			Usage:     "Number of items per page",
 			QueryPath: "page_size",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "page-token",
-			Usage:     "Token for pagination",
 			QueryPath: "page_token",
 		},
 		&requestflag.Flag[*string]{
@@ -202,7 +217,7 @@ var extractList = cli.Command{
 		},
 		&requestflag.Flag[*string]{
 			Name:      "status",
-			Usage:     "Filter by status",
+			Usage:     "Filter by job status",
 			QueryPath: "status",
 		},
 		&requestflag.Flag[int64]{
@@ -210,19 +225,19 @@ var extractList = cli.Command{
 			Usage: "The maximum number of items to return (use -1 for unlimited).",
 		},
 	},
-	Action:          handleExtractList,
+	Action:          handleSheetsList,
 	HideHelpCommand: true,
 }
 
-var extractDelete = cli.Command{
-	Name:    "delete",
-	Usage:   "Delete an extraction job and its results.",
+var sheetsDeleteJob = cli.Command{
+	Name:    "delete-job",
+	Usage:   "Delete a spreadsheet parsing job and its associated data.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:      "job-id",
+			Name:      "spreadsheet-job-id",
 			Required:  true,
-			PathParam: "job_id",
+			PathParam: "spreadsheet_job_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -233,62 +248,29 @@ var extractDelete = cli.Command{
 			QueryPath: "project_id",
 		},
 	},
-	Action:          handleExtractDelete,
+	Action:          handleSheetsDeleteJob,
 	HideHelpCommand: true,
 }
 
-var extractGenerateSchema = cli.Command{
-	Name:    "generate-schema",
-	Usage:   "Generate a JSON schema and return a product configuration request.",
-	Suggest: true,
-	Flags: []cli.Flag{
-		&requestflag.Flag[*string]{
-			Name:      "organization-id",
-			QueryPath: "organization_id",
-		},
-		&requestflag.Flag[*string]{
-			Name:      "project-id",
-			QueryPath: "project_id",
-		},
-		&requestflag.Flag[map[string]any]{
-			Name:     "data-schema",
-			Usage:    "Optional schema to validate, refine, or extend",
-			BodyPath: "data_schema",
-		},
-		&requestflag.Flag[*string]{
-			Name:     "file-id",
-			Usage:    "Optional file ID to analyze for schema generation",
-			BodyPath: "file_id",
-		},
-		&requestflag.Flag[*string]{
-			Name:     "name",
-			Usage:    "Name for the generated configuration (auto-generated if omitted)",
-			BodyPath: "name",
-		},
-		&requestflag.Flag[*string]{
-			Name:     "prompt",
-			Usage:    "Natural language description of the data structure to extract",
-			BodyPath: "prompt",
-		},
-	},
-	Action:          handleExtractGenerateSchema,
-	HideHelpCommand: true,
-}
-
-var extractGet = cli.Command{
+var sheetsGet = cli.Command{
 	Name:    "get",
-	Usage:   "Get a single extraction job by ID.",
+	Usage:   "Get a spreadsheet parsing job. When `include_results=True` (default), embeds\nextracted regions and results if complete, skipping the separate `/results`\ncall.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:      "job-id",
+			Name:      "spreadsheet-job-id",
 			Required:  true,
-			PathParam: "job_id",
+			PathParam: "spreadsheet_job_id",
 		},
 		&requestflag.Flag[[]string]{
 			Name:      "expand",
-			Usage:     "Additional fields to include: configuration, extract_metadata",
+			Usage:     "Optional fields to populate on the response. Valid values: metadata_state_transitions.",
 			QueryPath: "expand",
+		},
+		&requestflag.Flag[bool]{
+			Name:      "include-results",
+			Default:   true,
+			QueryPath: "include_results",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -299,27 +281,49 @@ var extractGet = cli.Command{
 			QueryPath: "project_id",
 		},
 	},
-	Action:          handleExtractGet,
+	Action:          handleSheetsGet,
 	HideHelpCommand: true,
 }
 
-var extractValidateSchema = cli.Command{
-	Name:    "validate-schema",
-	Usage:   "Validate a JSON schema for extraction.",
+var sheetsGetResultTable = cli.Command{
+	Name:    "get-result-table",
+	Usage:   "Generate a presigned URL to download a specific extracted region.",
 	Suggest: true,
 	Flags: []cli.Flag{
-		&requestflag.Flag[map[string]any]{
-			Name:     "data-schema",
-			Usage:    "JSON Schema to validate for use with extract jobs",
-			Required: true,
-			BodyPath: "data_schema",
+		&requestflag.Flag[string]{
+			Name:      "spreadsheet-job-id",
+			Required:  true,
+			PathParam: "spreadsheet_job_id",
+		},
+		&requestflag.Flag[string]{
+			Name:      "region-id",
+			Required:  true,
+			PathParam: "region_id",
+		},
+		&requestflag.Flag[string]{
+			Name:      "region-type",
+			Usage:     `Allowed values: "table", "extra", "cell_metadata".`,
+			Required:  true,
+			PathParam: "region_type",
+		},
+		&requestflag.Flag[*int64]{
+			Name:      "expires-at-seconds",
+			QueryPath: "expires_at_seconds",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "organization-id",
+			QueryPath: "organization_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
 		},
 	},
-	Action:          handleExtractValidateSchema,
+	Action:          handleSheetsGetResultTable,
 	HideHelpCommand: true,
 }
 
-func handleExtractCreate(ctx context.Context, cmd *cli.Command) error {
+func handleSheetsCreate(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
@@ -338,11 +342,11 @@ func handleExtractCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ExtractNewParams{}
+	params := llamacloudprod.SheetNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Extract.New(ctx, params, options...)
+	_, err = client.Sheets.New(ctx, params, options...)
 	if err != nil {
 		return err
 	}
@@ -355,12 +359,12 @@ func handleExtractCreate(ctx context.Context, cmd *cli.Command) error {
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "extract create",
+		Title:          "sheets create",
 		Transform:      transform,
 	})
 }
 
-func handleExtractList(ctx context.Context, cmd *cli.Command) error {
+func handleSheetsList(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
@@ -379,7 +383,7 @@ func handleExtractList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ExtractListParams{}
+	params := llamacloudprod.SheetListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -387,7 +391,7 @@ func handleExtractList(ctx context.Context, cmd *cli.Command) error {
 	if format == "raw" {
 		var res []byte
 		options = append(options, option.WithResponseBodyInto(&res))
-		_, err = client.Extract.List(ctx, params, options...)
+		_, err = client.Sheets.List(ctx, params, options...)
 		if err != nil {
 			return err
 		}
@@ -396,11 +400,11 @@ func handleExtractList(ctx context.Context, cmd *cli.Command) error {
 			ExplicitFormat: explicitFormat,
 			Format:         format,
 			RawOutput:      cmd.Root().Bool("raw-output"),
-			Title:          "extract list",
+			Title:          "sheets list",
 			Transform:      transform,
 		})
 	} else {
-		iter := client.Extract.ListAutoPaging(ctx, params, options...)
+		iter := client.Sheets.ListAutoPaging(ctx, params, options...)
 		maxItems := int64(-1)
 		if cmd.IsSet("max-items") {
 			maxItems = cmd.Value("max-items").(int64)
@@ -409,17 +413,17 @@ func handleExtractList(ctx context.Context, cmd *cli.Command) error {
 			ExplicitFormat: explicitFormat,
 			Format:         format,
 			RawOutput:      cmd.Root().Bool("raw-output"),
-			Title:          "extract list",
+			Title:          "sheets list",
 			Transform:      transform,
 		})
 	}
 }
 
-func handleExtractDelete(ctx context.Context, cmd *cli.Command) error {
+func handleSheetsDeleteJob(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
-	if !cmd.IsSet("job-id") && len(unusedArgs) > 0 {
-		cmd.Set("job-id", unusedArgs[0])
+	if !cmd.IsSet("spreadsheet-job-id") && len(unusedArgs) > 0 {
+		cmd.Set("spreadsheet-job-id", unusedArgs[0])
 		unusedArgs = unusedArgs[1:]
 	}
 	if len(unusedArgs) > 0 {
@@ -437,13 +441,13 @@ func handleExtractDelete(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ExtractDeleteParams{}
+	params := llamacloudprod.SheetDeleteJobParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Extract.Delete(
+	_, err = client.Sheets.DeleteJob(
 		ctx,
-		cmd.Value("job-id").(string),
+		cmd.Value("spreadsheet-job-id").(string),
 		params,
 		options...,
 	)
@@ -459,57 +463,16 @@ func handleExtractDelete(ctx context.Context, cmd *cli.Command) error {
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "extract delete",
+		Title:          "sheets delete-job",
 		Transform:      transform,
 	})
 }
 
-func handleExtractGenerateSchema(ctx context.Context, cmd *cli.Command) error {
+func handleSheetsGet(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
-
-	if len(unusedArgs) > 0 {
-		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
-	}
-
-	options, err := flagOptions(
-		cmd,
-		apiquery.NestedQueryFormatBrackets,
-		apiquery.ArrayQueryFormatRepeat,
-		ApplicationJSON,
-		false,
-	)
-	if err != nil {
-		return err
-	}
-
-	params := llamacloudprod.ExtractGenerateSchemaParams{}
-
-	var res []byte
-	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Extract.GenerateSchema(ctx, params, options...)
-	if err != nil {
-		return err
-	}
-
-	obj := gjson.ParseBytes(res)
-	format := cmd.Root().String("format")
-	explicitFormat := cmd.Root().IsSet("format")
-	transform := cmd.Root().String("transform")
-	return ShowJSON(obj, ShowJSONOpts{
-		ExplicitFormat: explicitFormat,
-		Format:         format,
-		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "extract generate-schema",
-		Transform:      transform,
-	})
-}
-
-func handleExtractGet(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
-	unusedArgs := cmd.Args().Slice()
-	if !cmd.IsSet("job-id") && len(unusedArgs) > 0 {
-		cmd.Set("job-id", unusedArgs[0])
+	if !cmd.IsSet("spreadsheet-job-id") && len(unusedArgs) > 0 {
+		cmd.Set("spreadsheet-job-id", unusedArgs[0])
 		unusedArgs = unusedArgs[1:]
 	}
 	if len(unusedArgs) > 0 {
@@ -527,13 +490,13 @@ func handleExtractGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ExtractGetParams{}
+	params := llamacloudprod.SheetGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Extract.Get(
+	_, err = client.Sheets.Get(
 		ctx,
-		cmd.Value("job-id").(string),
+		cmd.Value("spreadsheet-job-id").(string),
 		params,
 		options...,
 	)
@@ -549,15 +512,18 @@ func handleExtractGet(ctx context.Context, cmd *cli.Command) error {
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "extract get",
+		Title:          "sheets get",
 		Transform:      transform,
 	})
 }
 
-func handleExtractValidateSchema(ctx context.Context, cmd *cli.Command) error {
+func handleSheetsGetResultTable(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
-
+	if !cmd.IsSet("region-type") && len(unusedArgs) > 0 {
+		cmd.Set("region-type", unusedArgs[0])
+		unusedArgs = unusedArgs[1:]
+	}
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
@@ -566,18 +532,26 @@ func handleExtractValidateSchema(ctx context.Context, cmd *cli.Command) error {
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatRepeat,
-		ApplicationJSON,
+		EmptyBody,
 		false,
 	)
 	if err != nil {
 		return err
 	}
 
-	params := llamacloudprod.ExtractValidateSchemaParams{}
+	params := llamacloudprod.SheetGetResultTableParams{
+		SpreadsheetJobID: cmd.Value("spreadsheet-job-id").(string),
+		RegionID:         cmd.Value("region-id").(string),
+	}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Extract.ValidateSchema(ctx, params, options...)
+	_, err = client.Sheets.GetResultTable(
+		ctx,
+		llamacloudprod.SheetGetResultTableParamsRegionType(cmd.Value("region-type").(string)),
+		params,
+		options...,
+	)
 	if err != nil {
 		return err
 	}
@@ -590,7 +564,7 @@ func handleExtractValidateSchema(ctx context.Context, cmd *cli.Command) error {
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "extract validate-schema",
+		Title:          "sheets get-result-table",
 		Transform:      transform,
 	})
 }
