@@ -22,13 +22,12 @@ func TestParsingCreate(t *testing.T) {
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--agentic-options", "{custom_prompt: custom_prompt}",
 			"--client-name", "client_name",
-			"--configuration-id", "configuration_id",
 			"--crop-box", "{bottom: 0, left: 0, right: 0, top: 0}",
 			"--disable-cache=true",
 			"--fast-options", "{}",
 			"--file-id", "file_id",
 			"--http-proxy", "https:",
-			"--input-options", "{html: {make_all_elements_visible: true, remove_fixed_elements: true, remove_navigation_elements: true}, image: {camera_photo_correction: true}, pdf: {}, presentation: {out_of_bounds_content: true, skip_embedded_data: true}, spreadsheet: {detect_sub_tables_in_sheets: true, force_formula_computation_in_sheets: true, include_hidden_sheets: true}}",
+			"--input-options", "{html: {make_all_elements_visible: true, remove_fixed_elements: true, remove_navigation_elements: true}, pdf: {}, presentation: {out_of_bounds_content: true, skip_embedded_data: true}, spreadsheet: {detect_sub_tables_in_sheets: true, force_formula_computation_in_sheets: true, include_hidden_sheets: true}}",
 			"--output-options", "{additional_outputs: [stripped_md, concatenated_stripped_txt, word_bbox], extract_printed_page_number: true, granular_bboxes: [word, line, cell], images_to_save: [screenshot], markdown: {annotate_links: true, inline_images: true, tables: {compact_markdown_tables: true, markdown_table_multiline_separator: markdown_table_multiline_separator, merge_continued_tables: true, output_tables_as_markdown: true}}, spatial_text: {do_not_unroll_columns: true, preserve_layout_alignment_across_pages: true, preserve_very_small_text: true}, tables_as_spreadsheet: {enable: true, guess_sheet_name: true}}",
 			"--page-ranges", "{max_pages: 1, target_pages: target_pages}",
 			"--processing-control", "{job_failure_conditions: {allowed_page_failure_ratio: 1, fail_on_buggy_font: true, fail_on_image_extraction_error: true, fail_on_image_ocr_error: true, fail_on_markdown_reconstruction_error: true}, timeouts: {base_in_seconds: 1, extra_time_per_page_in_seconds: 1}}",
@@ -53,7 +52,6 @@ func TestParsingCreate(t *testing.T) {
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--agentic-options.custom-prompt", "custom_prompt",
 			"--client-name", "client_name",
-			"--configuration-id", "configuration_id",
 			"--crop-box.bottom", "0",
 			"--crop-box.left", "0",
 			"--crop-box.right", "0",
@@ -63,7 +61,6 @@ func TestParsingCreate(t *testing.T) {
 			"--file-id", "file_id",
 			"--http-proxy", "https:",
 			"--input-options.html", "{make_all_elements_visible: true, remove_fixed_elements: true, remove_navigation_elements: true}",
-			"--input-options.image", "{camera_photo_correction: true}",
 			"--input-options.pdf", "{}",
 			"--input-options.presentation", "{out_of_bounds_content: true, skip_embedded_data: true}",
 			"--input-options.spreadsheet", "{detect_sub_tables_in_sheets: true, force_formula_computation_in_sheets: true, include_hidden_sheets: true}",
@@ -101,7 +98,6 @@ func TestParsingCreate(t *testing.T) {
 			"agentic_options:\n" +
 			"  custom_prompt: custom_prompt\n" +
 			"client_name: client_name\n" +
-			"configuration_id: configuration_id\n" +
 			"crop_box:\n" +
 			"  bottom: 0\n" +
 			"  left: 0\n" +
@@ -116,8 +112,6 @@ func TestParsingCreate(t *testing.T) {
 			"    make_all_elements_visible: true\n" +
 			"    remove_fixed_elements: true\n" +
 			"    remove_navigation_elements: true\n" +
-			"  image:\n" +
-			"    camera_photo_correction: true\n" +
 			"  pdf: {}\n" +
 			"  presentation:\n" +
 			"    out_of_bounds_content: true\n" +

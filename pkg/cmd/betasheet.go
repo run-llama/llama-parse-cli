@@ -171,7 +171,7 @@ var betaSheetsCreate = requestflag.WithInnerFlags(cli.Command{
 
 var betaSheetsList = cli.Command{
 	Name:    "list",
-	Usage:   "List spreadsheet parsing jobs.",
+	Usage:   "List spreadsheet parsing jobs. Experimental: not production-ready and subject to\nchange.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[*string]{
@@ -231,7 +231,7 @@ var betaSheetsList = cli.Command{
 
 var betaSheetsDeleteJob = cli.Command{
 	Name:    "delete-job",
-	Usage:   "Delete a spreadsheet parsing job and its associated data.",
+	Usage:   "Delete a spreadsheet parsing job and its associated data. Experimental: not\nproduction-ready and subject to change.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
@@ -254,7 +254,7 @@ var betaSheetsDeleteJob = cli.Command{
 
 var betaSheetsGet = cli.Command{
 	Name:    "get",
-	Usage:   "Get a spreadsheet parsing job. When `include_results=True` (default), embeds\nextracted regions and results if complete, skipping the separate `/results`\ncall.",
+	Usage:   "Get a spreadsheet parsing job. When `include_results=True` (default), embeds\nextracted regions and results if complete, skipping the separate `/results`\ncall. Experimental: not production-ready and subject to change.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
@@ -287,7 +287,7 @@ var betaSheetsGet = cli.Command{
 
 var betaSheetsGetResultTable = cli.Command{
 	Name:    "get-result-table",
-	Usage:   "Generate a presigned URL to download a specific extracted region.",
+	Usage:   "Generate a presigned URL to download a specific extracted region. Experimental:\nnot production-ready and subject to change.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
