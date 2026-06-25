@@ -124,7 +124,7 @@ var betaDirectoriesList = cli.Command{
 		},
 		&requestflag.Flag[*string]{
 			Name:      "type",
-			Usage:     `Allowed values: "user", "index", "ephemeral".`,
+			Usage:     `Allowed values: "ephemeral", "index", "user".`,
 			QueryPath: "type",
 		},
 		&requestflag.Flag[int64]{

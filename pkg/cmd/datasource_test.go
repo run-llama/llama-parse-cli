@@ -17,7 +17,7 @@ func TestDataSourcesCreate(t *testing.T) {
 			"data-sources", "create",
 			"--component", "{foo: bar}",
 			"--name", "name",
-			"--source-type", "S3",
+			"--source-type", "AZURE_STORAGE_BLOB",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--custom-metadata", "{foo: {foo: bar}}",
@@ -30,7 +30,7 @@ func TestDataSourcesCreate(t *testing.T) {
 			"component:\n" +
 			"  foo: bar\n" +
 			"name: name\n" +
-			"source_type: S3\n" +
+			"source_type: AZURE_STORAGE_BLOB\n" +
 			"custom_metadata:\n" +
 			"  foo:\n" +
 			"    foo: bar\n")
@@ -52,7 +52,7 @@ func TestDataSourcesUpdate(t *testing.T) {
 			"--api-key", "string",
 			"data-sources", "update",
 			"--data-source-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--source-type", "S3",
+			"--source-type", "AZURE_STORAGE_BLOB",
 			"--component", "{foo: bar}",
 			"--custom-metadata", "{foo: {foo: bar}}",
 			"--name", "name",
@@ -62,7 +62,7 @@ func TestDataSourcesUpdate(t *testing.T) {
 	t.Run("piping data", func(t *testing.T) {
 		// Test piping YAML data over stdin
 		pipeData := []byte("" +
-			"source_type: S3\n" +
+			"source_type: AZURE_STORAGE_BLOB\n" +
 			"component:\n" +
 			"  foo: bar\n" +
 			"custom_metadata:\n" +
