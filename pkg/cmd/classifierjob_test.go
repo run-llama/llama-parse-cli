@@ -21,7 +21,7 @@ func TestClassifierJobsCreate(t *testing.T) {
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--mode", "FAST",
-			"--parsing-configuration", "{lang: af, max_pages: 0, target_pages: [0]}",
+			"--parsing-configuration", "{lang: abq, max_pages: 0, target_pages: [0]}",
 			"--webhook-configuration", "{webhook_events: [parse.success, parse.error], webhook_headers: {foo: bar}, webhook_output_format: json, webhook_url: 'https:'}",
 		)
 	})
@@ -41,7 +41,7 @@ func TestClassifierJobsCreate(t *testing.T) {
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--mode", "FAST",
-			"--parsing-configuration.lang", "af",
+			"--parsing-configuration.lang", "abq",
 			"--parsing-configuration.max-pages", "0",
 			"--parsing-configuration.target-pages", "[0]",
 			"--webhook-configuration.webhook-events", "[parse.success, parse.error]",
@@ -61,7 +61,7 @@ func TestClassifierJobsCreate(t *testing.T) {
 			"    type: invoice\n" +
 			"mode: FAST\n" +
 			"parsing_configuration:\n" +
-			"  lang: af\n" +
+			"  lang: abq\n" +
 			"  max_pages: 0\n" +
 			"  target_pages:\n" +
 			"    - 0\n" +

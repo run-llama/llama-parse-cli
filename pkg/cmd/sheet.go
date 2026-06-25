@@ -302,7 +302,7 @@ var sheetsGetResultTable = cli.Command{
 		},
 		&requestflag.Flag[string]{
 			Name:      "region-type",
-			Usage:     `Allowed values: "table", "extra", "cell_metadata".`,
+			Usage:     `Allowed values: "cell_metadata", "extra", "table".`,
 			Required:  true,
 			PathParam: "region_type",
 		},

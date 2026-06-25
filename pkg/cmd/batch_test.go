@@ -72,7 +72,7 @@ func TestBatchesList(t *testing.T) {
 			"--page-token", "page_token",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--source-directory-id", "source_directory_id",
-			"--status", "PENDING",
+			"--status", "CANCELLED",
 		)
 	})
 }

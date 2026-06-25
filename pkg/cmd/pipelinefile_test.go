@@ -96,7 +96,7 @@ func TestPipelinesFilesList(t *testing.T) {
 			"--offset", "0",
 			"--only-manually-uploaded=true",
 			"--order-by", "order_by",
-			"--status", "[NOT_STARTED, IN_PROGRESS]",
+			"--status", "[CANCELLED, ERROR]",
 		)
 	})
 }
