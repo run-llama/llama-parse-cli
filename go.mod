@@ -10,7 +10,7 @@ require (
 	github.com/goccy/go-yaml v1.18.0
 	github.com/itchyny/json2yaml v0.1.4
 	github.com/muesli/reflow v0.3.0
-	github.com/run-llama/llama-parse-go v0.0.0-20260617002513-90888be7d20f
+	github.com/run-llama/llama-parse-go v0.0.0-20260624005025-0ca57a865235
 	github.com/stretchr/testify v1.10.0
 	github.com/tidwall/gjson v1.18.0
 	github.com/tidwall/pretty v1.2.1
