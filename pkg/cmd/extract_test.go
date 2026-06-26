@@ -21,7 +21,7 @@ func TestExtractCreate(t *testing.T) {
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--configuration", "{data_schema: {properties: {vendor_name: bar, total_amount: bar}, required: [vendor_name, total_amount], type: object}, cite_sources: true, confidence_scores: true, extraction_target: per_doc, max_pages: 10, parse_config_id: cfg-11111111-2222-3333-4444-555555555555, parse_tier: fast, system_prompt: 'Extract all monetary values in USD. If a currency is not specified, assume USD.', target_pages: '1,3,5-7', tier: cost_effective, version: latest}",
 			"--configuration-id", "cfg-11111111-2222-3333-4444-555555555555",
-			"--webhook-configuration", "[{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_url: https://example.com/webhooks/llamacloud}]",
+			"--webhook-configuration", "[{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_signing_secret: whsec_..., webhook_url: https://example.com/webhooks/llamacloud}]",
 		)
 	})
 
@@ -52,6 +52,7 @@ func TestExtractCreate(t *testing.T) {
 			"--webhook-configuration.webhook-events", "[parse.success, parse.error]",
 			"--webhook-configuration.webhook-headers", "{Authorization: Bearer sk-...}",
 			"--webhook-configuration.webhook-output-format", "json",
+			"--webhook-configuration.webhook-signing-secret", "whsec_...",
 			"--webhook-configuration.webhook-url", "https://example.com/webhooks/llamacloud",
 		)
 	})
@@ -89,6 +90,7 @@ func TestExtractCreate(t *testing.T) {
 			"    webhook_headers:\n" +
 			"      Authorization: Bearer sk-...\n" +
 			"    webhook_output_format: json\n" +
+			"    webhook_signing_secret: whsec_...\n" +
 			"    webhook_url: https://example.com/webhooks/llamacloud\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,

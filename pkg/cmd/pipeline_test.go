@@ -19,16 +19,16 @@ func TestPipelinesCreate(t *testing.T) {
 			"--name", "x",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--data-sink", "{component: {foo: bar}, name: name, sink_type: PINECONE}",
+			"--data-sink", "{component: {foo: bar}, name: name, sink_type: ASTRA_DB}",
 			"--data-sink-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--embedding-config", "{component: {additional_kwargs: {foo: bar}, api_base: api_base, api_key: api_key, api_version: api_version, azure_deployment: azure_deployment, azure_endpoint: azure_endpoint, class_name: class_name, default_headers: {foo: string}, dimensions: 0, embed_batch_size: 1, max_retries: 0, model_name: model_name, num_workers: 0, reuse_client: true, timeout: 0}, type: AZURE_EMBEDDING}",
 			"--embedding-model-config-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--llama-parse-parameters", "{adaptive_long_table: true, aggressive_table_extraction: true, annotate_links: true, auto_mode: true, auto_mode_configuration_json: auto_mode_configuration_json, auto_mode_trigger_on_image_in_page: true, auto_mode_trigger_on_regexp_in_page: auto_mode_trigger_on_regexp_in_page, auto_mode_trigger_on_table_in_page: true, auto_mode_trigger_on_text_in_page: auto_mode_trigger_on_text_in_page, azure_openai_api_version: azure_openai_api_version, azure_openai_deployment_name: azure_openai_deployment_name, azure_openai_endpoint: azure_openai_endpoint, azure_openai_key: azure_openai_key, bbox_bottom: 0, bbox_left: 0, bbox_right: 0, bbox_top: 0, bounding_box: bounding_box, compact_markdown_table: true, complemental_formatting_instruction: complemental_formatting_instruction, content_guideline_instruction: content_guideline_instruction, continuous_mode: true, disable_image_extraction: true, disable_ocr: true, disable_reconstruction: true, do_not_cache: true, do_not_unroll_columns: true, enable_cost_optimizer: true, extract_charts: true, extract_layout: true, extract_printed_page_number: true, fast_mode: true, formatting_instruction: formatting_instruction, gpt4o_api_key: gpt4o_api_key, gpt4o_mode: true, guess_xlsx_sheet_name: true, hide_footers: true, hide_headers: true, high_res_ocr: true, html_make_all_elements_visible: true, html_remove_fixed_elements: true, html_remove_navigation_elements: true, http_proxy: http_proxy, ignore_document_elements_for_layout_detection: true, images_to_save: [screenshot], inline_images_in_markdown: true, input_s3_path: input_s3_path, input_s3_region: input_s3_region, input_url: input_url, internal_is_screenshot_job: true, invalidate_cache: true, is_formatting_instruction: true, job_timeout_extra_time_per_page_in_seconds: 0, job_timeout_in_seconds: 0, keep_page_separator_when_merging_tables: true, languages: [af], layout_aware: true, line_level_bounding_box: true, markdown_table_multiline_header_separator: markdown_table_multiline_header_separator, max_pages: 0, max_pages_enforced: 0, merge_tables_across_pages_in_markdown: true, model: model, outlined_table_extraction: true, output_pdf_of_document: true, output_s3_path_prefix: output_s3_path_prefix, output_s3_region: output_s3_region, output_tables_as_HTML: true, page_error_tolerance: 0, page_footer_prefix: page_footer_prefix, page_footer_suffix: page_footer_suffix, page_header_prefix: page_header_prefix, page_header_suffix: page_header_suffix, page_prefix: page_prefix, page_separator: page_separator, page_suffix: page_suffix, parse_mode: parse_page_without_llm, parsing_instruction: parsing_instruction, precise_bounding_box: true, premium_mode: true, presentation_out_of_bounds_content: true, presentation_skip_embedded_data: true, preserve_layout_alignment_across_pages: true, preserve_very_small_text: true, preset: preset, priority: low, project_id: project_id, remove_hidden_text: true, replace_failed_page_mode: raw_text, replace_failed_page_with_error_message_prefix: replace_failed_page_with_error_message_prefix, replace_failed_page_with_error_message_suffix: replace_failed_page_with_error_message_suffix, save_images: true, skip_diagonal_text: true, specialized_chart_parsing_agentic: true, specialized_chart_parsing_efficient: true, specialized_chart_parsing_plus: true, specialized_image_parsing: true, spreadsheet_extract_sub_tables: true, spreadsheet_force_formula_computation: true, spreadsheet_include_hidden_sheets: true, strict_mode_buggy_font: true, strict_mode_image_extraction: true, strict_mode_image_ocr: true, strict_mode_reconstruction: true, structured_output: true, structured_output_json_schema: structured_output_json_schema, structured_output_json_schema_name: structured_output_json_schema_name, system_prompt: system_prompt, system_prompt_append: system_prompt_append, take_screenshot: true, target_pages: target_pages, tier: tier, use_vendor_multimodal_model: true, user_prompt: user_prompt, vendor_multimodal_api_key: vendor_multimodal_api_key, vendor_multimodal_model_name: vendor_multimodal_model_name, version: version, webhook_configurations: [{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_url: https://example.com/webhooks/llamacloud}], webhook_url: webhook_url}",
+			"--llama-parse-parameters", "{adaptive_long_table: true, aggressive_table_extraction: true, annotate_links: true, auto_mode: true, auto_mode_configuration_json: auto_mode_configuration_json, auto_mode_trigger_on_image_in_page: true, auto_mode_trigger_on_regexp_in_page: auto_mode_trigger_on_regexp_in_page, auto_mode_trigger_on_table_in_page: true, auto_mode_trigger_on_text_in_page: auto_mode_trigger_on_text_in_page, azure_openai_api_version: azure_openai_api_version, azure_openai_deployment_name: azure_openai_deployment_name, azure_openai_endpoint: azure_openai_endpoint, azure_openai_key: azure_openai_key, bbox_bottom: 0, bbox_left: 0, bbox_right: 0, bbox_top: 0, bounding_box: bounding_box, compact_markdown_table: true, complemental_formatting_instruction: complemental_formatting_instruction, content_guideline_instruction: content_guideline_instruction, continuous_mode: true, disable_image_extraction: true, disable_ocr: true, disable_reconstruction: true, do_not_cache: true, do_not_unroll_columns: true, enable_cost_optimizer: true, extract_charts: true, extract_layout: true, extract_printed_page_number: true, fast_mode: true, formatting_instruction: formatting_instruction, gpt4o_api_key: gpt4o_api_key, gpt4o_mode: true, guess_xlsx_sheet_name: true, hide_footers: true, hide_headers: true, high_res_ocr: true, html_make_all_elements_visible: true, html_remove_fixed_elements: true, html_remove_navigation_elements: true, http_proxy: http_proxy, ignore_document_elements_for_layout_detection: true, images_to_save: [embedded], inline_images_in_markdown: true, input_s3_path: input_s3_path, input_s3_region: input_s3_region, input_url: input_url, internal_is_screenshot_job: true, invalidate_cache: true, is_formatting_instruction: true, job_timeout_extra_time_per_page_in_seconds: 0, job_timeout_in_seconds: 0, keep_page_separator_when_merging_tables: true, languages: [abq], layout_aware: true, line_level_bounding_box: true, markdown_table_multiline_header_separator: markdown_table_multiline_header_separator, max_pages: 0, max_pages_enforced: 0, merge_tables_across_pages_in_markdown: true, model: model, outlined_table_extraction: true, output_pdf_of_document: true, output_s3_path_prefix: output_s3_path_prefix, output_s3_region: output_s3_region, output_tables_as_HTML: true, page_error_tolerance: 0, page_footer_prefix: page_footer_prefix, page_footer_suffix: page_footer_suffix, page_header_prefix: page_header_prefix, page_header_suffix: page_header_suffix, page_prefix: page_prefix, page_separator: page_separator, page_suffix: page_suffix, parse_mode: parse_document_with_agent, parsing_instruction: parsing_instruction, precise_bounding_box: true, premium_mode: true, presentation_out_of_bounds_content: true, presentation_skip_embedded_data: true, preserve_layout_alignment_across_pages: true, preserve_very_small_text: true, preset: preset, priority: critical, project_id: project_id, remove_hidden_text: true, replace_failed_page_mode: blank_page, replace_failed_page_with_error_message_prefix: replace_failed_page_with_error_message_prefix, replace_failed_page_with_error_message_suffix: replace_failed_page_with_error_message_suffix, save_images: true, skip_diagonal_text: true, specialized_chart_parsing_agentic: true, specialized_chart_parsing_efficient: true, specialized_chart_parsing_plus: true, specialized_image_parsing: true, spreadsheet_extract_sub_tables: true, spreadsheet_force_formula_computation: true, spreadsheet_include_hidden_sheets: true, strict_mode_buggy_font: true, strict_mode_image_extraction: true, strict_mode_image_ocr: true, strict_mode_reconstruction: true, structured_output: true, structured_output_json_schema: structured_output_json_schema, structured_output_json_schema_name: structured_output_json_schema_name, system_prompt: system_prompt, system_prompt_append: system_prompt_append, take_screenshot: true, target_pages: target_pages, tier: tier, use_vendor_multimodal_model: true, user_prompt: user_prompt, vendor_multimodal_api_key: vendor_multimodal_api_key, vendor_multimodal_model_name: vendor_multimodal_model_name, version: version, webhook_configurations: [{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_signing_secret: whsec_..., webhook_url: https://example.com/webhooks/llamacloud}], webhook_url: webhook_url}",
 			"--managed-pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--metadata-config", "{excluded_embed_metadata_keys: [string], excluded_llm_metadata_keys: [string]}",
-			"--pipeline-type", "PLAYGROUND",
-			"--preset-retrieval-parameters", "{alpha: 0, class_name: class_name, dense_similarity_cutoff: 0, dense_similarity_top_k: 1, enable_reranking: true, files_top_k: 1, rerank_top_n: 1, retrieval_mode: chunks, retrieve_image_nodes: true, retrieve_page_figure_nodes: true, retrieve_page_screenshot_nodes: true, search_filters: {filters: [{key: key, value: 0, operator: '=='}], condition: and}, search_filters_inference_schema: {foo: {foo: bar}}, sparse_similarity_top_k: 1}",
-			"--sparse-model-config", "{class_name: class_name, model_type: splade}",
+			"--pipeline-type", "MANAGED",
+			"--preset-retrieval-parameters", "{alpha: 0, class_name: class_name, dense_similarity_cutoff: 0, dense_similarity_top_k: 1, enable_reranking: true, files_top_k: 1, rerank_top_n: 1, retrieval_mode: auto_routed, retrieve_image_nodes: true, retrieve_page_figure_nodes: true, retrieve_page_screenshot_nodes: true, search_filters: {filters: [{key: key, value: 0, operator: '!='}], condition: and}, search_filters_inference_schema: {foo: {foo: bar}}, sparse_similarity_top_k: 1}",
+			"--sparse-model-config", "{class_name: class_name, model_type: auto}",
 			"--status", "status",
 			"--transform-config", "{chunk_overlap: 0, chunk_size: 1, mode: auto}",
 		)
@@ -48,7 +48,7 @@ func TestPipelinesCreate(t *testing.T) {
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--data-sink.component", "{foo: bar}",
 			"--data-sink.name", "name",
-			"--data-sink.sink-type", "PINECONE",
+			"--data-sink.sink-type", "ASTRA_DB",
 			"--data-sink-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--embedding-config", "{component: {additional_kwargs: {foo: bar}, api_base: api_base, api_key: api_key, api_version: api_version, azure_deployment: azure_deployment, azure_endpoint: azure_endpoint, class_name: class_name, default_headers: {foo: string}, dimensions: 0, embed_batch_size: 1, max_retries: 0, model_name: model_name, num_workers: 0, reuse_client: true, timeout: 0}, type: AZURE_EMBEDDING}",
 			"--embedding-model-config-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -96,7 +96,7 @@ func TestPipelinesCreate(t *testing.T) {
 			"--llama-parse-parameters.html-remove-navigation-elements=true",
 			"--llama-parse-parameters.http-proxy", "http_proxy",
 			"--llama-parse-parameters.ignore-document-elements-for-layout-detection=true",
-			"--llama-parse-parameters.images-to-save", "[screenshot]",
+			"--llama-parse-parameters.images-to-save", "[embedded]",
 			"--llama-parse-parameters.inline-images-in-markdown=true",
 			"--llama-parse-parameters.input-s3-path", "input_s3_path",
 			"--llama-parse-parameters.input-s3-region", "input_s3_region",
@@ -107,7 +107,7 @@ func TestPipelinesCreate(t *testing.T) {
 			"--llama-parse-parameters.job-timeout-extra-time-per-page-in-seconds", "0",
 			"--llama-parse-parameters.job-timeout-in-seconds", "0",
 			"--llama-parse-parameters.keep-page-separator-when-merging-tables=true",
-			"--llama-parse-parameters.languages", "[af]",
+			"--llama-parse-parameters.languages", "[abq]",
 			"--llama-parse-parameters.layout-aware=true",
 			"--llama-parse-parameters.line-level-bounding-box=true",
 			"--llama-parse-parameters.markdown-table-multiline-header-separator", "markdown_table_multiline_header_separator",
@@ -128,7 +128,7 @@ func TestPipelinesCreate(t *testing.T) {
 			"--llama-parse-parameters.page-prefix", "page_prefix",
 			"--llama-parse-parameters.page-separator", "page_separator",
 			"--llama-parse-parameters.page-suffix", "page_suffix",
-			"--llama-parse-parameters.parse-mode", "parse_page_without_llm",
+			"--llama-parse-parameters.parse-mode", "parse_document_with_agent",
 			"--llama-parse-parameters.parsing-instruction", "parsing_instruction",
 			"--llama-parse-parameters.precise-bounding-box=true",
 			"--llama-parse-parameters.premium-mode=true",
@@ -137,10 +137,10 @@ func TestPipelinesCreate(t *testing.T) {
 			"--llama-parse-parameters.preserve-layout-alignment-across-pages=true",
 			"--llama-parse-parameters.preserve-very-small-text=true",
 			"--llama-parse-parameters.preset", "preset",
-			"--llama-parse-parameters.priority", "low",
+			"--llama-parse-parameters.priority", "critical",
 			"--llama-parse-parameters.project-id", "project_id",
 			"--llama-parse-parameters.remove-hidden-text=true",
-			"--llama-parse-parameters.replace-failed-page-mode", "raw_text",
+			"--llama-parse-parameters.replace-failed-page-mode", "blank_page",
 			"--llama-parse-parameters.replace-failed-page-with-error-message-prefix", "replace_failed_page_with_error_message_prefix",
 			"--llama-parse-parameters.replace-failed-page-with-error-message-suffix", "replace_failed_page_with_error_message_suffix",
 			"--llama-parse-parameters.save-images=true",
@@ -169,12 +169,12 @@ func TestPipelinesCreate(t *testing.T) {
 			"--llama-parse-parameters.vendor-multimodal-api-key", "vendor_multimodal_api_key",
 			"--llama-parse-parameters.vendor-multimodal-model-name", "vendor_multimodal_model_name",
 			"--llama-parse-parameters.version", "version",
-			"--llama-parse-parameters.webhook-configurations", "[{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_url: https://example.com/webhooks/llamacloud}]",
+			"--llama-parse-parameters.webhook-configurations", "[{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_signing_secret: whsec_..., webhook_url: https://example.com/webhooks/llamacloud}]",
 			"--llama-parse-parameters.webhook-url", "webhook_url",
 			"--managed-pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--metadata-config.excluded-embed-metadata-keys", "[string]",
 			"--metadata-config.excluded-llm-metadata-keys", "[string]",
-			"--pipeline-type", "PLAYGROUND",
+			"--pipeline-type", "MANAGED",
 			"--preset-retrieval-parameters.alpha", "0",
 			"--preset-retrieval-parameters.class-name", "class_name",
 			"--preset-retrieval-parameters.dense-similarity-cutoff", "0",
@@ -182,15 +182,15 @@ func TestPipelinesCreate(t *testing.T) {
 			"--preset-retrieval-parameters.enable-reranking=true",
 			"--preset-retrieval-parameters.files-top-k", "1",
 			"--preset-retrieval-parameters.rerank-top-n", "1",
-			"--preset-retrieval-parameters.retrieval-mode", "chunks",
+			"--preset-retrieval-parameters.retrieval-mode", "auto_routed",
 			"--preset-retrieval-parameters.retrieve-image-nodes=true",
 			"--preset-retrieval-parameters.retrieve-page-figure-nodes=true",
 			"--preset-retrieval-parameters.retrieve-page-screenshot-nodes=true",
-			"--preset-retrieval-parameters.search-filters", "{filters: [{key: key, value: 0, operator: '=='}], condition: and}",
+			"--preset-retrieval-parameters.search-filters", "{filters: [{key: key, value: 0, operator: '!='}], condition: and}",
 			"--preset-retrieval-parameters.search-filters-inference-schema", "{foo: {foo: bar}}",
 			"--preset-retrieval-parameters.sparse-similarity-top-k", "1",
 			"--sparse-model-config.class-name", "class_name",
-			"--sparse-model-config.model-type", "splade",
+			"--sparse-model-config.model-type", "auto",
 			"--status", "status",
 			"--transform-config", "{chunk_overlap: 0, chunk_size: 1, mode: auto}",
 		)
@@ -204,7 +204,7 @@ func TestPipelinesCreate(t *testing.T) {
 			"  component:\n" +
 			"    foo: bar\n" +
 			"  name: name\n" +
-			"  sink_type: PINECONE\n" +
+			"  sink_type: ASTRA_DB\n" +
 			"data_sink_id: 182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e\n" +
 			"embedding_config:\n" +
 			"  component:\n" +
@@ -273,7 +273,7 @@ func TestPipelinesCreate(t *testing.T) {
 			"  http_proxy: http_proxy\n" +
 			"  ignore_document_elements_for_layout_detection: true\n" +
 			"  images_to_save:\n" +
-			"    - screenshot\n" +
+			"    - embedded\n" +
 			"  inline_images_in_markdown: true\n" +
 			"  input_s3_path: input_s3_path\n" +
 			"  input_s3_region: input_s3_region\n" +
@@ -285,7 +285,7 @@ func TestPipelinesCreate(t *testing.T) {
 			"  job_timeout_in_seconds: 0\n" +
 			"  keep_page_separator_when_merging_tables: true\n" +
 			"  languages:\n" +
-			"    - af\n" +
+			"    - abq\n" +
 			"  layout_aware: true\n" +
 			"  line_level_bounding_box: true\n" +
 			"  markdown_table_multiline_header_separator: markdown_table_multiline_header_separator\n" +
@@ -306,7 +306,7 @@ func TestPipelinesCreate(t *testing.T) {
 			"  page_prefix: page_prefix\n" +
 			"  page_separator: page_separator\n" +
 			"  page_suffix: page_suffix\n" +
-			"  parse_mode: parse_page_without_llm\n" +
+			"  parse_mode: parse_document_with_agent\n" +
 			"  parsing_instruction: parsing_instruction\n" +
 			"  precise_bounding_box: true\n" +
 			"  premium_mode: true\n" +
@@ -315,10 +315,10 @@ func TestPipelinesCreate(t *testing.T) {
 			"  preserve_layout_alignment_across_pages: true\n" +
 			"  preserve_very_small_text: true\n" +
 			"  preset: preset\n" +
-			"  priority: low\n" +
+			"  priority: critical\n" +
 			"  project_id: project_id\n" +
 			"  remove_hidden_text: true\n" +
-			"  replace_failed_page_mode: raw_text\n" +
+			"  replace_failed_page_mode: blank_page\n" +
 			"  replace_failed_page_with_error_message_prefix: replace_failed_page_with_error_message_prefix\n" +
 			"  replace_failed_page_with_error_message_suffix: replace_failed_page_with_error_message_suffix\n" +
 			"  save_images: true\n" +
@@ -354,6 +354,7 @@ func TestPipelinesCreate(t *testing.T) {
 			"      webhook_headers:\n" +
 			"        Authorization: Bearer sk-...\n" +
 			"      webhook_output_format: json\n" +
+			"      webhook_signing_secret: whsec_...\n" +
 			"      webhook_url: https://example.com/webhooks/llamacloud\n" +
 			"  webhook_url: webhook_url\n" +
 			"managed_pipeline_id: 182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e\n" +
@@ -362,7 +363,7 @@ func TestPipelinesCreate(t *testing.T) {
 			"    - string\n" +
 			"  excluded_llm_metadata_keys:\n" +
 			"    - string\n" +
-			"pipeline_type: PLAYGROUND\n" +
+			"pipeline_type: MANAGED\n" +
 			"preset_retrieval_parameters:\n" +
 			"  alpha: 0\n" +
 			"  class_name: class_name\n" +
@@ -371,7 +372,7 @@ func TestPipelinesCreate(t *testing.T) {
 			"  enable_reranking: true\n" +
 			"  files_top_k: 1\n" +
 			"  rerank_top_n: 1\n" +
-			"  retrieval_mode: chunks\n" +
+			"  retrieval_mode: auto_routed\n" +
 			"  retrieve_image_nodes: true\n" +
 			"  retrieve_page_figure_nodes: true\n" +
 			"  retrieve_page_screenshot_nodes: true\n" +
@@ -379,7 +380,7 @@ func TestPipelinesCreate(t *testing.T) {
 			"    filters:\n" +
 			"      - key: key\n" +
 			"        value: 0\n" +
-			"        operator: '=='\n" +
+			"        operator: '!='\n" +
 			"    condition: and\n" +
 			"  search_filters_inference_schema:\n" +
 			"    foo:\n" +
@@ -387,7 +388,7 @@ func TestPipelinesCreate(t *testing.T) {
 			"  sparse_similarity_top_k: 1\n" +
 			"sparse_model_config:\n" +
 			"  class_name: class_name\n" +
-			"  model_type: splade\n" +
+			"  model_type: auto\n" +
 			"status: status\n" +
 			"transform_config:\n" +
 			"  chunk_overlap: 0\n" +
@@ -411,16 +412,16 @@ func TestPipelinesUpdate(t *testing.T) {
 			"--api-key", "string",
 			"pipelines", "update",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--data-sink", "{component: {foo: bar}, name: name, sink_type: PINECONE}",
+			"--data-sink", "{component: {foo: bar}, name: name, sink_type: ASTRA_DB}",
 			"--data-sink-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--embedding-config", "{component: {additional_kwargs: {foo: bar}, api_base: api_base, api_key: api_key, api_version: api_version, azure_deployment: azure_deployment, azure_endpoint: azure_endpoint, class_name: class_name, default_headers: {foo: string}, dimensions: 0, embed_batch_size: 1, max_retries: 0, model_name: model_name, num_workers: 0, reuse_client: true, timeout: 0}, type: AZURE_EMBEDDING}",
 			"--embedding-model-config-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--llama-parse-parameters", "{adaptive_long_table: true, aggressive_table_extraction: true, annotate_links: true, auto_mode: true, auto_mode_configuration_json: auto_mode_configuration_json, auto_mode_trigger_on_image_in_page: true, auto_mode_trigger_on_regexp_in_page: auto_mode_trigger_on_regexp_in_page, auto_mode_trigger_on_table_in_page: true, auto_mode_trigger_on_text_in_page: auto_mode_trigger_on_text_in_page, azure_openai_api_version: azure_openai_api_version, azure_openai_deployment_name: azure_openai_deployment_name, azure_openai_endpoint: azure_openai_endpoint, azure_openai_key: azure_openai_key, bbox_bottom: 0, bbox_left: 0, bbox_right: 0, bbox_top: 0, bounding_box: bounding_box, compact_markdown_table: true, complemental_formatting_instruction: complemental_formatting_instruction, content_guideline_instruction: content_guideline_instruction, continuous_mode: true, disable_image_extraction: true, disable_ocr: true, disable_reconstruction: true, do_not_cache: true, do_not_unroll_columns: true, enable_cost_optimizer: true, extract_charts: true, extract_layout: true, extract_printed_page_number: true, fast_mode: true, formatting_instruction: formatting_instruction, gpt4o_api_key: gpt4o_api_key, gpt4o_mode: true, guess_xlsx_sheet_name: true, hide_footers: true, hide_headers: true, high_res_ocr: true, html_make_all_elements_visible: true, html_remove_fixed_elements: true, html_remove_navigation_elements: true, http_proxy: http_proxy, ignore_document_elements_for_layout_detection: true, images_to_save: [screenshot], inline_images_in_markdown: true, input_s3_path: input_s3_path, input_s3_region: input_s3_region, input_url: input_url, internal_is_screenshot_job: true, invalidate_cache: true, is_formatting_instruction: true, job_timeout_extra_time_per_page_in_seconds: 0, job_timeout_in_seconds: 0, keep_page_separator_when_merging_tables: true, languages: [af], layout_aware: true, line_level_bounding_box: true, markdown_table_multiline_header_separator: markdown_table_multiline_header_separator, max_pages: 0, max_pages_enforced: 0, merge_tables_across_pages_in_markdown: true, model: model, outlined_table_extraction: true, output_pdf_of_document: true, output_s3_path_prefix: output_s3_path_prefix, output_s3_region: output_s3_region, output_tables_as_HTML: true, page_error_tolerance: 0, page_footer_prefix: page_footer_prefix, page_footer_suffix: page_footer_suffix, page_header_prefix: page_header_prefix, page_header_suffix: page_header_suffix, page_prefix: page_prefix, page_separator: page_separator, page_suffix: page_suffix, parse_mode: parse_page_without_llm, parsing_instruction: parsing_instruction, precise_bounding_box: true, premium_mode: true, presentation_out_of_bounds_content: true, presentation_skip_embedded_data: true, preserve_layout_alignment_across_pages: true, preserve_very_small_text: true, preset: preset, priority: low, project_id: project_id, remove_hidden_text: true, replace_failed_page_mode: raw_text, replace_failed_page_with_error_message_prefix: replace_failed_page_with_error_message_prefix, replace_failed_page_with_error_message_suffix: replace_failed_page_with_error_message_suffix, save_images: true, skip_diagonal_text: true, specialized_chart_parsing_agentic: true, specialized_chart_parsing_efficient: true, specialized_chart_parsing_plus: true, specialized_image_parsing: true, spreadsheet_extract_sub_tables: true, spreadsheet_force_formula_computation: true, spreadsheet_include_hidden_sheets: true, strict_mode_buggy_font: true, strict_mode_image_extraction: true, strict_mode_image_ocr: true, strict_mode_reconstruction: true, structured_output: true, structured_output_json_schema: structured_output_json_schema, structured_output_json_schema_name: structured_output_json_schema_name, system_prompt: system_prompt, system_prompt_append: system_prompt_append, take_screenshot: true, target_pages: target_pages, tier: tier, use_vendor_multimodal_model: true, user_prompt: user_prompt, vendor_multimodal_api_key: vendor_multimodal_api_key, vendor_multimodal_model_name: vendor_multimodal_model_name, version: version, webhook_configurations: [{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_url: https://example.com/webhooks/llamacloud}], webhook_url: webhook_url}",
+			"--llama-parse-parameters", "{adaptive_long_table: true, aggressive_table_extraction: true, annotate_links: true, auto_mode: true, auto_mode_configuration_json: auto_mode_configuration_json, auto_mode_trigger_on_image_in_page: true, auto_mode_trigger_on_regexp_in_page: auto_mode_trigger_on_regexp_in_page, auto_mode_trigger_on_table_in_page: true, auto_mode_trigger_on_text_in_page: auto_mode_trigger_on_text_in_page, azure_openai_api_version: azure_openai_api_version, azure_openai_deployment_name: azure_openai_deployment_name, azure_openai_endpoint: azure_openai_endpoint, azure_openai_key: azure_openai_key, bbox_bottom: 0, bbox_left: 0, bbox_right: 0, bbox_top: 0, bounding_box: bounding_box, compact_markdown_table: true, complemental_formatting_instruction: complemental_formatting_instruction, content_guideline_instruction: content_guideline_instruction, continuous_mode: true, disable_image_extraction: true, disable_ocr: true, disable_reconstruction: true, do_not_cache: true, do_not_unroll_columns: true, enable_cost_optimizer: true, extract_charts: true, extract_layout: true, extract_printed_page_number: true, fast_mode: true, formatting_instruction: formatting_instruction, gpt4o_api_key: gpt4o_api_key, gpt4o_mode: true, guess_xlsx_sheet_name: true, hide_footers: true, hide_headers: true, high_res_ocr: true, html_make_all_elements_visible: true, html_remove_fixed_elements: true, html_remove_navigation_elements: true, http_proxy: http_proxy, ignore_document_elements_for_layout_detection: true, images_to_save: [embedded], inline_images_in_markdown: true, input_s3_path: input_s3_path, input_s3_region: input_s3_region, input_url: input_url, internal_is_screenshot_job: true, invalidate_cache: true, is_formatting_instruction: true, job_timeout_extra_time_per_page_in_seconds: 0, job_timeout_in_seconds: 0, keep_page_separator_when_merging_tables: true, languages: [abq], layout_aware: true, line_level_bounding_box: true, markdown_table_multiline_header_separator: markdown_table_multiline_header_separator, max_pages: 0, max_pages_enforced: 0, merge_tables_across_pages_in_markdown: true, model: model, outlined_table_extraction: true, output_pdf_of_document: true, output_s3_path_prefix: output_s3_path_prefix, output_s3_region: output_s3_region, output_tables_as_HTML: true, page_error_tolerance: 0, page_footer_prefix: page_footer_prefix, page_footer_suffix: page_footer_suffix, page_header_prefix: page_header_prefix, page_header_suffix: page_header_suffix, page_prefix: page_prefix, page_separator: page_separator, page_suffix: page_suffix, parse_mode: parse_document_with_agent, parsing_instruction: parsing_instruction, precise_bounding_box: true, premium_mode: true, presentation_out_of_bounds_content: true, presentation_skip_embedded_data: true, preserve_layout_alignment_across_pages: true, preserve_very_small_text: true, preset: preset, priority: critical, project_id: project_id, remove_hidden_text: true, replace_failed_page_mode: blank_page, replace_failed_page_with_error_message_prefix: replace_failed_page_with_error_message_prefix, replace_failed_page_with_error_message_suffix: replace_failed_page_with_error_message_suffix, save_images: true, skip_diagonal_text: true, specialized_chart_parsing_agentic: true, specialized_chart_parsing_efficient: true, specialized_chart_parsing_plus: true, specialized_image_parsing: true, spreadsheet_extract_sub_tables: true, spreadsheet_force_formula_computation: true, spreadsheet_include_hidden_sheets: true, strict_mode_buggy_font: true, strict_mode_image_extraction: true, strict_mode_image_ocr: true, strict_mode_reconstruction: true, structured_output: true, structured_output_json_schema: structured_output_json_schema, structured_output_json_schema_name: structured_output_json_schema_name, system_prompt: system_prompt, system_prompt_append: system_prompt_append, take_screenshot: true, target_pages: target_pages, tier: tier, use_vendor_multimodal_model: true, user_prompt: user_prompt, vendor_multimodal_api_key: vendor_multimodal_api_key, vendor_multimodal_model_name: vendor_multimodal_model_name, version: version, webhook_configurations: [{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_signing_secret: whsec_..., webhook_url: https://example.com/webhooks/llamacloud}], webhook_url: webhook_url}",
 			"--managed-pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--metadata-config", "{excluded_embed_metadata_keys: [string], excluded_llm_metadata_keys: [string]}",
 			"--name", "name",
-			"--preset-retrieval-parameters", "{alpha: 0, class_name: class_name, dense_similarity_cutoff: 0, dense_similarity_top_k: 1, enable_reranking: true, files_top_k: 1, rerank_top_n: 1, retrieval_mode: chunks, retrieve_image_nodes: true, retrieve_page_figure_nodes: true, retrieve_page_screenshot_nodes: true, search_filters: {filters: [{key: key, value: 0, operator: '=='}], condition: and}, search_filters_inference_schema: {foo: {foo: bar}}, sparse_similarity_top_k: 1}",
-			"--sparse-model-config", "{class_name: class_name, model_type: splade}",
+			"--preset-retrieval-parameters", "{alpha: 0, class_name: class_name, dense_similarity_cutoff: 0, dense_similarity_top_k: 1, enable_reranking: true, files_top_k: 1, rerank_top_n: 1, retrieval_mode: auto_routed, retrieve_image_nodes: true, retrieve_page_figure_nodes: true, retrieve_page_screenshot_nodes: true, search_filters: {filters: [{key: key, value: 0, operator: '!='}], condition: and}, search_filters_inference_schema: {foo: {foo: bar}}, sparse_similarity_top_k: 1}",
+			"--sparse-model-config", "{class_name: class_name, model_type: auto}",
 			"--status", "status",
 			"--transform-config", "{chunk_overlap: 0, chunk_size: 1, mode: auto}",
 		)
@@ -438,7 +439,7 @@ func TestPipelinesUpdate(t *testing.T) {
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--data-sink.component", "{foo: bar}",
 			"--data-sink.name", "name",
-			"--data-sink.sink-type", "PINECONE",
+			"--data-sink.sink-type", "ASTRA_DB",
 			"--data-sink-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--embedding-config", "{component: {additional_kwargs: {foo: bar}, api_base: api_base, api_key: api_key, api_version: api_version, azure_deployment: azure_deployment, azure_endpoint: azure_endpoint, class_name: class_name, default_headers: {foo: string}, dimensions: 0, embed_batch_size: 1, max_retries: 0, model_name: model_name, num_workers: 0, reuse_client: true, timeout: 0}, type: AZURE_EMBEDDING}",
 			"--embedding-model-config-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -486,7 +487,7 @@ func TestPipelinesUpdate(t *testing.T) {
 			"--llama-parse-parameters.html-remove-navigation-elements=true",
 			"--llama-parse-parameters.http-proxy", "http_proxy",
 			"--llama-parse-parameters.ignore-document-elements-for-layout-detection=true",
-			"--llama-parse-parameters.images-to-save", "[screenshot]",
+			"--llama-parse-parameters.images-to-save", "[embedded]",
 			"--llama-parse-parameters.inline-images-in-markdown=true",
 			"--llama-parse-parameters.input-s3-path", "input_s3_path",
 			"--llama-parse-parameters.input-s3-region", "input_s3_region",
@@ -497,7 +498,7 @@ func TestPipelinesUpdate(t *testing.T) {
 			"--llama-parse-parameters.job-timeout-extra-time-per-page-in-seconds", "0",
 			"--llama-parse-parameters.job-timeout-in-seconds", "0",
 			"--llama-parse-parameters.keep-page-separator-when-merging-tables=true",
-			"--llama-parse-parameters.languages", "[af]",
+			"--llama-parse-parameters.languages", "[abq]",
 			"--llama-parse-parameters.layout-aware=true",
 			"--llama-parse-parameters.line-level-bounding-box=true",
 			"--llama-parse-parameters.markdown-table-multiline-header-separator", "markdown_table_multiline_header_separator",
@@ -518,7 +519,7 @@ func TestPipelinesUpdate(t *testing.T) {
 			"--llama-parse-parameters.page-prefix", "page_prefix",
 			"--llama-parse-parameters.page-separator", "page_separator",
 			"--llama-parse-parameters.page-suffix", "page_suffix",
-			"--llama-parse-parameters.parse-mode", "parse_page_without_llm",
+			"--llama-parse-parameters.parse-mode", "parse_document_with_agent",
 			"--llama-parse-parameters.parsing-instruction", "parsing_instruction",
 			"--llama-parse-parameters.precise-bounding-box=true",
 			"--llama-parse-parameters.premium-mode=true",
@@ -527,10 +528,10 @@ func TestPipelinesUpdate(t *testing.T) {
 			"--llama-parse-parameters.preserve-layout-alignment-across-pages=true",
 			"--llama-parse-parameters.preserve-very-small-text=true",
 			"--llama-parse-parameters.preset", "preset",
-			"--llama-parse-parameters.priority", "low",
+			"--llama-parse-parameters.priority", "critical",
 			"--llama-parse-parameters.project-id", "project_id",
 			"--llama-parse-parameters.remove-hidden-text=true",
-			"--llama-parse-parameters.replace-failed-page-mode", "raw_text",
+			"--llama-parse-parameters.replace-failed-page-mode", "blank_page",
 			"--llama-parse-parameters.replace-failed-page-with-error-message-prefix", "replace_failed_page_with_error_message_prefix",
 			"--llama-parse-parameters.replace-failed-page-with-error-message-suffix", "replace_failed_page_with_error_message_suffix",
 			"--llama-parse-parameters.save-images=true",
@@ -559,7 +560,7 @@ func TestPipelinesUpdate(t *testing.T) {
 			"--llama-parse-parameters.vendor-multimodal-api-key", "vendor_multimodal_api_key",
 			"--llama-parse-parameters.vendor-multimodal-model-name", "vendor_multimodal_model_name",
 			"--llama-parse-parameters.version", "version",
-			"--llama-parse-parameters.webhook-configurations", "[{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_url: https://example.com/webhooks/llamacloud}]",
+			"--llama-parse-parameters.webhook-configurations", "[{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_signing_secret: whsec_..., webhook_url: https://example.com/webhooks/llamacloud}]",
 			"--llama-parse-parameters.webhook-url", "webhook_url",
 			"--managed-pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--metadata-config.excluded-embed-metadata-keys", "[string]",
@@ -572,15 +573,15 @@ func TestPipelinesUpdate(t *testing.T) {
 			"--preset-retrieval-parameters.enable-reranking=true",
 			"--preset-retrieval-parameters.files-top-k", "1",
 			"--preset-retrieval-parameters.rerank-top-n", "1",
-			"--preset-retrieval-parameters.retrieval-mode", "chunks",
+			"--preset-retrieval-parameters.retrieval-mode", "auto_routed",
 			"--preset-retrieval-parameters.retrieve-image-nodes=true",
 			"--preset-retrieval-parameters.retrieve-page-figure-nodes=true",
 			"--preset-retrieval-parameters.retrieve-page-screenshot-nodes=true",
-			"--preset-retrieval-parameters.search-filters", "{filters: [{key: key, value: 0, operator: '=='}], condition: and}",
+			"--preset-retrieval-parameters.search-filters", "{filters: [{key: key, value: 0, operator: '!='}], condition: and}",
 			"--preset-retrieval-parameters.search-filters-inference-schema", "{foo: {foo: bar}}",
 			"--preset-retrieval-parameters.sparse-similarity-top-k", "1",
 			"--sparse-model-config.class-name", "class_name",
-			"--sparse-model-config.model-type", "splade",
+			"--sparse-model-config.model-type", "auto",
 			"--status", "status",
 			"--transform-config", "{chunk_overlap: 0, chunk_size: 1, mode: auto}",
 		)
@@ -593,7 +594,7 @@ func TestPipelinesUpdate(t *testing.T) {
 			"  component:\n" +
 			"    foo: bar\n" +
 			"  name: name\n" +
-			"  sink_type: PINECONE\n" +
+			"  sink_type: ASTRA_DB\n" +
 			"data_sink_id: 182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e\n" +
 			"embedding_config:\n" +
 			"  component:\n" +
@@ -662,7 +663,7 @@ func TestPipelinesUpdate(t *testing.T) {
 			"  http_proxy: http_proxy\n" +
 			"  ignore_document_elements_for_layout_detection: true\n" +
 			"  images_to_save:\n" +
-			"    - screenshot\n" +
+			"    - embedded\n" +
 			"  inline_images_in_markdown: true\n" +
 			"  input_s3_path: input_s3_path\n" +
 			"  input_s3_region: input_s3_region\n" +
@@ -674,7 +675,7 @@ func TestPipelinesUpdate(t *testing.T) {
 			"  job_timeout_in_seconds: 0\n" +
 			"  keep_page_separator_when_merging_tables: true\n" +
 			"  languages:\n" +
-			"    - af\n" +
+			"    - abq\n" +
 			"  layout_aware: true\n" +
 			"  line_level_bounding_box: true\n" +
 			"  markdown_table_multiline_header_separator: markdown_table_multiline_header_separator\n" +
@@ -695,7 +696,7 @@ func TestPipelinesUpdate(t *testing.T) {
 			"  page_prefix: page_prefix\n" +
 			"  page_separator: page_separator\n" +
 			"  page_suffix: page_suffix\n" +
-			"  parse_mode: parse_page_without_llm\n" +
+			"  parse_mode: parse_document_with_agent\n" +
 			"  parsing_instruction: parsing_instruction\n" +
 			"  precise_bounding_box: true\n" +
 			"  premium_mode: true\n" +
@@ -704,10 +705,10 @@ func TestPipelinesUpdate(t *testing.T) {
 			"  preserve_layout_alignment_across_pages: true\n" +
 			"  preserve_very_small_text: true\n" +
 			"  preset: preset\n" +
-			"  priority: low\n" +
+			"  priority: critical\n" +
 			"  project_id: project_id\n" +
 			"  remove_hidden_text: true\n" +
-			"  replace_failed_page_mode: raw_text\n" +
+			"  replace_failed_page_mode: blank_page\n" +
 			"  replace_failed_page_with_error_message_prefix: replace_failed_page_with_error_message_prefix\n" +
 			"  replace_failed_page_with_error_message_suffix: replace_failed_page_with_error_message_suffix\n" +
 			"  save_images: true\n" +
@@ -743,6 +744,7 @@ func TestPipelinesUpdate(t *testing.T) {
 			"      webhook_headers:\n" +
 			"        Authorization: Bearer sk-...\n" +
 			"      webhook_output_format: json\n" +
+			"      webhook_signing_secret: whsec_...\n" +
 			"      webhook_url: https://example.com/webhooks/llamacloud\n" +
 			"  webhook_url: webhook_url\n" +
 			"managed_pipeline_id: 182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e\n" +
@@ -760,7 +762,7 @@ func TestPipelinesUpdate(t *testing.T) {
 			"  enable_reranking: true\n" +
 			"  files_top_k: 1\n" +
 			"  rerank_top_n: 1\n" +
-			"  retrieval_mode: chunks\n" +
+			"  retrieval_mode: auto_routed\n" +
 			"  retrieve_image_nodes: true\n" +
 			"  retrieve_page_figure_nodes: true\n" +
 			"  retrieve_page_screenshot_nodes: true\n" +
@@ -768,7 +770,7 @@ func TestPipelinesUpdate(t *testing.T) {
 			"    filters:\n" +
 			"      - key: key\n" +
 			"        value: 0\n" +
-			"        operator: '=='\n" +
+			"        operator: '!='\n" +
 			"    condition: and\n" +
 			"  search_filters_inference_schema:\n" +
 			"    foo:\n" +
@@ -776,7 +778,7 @@ func TestPipelinesUpdate(t *testing.T) {
 			"  sparse_similarity_top_k: 1\n" +
 			"sparse_model_config:\n" +
 			"  class_name: class_name\n" +
-			"  model_type: splade\n" +
+			"  model_type: auto\n" +
 			"status: status\n" +
 			"transform_config:\n" +
 			"  chunk_overlap: 0\n" +
@@ -800,7 +802,7 @@ func TestPipelinesList(t *testing.T) {
 			"pipelines", "list",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--pipeline-name", "pipeline_name",
-			"--pipeline-type", "PLAYGROUND",
+			"--pipeline-type", "MANAGED",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-name", "project_name",
 		)
@@ -862,11 +864,11 @@ func TestPipelinesRunSearch(t *testing.T) {
 			"--enable-reranking=true",
 			"--files-top-k", "1",
 			"--rerank-top-n", "1",
-			"--retrieval-mode", "chunks",
+			"--retrieval-mode", "auto_routed",
 			"--retrieve-image-nodes=true",
 			"--retrieve-page-figure-nodes=true",
 			"--retrieve-page-screenshot-nodes=true",
-			"--search-filters", "{filters: [{key: key, value: 0, operator: '=='}], condition: and}",
+			"--search-filters", "{filters: [{key: key, value: 0, operator: '!='}], condition: and}",
 			"--search-filters-inference-schema", "{foo: {foo: bar}}",
 			"--sparse-similarity-top-k", "1",
 		)
@@ -892,11 +894,11 @@ func TestPipelinesRunSearch(t *testing.T) {
 			"--enable-reranking=true",
 			"--files-top-k", "1",
 			"--rerank-top-n", "1",
-			"--retrieval-mode", "chunks",
+			"--retrieval-mode", "auto_routed",
 			"--retrieve-image-nodes=true",
 			"--retrieve-page-figure-nodes=true",
 			"--retrieve-page-screenshot-nodes=true",
-			"--search-filters.filters", "[{key: key, value: 0, operator: '=='}]",
+			"--search-filters.filters", "[{key: key, value: 0, operator: '!='}]",
 			"--search-filters.condition", "and",
 			"--search-filters-inference-schema", "{foo: {foo: bar}}",
 			"--sparse-similarity-top-k", "1",
@@ -914,7 +916,7 @@ func TestPipelinesRunSearch(t *testing.T) {
 			"enable_reranking: true\n" +
 			"files_top_k: 1\n" +
 			"rerank_top_n: 1\n" +
-			"retrieval_mode: chunks\n" +
+			"retrieval_mode: auto_routed\n" +
 			"retrieve_image_nodes: true\n" +
 			"retrieve_page_figure_nodes: true\n" +
 			"retrieve_page_screenshot_nodes: true\n" +
@@ -922,7 +924,7 @@ func TestPipelinesRunSearch(t *testing.T) {
 			"  filters:\n" +
 			"    - key: key\n" +
 			"      value: 0\n" +
-			"      operator: '=='\n" +
+			"      operator: '!='\n" +
 			"  condition: and\n" +
 			"search_filters_inference_schema:\n" +
 			"  foo:\n" +
@@ -949,16 +951,16 @@ func TestPipelinesUpsert(t *testing.T) {
 			"--name", "x",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--data-sink", "{component: {foo: bar}, name: name, sink_type: PINECONE}",
+			"--data-sink", "{component: {foo: bar}, name: name, sink_type: ASTRA_DB}",
 			"--data-sink-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--embedding-config", "{component: {additional_kwargs: {foo: bar}, api_base: api_base, api_key: api_key, api_version: api_version, azure_deployment: azure_deployment, azure_endpoint: azure_endpoint, class_name: class_name, default_headers: {foo: string}, dimensions: 0, embed_batch_size: 1, max_retries: 0, model_name: model_name, num_workers: 0, reuse_client: true, timeout: 0}, type: AZURE_EMBEDDING}",
 			"--embedding-model-config-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--llama-parse-parameters", "{adaptive_long_table: true, aggressive_table_extraction: true, annotate_links: true, auto_mode: true, auto_mode_configuration_json: auto_mode_configuration_json, auto_mode_trigger_on_image_in_page: true, auto_mode_trigger_on_regexp_in_page: auto_mode_trigger_on_regexp_in_page, auto_mode_trigger_on_table_in_page: true, auto_mode_trigger_on_text_in_page: auto_mode_trigger_on_text_in_page, azure_openai_api_version: azure_openai_api_version, azure_openai_deployment_name: azure_openai_deployment_name, azure_openai_endpoint: azure_openai_endpoint, azure_openai_key: azure_openai_key, bbox_bottom: 0, bbox_left: 0, bbox_right: 0, bbox_top: 0, bounding_box: bounding_box, compact_markdown_table: true, complemental_formatting_instruction: complemental_formatting_instruction, content_guideline_instruction: content_guideline_instruction, continuous_mode: true, disable_image_extraction: true, disable_ocr: true, disable_reconstruction: true, do_not_cache: true, do_not_unroll_columns: true, enable_cost_optimizer: true, extract_charts: true, extract_layout: true, extract_printed_page_number: true, fast_mode: true, formatting_instruction: formatting_instruction, gpt4o_api_key: gpt4o_api_key, gpt4o_mode: true, guess_xlsx_sheet_name: true, hide_footers: true, hide_headers: true, high_res_ocr: true, html_make_all_elements_visible: true, html_remove_fixed_elements: true, html_remove_navigation_elements: true, http_proxy: http_proxy, ignore_document_elements_for_layout_detection: true, images_to_save: [screenshot], inline_images_in_markdown: true, input_s3_path: input_s3_path, input_s3_region: input_s3_region, input_url: input_url, internal_is_screenshot_job: true, invalidate_cache: true, is_formatting_instruction: true, job_timeout_extra_time_per_page_in_seconds: 0, job_timeout_in_seconds: 0, keep_page_separator_when_merging_tables: true, languages: [af], layout_aware: true, line_level_bounding_box: true, markdown_table_multiline_header_separator: markdown_table_multiline_header_separator, max_pages: 0, max_pages_enforced: 0, merge_tables_across_pages_in_markdown: true, model: model, outlined_table_extraction: true, output_pdf_of_document: true, output_s3_path_prefix: output_s3_path_prefix, output_s3_region: output_s3_region, output_tables_as_HTML: true, page_error_tolerance: 0, page_footer_prefix: page_footer_prefix, page_footer_suffix: page_footer_suffix, page_header_prefix: page_header_prefix, page_header_suffix: page_header_suffix, page_prefix: page_prefix, page_separator: page_separator, page_suffix: page_suffix, parse_mode: parse_page_without_llm, parsing_instruction: parsing_instruction, precise_bounding_box: true, premium_mode: true, presentation_out_of_bounds_content: true, presentation_skip_embedded_data: true, preserve_layout_alignment_across_pages: true, preserve_very_small_text: true, preset: preset, priority: low, project_id: project_id, remove_hidden_text: true, replace_failed_page_mode: raw_text, replace_failed_page_with_error_message_prefix: replace_failed_page_with_error_message_prefix, replace_failed_page_with_error_message_suffix: replace_failed_page_with_error_message_suffix, save_images: true, skip_diagonal_text: true, specialized_chart_parsing_agentic: true, specialized_chart_parsing_efficient: true, specialized_chart_parsing_plus: true, specialized_image_parsing: true, spreadsheet_extract_sub_tables: true, spreadsheet_force_formula_computation: true, spreadsheet_include_hidden_sheets: true, strict_mode_buggy_font: true, strict_mode_image_extraction: true, strict_mode_image_ocr: true, strict_mode_reconstruction: true, structured_output: true, structured_output_json_schema: structured_output_json_schema, structured_output_json_schema_name: structured_output_json_schema_name, system_prompt: system_prompt, system_prompt_append: system_prompt_append, take_screenshot: true, target_pages: target_pages, tier: tier, use_vendor_multimodal_model: true, user_prompt: user_prompt, vendor_multimodal_api_key: vendor_multimodal_api_key, vendor_multimodal_model_name: vendor_multimodal_model_name, version: version, webhook_configurations: [{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_url: https://example.com/webhooks/llamacloud}], webhook_url: webhook_url}",
+			"--llama-parse-parameters", "{adaptive_long_table: true, aggressive_table_extraction: true, annotate_links: true, auto_mode: true, auto_mode_configuration_json: auto_mode_configuration_json, auto_mode_trigger_on_image_in_page: true, auto_mode_trigger_on_regexp_in_page: auto_mode_trigger_on_regexp_in_page, auto_mode_trigger_on_table_in_page: true, auto_mode_trigger_on_text_in_page: auto_mode_trigger_on_text_in_page, azure_openai_api_version: azure_openai_api_version, azure_openai_deployment_name: azure_openai_deployment_name, azure_openai_endpoint: azure_openai_endpoint, azure_openai_key: azure_openai_key, bbox_bottom: 0, bbox_left: 0, bbox_right: 0, bbox_top: 0, bounding_box: bounding_box, compact_markdown_table: true, complemental_formatting_instruction: complemental_formatting_instruction, content_guideline_instruction: content_guideline_instruction, continuous_mode: true, disable_image_extraction: true, disable_ocr: true, disable_reconstruction: true, do_not_cache: true, do_not_unroll_columns: true, enable_cost_optimizer: true, extract_charts: true, extract_layout: true, extract_printed_page_number: true, fast_mode: true, formatting_instruction: formatting_instruction, gpt4o_api_key: gpt4o_api_key, gpt4o_mode: true, guess_xlsx_sheet_name: true, hide_footers: true, hide_headers: true, high_res_ocr: true, html_make_all_elements_visible: true, html_remove_fixed_elements: true, html_remove_navigation_elements: true, http_proxy: http_proxy, ignore_document_elements_for_layout_detection: true, images_to_save: [embedded], inline_images_in_markdown: true, input_s3_path: input_s3_path, input_s3_region: input_s3_region, input_url: input_url, internal_is_screenshot_job: true, invalidate_cache: true, is_formatting_instruction: true, job_timeout_extra_time_per_page_in_seconds: 0, job_timeout_in_seconds: 0, keep_page_separator_when_merging_tables: true, languages: [abq], layout_aware: true, line_level_bounding_box: true, markdown_table_multiline_header_separator: markdown_table_multiline_header_separator, max_pages: 0, max_pages_enforced: 0, merge_tables_across_pages_in_markdown: true, model: model, outlined_table_extraction: true, output_pdf_of_document: true, output_s3_path_prefix: output_s3_path_prefix, output_s3_region: output_s3_region, output_tables_as_HTML: true, page_error_tolerance: 0, page_footer_prefix: page_footer_prefix, page_footer_suffix: page_footer_suffix, page_header_prefix: page_header_prefix, page_header_suffix: page_header_suffix, page_prefix: page_prefix, page_separator: page_separator, page_suffix: page_suffix, parse_mode: parse_document_with_agent, parsing_instruction: parsing_instruction, precise_bounding_box: true, premium_mode: true, presentation_out_of_bounds_content: true, presentation_skip_embedded_data: true, preserve_layout_alignment_across_pages: true, preserve_very_small_text: true, preset: preset, priority: critical, project_id: project_id, remove_hidden_text: true, replace_failed_page_mode: blank_page, replace_failed_page_with_error_message_prefix: replace_failed_page_with_error_message_prefix, replace_failed_page_with_error_message_suffix: replace_failed_page_with_error_message_suffix, save_images: true, skip_diagonal_text: true, specialized_chart_parsing_agentic: true, specialized_chart_parsing_efficient: true, specialized_chart_parsing_plus: true, specialized_image_parsing: true, spreadsheet_extract_sub_tables: true, spreadsheet_force_formula_computation: true, spreadsheet_include_hidden_sheets: true, strict_mode_buggy_font: true, strict_mode_image_extraction: true, strict_mode_image_ocr: true, strict_mode_reconstruction: true, structured_output: true, structured_output_json_schema: structured_output_json_schema, structured_output_json_schema_name: structured_output_json_schema_name, system_prompt: system_prompt, system_prompt_append: system_prompt_append, take_screenshot: true, target_pages: target_pages, tier: tier, use_vendor_multimodal_model: true, user_prompt: user_prompt, vendor_multimodal_api_key: vendor_multimodal_api_key, vendor_multimodal_model_name: vendor_multimodal_model_name, version: version, webhook_configurations: [{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_signing_secret: whsec_..., webhook_url: https://example.com/webhooks/llamacloud}], webhook_url: webhook_url}",
 			"--managed-pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--metadata-config", "{excluded_embed_metadata_keys: [string], excluded_llm_metadata_keys: [string]}",
-			"--pipeline-type", "PLAYGROUND",
-			"--preset-retrieval-parameters", "{alpha: 0, class_name: class_name, dense_similarity_cutoff: 0, dense_similarity_top_k: 1, enable_reranking: true, files_top_k: 1, rerank_top_n: 1, retrieval_mode: chunks, retrieve_image_nodes: true, retrieve_page_figure_nodes: true, retrieve_page_screenshot_nodes: true, search_filters: {filters: [{key: key, value: 0, operator: '=='}], condition: and}, search_filters_inference_schema: {foo: {foo: bar}}, sparse_similarity_top_k: 1}",
-			"--sparse-model-config", "{class_name: class_name, model_type: splade}",
+			"--pipeline-type", "MANAGED",
+			"--preset-retrieval-parameters", "{alpha: 0, class_name: class_name, dense_similarity_cutoff: 0, dense_similarity_top_k: 1, enable_reranking: true, files_top_k: 1, rerank_top_n: 1, retrieval_mode: auto_routed, retrieve_image_nodes: true, retrieve_page_figure_nodes: true, retrieve_page_screenshot_nodes: true, search_filters: {filters: [{key: key, value: 0, operator: '!='}], condition: and}, search_filters_inference_schema: {foo: {foo: bar}}, sparse_similarity_top_k: 1}",
+			"--sparse-model-config", "{class_name: class_name, model_type: auto}",
 			"--status", "status",
 			"--transform-config", "{chunk_overlap: 0, chunk_size: 1, mode: auto}",
 		)
@@ -978,7 +980,7 @@ func TestPipelinesUpsert(t *testing.T) {
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--data-sink.component", "{foo: bar}",
 			"--data-sink.name", "name",
-			"--data-sink.sink-type", "PINECONE",
+			"--data-sink.sink-type", "ASTRA_DB",
 			"--data-sink-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--embedding-config", "{component: {additional_kwargs: {foo: bar}, api_base: api_base, api_key: api_key, api_version: api_version, azure_deployment: azure_deployment, azure_endpoint: azure_endpoint, class_name: class_name, default_headers: {foo: string}, dimensions: 0, embed_batch_size: 1, max_retries: 0, model_name: model_name, num_workers: 0, reuse_client: true, timeout: 0}, type: AZURE_EMBEDDING}",
 			"--embedding-model-config-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1026,7 +1028,7 @@ func TestPipelinesUpsert(t *testing.T) {
 			"--llama-parse-parameters.html-remove-navigation-elements=true",
 			"--llama-parse-parameters.http-proxy", "http_proxy",
 			"--llama-parse-parameters.ignore-document-elements-for-layout-detection=true",
-			"--llama-parse-parameters.images-to-save", "[screenshot]",
+			"--llama-parse-parameters.images-to-save", "[embedded]",
 			"--llama-parse-parameters.inline-images-in-markdown=true",
 			"--llama-parse-parameters.input-s3-path", "input_s3_path",
 			"--llama-parse-parameters.input-s3-region", "input_s3_region",
@@ -1037,7 +1039,7 @@ func TestPipelinesUpsert(t *testing.T) {
 			"--llama-parse-parameters.job-timeout-extra-time-per-page-in-seconds", "0",
 			"--llama-parse-parameters.job-timeout-in-seconds", "0",
 			"--llama-parse-parameters.keep-page-separator-when-merging-tables=true",
-			"--llama-parse-parameters.languages", "[af]",
+			"--llama-parse-parameters.languages", "[abq]",
 			"--llama-parse-parameters.layout-aware=true",
 			"--llama-parse-parameters.line-level-bounding-box=true",
 			"--llama-parse-parameters.markdown-table-multiline-header-separator", "markdown_table_multiline_header_separator",
@@ -1058,7 +1060,7 @@ func TestPipelinesUpsert(t *testing.T) {
 			"--llama-parse-parameters.page-prefix", "page_prefix",
 			"--llama-parse-parameters.page-separator", "page_separator",
 			"--llama-parse-parameters.page-suffix", "page_suffix",
-			"--llama-parse-parameters.parse-mode", "parse_page_without_llm",
+			"--llama-parse-parameters.parse-mode", "parse_document_with_agent",
 			"--llama-parse-parameters.parsing-instruction", "parsing_instruction",
 			"--llama-parse-parameters.precise-bounding-box=true",
 			"--llama-parse-parameters.premium-mode=true",
@@ -1067,10 +1069,10 @@ func TestPipelinesUpsert(t *testing.T) {
 			"--llama-parse-parameters.preserve-layout-alignment-across-pages=true",
 			"--llama-parse-parameters.preserve-very-small-text=true",
 			"--llama-parse-parameters.preset", "preset",
-			"--llama-parse-parameters.priority", "low",
+			"--llama-parse-parameters.priority", "critical",
 			"--llama-parse-parameters.project-id", "project_id",
 			"--llama-parse-parameters.remove-hidden-text=true",
-			"--llama-parse-parameters.replace-failed-page-mode", "raw_text",
+			"--llama-parse-parameters.replace-failed-page-mode", "blank_page",
 			"--llama-parse-parameters.replace-failed-page-with-error-message-prefix", "replace_failed_page_with_error_message_prefix",
 			"--llama-parse-parameters.replace-failed-page-with-error-message-suffix", "replace_failed_page_with_error_message_suffix",
 			"--llama-parse-parameters.save-images=true",
@@ -1099,12 +1101,12 @@ func TestPipelinesUpsert(t *testing.T) {
 			"--llama-parse-parameters.vendor-multimodal-api-key", "vendor_multimodal_api_key",
 			"--llama-parse-parameters.vendor-multimodal-model-name", "vendor_multimodal_model_name",
 			"--llama-parse-parameters.version", "version",
-			"--llama-parse-parameters.webhook-configurations", "[{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_url: https://example.com/webhooks/llamacloud}]",
+			"--llama-parse-parameters.webhook-configurations", "[{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_signing_secret: whsec_..., webhook_url: https://example.com/webhooks/llamacloud}]",
 			"--llama-parse-parameters.webhook-url", "webhook_url",
 			"--managed-pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--metadata-config.excluded-embed-metadata-keys", "[string]",
 			"--metadata-config.excluded-llm-metadata-keys", "[string]",
-			"--pipeline-type", "PLAYGROUND",
+			"--pipeline-type", "MANAGED",
 			"--preset-retrieval-parameters.alpha", "0",
 			"--preset-retrieval-parameters.class-name", "class_name",
 			"--preset-retrieval-parameters.dense-similarity-cutoff", "0",
@@ -1112,15 +1114,15 @@ func TestPipelinesUpsert(t *testing.T) {
 			"--preset-retrieval-parameters.enable-reranking=true",
 			"--preset-retrieval-parameters.files-top-k", "1",
 			"--preset-retrieval-parameters.rerank-top-n", "1",
-			"--preset-retrieval-parameters.retrieval-mode", "chunks",
+			"--preset-retrieval-parameters.retrieval-mode", "auto_routed",
 			"--preset-retrieval-parameters.retrieve-image-nodes=true",
 			"--preset-retrieval-parameters.retrieve-page-figure-nodes=true",
 			"--preset-retrieval-parameters.retrieve-page-screenshot-nodes=true",
-			"--preset-retrieval-parameters.search-filters", "{filters: [{key: key, value: 0, operator: '=='}], condition: and}",
+			"--preset-retrieval-parameters.search-filters", "{filters: [{key: key, value: 0, operator: '!='}], condition: and}",
 			"--preset-retrieval-parameters.search-filters-inference-schema", "{foo: {foo: bar}}",
 			"--preset-retrieval-parameters.sparse-similarity-top-k", "1",
 			"--sparse-model-config.class-name", "class_name",
-			"--sparse-model-config.model-type", "splade",
+			"--sparse-model-config.model-type", "auto",
 			"--status", "status",
 			"--transform-config", "{chunk_overlap: 0, chunk_size: 1, mode: auto}",
 		)
@@ -1134,7 +1136,7 @@ func TestPipelinesUpsert(t *testing.T) {
 			"  component:\n" +
 			"    foo: bar\n" +
 			"  name: name\n" +
-			"  sink_type: PINECONE\n" +
+			"  sink_type: ASTRA_DB\n" +
 			"data_sink_id: 182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e\n" +
 			"embedding_config:\n" +
 			"  component:\n" +
@@ -1203,7 +1205,7 @@ func TestPipelinesUpsert(t *testing.T) {
 			"  http_proxy: http_proxy\n" +
 			"  ignore_document_elements_for_layout_detection: true\n" +
 			"  images_to_save:\n" +
-			"    - screenshot\n" +
+			"    - embedded\n" +
 			"  inline_images_in_markdown: true\n" +
 			"  input_s3_path: input_s3_path\n" +
 			"  input_s3_region: input_s3_region\n" +
@@ -1215,7 +1217,7 @@ func TestPipelinesUpsert(t *testing.T) {
 			"  job_timeout_in_seconds: 0\n" +
 			"  keep_page_separator_when_merging_tables: true\n" +
 			"  languages:\n" +
-			"    - af\n" +
+			"    - abq\n" +
 			"  layout_aware: true\n" +
 			"  line_level_bounding_box: true\n" +
 			"  markdown_table_multiline_header_separator: markdown_table_multiline_header_separator\n" +
@@ -1236,7 +1238,7 @@ func TestPipelinesUpsert(t *testing.T) {
 			"  page_prefix: page_prefix\n" +
 			"  page_separator: page_separator\n" +
 			"  page_suffix: page_suffix\n" +
-			"  parse_mode: parse_page_without_llm\n" +
+			"  parse_mode: parse_document_with_agent\n" +
 			"  parsing_instruction: parsing_instruction\n" +
 			"  precise_bounding_box: true\n" +
 			"  premium_mode: true\n" +
@@ -1245,10 +1247,10 @@ func TestPipelinesUpsert(t *testing.T) {
 			"  preserve_layout_alignment_across_pages: true\n" +
 			"  preserve_very_small_text: true\n" +
 			"  preset: preset\n" +
-			"  priority: low\n" +
+			"  priority: critical\n" +
 			"  project_id: project_id\n" +
 			"  remove_hidden_text: true\n" +
-			"  replace_failed_page_mode: raw_text\n" +
+			"  replace_failed_page_mode: blank_page\n" +
 			"  replace_failed_page_with_error_message_prefix: replace_failed_page_with_error_message_prefix\n" +
 			"  replace_failed_page_with_error_message_suffix: replace_failed_page_with_error_message_suffix\n" +
 			"  save_images: true\n" +
@@ -1284,6 +1286,7 @@ func TestPipelinesUpsert(t *testing.T) {
 			"      webhook_headers:\n" +
 			"        Authorization: Bearer sk-...\n" +
 			"      webhook_output_format: json\n" +
+			"      webhook_signing_secret: whsec_...\n" +
 			"      webhook_url: https://example.com/webhooks/llamacloud\n" +
 			"  webhook_url: webhook_url\n" +
 			"managed_pipeline_id: 182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e\n" +
@@ -1292,7 +1295,7 @@ func TestPipelinesUpsert(t *testing.T) {
 			"    - string\n" +
 			"  excluded_llm_metadata_keys:\n" +
 			"    - string\n" +
-			"pipeline_type: PLAYGROUND\n" +
+			"pipeline_type: MANAGED\n" +
 			"preset_retrieval_parameters:\n" +
 			"  alpha: 0\n" +
 			"  class_name: class_name\n" +
@@ -1301,7 +1304,7 @@ func TestPipelinesUpsert(t *testing.T) {
 			"  enable_reranking: true\n" +
 			"  files_top_k: 1\n" +
 			"  rerank_top_n: 1\n" +
-			"  retrieval_mode: chunks\n" +
+			"  retrieval_mode: auto_routed\n" +
 			"  retrieve_image_nodes: true\n" +
 			"  retrieve_page_figure_nodes: true\n" +
 			"  retrieve_page_screenshot_nodes: true\n" +
@@ -1309,7 +1312,7 @@ func TestPipelinesUpsert(t *testing.T) {
 			"    filters:\n" +
 			"      - key: key\n" +
 			"        value: 0\n" +
-			"        operator: '=='\n" +
+			"        operator: '!='\n" +
 			"    condition: and\n" +
 			"  search_filters_inference_schema:\n" +
 			"    foo:\n" +
@@ -1317,7 +1320,7 @@ func TestPipelinesUpsert(t *testing.T) {
 			"  sparse_similarity_top_k: 1\n" +
 			"sparse_model_config:\n" +
 			"  class_name: class_name\n" +
-			"  model_type: splade\n" +
+			"  model_type: auto\n" +
 			"status: status\n" +
 			"transform_config:\n" +
 			"  chunk_overlap: 0\n" +

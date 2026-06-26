@@ -24,7 +24,7 @@ func TestClassifyCreate(t *testing.T) {
 			"--file-input", "dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 			"--parse-job-id", "pjb-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 			"--transaction-id", "tx-unique-idempotency-key",
-			"--webhook-configuration", "[{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_url: https://example.com/webhooks/llamacloud}]",
+			"--webhook-configuration", "[{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_signing_secret: whsec_..., webhook_url: https://example.com/webhooks/llamacloud}]",
 		)
 	})
 
@@ -50,6 +50,7 @@ func TestClassifyCreate(t *testing.T) {
 			"--webhook-configuration.webhook-events", "[parse.success, parse.error]",
 			"--webhook-configuration.webhook-headers", "{Authorization: Bearer sk-...}",
 			"--webhook-configuration.webhook-output-format", "json",
+			"--webhook-configuration.webhook-signing-secret", "whsec_...",
 			"--webhook-configuration.webhook-url", "https://example.com/webhooks/llamacloud",
 		)
 	})
@@ -78,6 +79,7 @@ func TestClassifyCreate(t *testing.T) {
 			"    webhook_headers:\n" +
 			"      Authorization: Bearer sk-...\n" +
 			"    webhook_output_format: json\n" +
+			"    webhook_signing_secret: whsec_...\n" +
 			"    webhook_url: https://example.com/webhooks/llamacloud\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
