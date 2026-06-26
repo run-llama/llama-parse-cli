@@ -302,7 +302,7 @@ var betaSheetsGetResultTable = cli.Command{
 		},
 		&requestflag.Flag[string]{
 			Name:      "region-type",
-			Usage:     `Allowed values: "cell_metadata", "extra", "table".`,
+			Usage:     `Allowed values: "table", "extra", "cell_metadata".`,
 			Required:  true,
 			PathParam: "region_type",
 		},

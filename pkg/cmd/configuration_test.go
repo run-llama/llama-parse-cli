@@ -16,7 +16,7 @@ func TestConfigurationsCreate(t *testing.T) {
 			"--api-key", "string",
 			"configurations", "create",
 			"--name", "x",
-			"--parameters", "{product_type: classify_v2, rules: [{description: 'contains invoice number, line items, and total amount', type: invoice}], mode: FAST, parsing_configuration: {lang: en, max_pages: 10, target_pages: '1,3,5-7'}}",
+			"--parameters", "{categories: [{name: x, description: x}], product_type: split_v1, splitting_strategy: {allow_uncategorized: include}}",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
@@ -27,15 +27,12 @@ func TestConfigurationsCreate(t *testing.T) {
 		pipeData := []byte("" +
 			"name: x\n" +
 			"parameters:\n" +
-			"  product_type: classify_v2\n" +
-			"  rules:\n" +
-			"    - description: contains invoice number, line items, and total amount\n" +
-			"      type: invoice\n" +
-			"  mode: FAST\n" +
-			"  parsing_configuration:\n" +
-			"    lang: en\n" +
-			"    max_pages: 10\n" +
-			"    target_pages: 1,3,5-7\n")
+			"  categories:\n" +
+			"    - name: x\n" +
+			"      description: x\n" +
+			"  product_type: split_v1\n" +
+			"  splitting_strategy:\n" +
+			"    allow_uncategorized: include\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
@@ -71,7 +68,7 @@ func TestConfigurationsUpdate(t *testing.T) {
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--name", "x",
-			"--parameters", "{product_type: classify_v2, rules: [{description: 'contains invoice number, line items, and total amount', type: invoice}], mode: FAST, parsing_configuration: {lang: en, max_pages: 10, target_pages: '1,3,5-7'}}",
+			"--parameters", "{categories: [{name: x, description: x}], product_type: split_v1, splitting_strategy: {allow_uncategorized: include}}",
 		)
 	})
 
@@ -80,15 +77,12 @@ func TestConfigurationsUpdate(t *testing.T) {
 		pipeData := []byte("" +
 			"name: x\n" +
 			"parameters:\n" +
-			"  product_type: classify_v2\n" +
-			"  rules:\n" +
-			"    - description: contains invoice number, line items, and total amount\n" +
-			"      type: invoice\n" +
-			"  mode: FAST\n" +
-			"  parsing_configuration:\n" +
-			"    lang: en\n" +
-			"    max_pages: 10\n" +
-			"    target_pages: 1,3,5-7\n")
+			"  categories:\n" +
+			"    - name: x\n" +
+			"      description: x\n" +
+			"  product_type: split_v1\n" +
+			"  splitting_strategy:\n" +
+			"    allow_uncategorized: include\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
@@ -113,7 +107,7 @@ func TestConfigurationsList(t *testing.T) {
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--page-size", "0",
 			"--page-token", "page_token",
-			"--product-type", "[classify_v2, extract_v2]",
+			"--product-type", "[split_v1, extract_v2]",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})

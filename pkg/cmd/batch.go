@@ -87,7 +87,7 @@ var batchesList = cli.Command{
 		},
 		&requestflag.Flag[*string]{
 			Name:      "status",
-			Usage:     `Allowed values: "CANCELLED", "COMPLETED", "FAILED", "PENDING", "RUNNING", "THROTTLED".`,
+			Usage:     `Allowed values: "PENDING", "THROTTLED", "RUNNING", "COMPLETED", "FAILED", "CANCELLED".`,
 			QueryPath: "status",
 		},
 		&requestflag.Flag[int64]{

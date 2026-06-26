@@ -38,6 +38,11 @@ var betaDirectoriesCreate = cli.Command{
 			Usage:    "Optional description shown to users.",
 			BodyPath: "description",
 		},
+		&requestflag.Flag[any]{
+			Name:     "expires-at",
+			Usage:    "When this directory expires. Required for ephemeral directories.",
+			BodyPath: "expires_at",
+		},
 		&requestflag.Flag[map[string]any]{
 			Name:     "system-metadata",
 			Usage:    "Reserved system-managed metadata.",
@@ -94,13 +99,11 @@ var betaDirectoriesList = cli.Command{
 	Flags: []cli.Flag{
 		&requestflag.Flag[bool]{
 			Name:      "include-deleted",
-			Usage:     "Include deleted directories.",
 			Default:   false,
 			QueryPath: "include_deleted",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "name",
-			Usage:     "Directory name to match.",
 			QueryPath: "name",
 		},
 		&requestflag.Flag[*string]{
@@ -121,13 +124,8 @@ var betaDirectoriesList = cli.Command{
 		},
 		&requestflag.Flag[*string]{
 			Name:      "type",
-			Usage:     "Directory type to include.",
+			Usage:     `Allowed values: "user", "index", "ephemeral".`,
 			QueryPath: "type",
-		},
-		&requestflag.Flag[any]{
-			Name:      "type",
-			Usage:     "Filter by one or more directory types. Repeat the parameter for multiple values.",
-			QueryPath: "types",
 		},
 		&requestflag.Flag[int64]{
 			Name:  "max-items",

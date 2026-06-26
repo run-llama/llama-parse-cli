@@ -122,7 +122,7 @@ func TestBetaSheetsList(t *testing.T) {
 			"--page-size", "0",
 			"--page-token", "page_token",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--status", "CANCELLED",
+			"--status", "PENDING",
 		)
 	})
 }
@@ -166,7 +166,7 @@ func TestBetaSheetsGetResultTable(t *testing.T) {
 			"beta:sheets", "get-result-table",
 			"--spreadsheet-job-id", "spreadsheet_job_id",
 			"--region-id", "region_id",
-			"--region-type", "cell_metadata",
+			"--region-type", "table",
 			"--expires-at-seconds", "0",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",

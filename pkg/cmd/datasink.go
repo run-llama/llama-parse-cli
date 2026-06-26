@@ -33,7 +33,7 @@ var dataSinksCreate = cli.Command{
 		},
 		&requestflag.Flag[string]{
 			Name:     "sink-type",
-			Usage:    `Allowed values: "ASTRA_DB", "AZUREAI_SEARCH", "MILVUS", "MONGODB_ATLAS", "PINECONE", "POSTGRES", "QDRANT".`,
+			Usage:    `Allowed values: "PINECONE", "POSTGRES", "QDRANT", "AZUREAI_SEARCH", "MONGODB_ATLAS", "MILVUS", "ASTRA_DB".`,
 			Required: true,
 			BodyPath: "sink_type",
 		},
@@ -62,7 +62,7 @@ var dataSinksUpdate = cli.Command{
 		},
 		&requestflag.Flag[string]{
 			Name:     "sink-type",
-			Usage:    `Allowed values: "ASTRA_DB", "AZUREAI_SEARCH", "MILVUS", "MONGODB_ATLAS", "PINECONE", "POSTGRES", "QDRANT".`,
+			Usage:    `Allowed values: "PINECONE", "POSTGRES", "QDRANT", "AZUREAI_SEARCH", "MONGODB_ATLAS", "MILVUS", "ASTRA_DB".`,
 			Required: true,
 			BodyPath: "sink_type",
 		},
