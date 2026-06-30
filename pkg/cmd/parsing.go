@@ -104,6 +104,16 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "Public URL of the document to parse. Mutually exclusive with file_id",
 			BodyPath: "source_url",
 		},
+		&requestflag.Flag[map[string]any]{
+			Name:     "user-metadata",
+			Usage:    "Arbitrary key/value tags to attach to this job. Returned when retrieving the job. Not searchable. Limits apply to the number of entries and the length of keys and values; oversized metadata is rejected.",
+			BodyPath: "user_metadata",
+		},
+		&requestflag.Flag[any]{
+			Name:     "webhook-configuration-id",
+			Usage:    "IDs of saved webhook configurations to notify for this job.",
+			BodyPath: "webhook_configuration_ids",
+		},
 		&requestflag.Flag[[]map[string]any]{
 			Name:     "webhook-configuration",
 			Usage:    "Webhook endpoints for job status notifications. Multiple webhooks can be configured for different events or services",
