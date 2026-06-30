@@ -161,6 +161,12 @@ var betaSheetsCreate = requestflag.WithInnerFlags(cli.Command{
 			OuterIsArrayOfObjects: true,
 		},
 		&requestflag.InnerFlag[*string]{
+			Name:                  "webhook-configuration.webhook-signing-secret",
+			Usage:                 "Shared signing secret used to sign webhook deliveries. When set, each request includes an HMAC-SHA256 signature of the request body in the 'LC-Signature' header (value 'sha256=<hex>'). Recompute the HMAC over the raw request body with this secret to verify the delivery is authentic.",
+			InnerField:            "webhook_signing_secret",
+			OuterIsArrayOfObjects: true,
+		},
+		&requestflag.InnerFlag[*string]{
 			Name:                  "webhook-configuration.webhook-url",
 			Usage:                 "URL to receive webhook POST notifications",
 			InnerField:            "webhook_url",
@@ -302,7 +308,7 @@ var betaSheetsGetResultTable = cli.Command{
 		},
 		&requestflag.Flag[string]{
 			Name:      "region-type",
-			Usage:     `Allowed values: "cell_metadata", "extra", "table".`,
+			Usage:     `Allowed values: "table", "extra", "cell_metadata".`,
 			Required:  true,
 			PathParam: "region_type",
 		},

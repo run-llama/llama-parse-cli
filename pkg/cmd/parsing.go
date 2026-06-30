@@ -27,7 +27,7 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.Flag[string]{
 			Name:     "version",
-			Usage:    "Version for the selected tier. Use `latest`, or pin one of that tier's dated versions.\n\nCurrent `latest` by tier:\n- `fast`: `2025-12-11`\n- `cost_effective`: `2026-06-18`\n- `agentic`: `2026-06-18`\n- `agentic_plus`: `2026-06-18`\n\nFull list: `GET /api/v2/parse/versions`.",
+			Usage:    "Version for the selected tier. Use `latest`, or pin one of that tier's dated versions.\n\nCurrent `latest` by tier:\n- `fast`: `2025-12-11`\n- `cost_effective`: `2026-06-05`\n- `agentic`: `2026-06-04`\n- `agentic_plus`: `2026-06-04`\n\nFull list: `GET /api/v2/parse/versions`.",
 			Required: true,
 			BodyPath: "version",
 		},
@@ -48,11 +48,6 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:     "client-name",
 			Usage:    "Identifier for the client/application making the request. Used for analytics and debugging. Example: 'my-app-v2'",
 			BodyPath: "client_name",
-		},
-		&requestflag.Flag[*string]{
-			Name:     "configuration-id",
-			Usage:    "ID of a saved parse configuration. When set, `tier` and `version` default to the saved configuration's values — omit them or pass `'configured'`.",
-			BodyPath: "configuration_id",
 		},
 		&requestflag.Flag[map[string]any]{
 			Name:     "crop-box",
@@ -109,6 +104,16 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "Public URL of the document to parse. Mutually exclusive with file_id",
 			BodyPath: "source_url",
 		},
+		&requestflag.Flag[map[string]any]{
+			Name:     "user-metadata",
+			Usage:    "Arbitrary key/value tags to attach to this job. Returned when retrieving the job. Not searchable. Limits apply to the number of entries and the length of keys and values; oversized metadata is rejected.",
+			BodyPath: "user_metadata",
+		},
+		&requestflag.Flag[any]{
+			Name:     "webhook-configuration-id",
+			Usage:    "IDs of saved webhook configurations to notify for this job.",
+			BodyPath: "webhook_configuration_ids",
+		},
 		&requestflag.Flag[[]map[string]any]{
 			Name:     "webhook-configuration",
 			Usage:    "Webhook endpoints for job status notifications. Multiple webhooks can be configured for different events or services",
@@ -152,11 +157,6 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:       "input-options.html",
 			Usage:      "HTML/web page parsing options (applies to .html, .htm files)",
 			InnerField: "html",
-		},
-		&requestflag.InnerFlag[map[string]any]{
-			Name:       "input-options.image",
-			Usage:      "Image parsing options (applies to .jpg, .jpeg, .png, .webp files)",
-			InnerField: "image",
 		},
 		&requestflag.InnerFlag[any]{
 			Name:       "input-options.pdf",
@@ -287,6 +287,11 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:       "webhook-configuration.webhook-output-format",
 			Usage:      "Format of the webhook payload body. 'string' (default) sends the payload as a JSON-encoded string; 'json' sends it as a JSON object.",
 			InnerField: "webhook_output_format",
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:       "webhook-configuration.webhook-signing-secret",
+			Usage:      "Shared signing secret used to sign webhook deliveries. When set, each request includes an HMAC-SHA256 signature of the request body in the 'LC-Signature' header (value 'sha256=<hex>'). Recompute the HMAC over the raw request body with this secret to verify the delivery is authentic.",
+			InnerField: "webhook_signing_secret",
 		},
 		&requestflag.InnerFlag[*string]{
 			Name:       "webhook-configuration.webhook-url",

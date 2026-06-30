@@ -17,7 +17,7 @@ func TestDataSinksCreate(t *testing.T) {
 			"data-sinks", "create",
 			"--component", "{foo: bar}",
 			"--name", "name",
-			"--sink-type", "ASTRA_DB",
+			"--sink-type", "PINECONE",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
@@ -29,7 +29,7 @@ func TestDataSinksCreate(t *testing.T) {
 			"component:\n" +
 			"  foo: bar\n" +
 			"name: name\n" +
-			"sink_type: ASTRA_DB\n")
+			"sink_type: PINECONE\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
@@ -48,7 +48,7 @@ func TestDataSinksUpdate(t *testing.T) {
 			"--api-key", "string",
 			"data-sinks", "update",
 			"--data-sink-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--sink-type", "ASTRA_DB",
+			"--sink-type", "PINECONE",
 			"--component", "{foo: bar}",
 			"--name", "name",
 		)
@@ -57,7 +57,7 @@ func TestDataSinksUpdate(t *testing.T) {
 	t.Run("piping data", func(t *testing.T) {
 		// Test piping YAML data over stdin
 		pipeData := []byte("" +
-			"sink_type: ASTRA_DB\n" +
+			"sink_type: PINECONE\n" +
 			"component:\n" +
 			"  foo: bar\n" +
 			"name: name\n")

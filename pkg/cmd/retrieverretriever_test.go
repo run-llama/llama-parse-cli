@@ -20,8 +20,8 @@ func TestRetrieversRetrieverSearch(t *testing.T) {
 			"--query", "x",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--mode", "full",
-			"--rerank-config", "{top_n: 1, type: bedrock}",
+			"--mode", "routing",
+			"--rerank-config", "{top_n: 1, type: system_default}",
 			"--rerank-top-n", "0",
 		)
 	})
@@ -39,9 +39,9 @@ func TestRetrieversRetrieverSearch(t *testing.T) {
 			"--query", "x",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--mode", "full",
+			"--mode", "routing",
 			"--rerank-config.top-n", "1",
-			"--rerank-config.type", "bedrock",
+			"--rerank-config.type", "system_default",
 			"--rerank-top-n", "0",
 		)
 	})
@@ -50,10 +50,10 @@ func TestRetrieversRetrieverSearch(t *testing.T) {
 		// Test piping YAML data over stdin
 		pipeData := []byte("" +
 			"query: x\n" +
-			"mode: full\n" +
+			"mode: routing\n" +
 			"rerank_config:\n" +
 			"  top_n: 1\n" +
-			"  type: bedrock\n" +
+			"  type: system_default\n" +
 			"rerank_top_n: 0\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,

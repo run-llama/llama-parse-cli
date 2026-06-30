@@ -22,7 +22,7 @@ func TestClassifierJobsCreate(t *testing.T) {
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--mode", "FAST",
 			"--parsing-configuration", "{lang: abq, max_pages: 0, target_pages: [0]}",
-			"--webhook-configuration", "{webhook_events: [parse.success, parse.error], webhook_headers: {foo: bar}, webhook_output_format: json, webhook_url: 'https:'}",
+			"--webhook-configuration", "{webhook_events: [parse.success, parse.error], webhook_headers: {foo: bar}, webhook_output_format: json, webhook_signing_secret: webhook_signing_secret, webhook_url: 'https:'}",
 		)
 	})
 
@@ -47,6 +47,7 @@ func TestClassifierJobsCreate(t *testing.T) {
 			"--webhook-configuration.webhook-events", "[parse.success, parse.error]",
 			"--webhook-configuration.webhook-headers", "{foo: bar}",
 			"--webhook-configuration.webhook-output-format", "json",
+			"--webhook-configuration.webhook-signing-secret", "webhook_signing_secret",
 			"--webhook-configuration.webhook-url", "https:",
 		)
 	})
@@ -72,6 +73,7 @@ func TestClassifierJobsCreate(t *testing.T) {
 			"    webhook_headers:\n" +
 			"      foo: bar\n" +
 			"    webhook_output_format: json\n" +
+			"    webhook_signing_secret: webhook_signing_secret\n" +
 			"    webhook_url: 'https:'\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,

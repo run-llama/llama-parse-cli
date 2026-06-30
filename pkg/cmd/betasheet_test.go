@@ -22,7 +22,7 @@ func TestBetaSheetsCreate(t *testing.T) {
 			"--config", "{extraction_range: extraction_range, flatten_hierarchical_tables: true, generate_additional_metadata: true, include_hidden_cells: true, sheet_names: [string], specialization: specialization, table_merge_sensitivity: strong, use_experimental_processing: true}",
 			"--configuration", "{extraction_range: extraction_range, flatten_hierarchical_tables: true, generate_additional_metadata: true, include_hidden_cells: true, sheet_names: [string], specialization: specialization, table_merge_sensitivity: strong, use_experimental_processing: true}",
 			"--configuration-id", "cfg-11111111-2222-3333-4444-555555555555",
-			"--webhook-configuration", "[{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_url: https://example.com/webhooks/llamacloud}]",
+			"--webhook-configuration", "[{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_signing_secret: whsec_..., webhook_url: https://example.com/webhooks/llamacloud}]",
 		)
 	})
 
@@ -58,6 +58,7 @@ func TestBetaSheetsCreate(t *testing.T) {
 			"--webhook-configuration.webhook-events", "[parse.success, parse.error]",
 			"--webhook-configuration.webhook-headers", "{Authorization: Bearer sk-...}",
 			"--webhook-configuration.webhook-output-format", "json",
+			"--webhook-configuration.webhook-signing-secret", "whsec_...",
 			"--webhook-configuration.webhook-url", "https://example.com/webhooks/llamacloud",
 		)
 	})
@@ -94,6 +95,7 @@ func TestBetaSheetsCreate(t *testing.T) {
 			"    webhook_headers:\n" +
 			"      Authorization: Bearer sk-...\n" +
 			"    webhook_output_format: json\n" +
+			"    webhook_signing_secret: whsec_...\n" +
 			"    webhook_url: https://example.com/webhooks/llamacloud\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
@@ -122,7 +124,7 @@ func TestBetaSheetsList(t *testing.T) {
 			"--page-size", "0",
 			"--page-token", "page_token",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--status", "CANCELLED",
+			"--status", "PENDING",
 		)
 	})
 }
@@ -166,7 +168,7 @@ func TestBetaSheetsGetResultTable(t *testing.T) {
 			"beta:sheets", "get-result-table",
 			"--spreadsheet-job-id", "spreadsheet_job_id",
 			"--region-id", "region_id",
-			"--region-type", "cell_metadata",
+			"--region-type", "table",
 			"--expires-at-seconds", "0",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",

@@ -21,7 +21,7 @@ func TestBetaBatchJobItemsList(t *testing.T) {
 			"--offset", "0",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--status", "cancelled",
+			"--status", "pending",
 		)
 	})
 }
@@ -34,7 +34,7 @@ func TestBetaBatchJobItemsGetProcessingResults(t *testing.T) {
 			"--api-key", "string",
 			"beta:batch:job-items", "get-processing-results",
 			"--item-id", "item_id",
-			"--job-type", "classify",
+			"--job-type", "parse",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)

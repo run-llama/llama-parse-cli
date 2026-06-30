@@ -19,9 +19,9 @@ func TestExtractCreate(t *testing.T) {
 			"--file-input", "dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--configuration", "{data_schema: {properties: {total_amount: bar, vendor_name: bar}, required: [total_amount, vendor_name], type: object}, cite_sources: true, confidence_scores: true, extraction_target: per_doc, max_pages: 10, parse_config_id: cfg-11111111-2222-3333-4444-555555555555, parse_tier: fast, system_prompt: 'Extract all monetary values in USD. If a currency is not specified, assume USD.', target_pages: '1,3,5-7', tier: cost_effective, version: latest}",
+			"--configuration", "{data_schema: {properties: {vendor_name: bar, total_amount: bar}, required: [vendor_name, total_amount], type: object}, cite_sources: true, confidence_scores: true, extraction_target: per_doc, max_pages: 10, parse_config_id: cfg-11111111-2222-3333-4444-555555555555, parse_tier: fast, system_prompt: 'Extract all monetary values in USD. If a currency is not specified, assume USD.', target_pages: '1,3,5-7', tier: cost_effective, version: latest}",
 			"--configuration-id", "cfg-11111111-2222-3333-4444-555555555555",
-			"--webhook-configuration", "[{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_url: https://example.com/webhooks/llamacloud}]",
+			"--webhook-configuration", "[{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_signing_secret: whsec_..., webhook_url: https://example.com/webhooks/llamacloud}]",
 		)
 	})
 
@@ -37,7 +37,7 @@ func TestExtractCreate(t *testing.T) {
 			"--file-input", "dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--configuration.data-schema", "{properties: {total_amount: bar, vendor_name: bar}, required: [total_amount, vendor_name], type: object}",
+			"--configuration.data-schema", "{properties: {vendor_name: bar, total_amount: bar}, required: [vendor_name, total_amount], type: object}",
 			"--configuration.cite-sources=true",
 			"--configuration.confidence-scores=true",
 			"--configuration.extraction-target", "per_doc",
@@ -52,6 +52,7 @@ func TestExtractCreate(t *testing.T) {
 			"--webhook-configuration.webhook-events", "[parse.success, parse.error]",
 			"--webhook-configuration.webhook-headers", "{Authorization: Bearer sk-...}",
 			"--webhook-configuration.webhook-output-format", "json",
+			"--webhook-configuration.webhook-signing-secret", "whsec_...",
 			"--webhook-configuration.webhook-url", "https://example.com/webhooks/llamacloud",
 		)
 	})
@@ -63,11 +64,11 @@ func TestExtractCreate(t *testing.T) {
 			"configuration:\n" +
 			"  data_schema:\n" +
 			"    properties:\n" +
-			"      total_amount: bar\n" +
 			"      vendor_name: bar\n" +
+			"      total_amount: bar\n" +
 			"    required:\n" +
-			"      - total_amount\n" +
 			"      - vendor_name\n" +
+			"      - total_amount\n" +
 			"    type: object\n" +
 			"  cite_sources: true\n" +
 			"  confidence_scores: true\n" +
@@ -89,6 +90,7 @@ func TestExtractCreate(t *testing.T) {
 			"    webhook_headers:\n" +
 			"      Authorization: Bearer sk-...\n" +
 			"    webhook_output_format: json\n" +
+			"    webhook_signing_secret: whsec_...\n" +
 			"    webhook_url: https://example.com/webhooks/llamacloud\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
@@ -120,7 +122,7 @@ func TestExtractList(t *testing.T) {
 			"--page-size", "0",
 			"--page-token", "page_token",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--status", "CANCELLED",
+			"--status", "PENDING",
 		)
 	})
 }
@@ -198,7 +200,7 @@ func TestExtractValidateSchema(t *testing.T) {
 			t,
 			"--api-key", "string",
 			"extract", "validate-schema",
-			"--data-schema", "{properties: {invoice_number: bar, line_items: bar, total_amount: bar, vendor_name: bar}, required: [invoice_number, total_amount, vendor_name], type: object}",
+			"--data-schema", "{properties: {vendor_name: bar, invoice_number: bar, total_amount: bar, line_items: bar}, required: [vendor_name, invoice_number, total_amount], type: object}",
 		)
 	})
 
@@ -207,14 +209,14 @@ func TestExtractValidateSchema(t *testing.T) {
 		pipeData := []byte("" +
 			"data_schema:\n" +
 			"  properties:\n" +
-			"    invoice_number: bar\n" +
-			"    line_items: bar\n" +
-			"    total_amount: bar\n" +
 			"    vendor_name: bar\n" +
+			"    invoice_number: bar\n" +
+			"    total_amount: bar\n" +
+			"    line_items: bar\n" +
 			"  required:\n" +
+			"    - vendor_name\n" +
 			"    - invoice_number\n" +
 			"    - total_amount\n" +
-			"    - vendor_name\n" +
 			"  type: object\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
