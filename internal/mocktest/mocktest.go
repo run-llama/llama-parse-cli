@@ -79,11 +79,11 @@ func TestRunMockTestWithPipeAndFlags(t *testing.T, pipeData []byte, args ...stri
 	_, filename, _, ok := runtime.Caller(0)
 	require.True(t, ok, "Could not get current file path")
 	dirPath := filepath.Dir(filename)
-	project := filepath.Join(dirPath, "..", "..", "cmd", "llamacloud-prod")
+	project := filepath.Join(dirPath, "..", "..", "cmd", "llp")
 
 	args = append([]string{"run", project, "--base-url", mockServerURL.String()}, args...)
 
-	t.Logf("Testing command: go run ./cmd/llamacloud-prod %s", strings.Join(args[2:], " "))
+	t.Logf("Testing command: go run ./cmd/llp %s", strings.Join(args[2:], " "))
 
 	cmd := exec.Command("go", args...)
 	cmd.Stdin = bytes.NewReader(pipeData)

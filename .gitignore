@@ -1,5 +1,5 @@
 .prism.log
 .stdy.log
 dist/
-/llamacloud-prod
+/llp
 *.exe
