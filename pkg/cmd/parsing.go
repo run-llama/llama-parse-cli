@@ -27,7 +27,11 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.Flag[string]{
 			Name:     "version",
+<<<<<<< HEAD
+			Usage:    "Version for the selected tier. Use `latest`, or pin one of that tier's dated versions.\n\nCurrent `latest` by tier:\n- `fast`: `2026-06-15`\n- `cost_effective`: `2026-06-26`\n- `agentic`: `2026-06-18`\n- `agentic_plus`: `2026-07-08`\n\nFull list: `GET /api/v2/parse/versions`.",
+=======
 			Usage:    "Version for the selected tier. Use `latest`, or pin one of that tier's dated versions.\n\nCurrent `latest` by tier:\n- `fast`: `2025-12-11`\n- `cost_effective`: `2026-06-05`\n- `agentic`: `2026-06-04`\n- `agentic_plus`: `2026-06-04`\n\nFull list: `GET /api/v2/parse/versions`.",
+>>>>>>> b9e6bb1 (Apply custom code)
 			Required: true,
 			BodyPath: "version",
 		},
