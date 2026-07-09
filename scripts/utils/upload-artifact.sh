@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -exuo pipefail
 
-BINARY_NAME="llamacloud-prod"
+BINARY_NAME="llp"
 DIST_DIR="dist"
 FILENAME="dist.zip"
 

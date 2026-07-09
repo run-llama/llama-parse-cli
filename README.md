@@ -13,7 +13,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 To test or install the CLI locally, you need [Go](https://go.dev/doc/install) version 1.22 or later installed.
 
 ```sh
-go install 'github.com/run-llama/llama-parse-cli/cmd/llamacloud-prod@latest'
+go install 'github.com/run-llama/llama-parse-cli/cmd/llp@latest'
 ```
 
 Once you have run `go install`, the binary is placed in your Go bin directory:
@@ -44,11 +44,11 @@ After cloning the git repository for this project, you can use the
 The CLI follows a resource-based command structure:
 
 ```sh
-llamacloud-prod [resource] <command> [flags...]
+llp [resource] <command> [flags...]
 ```
 
 ```sh
-llamacloud-prod parsing create \
+llp parsing create \
   --api-key 'My API Key' \
   --tier agentic \
   --version latest \
@@ -80,15 +80,15 @@ For details about specific commands, use the `--help` flag.
 To pass files to your API, you can use the `@myfile.ext` syntax:
 
 ```bash
-llamacloud-prod <command> --arg @abe.jpg
+llp <command> --arg @abe.jpg
 ```
 
 Files can also be passed inside JSON or YAML blobs:
 
 ```bash
-llamacloud-prod <command> --arg '{image: "@abe.jpg"}'
+llp <command> --arg '{image: "@abe.jpg"}'
 # Equivalent:
-llamacloud-prod <command> <<YAML
+llp <command> <<YAML
 arg:
   image: "@abe.jpg"
 YAML
@@ -98,7 +98,7 @@ If you need to pass a string literal that begins with an `@` sign, you can
 escape the `@` sign to avoid accidentally passing a file.
 
 ```bash
-llamacloud-prod <command> --username '\@abe'
+llp <command> --username '\@abe'
 ```
 
 #### Explicit encoding
@@ -112,7 +112,7 @@ base64-encoding). Note that absolute paths will begin with `@file://` or
 `@data://`, followed by a third `/` (for example, `@file:///tmp/file.txt`).
 
 ```bash
-llamacloud-prod <command> --arg @data://file.txt
+llp <command> --arg @data://file.txt
 ```
 
 ## Linking different Go SDK versions
