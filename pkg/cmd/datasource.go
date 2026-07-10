@@ -45,6 +45,11 @@ var dataSourcesCreate = cli.Command{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
+		&requestflag.Flag[*string]{
+			Name:     "brokered-connection-id",
+			Usage:    "Reference to a brokered managed-OAuth connection backing this source.",
+			BodyPath: "brokered_connection_id",
+		},
 		&requestflag.Flag[map[string]any]{
 			Name:     "custom-metadata",
 			Usage:    "Custom metadata that will be present on all data loaded from the data source",
@@ -70,6 +75,11 @@ var dataSourcesUpdate = cli.Command{
 			Usage:    `Allowed values: "S3", "AZURE_STORAGE_BLOB", "GOOGLE_DRIVE", "MICROSOFT_ONEDRIVE", "MICROSOFT_SHAREPOINT", "SLACK", "NOTION_PAGE", "CONFLUENCE", "JIRA", "JIRA_V2", "BOX".`,
 			Required: true,
 			BodyPath: "source_type",
+		},
+		&requestflag.Flag[*string]{
+			Name:     "brokered-connection-id",
+			Usage:    "Reference to a brokered managed-OAuth connection backing this source.",
+			BodyPath: "brokered_connection_id",
 		},
 		&requestflag.Flag[map[string]any]{
 			Name:     "component",
