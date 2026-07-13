@@ -256,6 +256,11 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "Disable automatic heuristics including outlined table extraction and adaptive long table handling. Use when heuristics produce incorrect results",
 			InnerField: "disable_heuristics",
 		},
+		&requestflag.InnerFlag[*string]{
+			Name:       "processing-options.forms",
+			Usage:      "Beta: set to 'enrich' to run an additional AI form-analysis pass on pages detected as forms, producing a structured tree of the form's sections, fields, and fillable grids. Retrieve the result with expand=forms. 'default' (the default) applies standard parsing with no extra pass. Not available on the fast tier",
+			InnerField: "forms",
+		},
 		&requestflag.InnerFlag[map[string]any]{
 			Name:       "processing-options.ignore",
 			Usage:      "Options for ignoring specific text types (diagonal, hidden, text in images)",
@@ -365,7 +370,7 @@ var parsingGet = cli.Command{
 		},
 		&requestflag.Flag[[]string]{
 			Name:      "expand",
-			Usage:     "Fields to include: text, markdown, items, metadata, job_metadata, text_content_metadata, markdown_content_metadata, items_content_metadata, metadata_content_metadata, raw_words_content_metadata, xlsx_content_metadata, output_pdf_content_metadata, images_content_metadata. Metadata fields include presigned URLs.",
+			Usage:     "Fields to include: text, markdown, items, metadata, forms, job_metadata, text_content_metadata, markdown_content_metadata, items_content_metadata, metadata_content_metadata, forms_content_metadata, raw_words_content_metadata, xlsx_content_metadata, output_pdf_content_metadata, images_content_metadata. Metadata fields include presigned URLs.",
 			QueryPath: "expand",
 		},
 		&requestflag.Flag[*string]{
