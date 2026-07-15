@@ -246,6 +246,11 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "Conditional processing rules that apply different parsing options based on page content, document structure, or filename patterns. Each entry defines trigger conditions and the parsing configuration to apply when triggered",
 			InnerField: "auto_mode_configuration",
 		},
+		&requestflag.InnerFlag[*string]{
+			Name:       "processing-options.confidence-scores",
+			Usage:      "Confidence scoring mode. 'default': standard scoring. 'verified': more accurate assessment of the parsing quality of every page, plus a document-level score in the result metadata; costs an additional 5 credits per page",
+			InnerField: "confidence_scores",
+		},
 		&requestflag.InnerFlag[map[string]any]{
 			Name:       "processing-options.cost-optimizer",
 			Usage:      "Cost optimizer configuration for reducing parsing costs on simpler pages.\n\nWhen enabled, the parser analyzes each page and routes simpler pages to faster,\ncheaper processing while preserving quality for complex pages. Only works with\n'agentic' or 'agentic_plus' tiers.",
