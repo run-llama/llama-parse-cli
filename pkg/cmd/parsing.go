@@ -247,9 +247,9 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			InnerField: "auto_mode_configuration",
 		},
 		&requestflag.InnerFlag[*string]{
-			Name:       "processing-options.confidence-scores",
-			Usage:      "Confidence scoring mode. 'default': standard scoring. 'verified': more accurate assessment of the parsing quality of every page, plus a document-level score in the result metadata; costs an additional 5 credits per page",
-			InnerField: "confidence_scores",
+			Name:       "processing-options.confidence-score-effort",
+			Usage:      "Confidence scoring effort. Omit for standard scoring. 'high': more accurate assessment of the parsing quality of every page, plus a document-level score in the result metadata; costs an additional 5 credits per page",
+			InnerField: "confidence_score_effort",
 		},
 		&requestflag.InnerFlag[map[string]any]{
 			Name:       "processing-options.cost-optimizer",

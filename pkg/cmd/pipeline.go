@@ -192,8 +192,8 @@ var pipelinesCreate = requestflag.WithInnerFlags(cli.Command{
 			InnerField: "complemental_formatting_instruction",
 		},
 		&requestflag.InnerFlag[*string]{
-			Name:       "llama-parse-parameters.confidence-scores",
-			InnerField: "confidence_scores",
+			Name:       "llama-parse-parameters.confidence-score-effort",
+			InnerField: "confidence_score_effort",
 		},
 		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.content-guideline-instruction",
@@ -861,8 +861,8 @@ var pipelinesUpdate = requestflag.WithInnerFlags(cli.Command{
 			InnerField: "complemental_formatting_instruction",
 		},
 		&requestflag.InnerFlag[*string]{
-			Name:       "llama-parse-parameters.confidence-scores",
-			InnerField: "confidence_scores",
+			Name:       "llama-parse-parameters.confidence-score-effort",
+			InnerField: "confidence_score_effort",
 		},
 		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.content-guideline-instruction",
@@ -1738,8 +1738,8 @@ var pipelinesUpsert = requestflag.WithInnerFlags(cli.Command{
 			InnerField: "complemental_formatting_instruction",
 		},
 		&requestflag.InnerFlag[*string]{
-			Name:       "llama-parse-parameters.confidence-scores",
-			InnerField: "confidence_scores",
+			Name:       "llama-parse-parameters.confidence-score-effort",
+			InnerField: "confidence_score_effort",
 		},
 		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.content-guideline-instruction",
