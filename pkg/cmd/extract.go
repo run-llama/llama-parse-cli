@@ -100,7 +100,7 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.InnerFlag[string]{
 			Name:       "configuration.tier",
-			Usage:      "Extract tier: cost_effective (5 credits/page) or agentic (15 credits/page)",
+			Usage:      "Extract tier: cost_effective (5 credits/page), agentic (15 credits/page), or agentic_plus (50 credits/page)",
 			InnerField: "tier",
 		},
 		&requestflag.InnerFlag[string]{
