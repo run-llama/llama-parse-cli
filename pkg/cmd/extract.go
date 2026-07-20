@@ -326,7 +326,7 @@ var extractValidateSchema = cli.Command{
 }
 
 func handleExtractCreate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -344,7 +344,7 @@ func handleExtractCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ExtractNewParams{}
+	params := llamacloud.ExtractNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -367,7 +367,7 @@ func handleExtractCreate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleExtractList(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -385,7 +385,7 @@ func handleExtractList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ExtractListParams{}
+	params := llamacloud.ExtractListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -422,7 +422,7 @@ func handleExtractList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleExtractDelete(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("job-id") && len(unusedArgs) > 0 {
 		cmd.Set("job-id", unusedArgs[0])
@@ -443,7 +443,7 @@ func handleExtractDelete(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ExtractDeleteParams{}
+	params := llamacloud.ExtractDeleteParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -471,7 +471,7 @@ func handleExtractDelete(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleExtractGenerateSchema(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -489,7 +489,7 @@ func handleExtractGenerateSchema(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ExtractGenerateSchemaParams{}
+	params := llamacloud.ExtractGenerateSchemaParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -512,7 +512,7 @@ func handleExtractGenerateSchema(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleExtractGet(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("job-id") && len(unusedArgs) > 0 {
 		cmd.Set("job-id", unusedArgs[0])
@@ -533,7 +533,7 @@ func handleExtractGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ExtractGetParams{}
+	params := llamacloud.ExtractGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -561,7 +561,7 @@ func handleExtractGet(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleExtractValidateSchema(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -579,7 +579,7 @@ func handleExtractValidateSchema(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ExtractValidateSchemaParams{}
+	params := llamacloud.ExtractValidateSchemaParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

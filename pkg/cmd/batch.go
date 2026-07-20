@@ -128,7 +128,7 @@ var batchesGet = cli.Command{
 }
 
 func handleBatchesCreate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -146,7 +146,7 @@ func handleBatchesCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BatchNewParams{}
+	params := llamacloud.BatchNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -169,7 +169,7 @@ func handleBatchesCreate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBatchesList(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -187,7 +187,7 @@ func handleBatchesList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BatchListParams{}
+	params := llamacloud.BatchListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -224,7 +224,7 @@ func handleBatchesList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBatchesGet(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("batch-id") && len(unusedArgs) > 0 {
 		cmd.Set("batch-id", unusedArgs[0])
@@ -245,7 +245,7 @@ func handleBatchesGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BatchGetParams{}
+	params := llamacloud.BatchGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

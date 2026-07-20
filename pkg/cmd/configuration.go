@@ -172,7 +172,7 @@ var configurationsDelete = cli.Command{
 }
 
 func handleConfigurationsCreate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -190,7 +190,7 @@ func handleConfigurationsCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ConfigurationNewParams{}
+	params := llamacloud.ConfigurationNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -213,7 +213,7 @@ func handleConfigurationsCreate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleConfigurationsRetrieve(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("config-id") && len(unusedArgs) > 0 {
 		cmd.Set("config-id", unusedArgs[0])
@@ -234,7 +234,7 @@ func handleConfigurationsRetrieve(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ConfigurationGetParams{}
+	params := llamacloud.ConfigurationGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -262,7 +262,7 @@ func handleConfigurationsRetrieve(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleConfigurationsUpdate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("config-id") && len(unusedArgs) > 0 {
 		cmd.Set("config-id", unusedArgs[0])
@@ -283,7 +283,7 @@ func handleConfigurationsUpdate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ConfigurationUpdateParams{}
+	params := llamacloud.ConfigurationUpdateParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -311,7 +311,7 @@ func handleConfigurationsUpdate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleConfigurationsList(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -329,7 +329,7 @@ func handleConfigurationsList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ConfigurationListParams{}
+	params := llamacloud.ConfigurationListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -366,7 +366,7 @@ func handleConfigurationsList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleConfigurationsDelete(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("config-id") && len(unusedArgs) > 0 {
 		cmd.Set("config-id", unusedArgs[0])
@@ -387,7 +387,7 @@ func handleConfigurationsDelete(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ConfigurationDeleteParams{}
+	params := llamacloud.ConfigurationDeleteParams{}
 
 	return client.Configurations.Delete(
 		ctx,

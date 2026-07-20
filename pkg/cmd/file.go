@@ -229,7 +229,7 @@ var filesQuery = requestflag.WithInnerFlags(cli.Command{
 })
 
 func handleFilesCreate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -247,7 +247,7 @@ func handleFilesCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.FileNewParams{}
+	params := llamacloud.FileNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -270,7 +270,7 @@ func handleFilesCreate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleFilesList(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -288,7 +288,7 @@ func handleFilesList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.FileListParams{}
+	params := llamacloud.FileListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -325,7 +325,7 @@ func handleFilesList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleFilesDelete(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("file-id") && len(unusedArgs) > 0 {
 		cmd.Set("file-id", unusedArgs[0])
@@ -346,7 +346,7 @@ func handleFilesDelete(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.FileDeleteParams{}
+	params := llamacloud.FileDeleteParams{}
 
 	return client.Files.Delete(
 		ctx,
@@ -357,7 +357,7 @@ func handleFilesDelete(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleFilesGet(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("file-id") && len(unusedArgs) > 0 {
 		cmd.Set("file-id", unusedArgs[0])
@@ -378,7 +378,7 @@ func handleFilesGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.FileGetParams{}
+	params := llamacloud.FileGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -406,7 +406,7 @@ func handleFilesGet(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleFilesQuery(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -424,7 +424,7 @@ func handleFilesQuery(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.FileQueryParams{}
+	params := llamacloud.FileQueryParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

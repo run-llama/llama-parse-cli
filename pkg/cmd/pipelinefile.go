@@ -186,7 +186,7 @@ var pipelinesFilesGetStatusCounts = cli.Command{
 }
 
 func handlePipelinesFilesCreate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("pipeline-id") && len(unusedArgs) > 0 {
 		cmd.Set("pipeline-id", unusedArgs[0])
@@ -207,7 +207,7 @@ func handlePipelinesFilesCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.PipelineFileNewParams{}
+	params := llamacloud.PipelineFileNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -235,7 +235,7 @@ func handlePipelinesFilesCreate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handlePipelinesFilesUpdate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("file-id") && len(unusedArgs) > 0 {
 		cmd.Set("file-id", unusedArgs[0])
@@ -256,7 +256,7 @@ func handlePipelinesFilesUpdate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.PipelineFileUpdateParams{
+	params := llamacloud.PipelineFileUpdateParams{
 		PipelineID: cmd.Value("pipeline-id").(string),
 	}
 
@@ -286,7 +286,7 @@ func handlePipelinesFilesUpdate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handlePipelinesFilesList(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("pipeline-id") && len(unusedArgs) > 0 {
 		cmd.Set("pipeline-id", unusedArgs[0])
@@ -307,7 +307,7 @@ func handlePipelinesFilesList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.PipelineFileListParams{}
+	params := llamacloud.PipelineFileListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -354,7 +354,7 @@ func handlePipelinesFilesList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handlePipelinesFilesDelete(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("file-id") && len(unusedArgs) > 0 {
 		cmd.Set("file-id", unusedArgs[0])
@@ -375,7 +375,7 @@ func handlePipelinesFilesDelete(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.PipelineFileDeleteParams{
+	params := llamacloud.PipelineFileDeleteParams{
 		PipelineID: cmd.Value("pipeline-id").(string),
 	}
 
@@ -388,7 +388,7 @@ func handlePipelinesFilesDelete(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handlePipelinesFilesGetStatus(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("file-id") && len(unusedArgs) > 0 {
 		cmd.Set("file-id", unusedArgs[0])
@@ -409,7 +409,7 @@ func handlePipelinesFilesGetStatus(ctx context.Context, cmd *cli.Command) error 
 		return err
 	}
 
-	params := llamacloudprod.PipelineFileGetStatusParams{
+	params := llamacloud.PipelineFileGetStatusParams{
 		PipelineID: cmd.Value("pipeline-id").(string),
 	}
 
@@ -439,7 +439,7 @@ func handlePipelinesFilesGetStatus(ctx context.Context, cmd *cli.Command) error 
 }
 
 func handlePipelinesFilesGetStatusCounts(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("pipeline-id") && len(unusedArgs) > 0 {
 		cmd.Set("pipeline-id", unusedArgs[0])
@@ -460,7 +460,7 @@ func handlePipelinesFilesGetStatusCounts(ctx context.Context, cmd *cli.Command) 
 		return err
 	}
 
-	params := llamacloudprod.PipelineFileGetStatusCountsParams{}
+	params := llamacloud.PipelineFileGetStatusCountsParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

@@ -330,7 +330,7 @@ var betaSheetsGetResultTable = cli.Command{
 }
 
 func handleBetaSheetsCreate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -348,7 +348,7 @@ func handleBetaSheetsCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaSheetNewParams{}
+	params := llamacloud.BetaSheetNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -371,7 +371,7 @@ func handleBetaSheetsCreate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaSheetsList(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -389,7 +389,7 @@ func handleBetaSheetsList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaSheetListParams{}
+	params := llamacloud.BetaSheetListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -426,7 +426,7 @@ func handleBetaSheetsList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaSheetsDeleteJob(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("spreadsheet-job-id") && len(unusedArgs) > 0 {
 		cmd.Set("spreadsheet-job-id", unusedArgs[0])
@@ -447,7 +447,7 @@ func handleBetaSheetsDeleteJob(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaSheetDeleteJobParams{}
+	params := llamacloud.BetaSheetDeleteJobParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -475,7 +475,7 @@ func handleBetaSheetsDeleteJob(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaSheetsGet(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("spreadsheet-job-id") && len(unusedArgs) > 0 {
 		cmd.Set("spreadsheet-job-id", unusedArgs[0])
@@ -496,7 +496,7 @@ func handleBetaSheetsGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaSheetGetParams{}
+	params := llamacloud.BetaSheetGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -524,7 +524,7 @@ func handleBetaSheetsGet(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaSheetsGetResultTable(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("region-type") && len(unusedArgs) > 0 {
 		cmd.Set("region-type", unusedArgs[0])
@@ -545,7 +545,7 @@ func handleBetaSheetsGetResultTable(ctx context.Context, cmd *cli.Command) error
 		return err
 	}
 
-	params := llamacloudprod.BetaSheetGetResultTableParams{
+	params := llamacloud.BetaSheetGetResultTableParams{
 		SpreadsheetJobID: cmd.Value("spreadsheet-job-id").(string),
 		RegionID:         cmd.Value("region-id").(string),
 	}
@@ -554,7 +554,7 @@ func handleBetaSheetsGetResultTable(ctx context.Context, cmd *cli.Command) error
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Beta.Sheets.GetResultTable(
 		ctx,
-		llamacloudprod.BetaSheetGetResultTableParamsRegionType(cmd.Value("region-type").(string)),
+		llamacloud.BetaSheetGetResultTableParamsRegionType(cmd.Value("region-type").(string)),
 		params,
 		options...,
 	)

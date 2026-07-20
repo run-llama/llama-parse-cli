@@ -87,7 +87,7 @@ var betaBatchJobItemsGetProcessingResults = cli.Command{
 }
 
 func handleBetaBatchJobItemsList(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("job-id") && len(unusedArgs) > 0 {
 		cmd.Set("job-id", unusedArgs[0])
@@ -108,7 +108,7 @@ func handleBetaBatchJobItemsList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaBatchJobItemListParams{}
+	params := llamacloud.BetaBatchJobItemListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -155,7 +155,7 @@ func handleBetaBatchJobItemsList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaBatchJobItemsGetProcessingResults(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("item-id") && len(unusedArgs) > 0 {
 		cmd.Set("item-id", unusedArgs[0])
@@ -176,7 +176,7 @@ func handleBetaBatchJobItemsGetProcessingResults(ctx context.Context, cmd *cli.C
 		return err
 	}
 
-	params := llamacloudprod.BetaBatchJobItemGetProcessingResultsParams{}
+	params := llamacloud.BetaBatchJobItemGetProcessingResultsParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

@@ -397,7 +397,7 @@ var parsingGet = cli.Command{
 }
 
 func handleParsingCreate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -415,7 +415,7 @@ func handleParsingCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ParsingNewParams{}
+	params := llamacloud.ParsingNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -438,7 +438,7 @@ func handleParsingCreate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleParsingList(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -456,7 +456,7 @@ func handleParsingList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ParsingListParams{}
+	params := llamacloud.ParsingListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -493,7 +493,7 @@ func handleParsingList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleParsingGet(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("job-id") && len(unusedArgs) > 0 {
 		cmd.Set("job-id", unusedArgs[0])
@@ -514,7 +514,7 @@ func handleParsingGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ParsingGetParams{}
+	params := llamacloud.ParsingGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

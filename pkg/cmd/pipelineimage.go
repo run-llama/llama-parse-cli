@@ -122,7 +122,7 @@ var pipelinesImagesListPageScreenshots = cli.Command{
 }
 
 func handlePipelinesImagesGetPageFigure(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("figure-name") && len(unusedArgs) > 0 {
 		cmd.Set("figure-name", unusedArgs[0])
@@ -143,7 +143,7 @@ func handlePipelinesImagesGetPageFigure(ctx context.Context, cmd *cli.Command) e
 		return err
 	}
 
-	params := llamacloudprod.PipelineImageGetPageFigureParams{
+	params := llamacloud.PipelineImageGetPageFigureParams{
 		ID:        cmd.Value("id").(string),
 		PageIndex: cmd.Value("page-index").(int64),
 	}
@@ -174,7 +174,7 @@ func handlePipelinesImagesGetPageFigure(ctx context.Context, cmd *cli.Command) e
 }
 
 func handlePipelinesImagesGetPageScreenshot(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("page-index") && len(unusedArgs) > 0 {
 		cmd.Set("page-index", unusedArgs[0])
@@ -195,7 +195,7 @@ func handlePipelinesImagesGetPageScreenshot(ctx context.Context, cmd *cli.Comman
 		return err
 	}
 
-	params := llamacloudprod.PipelineImageGetPageScreenshotParams{
+	params := llamacloud.PipelineImageGetPageScreenshotParams{
 		ID: cmd.Value("id").(string),
 	}
 
@@ -225,7 +225,7 @@ func handlePipelinesImagesGetPageScreenshot(ctx context.Context, cmd *cli.Comman
 }
 
 func handlePipelinesImagesListPageFigures(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("id") && len(unusedArgs) > 0 {
 		cmd.Set("id", unusedArgs[0])
@@ -246,7 +246,7 @@ func handlePipelinesImagesListPageFigures(ctx context.Context, cmd *cli.Command)
 		return err
 	}
 
-	params := llamacloudprod.PipelineImageListPageFiguresParams{}
+	params := llamacloud.PipelineImageListPageFiguresParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -274,7 +274,7 @@ func handlePipelinesImagesListPageFigures(ctx context.Context, cmd *cli.Command)
 }
 
 func handlePipelinesImagesListPageScreenshots(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("id") && len(unusedArgs) > 0 {
 		cmd.Set("id", unusedArgs[0])
@@ -295,7 +295,7 @@ func handlePipelinesImagesListPageScreenshots(ctx context.Context, cmd *cli.Comm
 		return err
 	}
 
-	params := llamacloudprod.PipelineImageListPageScreenshotsParams{}
+	params := llamacloud.PipelineImageListPageScreenshotsParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
