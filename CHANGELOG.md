@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.3.0](https://github.com/run-llama/llama-parse-cli/compare/v1.2.0...v1.3.0) (2026-07-21)
+
+
+### Features
+
+* **gdrive:** reuse-first connection picker in the data-source connect modal ([#21725](https://github.com/run-llama/llama-parse-cli/issues/21725)) ([12577ba](https://github.com/run-llama/llama-parse-cli/commit/12577ba9a2864e5d6947cf7c01dd31872e0381ec))
+* **llamaparse:** agentic 2026-07-15 — Markdown-pipe table body for Gemini 3.1 Flash-Lite (EU primary) ([#22208](https://github.com/run-llama/llama-parse-cli/issues/22208)) ([7f31e38](https://github.com/run-llama/llama-parse-cli/commit/7f31e38ffc39dedbe7f646fe97f26d4f033771d3))
+* **parse:** rename confidence scoring option + billing event (confidence_score_effort / confidence_score_high) ([#22290](https://github.com/run-llama/llama-parse-cli/issues/22290)) ([c228ff5](https://github.com/run-llama/llama-parse-cli/commit/c228ff5bb5917bda0db22da464b99d7caf72f72a))
+
+
+### Bug Fixes
+
+* **deps:** bump llama-parse-go to v1.3.0 for llamacloud package rename ([5eed376](https://github.com/run-llama/llama-parse-cli/commit/5eed3765750723415ed5e9c51b1fec76da2355f6))
+
 ## [1.2.0](https://github.com/run-llama/llama-parse-cli/compare/v1.1.0...v1.2.0) (2026-07-09)
 
 
