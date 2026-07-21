@@ -130,7 +130,7 @@ var dataSinksGet = cli.Command{
 }
 
 func handleDataSinksCreate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -148,7 +148,7 @@ func handleDataSinksCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.DataSinkNewParams{}
+	params := llamacloud.DataSinkNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -171,7 +171,7 @@ func handleDataSinksCreate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleDataSinksUpdate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("data-sink-id") && len(unusedArgs) > 0 {
 		cmd.Set("data-sink-id", unusedArgs[0])
@@ -192,7 +192,7 @@ func handleDataSinksUpdate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.DataSinkUpdateParams{}
+	params := llamacloud.DataSinkUpdateParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -220,7 +220,7 @@ func handleDataSinksUpdate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleDataSinksList(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -238,7 +238,7 @@ func handleDataSinksList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.DataSinkListParams{}
+	params := llamacloud.DataSinkListParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -261,7 +261,7 @@ func handleDataSinksList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleDataSinksDelete(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("data-sink-id") && len(unusedArgs) > 0 {
 		cmd.Set("data-sink-id", unusedArgs[0])
@@ -286,7 +286,7 @@ func handleDataSinksDelete(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleDataSinksGet(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("data-sink-id") && len(unusedArgs) > 0 {
 		cmd.Set("data-sink-id", unusedArgs[0])

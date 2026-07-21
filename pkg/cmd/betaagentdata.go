@@ -300,7 +300,7 @@ var betaAgentDataSearch = cli.Command{
 }
 
 func handleBetaAgentDataCreate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -318,7 +318,7 @@ func handleBetaAgentDataCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaAgentDataNewParams{}
+	params := llamacloud.BetaAgentDataNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -341,7 +341,7 @@ func handleBetaAgentDataCreate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaAgentDataUpdate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("item-id") && len(unusedArgs) > 0 {
 		cmd.Set("item-id", unusedArgs[0])
@@ -362,7 +362,7 @@ func handleBetaAgentDataUpdate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaAgentDataUpdateParams{}
+	params := llamacloud.BetaAgentDataUpdateParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -390,7 +390,7 @@ func handleBetaAgentDataUpdate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaAgentDataDelete(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("item-id") && len(unusedArgs) > 0 {
 		cmd.Set("item-id", unusedArgs[0])
@@ -411,7 +411,7 @@ func handleBetaAgentDataDelete(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaAgentDataDeleteParams{}
+	params := llamacloud.BetaAgentDataDeleteParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -439,7 +439,7 @@ func handleBetaAgentDataDelete(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaAgentDataAggregate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -457,7 +457,7 @@ func handleBetaAgentDataAggregate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaAgentDataAggregateParams{}
+	params := llamacloud.BetaAgentDataAggregateParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -494,7 +494,7 @@ func handleBetaAgentDataAggregate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaAgentDataDeleteByQuery(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -512,7 +512,7 @@ func handleBetaAgentDataDeleteByQuery(ctx context.Context, cmd *cli.Command) err
 		return err
 	}
 
-	params := llamacloudprod.BetaAgentDataDeleteByQueryParams{}
+	params := llamacloud.BetaAgentDataDeleteByQueryParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -535,7 +535,7 @@ func handleBetaAgentDataDeleteByQuery(ctx context.Context, cmd *cli.Command) err
 }
 
 func handleBetaAgentDataGet(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("item-id") && len(unusedArgs) > 0 {
 		cmd.Set("item-id", unusedArgs[0])
@@ -556,7 +556,7 @@ func handleBetaAgentDataGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaAgentDataGetParams{}
+	params := llamacloud.BetaAgentDataGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -584,7 +584,7 @@ func handleBetaAgentDataGet(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaAgentDataSearch(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -602,7 +602,7 @@ func handleBetaAgentDataSearch(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaAgentDataSearchParams{}
+	params := llamacloud.BetaAgentDataSearchParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")

@@ -326,7 +326,7 @@ var retrieversUpsert = requestflag.WithInnerFlags(cli.Command{
 })
 
 func handleRetrieversCreate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -344,7 +344,7 @@ func handleRetrieversCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.RetrieverNewParams{}
+	params := llamacloud.RetrieverNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -367,7 +367,7 @@ func handleRetrieversCreate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleRetrieversUpdate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("retriever-id") && len(unusedArgs) > 0 {
 		cmd.Set("retriever-id", unusedArgs[0])
@@ -388,7 +388,7 @@ func handleRetrieversUpdate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.RetrieverUpdateParams{}
+	params := llamacloud.RetrieverUpdateParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -416,7 +416,7 @@ func handleRetrieversUpdate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleRetrieversList(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -434,7 +434,7 @@ func handleRetrieversList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.RetrieverListParams{}
+	params := llamacloud.RetrieverListParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -457,7 +457,7 @@ func handleRetrieversList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleRetrieversDelete(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("retriever-id") && len(unusedArgs) > 0 {
 		cmd.Set("retriever-id", unusedArgs[0])
@@ -478,7 +478,7 @@ func handleRetrieversDelete(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.RetrieverDeleteParams{}
+	params := llamacloud.RetrieverDeleteParams{}
 
 	return client.Retrievers.Delete(
 		ctx,
@@ -489,7 +489,7 @@ func handleRetrieversDelete(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleRetrieversGet(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("retriever-id") && len(unusedArgs) > 0 {
 		cmd.Set("retriever-id", unusedArgs[0])
@@ -510,7 +510,7 @@ func handleRetrieversGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.RetrieverGetParams{}
+	params := llamacloud.RetrieverGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -538,7 +538,7 @@ func handleRetrieversGet(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleRetrieversSearch(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -556,7 +556,7 @@ func handleRetrieversSearch(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.RetrieverSearchParams{}
+	params := llamacloud.RetrieverSearchParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -579,7 +579,7 @@ func handleRetrieversSearch(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleRetrieversUpsert(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -597,7 +597,7 @@ func handleRetrieversUpsert(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.RetrieverUpsertParams{}
+	params := llamacloud.RetrieverUpsertParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

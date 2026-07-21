@@ -147,7 +147,7 @@ var betaSplitGet = cli.Command{
 }
 
 func handleBetaSplitCreate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -165,7 +165,7 @@ func handleBetaSplitCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaSplitNewParams{}
+	params := llamacloud.BetaSplitNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -188,7 +188,7 @@ func handleBetaSplitCreate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaSplitList(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -206,7 +206,7 @@ func handleBetaSplitList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaSplitListParams{}
+	params := llamacloud.BetaSplitListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -243,7 +243,7 @@ func handleBetaSplitList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaSplitGet(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("split-job-id") && len(unusedArgs) > 0 {
 		cmd.Set("split-job-id", unusedArgs[0])
@@ -264,7 +264,7 @@ func handleBetaSplitGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaSplitGetParams{}
+	params := llamacloud.BetaSplitGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

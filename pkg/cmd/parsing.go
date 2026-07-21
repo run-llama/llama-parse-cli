@@ -27,7 +27,7 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.Flag[string]{
 			Name:     "version",
-			Usage:    "Version for the selected tier. Use `latest`, or pin one of that tier's dated versions.\n\nCurrent `latest` by tier:\n- `fast`: `2026-06-15`\n- `cost_effective`: `2026-06-26`\n- `agentic`: `2026-06-18`\n- `agentic_plus`: `2026-07-08`\n\nFull list: `GET /api/v2/parse/versions`.",
+			Usage:    "Version for the selected tier. Use `latest`, or pin one of that tier's dated versions.\n\nCurrent `latest` by tier:\n- `fast`: `2026-06-15`\n- `cost_effective`: `2026-06-26`\n- `agentic`: `2026-07-15`\n- `agentic_plus`: `2026-07-08`\n\nFull list: `GET /api/v2/parse/versions`.",
 			Required: true,
 			BodyPath: "version",
 		},
@@ -246,6 +246,11 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "Conditional processing rules that apply different parsing options based on page content, document structure, or filename patterns. Each entry defines trigger conditions and the parsing configuration to apply when triggered",
 			InnerField: "auto_mode_configuration",
 		},
+		&requestflag.InnerFlag[*string]{
+			Name:       "processing-options.confidence-score-effort",
+			Usage:      "Confidence scoring effort. Omit for standard scoring. 'high': more accurate assessment of the parsing quality of every page, plus a document-level score in the result metadata; costs an additional 5 credits per page",
+			InnerField: "confidence_score_effort",
+		},
 		&requestflag.InnerFlag[map[string]any]{
 			Name:       "processing-options.cost-optimizer",
 			Usage:      "Cost optimizer configuration for reducing parsing costs on simpler pages.\n\nWhen enabled, the parser analyzes each page and routes simpler pages to faster,\ncheaper processing while preserving quality for complex pages. Only works with\n'agentic' or 'agentic_plus' tiers.",
@@ -255,6 +260,11 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:       "processing-options.disable-heuristics",
 			Usage:      "Disable automatic heuristics including outlined table extraction and adaptive long table handling. Use when heuristics produce incorrect results",
 			InnerField: "disable_heuristics",
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:       "processing-options.forms",
+			Usage:      "Beta: set to 'enrich' to run an additional AI form-analysis pass on pages detected as forms, producing a structured tree of the form's sections, fields, and fillable grids. Retrieve the result with expand=forms. 'default' (the default) applies standard parsing with no extra pass. Not available on the fast tier",
+			InnerField: "forms",
 		},
 		&requestflag.InnerFlag[map[string]any]{
 			Name:       "processing-options.ignore",
@@ -365,7 +375,7 @@ var parsingGet = cli.Command{
 		},
 		&requestflag.Flag[[]string]{
 			Name:      "expand",
-			Usage:     "Fields to include: text, markdown, items, metadata, job_metadata, text_content_metadata, markdown_content_metadata, items_content_metadata, metadata_content_metadata, raw_words_content_metadata, xlsx_content_metadata, output_pdf_content_metadata, images_content_metadata. Metadata fields include presigned URLs.",
+			Usage:     "Fields to include: text, markdown, items, metadata, forms, job_metadata, text_content_metadata, markdown_content_metadata, items_content_metadata, metadata_content_metadata, forms_content_metadata, raw_words_content_metadata, xlsx_content_metadata, output_pdf_content_metadata, images_content_metadata. Metadata fields include presigned URLs.",
 			QueryPath: "expand",
 		},
 		&requestflag.Flag[*string]{
@@ -387,7 +397,7 @@ var parsingGet = cli.Command{
 }
 
 func handleParsingCreate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -405,7 +415,7 @@ func handleParsingCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ParsingNewParams{}
+	params := llamacloud.ParsingNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -428,7 +438,7 @@ func handleParsingCreate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleParsingList(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -446,7 +456,7 @@ func handleParsingList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ParsingListParams{}
+	params := llamacloud.ParsingListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -483,7 +493,7 @@ func handleParsingList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleParsingGet(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("job-id") && len(unusedArgs) > 0 {
 		cmd.Set("job-id", unusedArgs[0])
@@ -504,7 +514,7 @@ func handleParsingGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ParsingGetParams{}
+	params := llamacloud.ParsingGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

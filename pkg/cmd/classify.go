@@ -198,7 +198,7 @@ var classifyGet = cli.Command{
 }
 
 func handleClassifyCreate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -216,7 +216,7 @@ func handleClassifyCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ClassifyNewParams{}
+	params := llamacloud.ClassifyNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -239,7 +239,7 @@ func handleClassifyCreate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleClassifyList(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -257,7 +257,7 @@ func handleClassifyList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ClassifyListParams{}
+	params := llamacloud.ClassifyListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -294,7 +294,7 @@ func handleClassifyList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleClassifyGet(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("job-id") && len(unusedArgs) > 0 {
 		cmd.Set("job-id", unusedArgs[0])
@@ -315,7 +315,7 @@ func handleClassifyGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ClassifyGetParams{}
+	params := llamacloud.ClassifyGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

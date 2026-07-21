@@ -260,7 +260,7 @@ var pipelinesDocumentsUpsert = requestflag.WithInnerFlags(cli.Command{
 })
 
 func handlePipelinesDocumentsCreate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("pipeline-id") && len(unusedArgs) > 0 {
 		cmd.Set("pipeline-id", unusedArgs[0])
@@ -281,7 +281,7 @@ func handlePipelinesDocumentsCreate(ctx context.Context, cmd *cli.Command) error
 		return err
 	}
 
-	params := llamacloudprod.PipelineDocumentNewParams{}
+	params := llamacloud.PipelineDocumentNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -309,7 +309,7 @@ func handlePipelinesDocumentsCreate(ctx context.Context, cmd *cli.Command) error
 }
 
 func handlePipelinesDocumentsList(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("pipeline-id") && len(unusedArgs) > 0 {
 		cmd.Set("pipeline-id", unusedArgs[0])
@@ -330,7 +330,7 @@ func handlePipelinesDocumentsList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.PipelineDocumentListParams{}
+	params := llamacloud.PipelineDocumentListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -377,7 +377,7 @@ func handlePipelinesDocumentsList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handlePipelinesDocumentsDelete(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("document-id") && len(unusedArgs) > 0 {
 		cmd.Set("document-id", unusedArgs[0])
@@ -398,7 +398,7 @@ func handlePipelinesDocumentsDelete(ctx context.Context, cmd *cli.Command) error
 		return err
 	}
 
-	params := llamacloudprod.PipelineDocumentDeleteParams{
+	params := llamacloud.PipelineDocumentDeleteParams{
 		PipelineID: cmd.Value("pipeline-id").(string),
 	}
 
@@ -411,7 +411,7 @@ func handlePipelinesDocumentsDelete(ctx context.Context, cmd *cli.Command) error
 }
 
 func handlePipelinesDocumentsGet(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("document-id") && len(unusedArgs) > 0 {
 		cmd.Set("document-id", unusedArgs[0])
@@ -432,7 +432,7 @@ func handlePipelinesDocumentsGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.PipelineDocumentGetParams{
+	params := llamacloud.PipelineDocumentGetParams{
 		PipelineID: cmd.Value("pipeline-id").(string),
 	}
 
@@ -462,7 +462,7 @@ func handlePipelinesDocumentsGet(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handlePipelinesDocumentsGetChunks(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("document-id") && len(unusedArgs) > 0 {
 		cmd.Set("document-id", unusedArgs[0])
@@ -483,7 +483,7 @@ func handlePipelinesDocumentsGetChunks(ctx context.Context, cmd *cli.Command) er
 		return err
 	}
 
-	params := llamacloudprod.PipelineDocumentGetChunksParams{
+	params := llamacloud.PipelineDocumentGetChunksParams{
 		PipelineID: cmd.Value("pipeline-id").(string),
 	}
 
@@ -513,7 +513,7 @@ func handlePipelinesDocumentsGetChunks(ctx context.Context, cmd *cli.Command) er
 }
 
 func handlePipelinesDocumentsGetStatus(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("document-id") && len(unusedArgs) > 0 {
 		cmd.Set("document-id", unusedArgs[0])
@@ -534,7 +534,7 @@ func handlePipelinesDocumentsGetStatus(ctx context.Context, cmd *cli.Command) er
 		return err
 	}
 
-	params := llamacloudprod.PipelineDocumentGetStatusParams{
+	params := llamacloud.PipelineDocumentGetStatusParams{
 		PipelineID: cmd.Value("pipeline-id").(string),
 	}
 
@@ -564,7 +564,7 @@ func handlePipelinesDocumentsGetStatus(ctx context.Context, cmd *cli.Command) er
 }
 
 func handlePipelinesDocumentsSync(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("document-id") && len(unusedArgs) > 0 {
 		cmd.Set("document-id", unusedArgs[0])
@@ -585,7 +585,7 @@ func handlePipelinesDocumentsSync(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.PipelineDocumentSyncParams{
+	params := llamacloud.PipelineDocumentSyncParams{
 		PipelineID: cmd.Value("pipeline-id").(string),
 	}
 
@@ -615,7 +615,7 @@ func handlePipelinesDocumentsSync(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handlePipelinesDocumentsUpsert(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("pipeline-id") && len(unusedArgs) > 0 {
 		cmd.Set("pipeline-id", unusedArgs[0])
@@ -636,7 +636,7 @@ func handlePipelinesDocumentsUpsert(ctx context.Context, cmd *cli.Command) error
 		return err
 	}
 
-	params := llamacloudprod.PipelineDocumentUpsertParams{}
+	params := llamacloud.PipelineDocumentUpsertParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

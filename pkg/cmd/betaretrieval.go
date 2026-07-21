@@ -248,7 +248,7 @@ var betaRetrievalRead = cli.Command{
 }
 
 func handleBetaRetrievalRetrieve(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -266,7 +266,7 @@ func handleBetaRetrievalRetrieve(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaRetrievalGetParams{}
+	params := llamacloud.BetaRetrievalGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -289,7 +289,7 @@ func handleBetaRetrievalRetrieve(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaRetrievalFind(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -307,7 +307,7 @@ func handleBetaRetrievalFind(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaRetrievalFindParams{}
+	params := llamacloud.BetaRetrievalFindParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -344,7 +344,7 @@ func handleBetaRetrievalFind(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaRetrievalGrep(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -362,7 +362,7 @@ func handleBetaRetrievalGrep(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaRetrievalGrepParams{}
+	params := llamacloud.BetaRetrievalGrepParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -399,7 +399,7 @@ func handleBetaRetrievalGrep(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaRetrievalRead(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -417,7 +417,7 @@ func handleBetaRetrievalRead(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaRetrievalReadParams{}
+	params := llamacloud.BetaRetrievalReadParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

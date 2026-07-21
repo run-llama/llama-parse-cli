@@ -52,7 +52,7 @@ var projectsGet = cli.Command{
 }
 
 func handleProjectsList(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -70,7 +70,7 @@ func handleProjectsList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ProjectListParams{}
+	params := llamacloud.ProjectListParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -93,7 +93,7 @@ func handleProjectsList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleProjectsGet(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("project-id") && len(unusedArgs) > 0 {
 		cmd.Set("project-id", unusedArgs[0])
@@ -114,7 +114,7 @@ func handleProjectsGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.ProjectGetParams{}
+	params := llamacloud.ProjectGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

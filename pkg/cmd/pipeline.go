@@ -192,6 +192,10 @@ var pipelinesCreate = requestflag.WithInnerFlags(cli.Command{
 			InnerField: "complemental_formatting_instruction",
 		},
 		&requestflag.InnerFlag[*string]{
+			Name:       "llama-parse-parameters.confidence-score-effort",
+			InnerField: "confidence_score_effort",
+		},
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.content-guideline-instruction",
 			InnerField: "content_guideline_instruction",
 		},
@@ -855,6 +859,10 @@ var pipelinesUpdate = requestflag.WithInnerFlags(cli.Command{
 		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.complemental-formatting-instruction",
 			InnerField: "complemental_formatting_instruction",
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:       "llama-parse-parameters.confidence-score-effort",
+			InnerField: "confidence_score_effort",
 		},
 		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.content-guideline-instruction",
@@ -1730,6 +1738,10 @@ var pipelinesUpsert = requestflag.WithInnerFlags(cli.Command{
 			InnerField: "complemental_formatting_instruction",
 		},
 		&requestflag.InnerFlag[*string]{
+			Name:       "llama-parse-parameters.confidence-score-effort",
+			InnerField: "confidence_score_effort",
+		},
+		&requestflag.InnerFlag[*string]{
 			Name:       "llama-parse-parameters.content-guideline-instruction",
 			InnerField: "content_guideline_instruction",
 		},
@@ -2227,7 +2239,7 @@ var pipelinesUpsert = requestflag.WithInnerFlags(cli.Command{
 })
 
 func handlePipelinesCreate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -2245,7 +2257,7 @@ func handlePipelinesCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.PipelineNewParams{}
+	params := llamacloud.PipelineNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -2268,7 +2280,7 @@ func handlePipelinesCreate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handlePipelinesUpdate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("pipeline-id") && len(unusedArgs) > 0 {
 		cmd.Set("pipeline-id", unusedArgs[0])
@@ -2289,7 +2301,7 @@ func handlePipelinesUpdate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.PipelineUpdateParams{}
+	params := llamacloud.PipelineUpdateParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -2317,7 +2329,7 @@ func handlePipelinesUpdate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handlePipelinesList(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -2335,7 +2347,7 @@ func handlePipelinesList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.PipelineListParams{}
+	params := llamacloud.PipelineListParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -2358,7 +2370,7 @@ func handlePipelinesList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handlePipelinesDelete(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("pipeline-id") && len(unusedArgs) > 0 {
 		cmd.Set("pipeline-id", unusedArgs[0])
@@ -2383,7 +2395,7 @@ func handlePipelinesDelete(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handlePipelinesGet(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("pipeline-id") && len(unusedArgs) > 0 {
 		cmd.Set("pipeline-id", unusedArgs[0])
@@ -2425,7 +2437,7 @@ func handlePipelinesGet(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handlePipelinesGetStatus(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("pipeline-id") && len(unusedArgs) > 0 {
 		cmd.Set("pipeline-id", unusedArgs[0])
@@ -2446,7 +2458,7 @@ func handlePipelinesGetStatus(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.PipelineGetStatusParams{}
+	params := llamacloud.PipelineGetStatusParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -2474,7 +2486,7 @@ func handlePipelinesGetStatus(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handlePipelinesRunSearch(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("pipeline-id") && len(unusedArgs) > 0 {
 		cmd.Set("pipeline-id", unusedArgs[0])
@@ -2495,7 +2507,7 @@ func handlePipelinesRunSearch(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.PipelineRunSearchParams{}
+	params := llamacloud.PipelineRunSearchParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -2523,7 +2535,7 @@ func handlePipelinesRunSearch(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handlePipelinesUpsert(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -2541,7 +2553,7 @@ func handlePipelinesUpsert(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.PipelineUpsertParams{}
+	params := llamacloud.PipelineUpsertParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

@@ -71,7 +71,7 @@ var retrieversRetrieverSearch = requestflag.WithInnerFlags(cli.Command{
 })
 
 func handleRetrieversRetrieverSearch(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("retriever-id") && len(unusedArgs) > 0 {
 		cmd.Set("retriever-id", unusedArgs[0])
@@ -92,7 +92,7 @@ func handleRetrieversRetrieverSearch(ctx context.Context, cmd *cli.Command) erro
 		return err
 	}
 
-	params := llamacloudprod.RetrieverRetrieverSearchParams{}
+	params := llamacloud.RetrieverRetrieverSearchParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

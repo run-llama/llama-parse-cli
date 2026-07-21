@@ -130,7 +130,7 @@ git tag, or commit hash):
 To link to a local copy of the SDK:
 
 ```bash
-./scripts/link ../path/to/llamacloudprod-go
+./scripts/link ../path/to/llamacloud-go
 ```
 
-If you run the link script without any arguments, it will default to `../llamacloudprod-go`.
+If you run the link script without any arguments, it will default to `../llamacloud-go`.

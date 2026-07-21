@@ -51,7 +51,7 @@ var pipelinesMetadataDeleteAll = cli.Command{
 }
 
 func handlePipelinesMetadataCreate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("pipeline-id") && len(unusedArgs) > 0 {
 		cmd.Set("pipeline-id", unusedArgs[0])
@@ -72,7 +72,7 @@ func handlePipelinesMetadataCreate(ctx context.Context, cmd *cli.Command) error 
 		return err
 	}
 
-	params := llamacloudprod.PipelineMetadataNewParams{}
+	params := llamacloud.PipelineMetadataNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -100,7 +100,7 @@ func handlePipelinesMetadataCreate(ctx context.Context, cmd *cli.Command) error 
 }
 
 func handlePipelinesMetadataDeleteAll(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("pipeline-id") && len(unusedArgs) > 0 {
 		cmd.Set("pipeline-id", unusedArgs[0])

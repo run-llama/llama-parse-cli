@@ -140,7 +140,7 @@ var dataSourcesGet = cli.Command{
 }
 
 func handleDataSourcesCreate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -158,7 +158,7 @@ func handleDataSourcesCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.DataSourceNewParams{}
+	params := llamacloud.DataSourceNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -181,7 +181,7 @@ func handleDataSourcesCreate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleDataSourcesUpdate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("data-source-id") && len(unusedArgs) > 0 {
 		cmd.Set("data-source-id", unusedArgs[0])
@@ -202,7 +202,7 @@ func handleDataSourcesUpdate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.DataSourceUpdateParams{}
+	params := llamacloud.DataSourceUpdateParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -230,7 +230,7 @@ func handleDataSourcesUpdate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleDataSourcesList(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -248,7 +248,7 @@ func handleDataSourcesList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.DataSourceListParams{}
+	params := llamacloud.DataSourceListParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -271,7 +271,7 @@ func handleDataSourcesList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleDataSourcesDelete(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("data-source-id") && len(unusedArgs) > 0 {
 		cmd.Set("data-source-id", unusedArgs[0])
@@ -296,7 +296,7 @@ func handleDataSourcesDelete(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleDataSourcesGet(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("data-source-id") && len(unusedArgs) > 0 {
 		cmd.Set("data-source-id", unusedArgs[0])

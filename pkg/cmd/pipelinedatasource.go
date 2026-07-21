@@ -132,7 +132,7 @@ var pipelinesDataSourcesUpdateDataSources = requestflag.WithInnerFlags(cli.Comma
 })
 
 func handlePipelinesDataSourcesUpdate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("data-source-id") && len(unusedArgs) > 0 {
 		cmd.Set("data-source-id", unusedArgs[0])
@@ -153,7 +153,7 @@ func handlePipelinesDataSourcesUpdate(ctx context.Context, cmd *cli.Command) err
 		return err
 	}
 
-	params := llamacloudprod.PipelineDataSourceUpdateParams{
+	params := llamacloud.PipelineDataSourceUpdateParams{
 		PipelineID: cmd.Value("pipeline-id").(string),
 	}
 
@@ -183,7 +183,7 @@ func handlePipelinesDataSourcesUpdate(ctx context.Context, cmd *cli.Command) err
 }
 
 func handlePipelinesDataSourcesGetDataSources(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("pipeline-id") && len(unusedArgs) > 0 {
 		cmd.Set("pipeline-id", unusedArgs[0])
@@ -225,7 +225,7 @@ func handlePipelinesDataSourcesGetDataSources(ctx context.Context, cmd *cli.Comm
 }
 
 func handlePipelinesDataSourcesGetStatus(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("data-source-id") && len(unusedArgs) > 0 {
 		cmd.Set("data-source-id", unusedArgs[0])
@@ -246,7 +246,7 @@ func handlePipelinesDataSourcesGetStatus(ctx context.Context, cmd *cli.Command) 
 		return err
 	}
 
-	params := llamacloudprod.PipelineDataSourceGetStatusParams{
+	params := llamacloud.PipelineDataSourceGetStatusParams{
 		PipelineID: cmd.Value("pipeline-id").(string),
 	}
 
@@ -276,7 +276,7 @@ func handlePipelinesDataSourcesGetStatus(ctx context.Context, cmd *cli.Command) 
 }
 
 func handlePipelinesDataSourcesSync(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("data-source-id") && len(unusedArgs) > 0 {
 		cmd.Set("data-source-id", unusedArgs[0])
@@ -297,7 +297,7 @@ func handlePipelinesDataSourcesSync(ctx context.Context, cmd *cli.Command) error
 		return err
 	}
 
-	params := llamacloudprod.PipelineDataSourceSyncParams{
+	params := llamacloud.PipelineDataSourceSyncParams{
 		PipelineID: cmd.Value("pipeline-id").(string),
 	}
 
@@ -327,7 +327,7 @@ func handlePipelinesDataSourcesSync(ctx context.Context, cmd *cli.Command) error
 }
 
 func handlePipelinesDataSourcesUpdateDataSources(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("pipeline-id") && len(unusedArgs) > 0 {
 		cmd.Set("pipeline-id", unusedArgs[0])
@@ -348,7 +348,7 @@ func handlePipelinesDataSourcesUpdateDataSources(ctx context.Context, cmd *cli.C
 		return err
 	}
 
-	params := llamacloudprod.PipelineDataSourceUpdateDataSourcesParams{}
+	params := llamacloud.PipelineDataSourceUpdateDataSourcesParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

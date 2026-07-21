@@ -189,7 +189,7 @@ var betaIndexesSync = cli.Command{
 }
 
 func handleBetaIndexesCreate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -207,7 +207,7 @@ func handleBetaIndexesCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaIndexNewParams{}
+	params := llamacloud.BetaIndexNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -230,7 +230,7 @@ func handleBetaIndexesCreate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaIndexesList(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -248,7 +248,7 @@ func handleBetaIndexesList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaIndexListParams{}
+	params := llamacloud.BetaIndexListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -285,7 +285,7 @@ func handleBetaIndexesList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaIndexesDelete(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("index-id") && len(unusedArgs) > 0 {
 		cmd.Set("index-id", unusedArgs[0])
@@ -306,7 +306,7 @@ func handleBetaIndexesDelete(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaIndexDeleteParams{}
+	params := llamacloud.BetaIndexDeleteParams{}
 
 	return client.Beta.Indexes.Delete(
 		ctx,
@@ -317,7 +317,7 @@ func handleBetaIndexesDelete(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaIndexesGet(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("index-id") && len(unusedArgs) > 0 {
 		cmd.Set("index-id", unusedArgs[0])
@@ -338,7 +338,7 @@ func handleBetaIndexesGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaIndexGetParams{}
+	params := llamacloud.BetaIndexGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -366,7 +366,7 @@ func handleBetaIndexesGet(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaIndexesSync(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("index-id") && len(unusedArgs) > 0 {
 		cmd.Set("index-id", unusedArgs[0])
@@ -387,7 +387,7 @@ func handleBetaIndexesSync(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaIndexSyncParams{}
+	params := llamacloud.BetaIndexSyncParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

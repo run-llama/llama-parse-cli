@@ -183,7 +183,7 @@ var betaDirectoriesGet = cli.Command{
 }
 
 func handleBetaDirectoriesCreate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -201,7 +201,7 @@ func handleBetaDirectoriesCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaDirectoryNewParams{}
+	params := llamacloud.BetaDirectoryNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -224,7 +224,7 @@ func handleBetaDirectoriesCreate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaDirectoriesUpdate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("directory-id") && len(unusedArgs) > 0 {
 		cmd.Set("directory-id", unusedArgs[0])
@@ -245,7 +245,7 @@ func handleBetaDirectoriesUpdate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaDirectoryUpdateParams{}
+	params := llamacloud.BetaDirectoryUpdateParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -273,7 +273,7 @@ func handleBetaDirectoriesUpdate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaDirectoriesList(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -291,7 +291,7 @@ func handleBetaDirectoriesList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaDirectoryListParams{}
+	params := llamacloud.BetaDirectoryListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -328,7 +328,7 @@ func handleBetaDirectoriesList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaDirectoriesDelete(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("directory-id") && len(unusedArgs) > 0 {
 		cmd.Set("directory-id", unusedArgs[0])
@@ -349,7 +349,7 @@ func handleBetaDirectoriesDelete(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaDirectoryDeleteParams{}
+	params := llamacloud.BetaDirectoryDeleteParams{}
 
 	return client.Beta.Directories.Delete(
 		ctx,
@@ -360,7 +360,7 @@ func handleBetaDirectoriesDelete(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaDirectoriesGet(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("directory-id") && len(unusedArgs) > 0 {
 		cmd.Set("directory-id", unusedArgs[0])
@@ -381,7 +381,7 @@ func handleBetaDirectoriesGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaDirectoryGetParams{}
+	params := llamacloud.BetaDirectoryGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

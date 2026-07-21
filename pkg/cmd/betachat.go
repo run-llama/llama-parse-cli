@@ -172,7 +172,7 @@ var betaChatStream = cli.Command{
 }
 
 func handleBetaChatCreate(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -190,7 +190,7 @@ func handleBetaChatCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaChatNewParams{}
+	params := llamacloud.BetaChatNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -213,7 +213,7 @@ func handleBetaChatCreate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaChatRetrieve(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("session-id") && len(unusedArgs) > 0 {
 		cmd.Set("session-id", unusedArgs[0])
@@ -234,7 +234,7 @@ func handleBetaChatRetrieve(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaChatGetParams{}
+	params := llamacloud.BetaChatGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -262,7 +262,7 @@ func handleBetaChatRetrieve(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaChatList(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -280,7 +280,7 @@ func handleBetaChatList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaChatListParams{}
+	params := llamacloud.BetaChatListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -317,7 +317,7 @@ func handleBetaChatList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaChatDelete(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("session-id") && len(unusedArgs) > 0 {
 		cmd.Set("session-id", unusedArgs[0])
@@ -338,7 +338,7 @@ func handleBetaChatDelete(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaChatDeleteParams{}
+	params := llamacloud.BetaChatDeleteParams{}
 
 	return client.Beta.Chat.Delete(
 		ctx,
@@ -349,7 +349,7 @@ func handleBetaChatDelete(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaChatGetSummary(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("session-id") && len(unusedArgs) > 0 {
 		cmd.Set("session-id", unusedArgs[0])
@@ -370,7 +370,7 @@ func handleBetaChatGetSummary(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaChatGetSummaryParams{}
+	params := llamacloud.BetaChatGetSummaryParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -398,7 +398,7 @@ func handleBetaChatGetSummary(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBetaChatStream(ctx context.Context, cmd *cli.Command) error {
-	client := llamacloudprod.NewClient(getDefaultRequestOptions(cmd)...)
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("session-id") && len(unusedArgs) > 0 {
 		cmd.Set("session-id", unusedArgs[0])
@@ -419,7 +419,7 @@ func handleBetaChatStream(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloudprod.BetaChatStreamParams{}
+	params := llamacloud.BetaChatStreamParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
