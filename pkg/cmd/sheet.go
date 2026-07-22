@@ -14,7 +14,7 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
-var betaSheetsCreate = requestflag.WithInnerFlags(cli.Command{
+var sheetsCreate = requestflag.WithInnerFlags(cli.Command{
 	Name:    "create",
 	Usage:   "Create a spreadsheet parsing job.",
 	Suggest: true,
@@ -54,7 +54,7 @@ var betaSheetsCreate = requestflag.WithInnerFlags(cli.Command{
 			BodyPath: "webhook_configurations",
 		},
 	},
-	Action:          handleBetaSheetsCreate,
+	Action:          handleSheetsCreate,
 	HideHelpCommand: true,
 }, map[string][]requestflag.HasOuterFlag{
 	"config": {
@@ -185,9 +185,9 @@ var betaSheetsCreate = requestflag.WithInnerFlags(cli.Command{
 	},
 })
 
-var betaSheetsList = cli.Command{
+var sheetsList = cli.Command{
 	Name:    "list",
-	Usage:   "List spreadsheet parsing jobs. Experimental: not production-ready and subject to\nchange.",
+	Usage:   "List spreadsheet parsing jobs.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[*string]{
@@ -241,13 +241,13 @@ var betaSheetsList = cli.Command{
 			Usage: "The maximum number of items to return (use -1 for unlimited).",
 		},
 	},
-	Action:          handleBetaSheetsList,
+	Action:          handleSheetsList,
 	HideHelpCommand: true,
 }
 
-var betaSheetsDeleteJob = cli.Command{
+var sheetsDeleteJob = cli.Command{
 	Name:    "delete-job",
-	Usage:   "Delete a spreadsheet parsing job and its associated data. Experimental: not\nproduction-ready and subject to change.",
+	Usage:   "Delete a spreadsheet parsing job and its associated data.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
@@ -264,13 +264,13 @@ var betaSheetsDeleteJob = cli.Command{
 			QueryPath: "project_id",
 		},
 	},
-	Action:          handleBetaSheetsDeleteJob,
+	Action:          handleSheetsDeleteJob,
 	HideHelpCommand: true,
 }
 
-var betaSheetsGet = cli.Command{
+var sheetsGet = cli.Command{
 	Name:    "get",
-	Usage:   "Get a spreadsheet parsing job. When `include_results=True` (default), embeds\nextracted regions and results if complete, skipping the separate `/results`\ncall. Experimental: not production-ready and subject to change.",
+	Usage:   "Get a spreadsheet parsing job. When `include_results=True` (default), embeds\nextracted regions and results if complete, skipping the separate `/results`\ncall.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
@@ -297,13 +297,13 @@ var betaSheetsGet = cli.Command{
 			QueryPath: "project_id",
 		},
 	},
-	Action:          handleBetaSheetsGet,
+	Action:          handleSheetsGet,
 	HideHelpCommand: true,
 }
 
-var betaSheetsGetResultTable = cli.Command{
+var sheetsGetResultTable = cli.Command{
 	Name:    "get-result-table",
-	Usage:   "Generate a presigned URL to download a specific extracted region. Experimental:\nnot production-ready and subject to change.",
+	Usage:   "Generate a presigned URL to download a specific extracted region.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
@@ -318,7 +318,7 @@ var betaSheetsGetResultTable = cli.Command{
 		},
 		&requestflag.Flag[string]{
 			Name:      "region-type",
-			Usage:     `Allowed values: "table", "extra", "cell_metadata".`,
+			Usage:     `Allowed values: "cell_metadata", "extra", "table".`,
 			Required:  true,
 			PathParam: "region_type",
 		},
@@ -335,11 +335,11 @@ var betaSheetsGetResultTable = cli.Command{
 			QueryPath: "project_id",
 		},
 	},
-	Action:          handleBetaSheetsGetResultTable,
+	Action:          handleSheetsGetResultTable,
 	HideHelpCommand: true,
 }
 
-func handleBetaSheetsCreate(ctx context.Context, cmd *cli.Command) error {
+func handleSheetsCreate(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
@@ -358,11 +358,11 @@ func handleBetaSheetsCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloud.BetaSheetNewParams{}
+	params := llamacloud.SheetNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Beta.Sheets.New(ctx, params, options...)
+	_, err = client.Sheets.New(ctx, params, options...)
 	if err != nil {
 		return err
 	}
@@ -375,12 +375,12 @@ func handleBetaSheetsCreate(ctx context.Context, cmd *cli.Command) error {
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "beta:sheets create",
+		Title:          "sheets create",
 		Transform:      transform,
 	})
 }
 
-func handleBetaSheetsList(ctx context.Context, cmd *cli.Command) error {
+func handleSheetsList(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
@@ -399,7 +399,7 @@ func handleBetaSheetsList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloud.BetaSheetListParams{}
+	params := llamacloud.SheetListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -407,7 +407,7 @@ func handleBetaSheetsList(ctx context.Context, cmd *cli.Command) error {
 	if format == "raw" {
 		var res []byte
 		options = append(options, option.WithResponseBodyInto(&res))
-		_, err = client.Beta.Sheets.List(ctx, params, options...)
+		_, err = client.Sheets.List(ctx, params, options...)
 		if err != nil {
 			return err
 		}
@@ -416,11 +416,11 @@ func handleBetaSheetsList(ctx context.Context, cmd *cli.Command) error {
 			ExplicitFormat: explicitFormat,
 			Format:         format,
 			RawOutput:      cmd.Root().Bool("raw-output"),
-			Title:          "beta:sheets list",
+			Title:          "sheets list",
 			Transform:      transform,
 		})
 	} else {
-		iter := client.Beta.Sheets.ListAutoPaging(ctx, params, options...)
+		iter := client.Sheets.ListAutoPaging(ctx, params, options...)
 		maxItems := int64(-1)
 		if cmd.IsSet("max-items") {
 			maxItems = cmd.Value("max-items").(int64)
@@ -429,13 +429,13 @@ func handleBetaSheetsList(ctx context.Context, cmd *cli.Command) error {
 			ExplicitFormat: explicitFormat,
 			Format:         format,
 			RawOutput:      cmd.Root().Bool("raw-output"),
-			Title:          "beta:sheets list",
+			Title:          "sheets list",
 			Transform:      transform,
 		})
 	}
 }
 
-func handleBetaSheetsDeleteJob(ctx context.Context, cmd *cli.Command) error {
+func handleSheetsDeleteJob(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("spreadsheet-job-id") && len(unusedArgs) > 0 {
@@ -457,11 +457,11 @@ func handleBetaSheetsDeleteJob(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloud.BetaSheetDeleteJobParams{}
+	params := llamacloud.SheetDeleteJobParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Beta.Sheets.DeleteJob(
+	_, err = client.Sheets.DeleteJob(
 		ctx,
 		cmd.Value("spreadsheet-job-id").(string),
 		params,
@@ -479,12 +479,12 @@ func handleBetaSheetsDeleteJob(ctx context.Context, cmd *cli.Command) error {
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "beta:sheets delete-job",
+		Title:          "sheets delete-job",
 		Transform:      transform,
 	})
 }
 
-func handleBetaSheetsGet(ctx context.Context, cmd *cli.Command) error {
+func handleSheetsGet(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("spreadsheet-job-id") && len(unusedArgs) > 0 {
@@ -506,11 +506,11 @@ func handleBetaSheetsGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloud.BetaSheetGetParams{}
+	params := llamacloud.SheetGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Beta.Sheets.Get(
+	_, err = client.Sheets.Get(
 		ctx,
 		cmd.Value("spreadsheet-job-id").(string),
 		params,
@@ -528,12 +528,12 @@ func handleBetaSheetsGet(ctx context.Context, cmd *cli.Command) error {
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "beta:sheets get",
+		Title:          "sheets get",
 		Transform:      transform,
 	})
 }
 
-func handleBetaSheetsGetResultTable(ctx context.Context, cmd *cli.Command) error {
+func handleSheetsGetResultTable(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("region-type") && len(unusedArgs) > 0 {
@@ -555,16 +555,16 @@ func handleBetaSheetsGetResultTable(ctx context.Context, cmd *cli.Command) error
 		return err
 	}
 
-	params := llamacloud.BetaSheetGetResultTableParams{
+	params := llamacloud.SheetGetResultTableParams{
 		SpreadsheetJobID: cmd.Value("spreadsheet-job-id").(string),
 		RegionID:         cmd.Value("region-id").(string),
 	}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Beta.Sheets.GetResultTable(
+	_, err = client.Sheets.GetResultTable(
 		ctx,
-		llamacloud.BetaSheetGetResultTableParamsRegionType(cmd.Value("region-type").(string)),
+		llamacloud.SheetGetResultTableParamsRegionType(cmd.Value("region-type").(string)),
 		params,
 		options...,
 	)
@@ -580,7 +580,7 @@ func handleBetaSheetsGetResultTable(ctx context.Context, cmd *cli.Command) error
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "beta:sheets get-result-table",
+		Title:          "sheets get-result-table",
 		Transform:      transform,
 	})
 }
