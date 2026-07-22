@@ -32,15 +32,23 @@ jobs:
           # cross-repo fetch of the internal go SDK.
           persist-credentials: false
 
-      # Authenticate git for the internal staging Go SDK repo
-      # (run-llama/llamacloud-prod-go) using the org-level SDK_WRITE_TOKEN
-      # secret, so the verify gate and `go build` can read it. Kept as
-      # custom code so stlc preserves it across regenerations.
+      # Read-only llama-org-ci-bot app token to fetch the private staging Go SDK
+      # (run-llama/llamacloud-prod-go) so the verify gate and `go build` can read
+      # it. Kept as custom code so stlc preserves it across regenerations.
+      - name: Generate go-SDK read token (CI_BOT GitHub App)
+        id: go-read
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.CI_BOT_APP_ID }}
+          private-key: ${{ secrets.CI_BOT_PRIVATE_KEY }}
+          owner: run-llama
+          repositories: llamacloud-prod-go
+          permission-contents: read
       - name: Authenticate git for the private Go SDK repo
         shell: bash
         env:
           GO_MODULE_REPO: ${{ github.repository == 'run-llama/llamacloud-prod-cli' && 'run-llama/llamacloud-prod-go' || 'run-llama/llama-parse-go' }}
-        run: git config --global url."https://x-access-token:${{ secrets.SDK_WRITE_TOKEN }}@github.com/${GO_MODULE_REPO}".insteadOf "https://github.com/${GO_MODULE_REPO}"
+        run: git config --global url."https://x-access-token:${{ steps.go-read.outputs.token }}@github.com/${GO_MODULE_REPO}".insteadOf "https://github.com/${GO_MODULE_REPO}"
       - uses: ./.github/actions/setup-go
 
       - name: Link staging branch
@@ -70,15 +78,23 @@ jobs:
           # cross-repo fetch of the internal go SDK.
           persist-credentials: false
 
-      # Authenticate git for the internal staging Go SDK repo
-      # (run-llama/llamacloud-prod-go) using the org-level SDK_WRITE_TOKEN
-      # secret, so the verify gate and `go build` can read it. Kept as
-      # custom code so stlc preserves it across regenerations.
+      # Read-only llama-org-ci-bot app token to fetch the private staging Go SDK
+      # (run-llama/llamacloud-prod-go) so the verify gate and `go build` can read
+      # it. Kept as custom code so stlc preserves it across regenerations.
+      - name: Generate go-SDK read token (CI_BOT GitHub App)
+        id: go-read
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.CI_BOT_APP_ID }}
+          private-key: ${{ secrets.CI_BOT_PRIVATE_KEY }}
+          owner: run-llama
+          repositories: llamacloud-prod-go
+          permission-contents: read
       - name: Authenticate git for the private Go SDK repo
         shell: bash
         env:
           GO_MODULE_REPO: ${{ github.repository == 'run-llama/llamacloud-prod-cli' && 'run-llama/llamacloud-prod-go' || 'run-llama/llama-parse-go' }}
-        run: git config --global url."https://x-access-token:${{ secrets.SDK_WRITE_TOKEN }}@github.com/${GO_MODULE_REPO}".insteadOf "https://github.com/${GO_MODULE_REPO}"
+        run: git config --global url."https://x-access-token:${{ steps.go-read.outputs.token }}@github.com/${GO_MODULE_REPO}".insteadOf "https://github.com/${GO_MODULE_REPO}"
       - uses: ./.github/actions/setup-go
 
       - name: Link staging branch
@@ -114,15 +130,23 @@ jobs:
           # cross-repo fetch of the internal go SDK.
           persist-credentials: false
 
-      # Authenticate git for the internal staging Go SDK repo
-      # (run-llama/llamacloud-prod-go) using the org-level SDK_WRITE_TOKEN
-      # secret, so the verify gate and `go build` can read it. Kept as
-      # custom code so stlc preserves it across regenerations.
+      # Read-only llama-org-ci-bot app token to fetch the private staging Go SDK
+      # (run-llama/llamacloud-prod-go) so the verify gate and `go build` can read
+      # it. Kept as custom code so stlc preserves it across regenerations.
+      - name: Generate go-SDK read token (CI_BOT GitHub App)
+        id: go-read
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.CI_BOT_APP_ID }}
+          private-key: ${{ secrets.CI_BOT_PRIVATE_KEY }}
+          owner: run-llama
+          repositories: llamacloud-prod-go
+          permission-contents: read
       - name: Authenticate git for the private Go SDK repo
         shell: bash
         env:
           GO_MODULE_REPO: ${{ github.repository == 'run-llama/llamacloud-prod-cli' && 'run-llama/llamacloud-prod-go' || 'run-llama/llama-parse-go' }}
-        run: git config --global url."https://x-access-token:${{ secrets.SDK_WRITE_TOKEN }}@github.com/${GO_MODULE_REPO}".insteadOf "https://github.com/${GO_MODULE_REPO}"
+        run: git config --global url."https://x-access-token:${{ steps.go-read.outputs.token }}@github.com/${GO_MODULE_REPO}".insteadOf "https://github.com/${GO_MODULE_REPO}"
       - uses: ./.github/actions/setup-go
 
       - name: Link staging branch
