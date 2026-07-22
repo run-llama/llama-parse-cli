@@ -9,13 +9,13 @@ import (
 	"github.com/run-llama/llama-parse-cli/internal/requestflag"
 )
 
-func TestBetaSheetsCreate(t *testing.T) {
+func TestSheetsCreate(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"beta:sheets", "create",
+			"sheets", "create",
 			"--file-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -28,13 +28,13 @@ func TestBetaSheetsCreate(t *testing.T) {
 
 	t.Run("inner flags", func(t *testing.T) {
 		// Check that inner flags have been set up correctly
-		requestflag.CheckInnerFlags(betaSheetsCreate)
+		requestflag.CheckInnerFlags(sheetsCreate)
 
 		// Alternative argument passing style using inner flags
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"beta:sheets", "create",
+			"sheets", "create",
 			"--file-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -104,20 +104,20 @@ func TestBetaSheetsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"beta:sheets", "create",
+			"sheets", "create",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
 
-func TestBetaSheetsList(t *testing.T) {
+func TestSheetsList(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"beta:sheets", "list",
+			"sheets", "list",
 			"--max-items", "10",
 			"--configuration-id", "configuration_id",
 			"--created-at-on-or-after", "'2019-12-27T18:11:19.117Z'",
@@ -128,18 +128,18 @@ func TestBetaSheetsList(t *testing.T) {
 			"--page-size", "0",
 			"--page-token", "page_token",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--status", "PENDING",
+			"--status", "CANCELLED",
 		)
 	})
 }
 
-func TestBetaSheetsDeleteJob(t *testing.T) {
+func TestSheetsDeleteJob(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"beta:sheets", "delete-job",
+			"sheets", "delete-job",
 			"--spreadsheet-job-id", "spreadsheet_job_id",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -147,13 +147,13 @@ func TestBetaSheetsDeleteJob(t *testing.T) {
 	})
 }
 
-func TestBetaSheetsGet(t *testing.T) {
+func TestSheetsGet(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"beta:sheets", "get",
+			"sheets", "get",
 			"--spreadsheet-job-id", "spreadsheet_job_id",
 			"--expand", "string",
 			"--include-results=true",
@@ -163,16 +163,16 @@ func TestBetaSheetsGet(t *testing.T) {
 	})
 }
 
-func TestBetaSheetsGetResultTable(t *testing.T) {
+func TestSheetsGetResultTable(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"beta:sheets", "get-result-table",
+			"sheets", "get-result-table",
 			"--spreadsheet-job-id", "spreadsheet_job_id",
 			"--region-id", "region_id",
-			"--region-type", "table",
+			"--region-type", "cell_metadata",
 			"--expires-at-seconds", "0",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
