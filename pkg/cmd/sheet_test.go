@@ -22,6 +22,7 @@ func TestSheetsCreate(t *testing.T) {
 			"--config", "{extraction_range: extraction_range, flatten_hierarchical_tables: true, generate_additional_metadata: true, include_hidden_cells: true, sheet_names: [string], specialization: specialization, table_merge_sensitivity: strong, tier: agentic, use_experimental_processing: true}",
 			"--configuration", "{extraction_range: extraction_range, flatten_hierarchical_tables: true, generate_additional_metadata: true, include_hidden_cells: true, sheet_names: [string], specialization: specialization, table_merge_sensitivity: strong, tier: agentic, use_experimental_processing: true}",
 			"--configuration-id", "cfg-11111111-2222-3333-4444-555555555555",
+			"--webhook-configuration-id", "[whc-..., whc-...]",
 			"--webhook-configuration", "[{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_signing_secret: whsec_..., webhook_url: https://example.com/webhooks/llamacloud}]",
 		)
 	})
@@ -57,6 +58,7 @@ func TestSheetsCreate(t *testing.T) {
 			"--configuration.tier", "agentic",
 			"--configuration.use-experimental-processing=true",
 			"--configuration-id", "cfg-11111111-2222-3333-4444-555555555555",
+			"--webhook-configuration-id", "[whc-..., whc-...]",
 			"--webhook-configuration.webhook-events", "[parse.success, parse.error]",
 			"--webhook-configuration.webhook-headers", "{Authorization: Bearer sk-...}",
 			"--webhook-configuration.webhook-output-format", "json",
@@ -92,6 +94,9 @@ func TestSheetsCreate(t *testing.T) {
 			"  tier: agentic\n" +
 			"  use_experimental_processing: true\n" +
 			"configuration_id: cfg-11111111-2222-3333-4444-555555555555\n" +
+			"webhook_configuration_ids:\n" +
+			"  - whc-...\n" +
+			"  - whc-...\n" +
 			"webhook_configurations:\n" +
 			"  - webhook_events:\n" +
 			"      - parse.success\n" +

@@ -49,6 +49,11 @@ var betaSheetsCreate = requestflag.WithInnerFlags(cli.Command{
 			BodyPath: "configuration_id",
 		},
 		&requestflag.Flag[any]{
+			Name:     "webhook-configuration-id",
+			Usage:    "IDs of saved webhook configurations to notify for this job.",
+			BodyPath: "webhook_configuration_ids",
+		},
+		&requestflag.Flag[any]{
 			Name:     "webhook-configuration",
 			Usage:    "Outbound webhook endpoints to notify on job status changes",
 			BodyPath: "webhook_configurations",
