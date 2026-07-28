@@ -85,12 +85,12 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.InnerFlag[*string]{
 			Name:       "configuration.parse-config-id",
-			Usage:      "Saved parse configuration ID to control how the document is parsed before extraction",
+			Usage:      "Saved parse configuration ID to control how the document is parsed before extraction. Turbo extract does not support parse configuration or produce a parse output; use another tier if your workflow requires parsed text.",
 			InnerField: "parse_config_id",
 		},
 		&requestflag.InnerFlag[*string]{
 			Name:       "configuration.parse-tier",
-			Usage:      "Parse tier to use before extraction. Defaults to the extract tier if not specified.",
+			Usage:      "Parse tier to use before extraction. Defaults to the extract tier if not specified. Turbo extract does not support parse configuration or produce a parse output; use another tier if your workflow requires parsed text.",
 			InnerField: "parse_tier",
 		},
 		&requestflag.InnerFlag[*string]{
