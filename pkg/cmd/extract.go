@@ -65,12 +65,12 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.InnerFlag[bool]{
 			Name:       "configuration.cite-sources",
-			Usage:      "Include citations in results",
+			Usage:      "Include citations in results. Returned under `extract_metadata` (auto-included when set). Text-level on `turbo` (no bounding boxes).",
 			InnerField: "cite_sources",
 		},
 		&requestflag.InnerFlag[bool]{
 			Name:       "configuration.confidence-scores",
-			Usage:      "Include confidence scores in results",
+			Usage:      "Include confidence scores in results. Returned under `extract_metadata` (auto-included when set).",
 			InnerField: "confidence_scores",
 		},
 		&requestflag.InnerFlag[string]{
