@@ -24,6 +24,7 @@ func TestClassifyCreate(t *testing.T) {
 			"--file-input", "dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 			"--parse-job-id", "pjb-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 			"--transaction-id", "tx-unique-idempotency-key",
+			"--webhook-configuration-id", "[whc-..., whc-...]",
 			"--webhook-configuration", "[{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_signing_secret: whsec_..., webhook_url: https://example.com/webhooks/llamacloud}]",
 		)
 	})
@@ -47,6 +48,7 @@ func TestClassifyCreate(t *testing.T) {
 			"--file-input", "dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 			"--parse-job-id", "pjb-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 			"--transaction-id", "tx-unique-idempotency-key",
+			"--webhook-configuration-id", "[whc-..., whc-...]",
 			"--webhook-configuration.webhook-events", "[parse.success, parse.error]",
 			"--webhook-configuration.webhook-headers", "{Authorization: Bearer sk-...}",
 			"--webhook-configuration.webhook-output-format", "json",
@@ -72,6 +74,9 @@ func TestClassifyCreate(t *testing.T) {
 			"file_input: dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee\n" +
 			"parse_job_id: pjb-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee\n" +
 			"transaction_id: tx-unique-idempotency-key\n" +
+			"webhook_configuration_ids:\n" +
+			"  - whc-...\n" +
+			"  - whc-...\n" +
 			"webhook_configurations:\n" +
 			"  - webhook_events:\n" +
 			"      - parse.success\n" +
