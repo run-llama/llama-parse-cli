@@ -98,6 +98,7 @@ var betaRetrievalRetrieve = requestflag.WithInnerFlags(cli.Command{
 	"static-filters": {
 		&requestflag.InnerFlag[map[string]any]{
 			Name:       "static-filters.parsed-directory-file-id",
+			Usage:      "Filter on a string field.",
 			InnerField: "parsed_directory_file_id",
 		},
 	},

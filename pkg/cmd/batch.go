@@ -39,6 +39,16 @@ var batchesCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
+		&requestflag.Flag[any]{
+			Name:     "webhook-configuration-id",
+			Usage:    "IDs of saved webhook configurations to notify for this job.",
+			BodyPath: "webhook_configuration_ids",
+		},
+		&requestflag.Flag[any]{
+			Name:     "webhook-configuration",
+			Usage:    "Outbound webhook endpoints to notify on job status changes",
+			BodyPath: "webhook_configurations",
+		},
 	},
 	Action:          handleBatchesCreate,
 	HideHelpCommand: true,
@@ -48,6 +58,38 @@ var batchesCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:       "config.job",
 			Usage:      "Job to create for each file in the source directory.",
 			InnerField: "job",
+		},
+	},
+	"webhook-configuration": {
+		&requestflag.InnerFlag[any]{
+			Name:                  "webhook-configuration.webhook-events",
+			Usage:                 "Events to subscribe to (e.g. 'parse.success', 'extract.error'). If null, all events are delivered.",
+			InnerField:            "webhook_events",
+			OuterIsArrayOfObjects: true,
+		},
+		&requestflag.InnerFlag[map[string]any]{
+			Name:                  "webhook-configuration.webhook-headers",
+			Usage:                 "Custom HTTP headers sent with each webhook request (e.g. auth tokens)",
+			InnerField:            "webhook_headers",
+			OuterIsArrayOfObjects: true,
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:                  "webhook-configuration.webhook-output-format",
+			Usage:                 "Response format sent to the webhook: 'string' (default) or 'json'",
+			InnerField:            "webhook_output_format",
+			OuterIsArrayOfObjects: true,
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:                  "webhook-configuration.webhook-signing-secret",
+			Usage:                 "Shared signing secret used to sign webhook deliveries. When set, each request includes an HMAC-SHA256 signature of the request body in the 'LC-Signature' header (value 'sha256=<hex>'). Recompute the HMAC over the raw request body with this secret to verify the delivery is authentic.",
+			InnerField:            "webhook_signing_secret",
+			OuterIsArrayOfObjects: true,
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:                  "webhook-configuration.webhook-url",
+			Usage:                 "URL to receive webhook POST notifications",
+			InnerField:            "webhook_url",
+			OuterIsArrayOfObjects: true,
 		},
 	},
 })

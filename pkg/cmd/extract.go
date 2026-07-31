@@ -93,6 +93,16 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "Parse tier to use before extraction. Defaults to the extract tier if not specified. Turbo extract does not support parse configuration or produce a parse output; use another tier if your workflow requires parsed text.",
 			InnerField: "parse_tier",
 		},
+		&requestflag.InnerFlag[any]{
+			Name:       "configuration.sheet-names",
+			Usage:      `Optional worksheet names to extract when spreadsheet_mode is on. Overrides target_pages for spreadsheets; omit to extract every sheet. Names are matched exactly (case-sensitive) — pass them as a list, e.g. ["Sheet 1", "My Sheet"].`,
+			InnerField: "sheet_names",
+		},
+		&requestflag.InnerFlag[bool]{
+			Name:       "configuration.spreadsheet-mode",
+			Usage:      "Beta. When true, extract structured data directly from a spreadsheet workbook (.xlsx/.xls/.csv) — the agent reads cells straight from the workbook instead of the standard document path. Off by default (spreadsheets keep the standard path). Requires the agentic_plus tier. Billed on the standard per-page extract rate, against a page count derived from workbook size. Citations and confidence scores are not available in this mode.",
+			InnerField: "spreadsheet_mode",
+		},
 		&requestflag.InnerFlag[*string]{
 			Name:       "configuration.system-prompt",
 			Usage:      "Custom system prompt to guide extraction behavior",
