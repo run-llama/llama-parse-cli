@@ -103,6 +103,7 @@ func init() {
 				Commands: []*cli.Command{
 					&parsingCreate,
 					&parsingList,
+					&parsingCancel,
 					&parsingGet,
 				},
 			},
@@ -128,16 +129,6 @@ func init() {
 					&classifierJobsList,
 					&classifierJobsGet,
 					&classifierJobsGetResults,
-				},
-			},
-			{
-				Name:     "batches",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&batchesCreate,
-					&batchesList,
-					&batchesGet,
 				},
 			},
 			{
@@ -386,26 +377,6 @@ func init() {
 					&betaDirectoriesFilesAdd,
 					&betaDirectoriesFilesGet,
 					&betaDirectoriesFilesUpload,
-				},
-			},
-			{
-				Name:     "beta:batch",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&betaBatchCreate,
-					&betaBatchList,
-					&betaBatchCancel,
-					&betaBatchGetStatus,
-				},
-			},
-			{
-				Name:     "beta:batch:job-items",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&betaBatchJobItemsList,
-					&betaBatchJobItemsGetProcessingResults,
 				},
 			},
 			{
