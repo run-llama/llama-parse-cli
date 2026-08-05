@@ -18,6 +18,7 @@ func TestBetaDirectoriesCreate(t *testing.T) {
 			"--name", "x",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--connector-subscription-id", "csub-abc123",
 			"--description", "description",
 			"--expires-at", "'2026-05-10T00:00:00Z'",
 			"--system-metadata", "{foo: bar}",
@@ -29,6 +30,7 @@ func TestBetaDirectoriesCreate(t *testing.T) {
 		// Test piping YAML data over stdin
 		pipeData := []byte("" +
 			"name: x\n" +
+			"connector_subscription_id: csub-abc123\n" +
 			"description: description\n" +
 			"expires_at: '2026-05-10T00:00:00Z'\n" +
 			"system_metadata:\n" +
