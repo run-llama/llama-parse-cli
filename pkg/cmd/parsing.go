@@ -200,6 +200,11 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "Markdown formatting options including table styles and link annotations",
 			InnerField: "markdown",
 		},
+		&requestflag.InnerFlag[*bool]{
+			Name:       "output-options.save-output-pdf",
+			Usage:      "Save a PDF copy of the parsed document, retrievable via `expand=output_pdf_content_metadata`. Not produced for spreadsheet, plain-text, or audio inputs",
+			InnerField: "save_output_pdf",
+		},
 		&requestflag.InnerFlag[map[string]any]{
 			Name:       "output-options.spatial-text",
 			Usage:      "Spatial text output options for preserving document layout structure",
