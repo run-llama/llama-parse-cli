@@ -9,17 +9,19 @@ import (
 	"github.com/run-llama/llama-parse-cli/internal/requestflag"
 )
 
-func TestBatchesCreate(t *testing.T) {
+func TestSplitCreate(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"batches", "create",
-			"--config", "{job: {configuration_id: cfg-PARSE_AGENTIC, type: parse_v2}}",
-			"--source-directory-id", "dir-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+			"split", "create",
+			"--file-input", "dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--configuration", "{categories: [{name: x, description: x}], splitting_strategy: {allow_uncategorized: forbid}}",
+			"--configuration-id", "cfg-11111111-2222-3333-4444-555555555555",
+			"--transaction-id", "tx-unique-idempotency-key",
 			"--webhook-configuration-id", "[whc-..., whc-...]",
 			"--webhook-configuration", "[{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_signing_secret: whsec_..., webhook_url: https://example.com/webhooks/llamacloud}]",
 		)
@@ -27,17 +29,20 @@ func TestBatchesCreate(t *testing.T) {
 
 	t.Run("inner flags", func(t *testing.T) {
 		// Check that inner flags have been set up correctly
-		requestflag.CheckInnerFlags(batchesCreate)
+		requestflag.CheckInnerFlags(splitCreate)
 
 		// Alternative argument passing style using inner flags
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"batches", "create",
-			"--config.job", "{configuration_id: cfg-PARSE_AGENTIC, type: parse_v2}",
-			"--source-directory-id", "dir-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+			"split", "create",
+			"--file-input", "dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--configuration.categories", "[{name: x, description: x}]",
+			"--configuration.splitting-strategy", "{allow_uncategorized: forbid}",
+			"--configuration-id", "cfg-11111111-2222-3333-4444-555555555555",
+			"--transaction-id", "tx-unique-idempotency-key",
 			"--webhook-configuration-id", "[whc-..., whc-...]",
 			"--webhook-configuration.webhook-events", "[parse.success, parse.error]",
 			"--webhook-configuration.webhook-headers", "{Authorization: Bearer sk-...}",
@@ -50,11 +55,15 @@ func TestBatchesCreate(t *testing.T) {
 	t.Run("piping data", func(t *testing.T) {
 		// Test piping YAML data over stdin
 		pipeData := []byte("" +
-			"config:\n" +
-			"  job:\n" +
-			"    configuration_id: cfg-PARSE_AGENTIC\n" +
-			"    type: parse_v2\n" +
-			"source_directory_id: dir-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee\n" +
+			"file_input: dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee\n" +
+			"configuration:\n" +
+			"  categories:\n" +
+			"    - name: x\n" +
+			"      description: x\n" +
+			"  splitting_strategy:\n" +
+			"    allow_uncategorized: forbid\n" +
+			"configuration_id: cfg-11111111-2222-3333-4444-555555555555\n" +
+			"transaction_id: tx-unique-idempotency-key\n" +
 			"webhook_configuration_ids:\n" +
 			"  - whc-...\n" +
 			"  - whc-...\n" +
@@ -70,56 +79,69 @@ func TestBatchesCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"batches", "create",
+			"split", "create",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
 
-func TestBatchesList(t *testing.T) {
+func TestSplitList(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"batches", "list",
+			"split", "list",
 			"--max-items", "10",
 			"--created-at-on-or-after", "'2019-12-27T18:11:19.117Z'",
 			"--created-at-on-or-before", "'2019-12-27T18:11:19.117Z'",
+			"--job-id", "[string, string]",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--page-size", "0",
 			"--page-token", "page_token",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--source-directory-id", "source_directory_id",
-			"--status", "CANCELLED",
+			"--status", "cancelled",
 		)
 	})
 }
 
-func TestBatchesCancel(t *testing.T) {
+func TestSplitDelete(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"batches", "cancel",
-			"--batch-id", "batch_id",
+			"split", "delete",
+			"--split-job-id", "split_job_id",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
 
-func TestBatchesGet(t *testing.T) {
+func TestSplitCancel(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"batches", "get",
-			"--batch-id", "batch_id",
-			"--expand", "[string, string]",
+			"split", "cancel",
+			"--split-job-id", "split_job_id",
+			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+		)
+	})
+}
+
+func TestSplitGet(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
+	t.Run("regular flags", func(t *testing.T) {
+		mocktest.TestRunMockTestWithFlags(
+			t,
+			"--api-key", "string",
+			"split", "get",
+			"--split-job-id", "split_job_id",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)

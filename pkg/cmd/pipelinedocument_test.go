@@ -133,6 +133,21 @@ func TestPipelinesDocumentsGetStatus(t *testing.T) {
 	})
 }
 
+func TestPipelinesDocumentsGetStatusCounts(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
+	t.Run("regular flags", func(t *testing.T) {
+		mocktest.TestRunMockTestWithFlags(
+			t,
+			"--api-key", "string",
+			"pipelines:documents", "get-status-counts",
+			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--data-source-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--file-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--only-direct-upload=true",
+		)
+	})
+}
+
 func TestPipelinesDocumentsSync(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {

@@ -191,6 +191,34 @@ var pipelinesDocumentsGetStatus = cli.Command{
 	HideHelpCommand: true,
 }
 
+var pipelinesDocumentsGetStatusCounts = cli.Command{
+	Name:    "get-status-counts",
+	Usage:   "Count the documents in a pipeline, grouped by ingestion status.",
+	Suggest: true,
+	Flags: []cli.Flag{
+		&requestflag.Flag[string]{
+			Name:      "pipeline-id",
+			Required:  true,
+			PathParam: "pipeline_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "data-source-id",
+			QueryPath: "data_source_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "file-id",
+			QueryPath: "file_id",
+		},
+		&requestflag.Flag[bool]{
+			Name:      "only-direct-upload",
+			Default:   false,
+			QueryPath: "only_direct_upload",
+		},
+	},
+	Action:          handlePipelinesDocumentsGetStatusCounts,
+	HideHelpCommand: true,
+}
+
 var pipelinesDocumentsSync = cli.Command{
 	Name:    "sync",
 	Usage:   "Sync a specific document for a pipeline.",
@@ -559,6 +587,55 @@ func handlePipelinesDocumentsGetStatus(ctx context.Context, cmd *cli.Command) er
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
 		Title:          "pipelines:documents get-status",
+		Transform:      transform,
+	})
+}
+
+func handlePipelinesDocumentsGetStatusCounts(ctx context.Context, cmd *cli.Command) error {
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
+	unusedArgs := cmd.Args().Slice()
+	if !cmd.IsSet("pipeline-id") && len(unusedArgs) > 0 {
+		cmd.Set("pipeline-id", unusedArgs[0])
+		unusedArgs = unusedArgs[1:]
+	}
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
+
+	options, err := flagOptions(
+		cmd,
+		apiquery.NestedQueryFormatBrackets,
+		apiquery.ArrayQueryFormatRepeat,
+		EmptyBody,
+		false,
+	)
+	if err != nil {
+		return err
+	}
+
+	params := llamacloud.PipelineDocumentGetStatusCountsParams{}
+
+	var res []byte
+	options = append(options, option.WithResponseBodyInto(&res))
+	_, err = client.Pipelines.Documents.GetStatusCounts(
+		ctx,
+		cmd.Value("pipeline-id").(string),
+		params,
+		options...,
+	)
+	if err != nil {
+		return err
+	}
+
+	obj := gjson.ParseBytes(res)
+	format := cmd.Root().String("format")
+	explicitFormat := cmd.Root().IsSet("format")
+	transform := cmd.Root().String("transform")
+	return ShowJSON(obj, ShowJSONOpts{
+		ExplicitFormat: explicitFormat,
+		Format:         format,
+		RawOutput:      cmd.Root().Bool("raw-output"),
+		Title:          "pipelines:documents get-status-counts",
 		Transform:      transform,
 	})
 }

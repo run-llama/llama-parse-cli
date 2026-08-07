@@ -329,3 +329,14 @@ func TestParsingGet(t *testing.T) {
 		)
 	})
 }
+
+func TestParsingListVersions(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
+	t.Run("regular flags", func(t *testing.T) {
+		mocktest.TestRunMockTestWithFlags(
+			t,
+			"--api-key", "string",
+			"parsing", "list-versions",
+		)
+	})
+}

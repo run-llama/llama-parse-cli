@@ -14,22 +14,16 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
-var batchesCreate = requestflag.WithInnerFlags(cli.Command{
+var splitCreate = requestflag.WithInnerFlags(cli.Command{
 	Name:    "create",
-	Usage:   "Create a batch over a source directory and start processing asynchronously.",
+	Usage:   "Create a document split job.",
 	Suggest: true,
 	Flags: []cli.Flag{
-		&requestflag.Flag[map[string]any]{
-			Name:     "config",
-			Usage:    "Batch configuration snapshot to apply to this source directory.",
-			Required: true,
-			BodyPath: "config",
-		},
 		&requestflag.Flag[string]{
-			Name:     "source-directory-id",
-			Usage:    "Directory whose files should be processed.",
+			Name:     "file-input",
+			Usage:    "File ID or parse job ID",
 			Required: true,
-			BodyPath: "source_directory_id",
+			BodyPath: "file_input",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -38,6 +32,21 @@ var batchesCreate = requestflag.WithInnerFlags(cli.Command{
 		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
+		},
+		&requestflag.Flag[map[string]any]{
+			Name:     "configuration",
+			Usage:    "Split configuration with categories and splitting strategy.",
+			BodyPath: "configuration",
+		},
+		&requestflag.Flag[*string]{
+			Name:     "configuration-id",
+			Usage:    "Saved configuration ID",
+			BodyPath: "configuration_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:     "transaction-id",
+			Usage:    "Idempotency key scoped to the project. Reusing a key returns the original job; the new request body is ignored.",
+			BodyPath: "transaction_id",
 		},
 		&requestflag.Flag[any]{
 			Name:     "webhook-configuration-id",
@@ -50,14 +59,19 @@ var batchesCreate = requestflag.WithInnerFlags(cli.Command{
 			BodyPath: "webhook_configurations",
 		},
 	},
-	Action:          handleBatchesCreate,
+	Action:          handleSplitCreate,
 	HideHelpCommand: true,
 }, map[string][]requestflag.HasOuterFlag{
-	"config": {
+	"configuration": {
+		&requestflag.InnerFlag[[]map[string]any]{
+			Name:       "configuration.categories",
+			Usage:      "Categories to split documents into.",
+			InnerField: "categories",
+		},
 		&requestflag.InnerFlag[map[string]any]{
-			Name:       "config.job",
-			Usage:      "Job to create for each file in the source directory.",
-			InnerField: "job",
+			Name:       "configuration.splitting-strategy",
+			Usage:      "Strategy for splitting documents.",
+			InnerField: "splitting_strategy",
 		},
 	},
 	"webhook-configuration": {
@@ -94,18 +108,25 @@ var batchesCreate = requestflag.WithInnerFlags(cli.Command{
 	},
 })
 
-var batchesList = cli.Command{
+var splitList = cli.Command{
 	Name:    "list",
-	Usage:   "List batches for the current project.",
+	Usage:   "List document split jobs.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[any]{
 			Name:      "created-at-on-or-after",
+			Usage:     "Include items created at or after this timestamp (inclusive)",
 			QueryPath: "created_at_on_or_after",
 		},
 		&requestflag.Flag[any]{
 			Name:      "created-at-on-or-before",
+			Usage:     "Include items created at or before this timestamp (inclusive)",
 			QueryPath: "created_at_on_or_before",
+		},
+		&requestflag.Flag[any]{
+			Name:      "job-id",
+			Usage:     "Filter by specific job IDs",
+			QueryPath: "job_ids",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -124,12 +145,8 @@ var batchesList = cli.Command{
 			QueryPath: "project_id",
 		},
 		&requestflag.Flag[*string]{
-			Name:      "source-directory-id",
-			QueryPath: "source_directory_id",
-		},
-		&requestflag.Flag[*string]{
 			Name:      "status",
-			Usage:     `Allowed values: "CANCELLED", "COMPLETED", "FAILED", "PENDING", "RUNNING", "THROTTLED".`,
+			Usage:     "Filter by job status (pending, processing, completed, failed, cancelled)",
 			QueryPath: "status",
 		},
 		&requestflag.Flag[int64]{
@@ -137,19 +154,42 @@ var batchesList = cli.Command{
 			Usage: "The maximum number of items to return (use -1 for unlimited).",
 		},
 	},
-	Action:          handleBatchesList,
+	Action:          handleSplitList,
 	HideHelpCommand: true,
 }
 
-var batchesCancel = cli.Command{
+var splitDelete = cli.Command{
+	Name:    "delete",
+	Usage:   "Delete a split job and its results.",
+	Suggest: true,
+	Flags: []cli.Flag{
+		&requestflag.Flag[string]{
+			Name:      "split-job-id",
+			Required:  true,
+			PathParam: "split_job_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "organization-id",
+			QueryPath: "organization_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
+	},
+	Action:          handleSplitDelete,
+	HideHelpCommand: true,
+}
+
+var splitCancel = cli.Command{
 	Name:    "cancel",
-	Usage:   "Cancel a running batch.",
+	Usage:   "Cancel a running split job.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:      "batch-id",
+			Name:      "split-job-id",
 			Required:  true,
-			PathParam: "batch_id",
+			PathParam: "split_job_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -160,24 +200,19 @@ var batchesCancel = cli.Command{
 			QueryPath: "project_id",
 		},
 	},
-	Action:          handleBatchesCancel,
+	Action:          handleSplitCancel,
 	HideHelpCommand: true,
 }
 
-var batchesGet = cli.Command{
+var splitGet = cli.Command{
 	Name:    "get",
-	Usage:   "Get a batch by ID.",
+	Usage:   "Get a document split job.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:      "batch-id",
+			Name:      "split-job-id",
 			Required:  true,
-			PathParam: "batch_id",
-		},
-		&requestflag.Flag[any]{
-			Name:      "expand",
-			Usage:     "Fields to expand. Supported value: results.",
-			QueryPath: "expand",
+			PathParam: "split_job_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -188,11 +223,11 @@ var batchesGet = cli.Command{
 			QueryPath: "project_id",
 		},
 	},
-	Action:          handleBatchesGet,
+	Action:          handleSplitGet,
 	HideHelpCommand: true,
 }
 
-func handleBatchesCreate(ctx context.Context, cmd *cli.Command) error {
+func handleSplitCreate(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
@@ -211,11 +246,11 @@ func handleBatchesCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloud.BatchNewParams{}
+	params := llamacloud.SplitNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Batches.New(ctx, params, options...)
+	_, err = client.Split.New(ctx, params, options...)
 	if err != nil {
 		return err
 	}
@@ -228,12 +263,12 @@ func handleBatchesCreate(ctx context.Context, cmd *cli.Command) error {
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "batches create",
+		Title:          "split create",
 		Transform:      transform,
 	})
 }
 
-func handleBatchesList(ctx context.Context, cmd *cli.Command) error {
+func handleSplitList(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
@@ -252,7 +287,7 @@ func handleBatchesList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloud.BatchListParams{}
+	params := llamacloud.SplitListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -260,7 +295,7 @@ func handleBatchesList(ctx context.Context, cmd *cli.Command) error {
 	if format == "raw" {
 		var res []byte
 		options = append(options, option.WithResponseBodyInto(&res))
-		_, err = client.Batches.List(ctx, params, options...)
+		_, err = client.Split.List(ctx, params, options...)
 		if err != nil {
 			return err
 		}
@@ -269,11 +304,11 @@ func handleBatchesList(ctx context.Context, cmd *cli.Command) error {
 			ExplicitFormat: explicitFormat,
 			Format:         format,
 			RawOutput:      cmd.Root().Bool("raw-output"),
-			Title:          "batches list",
+			Title:          "split list",
 			Transform:      transform,
 		})
 	} else {
-		iter := client.Batches.ListAutoPaging(ctx, params, options...)
+		iter := client.Split.ListAutoPaging(ctx, params, options...)
 		maxItems := int64(-1)
 		if cmd.IsSet("max-items") {
 			maxItems = cmd.Value("max-items").(int64)
@@ -282,17 +317,17 @@ func handleBatchesList(ctx context.Context, cmd *cli.Command) error {
 			ExplicitFormat: explicitFormat,
 			Format:         format,
 			RawOutput:      cmd.Root().Bool("raw-output"),
-			Title:          "batches list",
+			Title:          "split list",
 			Transform:      transform,
 		})
 	}
 }
 
-func handleBatchesCancel(ctx context.Context, cmd *cli.Command) error {
+func handleSplitDelete(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
-	if !cmd.IsSet("batch-id") && len(unusedArgs) > 0 {
-		cmd.Set("batch-id", unusedArgs[0])
+	if !cmd.IsSet("split-job-id") && len(unusedArgs) > 0 {
+		cmd.Set("split-job-id", unusedArgs[0])
 		unusedArgs = unusedArgs[1:]
 	}
 	if len(unusedArgs) > 0 {
@@ -310,13 +345,13 @@ func handleBatchesCancel(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloud.BatchCancelParams{}
+	params := llamacloud.SplitDeleteParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Batches.Cancel(
+	_, err = client.Split.Delete(
 		ctx,
-		cmd.Value("batch-id").(string),
+		cmd.Value("split-job-id").(string),
 		params,
 		options...,
 	)
@@ -332,16 +367,16 @@ func handleBatchesCancel(ctx context.Context, cmd *cli.Command) error {
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "batches cancel",
+		Title:          "split delete",
 		Transform:      transform,
 	})
 }
 
-func handleBatchesGet(ctx context.Context, cmd *cli.Command) error {
+func handleSplitCancel(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
-	if !cmd.IsSet("batch-id") && len(unusedArgs) > 0 {
-		cmd.Set("batch-id", unusedArgs[0])
+	if !cmd.IsSet("split-job-id") && len(unusedArgs) > 0 {
+		cmd.Set("split-job-id", unusedArgs[0])
 		unusedArgs = unusedArgs[1:]
 	}
 	if len(unusedArgs) > 0 {
@@ -359,13 +394,13 @@ func handleBatchesGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloud.BatchGetParams{}
+	params := llamacloud.SplitCancelParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Batches.Get(
+	_, err = client.Split.Cancel(
 		ctx,
-		cmd.Value("batch-id").(string),
+		cmd.Value("split-job-id").(string),
 		params,
 		options...,
 	)
@@ -381,7 +416,56 @@ func handleBatchesGet(ctx context.Context, cmd *cli.Command) error {
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "batches get",
+		Title:          "split cancel",
+		Transform:      transform,
+	})
+}
+
+func handleSplitGet(ctx context.Context, cmd *cli.Command) error {
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
+	unusedArgs := cmd.Args().Slice()
+	if !cmd.IsSet("split-job-id") && len(unusedArgs) > 0 {
+		cmd.Set("split-job-id", unusedArgs[0])
+		unusedArgs = unusedArgs[1:]
+	}
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
+
+	options, err := flagOptions(
+		cmd,
+		apiquery.NestedQueryFormatBrackets,
+		apiquery.ArrayQueryFormatRepeat,
+		EmptyBody,
+		false,
+	)
+	if err != nil {
+		return err
+	}
+
+	params := llamacloud.SplitGetParams{}
+
+	var res []byte
+	options = append(options, option.WithResponseBodyInto(&res))
+	_, err = client.Split.Get(
+		ctx,
+		cmd.Value("split-job-id").(string),
+		params,
+		options...,
+	)
+	if err != nil {
+		return err
+	}
+
+	obj := gjson.ParseBytes(res)
+	format := cmd.Root().String("format")
+	explicitFormat := cmd.Root().IsSet("format")
+	transform := cmd.Root().String("transform")
+	return ShowJSON(obj, ShowJSONOpts{
+		ExplicitFormat: explicitFormat,
+		Format:         format,
+		RawOutput:      cmd.Root().Bool("raw-output"),
+		Title:          "split get",
 		Transform:      transform,
 	})
 }

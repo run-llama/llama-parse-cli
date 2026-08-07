@@ -258,6 +258,29 @@ var extractDelete = cli.Command{
 	HideHelpCommand: true,
 }
 
+var extractCancel = cli.Command{
+	Name:    "cancel",
+	Usage:   "Cancel a running extraction job.",
+	Suggest: true,
+	Flags: []cli.Flag{
+		&requestflag.Flag[string]{
+			Name:      "job-id",
+			Required:  true,
+			PathParam: "job_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "organization-id",
+			QueryPath: "organization_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
+	},
+	Action:          handleExtractCancel,
+	HideHelpCommand: true,
+}
+
 var extractGenerateSchema = cli.Command{
 	Name:    "generate-schema",
 	Usage:   "Generate a JSON schema and return a product configuration request.",
@@ -481,6 +504,55 @@ func handleExtractDelete(ctx context.Context, cmd *cli.Command) error {
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
 		Title:          "extract delete",
+		Transform:      transform,
+	})
+}
+
+func handleExtractCancel(ctx context.Context, cmd *cli.Command) error {
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
+	unusedArgs := cmd.Args().Slice()
+	if !cmd.IsSet("job-id") && len(unusedArgs) > 0 {
+		cmd.Set("job-id", unusedArgs[0])
+		unusedArgs = unusedArgs[1:]
+	}
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
+
+	options, err := flagOptions(
+		cmd,
+		apiquery.NestedQueryFormatBrackets,
+		apiquery.ArrayQueryFormatRepeat,
+		EmptyBody,
+		false,
+	)
+	if err != nil {
+		return err
+	}
+
+	params := llamacloud.ExtractCancelParams{}
+
+	var res []byte
+	options = append(options, option.WithResponseBodyInto(&res))
+	_, err = client.Extract.Cancel(
+		ctx,
+		cmd.Value("job-id").(string),
+		params,
+		options...,
+	)
+	if err != nil {
+		return err
+	}
+
+	obj := gjson.ParseBytes(res)
+	format := cmd.Root().String("format")
+	explicitFormat := cmd.Root().IsSet("format")
+	transform := cmd.Root().String("transform")
+	return ShowJSON(obj, ShowJSONOpts{
+		ExplicitFormat: explicitFormat,
+		Format:         format,
+		RawOutput:      cmd.Root().Bool("raw-output"),
+		Title:          "extract cancel",
 		Transform:      transform,
 	})
 }

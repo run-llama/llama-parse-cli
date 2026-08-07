@@ -97,6 +97,18 @@ func init() {
 				},
 			},
 			{
+				Name:     "split",
+				Category: "API RESOURCE",
+				Suggest:  true,
+				Commands: []*cli.Command{
+					&splitCreate,
+					&splitList,
+					&splitDelete,
+					&splitCancel,
+					&splitGet,
+				},
+			},
+			{
 				Name:     "parsing",
 				Category: "API RESOURCE",
 				Suggest:  true,
@@ -105,6 +117,7 @@ func init() {
 					&parsingList,
 					&parsingCancel,
 					&parsingGet,
+					&parsingListVersions,
 				},
 			},
 			{
@@ -115,6 +128,7 @@ func init() {
 					&extractCreate,
 					&extractList,
 					&extractDelete,
+					&extractCancel,
 					&extractGenerateSchema,
 					&extractGet,
 					&extractValidateSchema,
@@ -138,6 +152,7 @@ func init() {
 				Commands: []*cli.Command{
 					&batchesCreate,
 					&batchesList,
+					&batchesCancel,
 					&batchesGet,
 				},
 			},
@@ -148,6 +163,7 @@ func init() {
 				Commands: []*cli.Command{
 					&classifyCreate,
 					&classifyList,
+					&classifyCancel,
 					&classifyGet,
 				},
 			},
@@ -161,6 +177,18 @@ func init() {
 					&configurationsUpdate,
 					&configurationsList,
 					&configurationsDelete,
+				},
+			},
+			{
+				Name:     "webhook-configs",
+				Category: "API RESOURCE",
+				Suggest:  true,
+				Commands: []*cli.Command{
+					&webhookConfigsCreate,
+					&webhookConfigsRetrieve,
+					&webhookConfigsUpdate,
+					&webhookConfigsList,
+					&webhookConfigsDelete,
 				},
 			},
 			{
@@ -276,6 +304,7 @@ func init() {
 					&pipelinesDocumentsGet,
 					&pipelinesDocumentsGetChunks,
 					&pipelinesDocumentsGetStatus,
+					&pipelinesDocumentsGetStatusCounts,
 					&pipelinesDocumentsSync,
 					&pipelinesDocumentsUpsert,
 				},
