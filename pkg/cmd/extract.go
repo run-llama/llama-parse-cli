@@ -308,7 +308,7 @@ var extractGet = cli.Command{
 		},
 		&requestflag.Flag[[]string]{
 			Name:      "expand",
-			Usage:     "Additional fields to include: configuration, extract_metadata",
+			Usage:     "Additional fields to include: configuration, extract_metadata, usage",
 			QueryPath: "expand",
 		},
 		&requestflag.Flag[*string]{
