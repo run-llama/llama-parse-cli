@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/run-llama/llama-parse-cli/compare/v1.3.0...v1.4.0) (2026-07-22)
+
+
+### Features
+
+* **sheets:** cost_effective/agentic tiers and per-region billing ([#22508](https://github.com/run-llama/llama-parse-cli/issues/22508)) ([99079c9](https://github.com/run-llama/llama-parse-cli/commit/99079c982a787a7f9b1fd78f79cbc73eff62e957))
+
 ## [1.3.0](https://github.com/run-llama/llama-parse-cli/compare/v1.2.0...v1.3.0) (2026-07-21)
 
 
