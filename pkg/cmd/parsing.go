@@ -190,9 +190,9 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "Bounding-box granularity levels to compute for the parse. 'word' computes one bounding box per detected word; 'line' computes one per text line; 'cell' computes one per table cell. Multiple levels can be requested. Empty list (default) disables granular bboxes — only item-level layout boxes are returned on the result. When set, the computed boxes are not inlined on the result items; they are written to a separate `grounded_items` sidecar (JSONL, one row per page) and exposed as `result_content_metadata.grounded_items` (a presigned download URL) on the parse result. Each row matches the `GroundedJsonItem` shape.",
 			InnerField: "granular_bboxes",
 		},
-		&requestflag.InnerFlag[[]string]{
+		&requestflag.InnerFlag[any]{
 			Name:       "output-options.images-to-save",
-			Usage:      "Image categories to extract and save. Options: 'screenshot' (full page renders useful for visual QA), 'embedded' (images found within the document), 'layout' (cropped regions from layout detection like figures and diagrams). Empty list saves no images",
+			Usage:      "Image categories to save: 'screenshot' (full page renders), 'embedded' (images found within the document), 'layout' (cropped figures and diagrams). Defaults to saving 'layout' when the output links to cropped images; pass [] to save none",
 			InnerField: "images_to_save",
 		},
 		&requestflag.InnerFlag[map[string]any]{
