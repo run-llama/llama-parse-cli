@@ -90,6 +90,7 @@ func init() {
 				Suggest:  true,
 				Commands: []*cli.Command{
 					&filesCreate,
+					&filesRetrieve,
 					&filesList,
 					&filesDelete,
 					&filesGet,
@@ -198,6 +199,23 @@ func init() {
 				Commands: []*cli.Command{
 					&projectsList,
 					&projectsGet,
+				},
+			},
+			{
+				Name:     "v2-projects",
+				Category: "API RESOURCE",
+				Suggest:  true,
+				Commands: []*cli.Command{
+					&v2ProjectsList,
+					&v2ProjectsGet,
+				},
+			},
+			{
+				Name:     "job-data-points",
+				Category: "API RESOURCE",
+				Suggest:  true,
+				Commands: []*cli.Command{
+					&jobDataPointsList,
 				},
 			},
 			{
