@@ -73,6 +73,11 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "Include confidence scores in results. Returned under `extract_metadata` (auto-included when set).",
 			InnerField: "confidence_scores",
 		},
+		&requestflag.InnerFlag[bool]{
+			Name:       "configuration.disable-cache",
+			Usage:      "Disable reuse and storage of Extract results",
+			InnerField: "disable_cache",
+		},
 		&requestflag.InnerFlag[string]{
 			Name:       "configuration.extraction-target",
 			Usage:      "Granularity of extraction: per_doc returns one object per document, per_page returns one object per page, per_table_row returns one object per table row",
