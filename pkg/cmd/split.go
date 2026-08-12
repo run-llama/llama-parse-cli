@@ -14,16 +14,16 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
-var betaSheetsCreate = requestflag.WithInnerFlags(cli.Command{
+var splitCreate = requestflag.WithInnerFlags(cli.Command{
 	Name:    "create",
-	Usage:   "Create a spreadsheet parsing job.",
+	Usage:   "Create a document split job.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "file-id",
-			Usage:    "The ID of the file to parse",
+			Name:     "file-input",
+			Usage:    "File ID or parse job ID",
 			Required: true,
-			BodyPath: "file_id",
+			BodyPath: "file_input",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -34,19 +34,19 @@ var betaSheetsCreate = requestflag.WithInnerFlags(cli.Command{
 			QueryPath: "project_id",
 		},
 		&requestflag.Flag[map[string]any]{
-			Name:     "config",
-			Usage:    "Configuration for spreadsheet parsing and region extraction",
-			BodyPath: "config",
-		},
-		&requestflag.Flag[map[string]any]{
 			Name:     "configuration",
-			Usage:    "Configuration for spreadsheet parsing and region extraction",
+			Usage:    "Split configuration with categories and splitting strategy.",
 			BodyPath: "configuration",
 		},
 		&requestflag.Flag[*string]{
 			Name:     "configuration-id",
 			Usage:    "Saved configuration ID",
 			BodyPath: "configuration_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:     "transaction-id",
+			Usage:    "Idempotency key scoped to the project. Reusing a key returns the original job; the new request body is ignored.",
+			BodyPath: "transaction_id",
 		},
 		&requestflag.Flag[any]{
 			Name:     "webhook-configuration-id",
@@ -59,101 +59,19 @@ var betaSheetsCreate = requestflag.WithInnerFlags(cli.Command{
 			BodyPath: "webhook_configurations",
 		},
 	},
-	Action:          handleBetaSheetsCreate,
+	Action:          handleSplitCreate,
 	HideHelpCommand: true,
 }, map[string][]requestflag.HasOuterFlag{
-	"config": {
-		&requestflag.InnerFlag[*string]{
-			Name:       "config.extraction-range",
-			Usage:      "A1 notation of the range to extract a single region from. If None, the entire sheet is used.",
-			InnerField: "extraction_range",
-		},
-		&requestflag.InnerFlag[bool]{
-			Name:       "config.flatten-hierarchical-tables",
-			Usage:      "Return a flattened dataframe when a detected table is recognized as hierarchical.",
-			InnerField: "flatten_hierarchical_tables",
-		},
-		&requestflag.InnerFlag[bool]{
-			Name:       "config.generate-additional-metadata",
-			Usage:      "Deprecated: controlled by `tier`. Whether to generate additional metadata (title, description) for each extracted region. Honored only on `agentic`.",
-			InnerField: "generate_additional_metadata",
-		},
-		&requestflag.InnerFlag[bool]{
-			Name:       "config.include-hidden-cells",
-			Usage:      "Whether to include hidden cells when extracting regions from the spreadsheet.",
-			InnerField: "include_hidden_cells",
-		},
-		&requestflag.InnerFlag[any]{
-			Name:       "config.sheet-names",
-			Usage:      "The names of the sheets to extract regions from. If empty, all sheets will be processed.",
-			InnerField: "sheet_names",
-		},
-		&requestflag.InnerFlag[*string]{
-			Name:       "config.specialization",
-			Usage:      "Deprecated: controlled by `tier`. Optional specialization mode for domain-specific extraction. Supported values: 'financial-standard', 'financial-enhanced', 'financial-precise'. Default None uses the general-purpose pipeline. Honored only on `agentic`.",
-			InnerField: "specialization",
-		},
-		&requestflag.InnerFlag[string]{
-			Name:       "config.table-merge-sensitivity",
-			Usage:      "Deprecated: controlled by `tier`. Influences how likely similar-looking regions are merged into a single table. Honored only on `agentic`.",
-			InnerField: "table_merge_sensitivity",
-		},
-		&requestflag.InnerFlag[string]{
-			Name:       "config.tier",
-			Usage:      "Spreadsheet extraction tier. `cost_effective` uses the rule-based/ML-only pipeline; `agentic` uses the full pipeline.",
-			InnerField: "tier",
-		},
-		&requestflag.InnerFlag[bool]{
-			Name:       "config.use-experimental-processing",
-			Usage:      "Deprecated: controlled by `tier`. Enables experimental processing. Honored only on `agentic`.",
-			InnerField: "use_experimental_processing",
-		},
-	},
 	"configuration": {
-		&requestflag.InnerFlag[*string]{
-			Name:       "configuration.extraction-range",
-			Usage:      "A1 notation of the range to extract a single region from. If None, the entire sheet is used.",
-			InnerField: "extraction_range",
+		&requestflag.InnerFlag[[]map[string]any]{
+			Name:       "configuration.categories",
+			Usage:      "Categories to split documents into.",
+			InnerField: "categories",
 		},
-		&requestflag.InnerFlag[bool]{
-			Name:       "configuration.flatten-hierarchical-tables",
-			Usage:      "Return a flattened dataframe when a detected table is recognized as hierarchical.",
-			InnerField: "flatten_hierarchical_tables",
-		},
-		&requestflag.InnerFlag[bool]{
-			Name:       "configuration.generate-additional-metadata",
-			Usage:      "Deprecated: controlled by `tier`. Whether to generate additional metadata (title, description) for each extracted region. Honored only on `agentic`.",
-			InnerField: "generate_additional_metadata",
-		},
-		&requestflag.InnerFlag[bool]{
-			Name:       "configuration.include-hidden-cells",
-			Usage:      "Whether to include hidden cells when extracting regions from the spreadsheet.",
-			InnerField: "include_hidden_cells",
-		},
-		&requestflag.InnerFlag[any]{
-			Name:       "configuration.sheet-names",
-			Usage:      "The names of the sheets to extract regions from. If empty, all sheets will be processed.",
-			InnerField: "sheet_names",
-		},
-		&requestflag.InnerFlag[*string]{
-			Name:       "configuration.specialization",
-			Usage:      "Deprecated: controlled by `tier`. Optional specialization mode for domain-specific extraction. Supported values: 'financial-standard', 'financial-enhanced', 'financial-precise'. Default None uses the general-purpose pipeline. Honored only on `agentic`.",
-			InnerField: "specialization",
-		},
-		&requestflag.InnerFlag[string]{
-			Name:       "configuration.table-merge-sensitivity",
-			Usage:      "Deprecated: controlled by `tier`. Influences how likely similar-looking regions are merged into a single table. Honored only on `agentic`.",
-			InnerField: "table_merge_sensitivity",
-		},
-		&requestflag.InnerFlag[string]{
-			Name:       "configuration.tier",
-			Usage:      "Spreadsheet extraction tier. `cost_effective` uses the rule-based/ML-only pipeline; `agentic` uses the full pipeline.",
-			InnerField: "tier",
-		},
-		&requestflag.InnerFlag[bool]{
-			Name:       "configuration.use-experimental-processing",
-			Usage:      "Deprecated: controlled by `tier`. Enables experimental processing. Honored only on `agentic`.",
-			InnerField: "use_experimental_processing",
+		&requestflag.InnerFlag[map[string]any]{
+			Name:       "configuration.splitting-strategy",
+			Usage:      "Strategy for splitting documents.",
+			InnerField: "splitting_strategy",
 		},
 	},
 	"webhook-configuration": {
@@ -190,16 +108,11 @@ var betaSheetsCreate = requestflag.WithInnerFlags(cli.Command{
 	},
 })
 
-var betaSheetsList = cli.Command{
+var splitList = cli.Command{
 	Name:    "list",
-	Usage:   "List spreadsheet parsing jobs. Experimental: not production-ready and subject to\nchange.",
+	Usage:   "List document split jobs.",
 	Suggest: true,
 	Flags: []cli.Flag{
-		&requestflag.Flag[*string]{
-			Name:      "configuration-id",
-			Usage:     "Filter by saved configuration ID",
-			QueryPath: "configuration_id",
-		},
 		&requestflag.Flag[any]{
 			Name:      "created-at-on-or-after",
 			Usage:     "Include items created at or after this timestamp (inclusive)",
@@ -209,11 +122,6 @@ var betaSheetsList = cli.Command{
 			Name:      "created-at-on-or-before",
 			Usage:     "Include items created at or before this timestamp (inclusive)",
 			QueryPath: "created_at_on_or_before",
-		},
-		&requestflag.Flag[bool]{
-			Name:      "include-results",
-			Default:   false,
-			QueryPath: "include_results",
 		},
 		&requestflag.Flag[any]{
 			Name:      "job-id",
@@ -238,7 +146,7 @@ var betaSheetsList = cli.Command{
 		},
 		&requestflag.Flag[*string]{
 			Name:      "status",
-			Usage:     "Filter by job status",
+			Usage:     "Filter by job status (pending, processing, completed, failed, cancelled)",
 			QueryPath: "status",
 		},
 		&requestflag.Flag[int64]{
@@ -246,19 +154,19 @@ var betaSheetsList = cli.Command{
 			Usage: "The maximum number of items to return (use -1 for unlimited).",
 		},
 	},
-	Action:          handleBetaSheetsList,
+	Action:          handleSplitList,
 	HideHelpCommand: true,
 }
 
-var betaSheetsDeleteJob = cli.Command{
-	Name:    "delete-job",
-	Usage:   "Delete a spreadsheet parsing job and its associated data. Experimental: not\nproduction-ready and subject to change.",
+var splitDelete = cli.Command{
+	Name:    "delete",
+	Usage:   "Delete a split job and its results.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:      "spreadsheet-job-id",
+			Name:      "split-job-id",
 			Required:  true,
-			PathParam: "spreadsheet_job_id",
+			PathParam: "split_job_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -269,29 +177,42 @@ var betaSheetsDeleteJob = cli.Command{
 			QueryPath: "project_id",
 		},
 	},
-	Action:          handleBetaSheetsDeleteJob,
+	Action:          handleSplitDelete,
 	HideHelpCommand: true,
 }
 
-var betaSheetsGet = cli.Command{
+var splitCancel = cli.Command{
+	Name:    "cancel",
+	Usage:   "Cancel a running split job.",
+	Suggest: true,
+	Flags: []cli.Flag{
+		&requestflag.Flag[string]{
+			Name:      "split-job-id",
+			Required:  true,
+			PathParam: "split_job_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "organization-id",
+			QueryPath: "organization_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
+	},
+	Action:          handleSplitCancel,
+	HideHelpCommand: true,
+}
+
+var splitGet = cli.Command{
 	Name:    "get",
-	Usage:   "Get a spreadsheet parsing job. When `include_results=True` (default), embeds\nextracted regions and results if complete, skipping the separate `/results`\ncall. Experimental: not production-ready and subject to change.",
+	Usage:   "Get a document split job.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:      "spreadsheet-job-id",
+			Name:      "split-job-id",
 			Required:  true,
-			PathParam: "spreadsheet_job_id",
-		},
-		&requestflag.Flag[[]string]{
-			Name:      "expand",
-			Usage:     "Optional fields to populate on the response. Valid values: metadata_state_transitions.",
-			QueryPath: "expand",
-		},
-		&requestflag.Flag[bool]{
-			Name:      "include-results",
-			Default:   true,
-			QueryPath: "include_results",
+			PathParam: "split_job_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
@@ -302,49 +223,11 @@ var betaSheetsGet = cli.Command{
 			QueryPath: "project_id",
 		},
 	},
-	Action:          handleBetaSheetsGet,
+	Action:          handleSplitGet,
 	HideHelpCommand: true,
 }
 
-var betaSheetsGetResultTable = cli.Command{
-	Name:    "get-result-table",
-	Usage:   "Generate a presigned URL to download a specific extracted region. Experimental:\nnot production-ready and subject to change.",
-	Suggest: true,
-	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
-			Name:      "spreadsheet-job-id",
-			Required:  true,
-			PathParam: "spreadsheet_job_id",
-		},
-		&requestflag.Flag[string]{
-			Name:      "region-id",
-			Required:  true,
-			PathParam: "region_id",
-		},
-		&requestflag.Flag[string]{
-			Name:      "region-type",
-			Usage:     `Allowed values: "table", "extra", "cell_metadata".`,
-			Required:  true,
-			PathParam: "region_type",
-		},
-		&requestflag.Flag[*int64]{
-			Name:      "expires-at-seconds",
-			QueryPath: "expires_at_seconds",
-		},
-		&requestflag.Flag[*string]{
-			Name:      "organization-id",
-			QueryPath: "organization_id",
-		},
-		&requestflag.Flag[*string]{
-			Name:      "project-id",
-			QueryPath: "project_id",
-		},
-	},
-	Action:          handleBetaSheetsGetResultTable,
-	HideHelpCommand: true,
-}
-
-func handleBetaSheetsCreate(ctx context.Context, cmd *cli.Command) error {
+func handleSplitCreate(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
@@ -363,11 +246,11 @@ func handleBetaSheetsCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloud.BetaSheetNewParams{}
+	params := llamacloud.SplitNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Beta.Sheets.New(ctx, params, options...)
+	_, err = client.Split.New(ctx, params, options...)
 	if err != nil {
 		return err
 	}
@@ -380,12 +263,12 @@ func handleBetaSheetsCreate(ctx context.Context, cmd *cli.Command) error {
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "beta:sheets create",
+		Title:          "split create",
 		Transform:      transform,
 	})
 }
 
-func handleBetaSheetsList(ctx context.Context, cmd *cli.Command) error {
+func handleSplitList(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
@@ -404,7 +287,7 @@ func handleBetaSheetsList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloud.BetaSheetListParams{}
+	params := llamacloud.SplitListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -412,7 +295,7 @@ func handleBetaSheetsList(ctx context.Context, cmd *cli.Command) error {
 	if format == "raw" {
 		var res []byte
 		options = append(options, option.WithResponseBodyInto(&res))
-		_, err = client.Beta.Sheets.List(ctx, params, options...)
+		_, err = client.Split.List(ctx, params, options...)
 		if err != nil {
 			return err
 		}
@@ -421,11 +304,11 @@ func handleBetaSheetsList(ctx context.Context, cmd *cli.Command) error {
 			ExplicitFormat: explicitFormat,
 			Format:         format,
 			RawOutput:      cmd.Root().Bool("raw-output"),
-			Title:          "beta:sheets list",
+			Title:          "split list",
 			Transform:      transform,
 		})
 	} else {
-		iter := client.Beta.Sheets.ListAutoPaging(ctx, params, options...)
+		iter := client.Split.ListAutoPaging(ctx, params, options...)
 		maxItems := int64(-1)
 		if cmd.IsSet("max-items") {
 			maxItems = cmd.Value("max-items").(int64)
@@ -434,17 +317,17 @@ func handleBetaSheetsList(ctx context.Context, cmd *cli.Command) error {
 			ExplicitFormat: explicitFormat,
 			Format:         format,
 			RawOutput:      cmd.Root().Bool("raw-output"),
-			Title:          "beta:sheets list",
+			Title:          "split list",
 			Transform:      transform,
 		})
 	}
 }
 
-func handleBetaSheetsDeleteJob(ctx context.Context, cmd *cli.Command) error {
+func handleSplitDelete(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
-	if !cmd.IsSet("spreadsheet-job-id") && len(unusedArgs) > 0 {
-		cmd.Set("spreadsheet-job-id", unusedArgs[0])
+	if !cmd.IsSet("split-job-id") && len(unusedArgs) > 0 {
+		cmd.Set("split-job-id", unusedArgs[0])
 		unusedArgs = unusedArgs[1:]
 	}
 	if len(unusedArgs) > 0 {
@@ -462,13 +345,13 @@ func handleBetaSheetsDeleteJob(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloud.BetaSheetDeleteJobParams{}
+	params := llamacloud.SplitDeleteParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Beta.Sheets.DeleteJob(
+	_, err = client.Split.Delete(
 		ctx,
-		cmd.Value("spreadsheet-job-id").(string),
+		cmd.Value("split-job-id").(string),
 		params,
 		options...,
 	)
@@ -484,16 +367,16 @@ func handleBetaSheetsDeleteJob(ctx context.Context, cmd *cli.Command) error {
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "beta:sheets delete-job",
+		Title:          "split delete",
 		Transform:      transform,
 	})
 }
 
-func handleBetaSheetsGet(ctx context.Context, cmd *cli.Command) error {
+func handleSplitCancel(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
-	if !cmd.IsSet("spreadsheet-job-id") && len(unusedArgs) > 0 {
-		cmd.Set("spreadsheet-job-id", unusedArgs[0])
+	if !cmd.IsSet("split-job-id") && len(unusedArgs) > 0 {
+		cmd.Set("split-job-id", unusedArgs[0])
 		unusedArgs = unusedArgs[1:]
 	}
 	if len(unusedArgs) > 0 {
@@ -511,13 +394,13 @@ func handleBetaSheetsGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloud.BetaSheetGetParams{}
+	params := llamacloud.SplitCancelParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Beta.Sheets.Get(
+	_, err = client.Split.Cancel(
 		ctx,
-		cmd.Value("spreadsheet-job-id").(string),
+		cmd.Value("split-job-id").(string),
 		params,
 		options...,
 	)
@@ -533,16 +416,16 @@ func handleBetaSheetsGet(ctx context.Context, cmd *cli.Command) error {
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "beta:sheets get",
+		Title:          "split cancel",
 		Transform:      transform,
 	})
 }
 
-func handleBetaSheetsGetResultTable(ctx context.Context, cmd *cli.Command) error {
+func handleSplitGet(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
-	if !cmd.IsSet("region-type") && len(unusedArgs) > 0 {
-		cmd.Set("region-type", unusedArgs[0])
+	if !cmd.IsSet("split-job-id") && len(unusedArgs) > 0 {
+		cmd.Set("split-job-id", unusedArgs[0])
 		unusedArgs = unusedArgs[1:]
 	}
 	if len(unusedArgs) > 0 {
@@ -560,16 +443,13 @@ func handleBetaSheetsGetResultTable(ctx context.Context, cmd *cli.Command) error
 		return err
 	}
 
-	params := llamacloud.BetaSheetGetResultTableParams{
-		SpreadsheetJobID: cmd.Value("spreadsheet-job-id").(string),
-		RegionID:         cmd.Value("region-id").(string),
-	}
+	params := llamacloud.SplitGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Beta.Sheets.GetResultTable(
+	_, err = client.Split.Get(
 		ctx,
-		llamacloud.BetaSheetGetResultTableParamsRegionType(cmd.Value("region-type").(string)),
+		cmd.Value("split-job-id").(string),
 		params,
 		options...,
 	)
@@ -585,7 +465,7 @@ func handleBetaSheetsGetResultTable(ctx context.Context, cmd *cli.Command) error
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "beta:sheets get-result-table",
+		Title:          "split get",
 		Transform:      transform,
 	})
 }

@@ -34,6 +34,11 @@ var betaDirectoriesCreate = cli.Command{
 			QueryPath: "project_id",
 		},
 		&requestflag.Flag[*string]{
+			Name:     "connector-subscription-id",
+			Usage:    "Connector Subscription whose files sync into this directory. Omit for manual uploads.",
+			BodyPath: "connector_subscription_id",
+		},
+		&requestflag.Flag[*string]{
 			Name:     "description",
 			Usage:    "Optional description shown to users.",
 			BodyPath: "description",

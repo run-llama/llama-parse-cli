@@ -20,6 +20,8 @@ func TestBatchesCreate(t *testing.T) {
 			"--source-directory-id", "dir-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--webhook-configuration-id", "[whc-..., whc-...]",
+			"--webhook-configuration", "[{webhook_events: [parse.success, parse.error], webhook_headers: {Authorization: Bearer sk-...}, webhook_output_format: json, webhook_signing_secret: whsec_..., webhook_url: https://example.com/webhooks/llamacloud}]",
 		)
 	})
 
@@ -36,6 +38,12 @@ func TestBatchesCreate(t *testing.T) {
 			"--source-directory-id", "dir-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--webhook-configuration-id", "[whc-..., whc-...]",
+			"--webhook-configuration.webhook-events", "[parse.success, parse.error]",
+			"--webhook-configuration.webhook-headers", "{Authorization: Bearer sk-...}",
+			"--webhook-configuration.webhook-output-format", "json",
+			"--webhook-configuration.webhook-signing-secret", "whsec_...",
+			"--webhook-configuration.webhook-url", "https://example.com/webhooks/llamacloud",
 		)
 	})
 
@@ -46,7 +54,19 @@ func TestBatchesCreate(t *testing.T) {
 			"  job:\n" +
 			"    configuration_id: cfg-PARSE_AGENTIC\n" +
 			"    type: parse_v2\n" +
-			"source_directory_id: dir-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee\n")
+			"source_directory_id: dir-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee\n" +
+			"webhook_configuration_ids:\n" +
+			"  - whc-...\n" +
+			"  - whc-...\n" +
+			"webhook_configurations:\n" +
+			"  - webhook_events:\n" +
+			"      - parse.success\n" +
+			"      - parse.error\n" +
+			"    webhook_headers:\n" +
+			"      Authorization: Bearer sk-...\n" +
+			"    webhook_output_format: json\n" +
+			"    webhook_signing_secret: whsec_...\n" +
+			"    webhook_url: https://example.com/webhooks/llamacloud\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
@@ -72,7 +92,21 @@ func TestBatchesList(t *testing.T) {
 			"--page-token", "page_token",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--source-directory-id", "source_directory_id",
-			"--status", "PENDING",
+			"--status", "CANCELLED",
+		)
+	})
+}
+
+func TestBatchesCancel(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
+	t.Run("regular flags", func(t *testing.T) {
+		mocktest.TestRunMockTestWithFlags(
+			t,
+			"--api-key", "string",
+			"batches", "cancel",
+			"--batch-id", "batch_id",
+			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }

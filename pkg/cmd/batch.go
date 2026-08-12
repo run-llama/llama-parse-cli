@@ -39,6 +39,16 @@ var batchesCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
+		&requestflag.Flag[any]{
+			Name:     "webhook-configuration-id",
+			Usage:    "IDs of saved webhook configurations to notify for this job.",
+			BodyPath: "webhook_configuration_ids",
+		},
+		&requestflag.Flag[any]{
+			Name:     "webhook-configuration",
+			Usage:    "Outbound webhook endpoints to notify on job status changes",
+			BodyPath: "webhook_configurations",
+		},
 	},
 	Action:          handleBatchesCreate,
 	HideHelpCommand: true,
@@ -48,6 +58,38 @@ var batchesCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:       "config.job",
 			Usage:      "Job to create for each file in the source directory.",
 			InnerField: "job",
+		},
+	},
+	"webhook-configuration": {
+		&requestflag.InnerFlag[any]{
+			Name:                  "webhook-configuration.webhook-events",
+			Usage:                 "Events to subscribe to (e.g. 'parse.success', 'extract.error'). If null, all events are delivered.",
+			InnerField:            "webhook_events",
+			OuterIsArrayOfObjects: true,
+		},
+		&requestflag.InnerFlag[map[string]any]{
+			Name:                  "webhook-configuration.webhook-headers",
+			Usage:                 "Custom HTTP headers sent with each webhook request (e.g. auth tokens)",
+			InnerField:            "webhook_headers",
+			OuterIsArrayOfObjects: true,
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:                  "webhook-configuration.webhook-output-format",
+			Usage:                 "Response format sent to the webhook: 'string' (default) or 'json'",
+			InnerField:            "webhook_output_format",
+			OuterIsArrayOfObjects: true,
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:                  "webhook-configuration.webhook-signing-secret",
+			Usage:                 "Shared signing secret used to sign webhook deliveries. When set, each request includes an HMAC-SHA256 signature of the request body in the 'LC-Signature' header (value 'sha256=<hex>'). Recompute the HMAC over the raw request body with this secret to verify the delivery is authentic.",
+			InnerField:            "webhook_signing_secret",
+			OuterIsArrayOfObjects: true,
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:                  "webhook-configuration.webhook-url",
+			Usage:                 "URL to receive webhook POST notifications",
+			InnerField:            "webhook_url",
+			OuterIsArrayOfObjects: true,
 		},
 	},
 })
@@ -87,7 +129,7 @@ var batchesList = cli.Command{
 		},
 		&requestflag.Flag[*string]{
 			Name:      "status",
-			Usage:     `Allowed values: "PENDING", "THROTTLED", "RUNNING", "COMPLETED", "FAILED", "CANCELLED".`,
+			Usage:     `Allowed values: "CANCELLED", "COMPLETED", "FAILED", "PENDING", "RUNNING", "THROTTLED".`,
 			QueryPath: "status",
 		},
 		&requestflag.Flag[int64]{
@@ -96,6 +138,29 @@ var batchesList = cli.Command{
 		},
 	},
 	Action:          handleBatchesList,
+	HideHelpCommand: true,
+}
+
+var batchesCancel = cli.Command{
+	Name:    "cancel",
+	Usage:   "Cancel a running batch.",
+	Suggest: true,
+	Flags: []cli.Flag{
+		&requestflag.Flag[string]{
+			Name:      "batch-id",
+			Required:  true,
+			PathParam: "batch_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "organization-id",
+			QueryPath: "organization_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
+	},
+	Action:          handleBatchesCancel,
 	HideHelpCommand: true,
 }
 
@@ -221,6 +286,55 @@ func handleBatchesList(ctx context.Context, cmd *cli.Command) error {
 			Transform:      transform,
 		})
 	}
+}
+
+func handleBatchesCancel(ctx context.Context, cmd *cli.Command) error {
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
+	unusedArgs := cmd.Args().Slice()
+	if !cmd.IsSet("batch-id") && len(unusedArgs) > 0 {
+		cmd.Set("batch-id", unusedArgs[0])
+		unusedArgs = unusedArgs[1:]
+	}
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
+
+	options, err := flagOptions(
+		cmd,
+		apiquery.NestedQueryFormatBrackets,
+		apiquery.ArrayQueryFormatRepeat,
+		EmptyBody,
+		false,
+	)
+	if err != nil {
+		return err
+	}
+
+	params := llamacloud.BatchCancelParams{}
+
+	var res []byte
+	options = append(options, option.WithResponseBodyInto(&res))
+	_, err = client.Batches.Cancel(
+		ctx,
+		cmd.Value("batch-id").(string),
+		params,
+		options...,
+	)
+	if err != nil {
+		return err
+	}
+
+	obj := gjson.ParseBytes(res)
+	format := cmd.Root().String("format")
+	explicitFormat := cmd.Root().IsSet("format")
+	transform := cmd.Root().String("transform")
+	return ShowJSON(obj, ShowJSONOpts{
+		ExplicitFormat: explicitFormat,
+		Format:         format,
+		RawOutput:      cmd.Root().Bool("raw-output"),
+		Title:          "batches cancel",
+		Transform:      transform,
+	})
 }
 
 func handleBatchesGet(ctx context.Context, cmd *cli.Command) error {

@@ -58,6 +58,11 @@ var classifyCreate = requestflag.WithInnerFlags(cli.Command{
 			BodyPath: "transaction_id",
 		},
 		&requestflag.Flag[any]{
+			Name:     "webhook-configuration-id",
+			Usage:    "IDs of saved webhook configurations to notify for this job.",
+			BodyPath: "webhook_configuration_ids",
+		},
+		&requestflag.Flag[any]{
 			Name:     "webhook-configuration",
 			Usage:    "Outbound webhook endpoints to notify on job status changes",
 			BodyPath: "webhook_configurations",
@@ -171,6 +176,29 @@ var classifyList = cli.Command{
 		},
 	},
 	Action:          handleClassifyList,
+	HideHelpCommand: true,
+}
+
+var classifyCancel = cli.Command{
+	Name:    "cancel",
+	Usage:   "Cancel a running classify job.",
+	Suggest: true,
+	Flags: []cli.Flag{
+		&requestflag.Flag[string]{
+			Name:      "job-id",
+			Required:  true,
+			PathParam: "job_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "organization-id",
+			QueryPath: "organization_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
+	},
+	Action:          handleClassifyCancel,
 	HideHelpCommand: true,
 }
 
@@ -291,6 +319,55 @@ func handleClassifyList(ctx context.Context, cmd *cli.Command) error {
 			Transform:      transform,
 		})
 	}
+}
+
+func handleClassifyCancel(ctx context.Context, cmd *cli.Command) error {
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
+	unusedArgs := cmd.Args().Slice()
+	if !cmd.IsSet("job-id") && len(unusedArgs) > 0 {
+		cmd.Set("job-id", unusedArgs[0])
+		unusedArgs = unusedArgs[1:]
+	}
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
+
+	options, err := flagOptions(
+		cmd,
+		apiquery.NestedQueryFormatBrackets,
+		apiquery.ArrayQueryFormatRepeat,
+		EmptyBody,
+		false,
+	)
+	if err != nil {
+		return err
+	}
+
+	params := llamacloud.ClassifyCancelParams{}
+
+	var res []byte
+	options = append(options, option.WithResponseBodyInto(&res))
+	_, err = client.Classify.Cancel(
+		ctx,
+		cmd.Value("job-id").(string),
+		params,
+		options...,
+	)
+	if err != nil {
+		return err
+	}
+
+	obj := gjson.ParseBytes(res)
+	format := cmd.Root().String("format")
+	explicitFormat := cmd.Root().IsSet("format")
+	transform := cmd.Root().String("transform")
+	return ShowJSON(obj, ShowJSONOpts{
+		ExplicitFormat: explicitFormat,
+		Format:         format,
+		RawOutput:      cmd.Root().Bool("raw-output"),
+		Title:          "classify cancel",
+		Transform:      transform,
+	})
 }
 
 func handleClassifyGet(ctx context.Context, cmd *cli.Command) error {

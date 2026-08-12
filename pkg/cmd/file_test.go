@@ -44,6 +44,21 @@ func TestFilesCreate(t *testing.T) {
 	})
 }
 
+func TestFilesRetrieve(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
+	t.Run("regular flags", func(t *testing.T) {
+		mocktest.TestRunMockTestWithFlags(
+			t,
+			"--api-key", "string",
+			"files", "retrieve",
+			"--file-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--expand", "[string, string]",
+			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+		)
+	})
+}
+
 func TestFilesList(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
@@ -79,13 +94,13 @@ func TestFilesDelete(t *testing.T) {
 	})
 }
 
-func TestFilesGet(t *testing.T) {
+func TestFilesContent(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"files", "get",
+			"files", "content",
 			"--file-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--expires-at-seconds", "0",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",

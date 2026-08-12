@@ -27,7 +27,7 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.Flag[string]{
 			Name:     "version",
-			Usage:    "Version for the selected tier. Use `latest`, or pin one of that tier's dated versions.\n\nCurrent `latest` by tier:\n- `fast`: `2026-06-15`\n- `cost_effective`: `2026-06-26`\n- `agentic`: `2026-07-15`\n- `agentic_plus`: `2026-07-08`\n\nFull list: `GET /api/v2/parse/versions`.",
+			Usage:    "Version for the selected tier. Use `latest`, or pin one of that tier's dated versions.\n\nCurrent `latest` by tier:\n- `fast`: `2026-06-15`\n- `cost_effective`: `2026-08-08`\n- `agentic`: `2026-07-24`\n- `agentic_plus`: `2026-07-08`\n\nFull list: `GET /api/v2/parse/versions`.",
 			Required: true,
 			BodyPath: "version",
 		},
@@ -190,15 +190,20 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "Bounding-box granularity levels to compute for the parse. 'word' computes one bounding box per detected word; 'line' computes one per text line; 'cell' computes one per table cell. Multiple levels can be requested. Empty list (default) disables granular bboxes — only item-level layout boxes are returned on the result. When set, the computed boxes are not inlined on the result items; they are written to a separate `grounded_items` sidecar (JSONL, one row per page) and exposed as `result_content_metadata.grounded_items` (a presigned download URL) on the parse result. Each row matches the `GroundedJsonItem` shape.",
 			InnerField: "granular_bboxes",
 		},
-		&requestflag.InnerFlag[[]string]{
+		&requestflag.InnerFlag[any]{
 			Name:       "output-options.images-to-save",
-			Usage:      "Image categories to extract and save. Options: 'screenshot' (full page renders useful for visual QA), 'embedded' (images found within the document), 'layout' (cropped regions from layout detection like figures and diagrams). Empty list saves no images",
+			Usage:      "Image categories to save: 'screenshot' (full page renders), 'embedded' (images found within the document), 'layout' (cropped figures and diagrams). Defaults to saving 'layout' when the output links to cropped images; pass [] to save none",
 			InnerField: "images_to_save",
 		},
 		&requestflag.InnerFlag[map[string]any]{
 			Name:       "output-options.markdown",
 			Usage:      "Markdown formatting options including table styles and link annotations",
 			InnerField: "markdown",
+		},
+		&requestflag.InnerFlag[*bool]{
+			Name:       "output-options.save-output-pdf",
+			Usage:      "Save a PDF copy of the parsed document, retrievable via `expand=output_pdf_content_metadata`. Not produced for spreadsheet, plain-text, or audio inputs",
+			InnerField: "save_output_pdf",
 		},
 		&requestflag.InnerFlag[map[string]any]{
 			Name:       "output-options.spatial-text",
@@ -363,6 +368,29 @@ var parsingList = cli.Command{
 	HideHelpCommand: true,
 }
 
+var parsingCancel = cli.Command{
+	Name:    "cancel",
+	Usage:   "Cancel a running parse job.",
+	Suggest: true,
+	Flags: []cli.Flag{
+		&requestflag.Flag[string]{
+			Name:      "job-id",
+			Required:  true,
+			PathParam: "job_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "organization-id",
+			QueryPath: "organization_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
+	},
+	Action:          handleParsingCancel,
+	HideHelpCommand: true,
+}
+
 var parsingGet = cli.Command{
 	Name:    "get",
 	Usage:   "Retrieve a parse job with optional expanded content.",
@@ -375,7 +403,7 @@ var parsingGet = cli.Command{
 		},
 		&requestflag.Flag[[]string]{
 			Name:      "expand",
-			Usage:     "Fields to include: text, markdown, items, metadata, forms, job_metadata, text_content_metadata, markdown_content_metadata, items_content_metadata, metadata_content_metadata, forms_content_metadata, raw_words_content_metadata, xlsx_content_metadata, output_pdf_content_metadata, images_content_metadata. Metadata fields include presigned URLs.",
+			Usage:     "Fields to include: text, markdown, items, metadata, forms, job_metadata, usage, text_content_metadata, markdown_content_metadata, items_content_metadata, metadata_content_metadata, forms_content_metadata, raw_words_content_metadata, xlsx_content_metadata, output_pdf_content_metadata, images_content_metadata. Metadata fields include presigned URLs.",
 			QueryPath: "expand",
 		},
 		&requestflag.Flag[*string]{
@@ -393,6 +421,15 @@ var parsingGet = cli.Command{
 		},
 	},
 	Action:          handleParsingGet,
+	HideHelpCommand: true,
+}
+
+var parsingListVersions = cli.Command{
+	Name:            "list-versions",
+	Usage:           "List the parse versions accepted by each tier.",
+	Suggest:         true,
+	Flags:           []cli.Flag{},
+	Action:          handleParsingListVersions,
 	HideHelpCommand: true,
 }
 
@@ -492,6 +529,55 @@ func handleParsingList(ctx context.Context, cmd *cli.Command) error {
 	}
 }
 
+func handleParsingCancel(ctx context.Context, cmd *cli.Command) error {
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
+	unusedArgs := cmd.Args().Slice()
+	if !cmd.IsSet("job-id") && len(unusedArgs) > 0 {
+		cmd.Set("job-id", unusedArgs[0])
+		unusedArgs = unusedArgs[1:]
+	}
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
+
+	options, err := flagOptions(
+		cmd,
+		apiquery.NestedQueryFormatBrackets,
+		apiquery.ArrayQueryFormatRepeat,
+		EmptyBody,
+		false,
+	)
+	if err != nil {
+		return err
+	}
+
+	params := llamacloud.ParsingCancelParams{}
+
+	var res []byte
+	options = append(options, option.WithResponseBodyInto(&res))
+	_, err = client.Parsing.Cancel(
+		ctx,
+		cmd.Value("job-id").(string),
+		params,
+		options...,
+	)
+	if err != nil {
+		return err
+	}
+
+	obj := gjson.ParseBytes(res)
+	format := cmd.Root().String("format")
+	explicitFormat := cmd.Root().IsSet("format")
+	transform := cmd.Root().String("transform")
+	return ShowJSON(obj, ShowJSONOpts{
+		ExplicitFormat: explicitFormat,
+		Format:         format,
+		RawOutput:      cmd.Root().Bool("raw-output"),
+		Title:          "parsing cancel",
+		Transform:      transform,
+	})
+}
+
 func handleParsingGet(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
@@ -537,6 +623,45 @@ func handleParsingGet(ctx context.Context, cmd *cli.Command) error {
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
 		Title:          "parsing get",
+		Transform:      transform,
+	})
+}
+
+func handleParsingListVersions(ctx context.Context, cmd *cli.Command) error {
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
+	unusedArgs := cmd.Args().Slice()
+
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
+
+	options, err := flagOptions(
+		cmd,
+		apiquery.NestedQueryFormatBrackets,
+		apiquery.ArrayQueryFormatRepeat,
+		EmptyBody,
+		false,
+	)
+	if err != nil {
+		return err
+	}
+
+	var res []byte
+	options = append(options, option.WithResponseBodyInto(&res))
+	_, err = client.Parsing.ListVersions(ctx, options...)
+	if err != nil {
+		return err
+	}
+
+	obj := gjson.ParseBytes(res)
+	format := cmd.Root().String("format")
+	explicitFormat := cmd.Root().IsSet("format")
+	transform := cmd.Root().String("transform")
+	return ShowJSON(obj, ShowJSONOpts{
+		ExplicitFormat: explicitFormat,
+		Format:         format,
+		RawOutput:      cmd.Root().Bool("raw-output"),
+		Title:          "parsing list-versions",
 		Transform:      transform,
 	})
 }

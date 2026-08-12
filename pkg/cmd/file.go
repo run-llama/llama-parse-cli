@@ -50,6 +50,34 @@ var filesCreate = cli.Command{
 	HideHelpCommand: true,
 }
 
+var filesRetrieve = cli.Command{
+	Name:    "retrieve",
+	Usage:   "Get file metadata by ID.",
+	Suggest: true,
+	Flags: []cli.Flag{
+		&requestflag.Flag[string]{
+			Name:      "file-id",
+			Required:  true,
+			PathParam: "file_id",
+		},
+		&requestflag.Flag[any]{
+			Name:      "expand",
+			Usage:     "Fields to expand.",
+			QueryPath: "expand",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "organization-id",
+			QueryPath: "organization_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
+	},
+	Action:          handleFilesRetrieve,
+	HideHelpCommand: true,
+}
+
 var filesList = cli.Command{
 	Name:    "list",
 	Usage:   "List files with optional filtering and pagination.",
@@ -130,8 +158,8 @@ var filesDelete = cli.Command{
 	HideHelpCommand: true,
 }
 
-var filesGet = cli.Command{
-	Name:    "get",
+var filesContent = cli.Command{
+	Name:    "content",
 	Usage:   "Get a presigned URL to download the file content.",
 	Suggest: true,
 	Flags: []cli.Flag{
@@ -153,7 +181,7 @@ var filesGet = cli.Command{
 			QueryPath: "project_id",
 		},
 	},
-	Action:          handleFilesGet,
+	Action:          handleFilesContent,
 	HideHelpCommand: true,
 }
 
@@ -269,6 +297,55 @@ func handleFilesCreate(ctx context.Context, cmd *cli.Command) error {
 	})
 }
 
+func handleFilesRetrieve(ctx context.Context, cmd *cli.Command) error {
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
+	unusedArgs := cmd.Args().Slice()
+	if !cmd.IsSet("file-id") && len(unusedArgs) > 0 {
+		cmd.Set("file-id", unusedArgs[0])
+		unusedArgs = unusedArgs[1:]
+	}
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
+
+	options, err := flagOptions(
+		cmd,
+		apiquery.NestedQueryFormatBrackets,
+		apiquery.ArrayQueryFormatRepeat,
+		EmptyBody,
+		false,
+	)
+	if err != nil {
+		return err
+	}
+
+	params := llamacloud.FileGetParams{}
+
+	var res []byte
+	options = append(options, option.WithResponseBodyInto(&res))
+	_, err = client.Files.Get(
+		ctx,
+		cmd.Value("file-id").(string),
+		params,
+		options...,
+	)
+	if err != nil {
+		return err
+	}
+
+	obj := gjson.ParseBytes(res)
+	format := cmd.Root().String("format")
+	explicitFormat := cmd.Root().IsSet("format")
+	transform := cmd.Root().String("transform")
+	return ShowJSON(obj, ShowJSONOpts{
+		ExplicitFormat: explicitFormat,
+		Format:         format,
+		RawOutput:      cmd.Root().Bool("raw-output"),
+		Title:          "files retrieve",
+		Transform:      transform,
+	})
+}
+
 func handleFilesList(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
@@ -356,7 +433,7 @@ func handleFilesDelete(ctx context.Context, cmd *cli.Command) error {
 	)
 }
 
-func handleFilesGet(ctx context.Context, cmd *cli.Command) error {
+func handleFilesContent(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("file-id") && len(unusedArgs) > 0 {
@@ -378,11 +455,11 @@ func handleFilesGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloud.FileGetParams{}
+	params := llamacloud.FileContentParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Files.Get(
+	_, err = client.Files.Content(
 		ctx,
 		cmd.Value("file-id").(string),
 		params,
@@ -400,7 +477,7 @@ func handleFilesGet(ctx context.Context, cmd *cli.Command) error {
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "files get",
+		Title:          "files content",
 		Transform:      transform,
 	})
 }

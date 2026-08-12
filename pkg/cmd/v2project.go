@@ -14,85 +14,59 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
-var betaBatchJobItemsList = cli.Command{
+var v2ProjectsList = cli.Command{
 	Name:    "list",
-	Usage:   "List items in a batch job with optional status filtering.",
+	Usage:   "List projects in an organization. Requires `organization_id` or a project-scoped\nAPI key.",
 	Suggest: true,
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
-			Name:      "job-id",
-			Required:  true,
-			PathParam: "job_id",
-		},
-		&requestflag.Flag[int64]{
-			Name:      "limit",
-			Usage:     "Maximum number of items to return",
-			Default:   100,
-			QueryPath: "limit",
-		},
-		&requestflag.Flag[int64]{
-			Name:      "offset",
-			Usage:     "Number of items to skip",
-			Default:   0,
-			QueryPath: "offset",
+		&requestflag.Flag[*string]{
+			Name:      "name",
+			QueryPath: "name",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[*string]{
-			Name:      "project-id",
-			QueryPath: "project_id",
+		&requestflag.Flag[*int64]{
+			Name:      "page-size",
+			QueryPath: "page_size",
 		},
 		&requestflag.Flag[*string]{
-			Name:      "status",
-			Usage:     "Filter items by status",
-			QueryPath: "status",
+			Name:      "page-token",
+			QueryPath: "page_token",
 		},
 		&requestflag.Flag[int64]{
 			Name:  "max-items",
 			Usage: "The maximum number of items to return (use -1 for unlimited).",
 		},
 	},
-	Action:          handleBetaBatchJobItemsList,
+	Action:          handleV2ProjectsList,
 	HideHelpCommand: true,
 }
 
-var betaBatchJobItemsGetProcessingResults = cli.Command{
-	Name:    "get-processing-results",
-	Usage:   "Get all processing results for a specific item.",
+var v2ProjectsGet = cli.Command{
+	Name:    "get",
+	Usage:   "Get a project by ID.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:      "item-id",
+			Name:      "project-id",
 			Required:  true,
-			PathParam: "item_id",
-		},
-		&requestflag.Flag[*string]{
-			Name:      "job-type",
-			Usage:     "Filter results by job type",
-			QueryPath: "job_type",
+			PathParam: "project_id",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
 		},
-		&requestflag.Flag[*string]{
-			Name:      "project-id",
-			QueryPath: "project_id",
-		},
 	},
-	Action:          handleBetaBatchJobItemsGetProcessingResults,
+	Action:          handleV2ProjectsGet,
 	HideHelpCommand: true,
 }
 
-func handleBetaBatchJobItemsList(ctx context.Context, cmd *cli.Command) error {
+func handleV2ProjectsList(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
-	if !cmd.IsSet("job-id") && len(unusedArgs) > 0 {
-		cmd.Set("job-id", unusedArgs[0])
-		unusedArgs = unusedArgs[1:]
-	}
+
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
@@ -108,7 +82,7 @@ func handleBetaBatchJobItemsList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloud.BetaBatchJobItemListParams{}
+	params := llamacloud.V2ProjectListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -116,12 +90,7 @@ func handleBetaBatchJobItemsList(ctx context.Context, cmd *cli.Command) error {
 	if format == "raw" {
 		var res []byte
 		options = append(options, option.WithResponseBodyInto(&res))
-		_, err = client.Beta.Batch.JobItems.List(
-			ctx,
-			cmd.Value("job-id").(string),
-			params,
-			options...,
-		)
+		_, err = client.V2Projects.List(ctx, params, options...)
 		if err != nil {
 			return err
 		}
@@ -130,16 +99,11 @@ func handleBetaBatchJobItemsList(ctx context.Context, cmd *cli.Command) error {
 			ExplicitFormat: explicitFormat,
 			Format:         format,
 			RawOutput:      cmd.Root().Bool("raw-output"),
-			Title:          "beta:batch:job-items list",
+			Title:          "v2-projects list",
 			Transform:      transform,
 		})
 	} else {
-		iter := client.Beta.Batch.JobItems.ListAutoPaging(
-			ctx,
-			cmd.Value("job-id").(string),
-			params,
-			options...,
-		)
+		iter := client.V2Projects.ListAutoPaging(ctx, params, options...)
 		maxItems := int64(-1)
 		if cmd.IsSet("max-items") {
 			maxItems = cmd.Value("max-items").(int64)
@@ -148,17 +112,17 @@ func handleBetaBatchJobItemsList(ctx context.Context, cmd *cli.Command) error {
 			ExplicitFormat: explicitFormat,
 			Format:         format,
 			RawOutput:      cmd.Root().Bool("raw-output"),
-			Title:          "beta:batch:job-items list",
+			Title:          "v2-projects list",
 			Transform:      transform,
 		})
 	}
 }
 
-func handleBetaBatchJobItemsGetProcessingResults(ctx context.Context, cmd *cli.Command) error {
+func handleV2ProjectsGet(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
-	if !cmd.IsSet("item-id") && len(unusedArgs) > 0 {
-		cmd.Set("item-id", unusedArgs[0])
+	if !cmd.IsSet("project-id") && len(unusedArgs) > 0 {
+		cmd.Set("project-id", unusedArgs[0])
 		unusedArgs = unusedArgs[1:]
 	}
 	if len(unusedArgs) > 0 {
@@ -176,13 +140,13 @@ func handleBetaBatchJobItemsGetProcessingResults(ctx context.Context, cmd *cli.C
 		return err
 	}
 
-	params := llamacloud.BetaBatchJobItemGetProcessingResultsParams{}
+	params := llamacloud.V2ProjectGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Beta.Batch.JobItems.GetProcessingResults(
+	_, err = client.V2Projects.Get(
 		ctx,
-		cmd.Value("item-id").(string),
+		cmd.Value("project-id").(string),
 		params,
 		options...,
 	)
@@ -198,7 +162,7 @@ func handleBetaBatchJobItemsGetProcessingResults(ctx context.Context, cmd *cli.C
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "beta:batch:job-items get-processing-results",
+		Title:          "v2-projects get",
 		Transform:      transform,
 	})
 }

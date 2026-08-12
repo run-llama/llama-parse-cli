@@ -90,10 +90,23 @@ func init() {
 				Suggest:  true,
 				Commands: []*cli.Command{
 					&filesCreate,
+					&filesRetrieve,
 					&filesList,
 					&filesDelete,
-					&filesGet,
+					&filesContent,
 					&filesQuery,
+				},
+			},
+			{
+				Name:     "split",
+				Category: "API RESOURCE",
+				Suggest:  true,
+				Commands: []*cli.Command{
+					&splitCreate,
+					&splitList,
+					&splitDelete,
+					&splitCancel,
+					&splitGet,
 				},
 			},
 			{
@@ -103,7 +116,9 @@ func init() {
 				Commands: []*cli.Command{
 					&parsingCreate,
 					&parsingList,
+					&parsingCancel,
 					&parsingGet,
+					&parsingListVersions,
 				},
 			},
 			{
@@ -114,6 +129,7 @@ func init() {
 					&extractCreate,
 					&extractList,
 					&extractDelete,
+					&extractCancel,
 					&extractGenerateSchema,
 					&extractGet,
 					&extractValidateSchema,
@@ -137,6 +153,7 @@ func init() {
 				Commands: []*cli.Command{
 					&batchesCreate,
 					&batchesList,
+					&batchesCancel,
 					&batchesGet,
 				},
 			},
@@ -147,6 +164,7 @@ func init() {
 				Commands: []*cli.Command{
 					&classifyCreate,
 					&classifyList,
+					&classifyCancel,
 					&classifyGet,
 				},
 			},
@@ -163,12 +181,41 @@ func init() {
 				},
 			},
 			{
+				Name:     "webhook-configs",
+				Category: "API RESOURCE",
+				Suggest:  true,
+				Commands: []*cli.Command{
+					&webhookConfigsCreate,
+					&webhookConfigsRetrieve,
+					&webhookConfigsUpdate,
+					&webhookConfigsList,
+					&webhookConfigsDelete,
+				},
+			},
+			{
 				Name:     "projects",
 				Category: "API RESOURCE",
 				Suggest:  true,
 				Commands: []*cli.Command{
 					&projectsList,
 					&projectsGet,
+				},
+			},
+			{
+				Name:     "v2-projects",
+				Category: "API RESOURCE",
+				Suggest:  true,
+				Commands: []*cli.Command{
+					&v2ProjectsList,
+					&v2ProjectsGet,
+				},
+			},
+			{
+				Name:     "job-data-points",
+				Category: "API RESOURCE",
+				Suggest:  true,
+				Commands: []*cli.Command{
+					&jobDataPointsList,
 				},
 			},
 			{
@@ -275,6 +322,7 @@ func init() {
 					&pipelinesDocumentsGet,
 					&pipelinesDocumentsGetChunks,
 					&pipelinesDocumentsGetStatus,
+					&pipelinesDocumentsGetStatusCounts,
 					&pipelinesDocumentsSync,
 					&pipelinesDocumentsUpsert,
 				},
@@ -386,26 +434,6 @@ func init() {
 					&betaDirectoriesFilesAdd,
 					&betaDirectoriesFilesGet,
 					&betaDirectoriesFilesUpload,
-				},
-			},
-			{
-				Name:     "beta:batch",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&betaBatchCreate,
-					&betaBatchList,
-					&betaBatchCancel,
-					&betaBatchGetStatus,
-				},
-			},
-			{
-				Name:     "beta:batch:job-items",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&betaBatchJobItemsList,
-					&betaBatchJobItemsGetProcessingResults,
 				},
 			},
 			{

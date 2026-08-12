@@ -8,116 +8,118 @@ import (
 	"github.com/run-llama/llama-parse-cli/internal/mocktest"
 )
 
-func TestBetaDirectoriesCreate(t *testing.T) {
+func TestWebhookConfigsCreate(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"beta:directories", "create",
-			"--name", "x",
+			"webhook-configs", "create",
+			"--webhook-url", "https://example.com/webhooks/llamacloud",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--connector-subscription-id", "csub-abc123",
-			"--description", "description",
-			"--expires-at", "'2026-05-10T00:00:00Z'",
-			"--system-metadata", "{foo: bar}",
-			"--type", "user",
+			"--webhook-event", "[parse.success, parse.error]",
+			"--webhook-headers", "{Authorization: Bearer sk-...}",
+			"--webhook-output-format", "json",
+			"--webhook-signing-secret", "whsec_...",
 		)
 	})
 
 	t.Run("piping data", func(t *testing.T) {
 		// Test piping YAML data over stdin
 		pipeData := []byte("" +
-			"name: x\n" +
-			"connector_subscription_id: csub-abc123\n" +
-			"description: description\n" +
-			"expires_at: '2026-05-10T00:00:00Z'\n" +
-			"system_metadata:\n" +
-			"  foo: bar\n" +
-			"type: user\n")
+			"webhook_url: https://example.com/webhooks/llamacloud\n" +
+			"webhook_events:\n" +
+			"  - parse.success\n" +
+			"  - parse.error\n" +
+			"webhook_headers:\n" +
+			"  Authorization: Bearer sk-...\n" +
+			"webhook_output_format: json\n" +
+			"webhook_signing_secret: whsec_...\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"beta:directories", "create",
+			"webhook-configs", "create",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
 
-func TestBetaDirectoriesUpdate(t *testing.T) {
+func TestWebhookConfigsRetrieve(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"beta:directories", "update",
-			"--directory-id", "directory_id",
+			"webhook-configs", "retrieve",
+			"--config-id", "config_id",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--description", "description",
-			"--name", "x",
+		)
+	})
+}
+
+func TestWebhookConfigsUpdate(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
+	t.Run("regular flags", func(t *testing.T) {
+		mocktest.TestRunMockTestWithFlags(
+			t,
+			"--api-key", "string",
+			"webhook-configs", "update",
+			"--config-id", "config_id",
+			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--webhook-event", "[batch.cancelled]",
+			"--webhook-headers", "{foo: string}",
+			"--webhook-output-format", "json",
+			"--webhook-signing-secret", "webhook_signing_secret",
+			"--webhook-url", "webhook_url",
 		)
 	})
 
 	t.Run("piping data", func(t *testing.T) {
 		// Test piping YAML data over stdin
 		pipeData := []byte("" +
-			"description: description\n" +
-			"name: x\n")
+			"webhook_events:\n" +
+			"  - batch.cancelled\n" +
+			"webhook_headers:\n" +
+			"  foo: string\n" +
+			"webhook_output_format: json\n" +
+			"webhook_signing_secret: webhook_signing_secret\n" +
+			"webhook_url: webhook_url\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"beta:directories", "update",
-			"--directory-id", "directory_id",
+			"webhook-configs", "update",
+			"--config-id", "config_id",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
 
-func TestBetaDirectoriesList(t *testing.T) {
+func TestWebhookConfigsList(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"beta:directories", "list",
-			"--max-items", "10",
-			"--include-deleted=true",
-			"--name", "name",
-			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--page-size", "0",
-			"--page-token", "page_token",
-			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--type", "user",
-		)
-	})
-}
-
-func TestBetaDirectoriesDelete(t *testing.T) {
-	t.Skip("Mock server tests are disabled")
-	t.Run("regular flags", func(t *testing.T) {
-		mocktest.TestRunMockTestWithFlags(
-			t,
-			"--api-key", "string",
-			"beta:directories", "delete",
-			"--directory-id", "directory_id",
+			"webhook-configs", "list",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
 
-func TestBetaDirectoriesGet(t *testing.T) {
+func TestWebhookConfigsDelete(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"beta:directories", "get",
-			"--directory-id", "directory_id",
+			"webhook-configs", "delete",
+			"--config-id", "config_id",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)

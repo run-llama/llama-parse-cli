@@ -124,6 +124,10 @@ var pipelinesCreate = requestflag.WithInnerFlags(cli.Command{
 			InnerField: "annotate_links",
 		},
 		&requestflag.InnerFlag[*bool]{
+			Name:       "llama-parse-parameters.annotate-revisions",
+			InnerField: "annotate_revisions",
+		},
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.auto-mode",
 			InnerField: "auto_mode",
 		},
@@ -791,6 +795,10 @@ var pipelinesUpdate = requestflag.WithInnerFlags(cli.Command{
 		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.annotate-links",
 			InnerField: "annotate_links",
+		},
+		&requestflag.InnerFlag[*bool]{
+			Name:       "llama-parse-parameters.annotate-revisions",
+			InnerField: "annotate_revisions",
 		},
 		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.auto-mode",
@@ -1668,6 +1676,10 @@ var pipelinesUpsert = requestflag.WithInnerFlags(cli.Command{
 		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.annotate-links",
 			InnerField: "annotate_links",
+		},
+		&requestflag.InnerFlag[*bool]{
+			Name:       "llama-parse-parameters.annotate-revisions",
+			InnerField: "annotate_revisions",
 		},
 		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.auto-mode",
