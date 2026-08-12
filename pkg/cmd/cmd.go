@@ -93,7 +93,7 @@ func init() {
 					&filesRetrieve,
 					&filesList,
 					&filesDelete,
-					&filesGet,
+					&filesContent,
 					&filesQuery,
 				},
 			},

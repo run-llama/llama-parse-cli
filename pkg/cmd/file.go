@@ -158,8 +158,8 @@ var filesDelete = cli.Command{
 	HideHelpCommand: true,
 }
 
-var filesGet = cli.Command{
-	Name:    "get",
+var filesContent = cli.Command{
+	Name:    "content",
 	Usage:   "Get a presigned URL to download the file content.",
 	Suggest: true,
 	Flags: []cli.Flag{
@@ -181,7 +181,7 @@ var filesGet = cli.Command{
 			QueryPath: "project_id",
 		},
 	},
-	Action:          handleFilesGet,
+	Action:          handleFilesContent,
 	HideHelpCommand: true,
 }
 
@@ -433,7 +433,7 @@ func handleFilesDelete(ctx context.Context, cmd *cli.Command) error {
 	)
 }
 
-func handleFilesGet(ctx context.Context, cmd *cli.Command) error {
+func handleFilesContent(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("file-id") && len(unusedArgs) > 0 {
@@ -455,11 +455,11 @@ func handleFilesGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloud.FileGetParams{}
+	params := llamacloud.FileContentParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Files.Get(
+	_, err = client.Files.Content(
 		ctx,
 		cmd.Value("file-id").(string),
 		params,
@@ -477,7 +477,7 @@ func handleFilesGet(ctx context.Context, cmd *cli.Command) error {
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "files get",
+		Title:          "files content",
 		Transform:      transform,
 	})
 }
