@@ -89,6 +89,11 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "Page selection: limit total pages or specify exact pages to process",
 			BodyPath: "page_ranges",
 		},
+		&requestflag.Flag[*string]{
+			Name:     "preset",
+			Usage:    "Named preset for specialized document parsing",
+			BodyPath: "preset",
+		},
 		&requestflag.Flag[map[string]any]{
 			Name:     "processing-control",
 			Usage:    "Job execution controls including timeouts and failure thresholds",
