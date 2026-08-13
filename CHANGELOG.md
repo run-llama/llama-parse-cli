@@ -1,41 +1,5 @@
 # Changelog
 
-## [1.5.0](https://github.com/run-llama/llama-parse-cli/compare/v1.4.0...v1.5.0) (2026-08-12)
-
-
-### Features
-
-* **classify:** accept webhook_configuration_ids on classify job create (LI-8138) ([#22943](https://github.com/run-llama/llama-parse-cli/issues/22943)) ([087ee56](https://github.com/run-llama/llama-parse-cli/commit/087ee565ff2f7d02f99ba93a55666cbccb15f0e1))
-* **connector:** API + service layer for attaching a subscription to a directory ([#23502](https://github.com/run-llama/llama-parse-cli/issues/23502)) ([b3d53f6](https://github.com/run-llama/llama-parse-cli/commit/b3d53f6feb55174fc6fdf32c1ba9bb8d83983752))
-* **extract:** accept webhook_configuration_ids on extract job create (LI-8138) ([#22907](https://github.com/run-llama/llama-parse-cli/issues/22907)) ([3705dd2](https://github.com/run-llama/llama-parse-cli/commit/3705dd27463d6d5174482204c23be6aaf1136d21))
-* **extract:** pin turbo to a stable dated version; accept citations+confidence, reject only granular bboxes ([#22965](https://github.com/run-llama/llama-parse-cli/issues/22965)) ([a9b12bf](https://github.com/run-llama/llama-parse-cli/commit/a9b12bf96962672f8584ba2120ae455884840e4c))
-* **extract:** reject parse_tier for parse-free tiers + pin turbo fallback to fast ([#22919](https://github.com/run-llama/llama-parse-cli/issues/22919)) ([59351c3](https://github.com/run-llama/llama-parse-cli/commit/59351c3a92c780171a58ef8c257196ba3e7bf5a9))
-* **files:** rename files.get to files.content and restore files.retrieve ([2fd9092](https://github.com/run-llama/llama-parse-cli/commit/2fd90928eb45808167d518b7e8cc8723d6b6b25b))
-* **parse,extract:** add expand=usage returning credits billed per job ([#23709](https://github.com/run-llama/llama-parse-cli/issues/23709)) ([1fb5977](https://github.com/run-llama/llama-parse-cli/commit/1fb59777faca00a50511e3fdcf4601cc80a2e874))
-* **parse:** make the output.pdf artifact opt-in on Parse v2 (output_options.save_output_pdf) ([#23510](https://github.com/run-llama/llama-parse-cli/issues/23510)) ([1108da9](https://github.com/run-llama/llama-parse-cli/commit/1108da9935dfa061401be9919e100ed9bcfc1e14))
-* **split:** accept webhook_configuration_ids on split job create (LI-8138) ([#22940](https://github.com/run-llama/llama-parse-cli/issues/22940)) ([1e7b609](https://github.com/run-llama/llama-parse-cli/commit/1e7b6098a4c766db73915c9870e8e86379510729))
-
-
-### Bug Fixes
-
-* build against llama-parse-go v1.5.0 and drop the duplicated TestClassifyCancel ([#13](https://github.com/run-llama/llama-parse-cli/issues/13)) ([f0eb259](https://github.com/run-llama/llama-parse-cli/commit/f0eb259128bea0e0bb87a9e736dce5d05634708e))
-* **llamaparse:** retry qwen context-overflow 400s with a shrinking OCR anchor ([#23817](https://github.com/run-llama/llama-parse-cli/issues/23817)) ([b98043b](https://github.com/run-llama/llama-parse-cli/commit/b98043b7be875eca3c7dd0e1f88db6a0d9d063e6))
-
-
-### Chores
-
-* **api:** regenerate OpenAPI specs for new agentic parse version ([#22763](https://github.com/run-llama/llama-parse-cli/issues/22763)) ([2138578](https://github.com/run-llama/llama-parse-cli/commit/2138578c788587c4de2c0e7016d135ef3fe717bb))
-
-
-### Documentation
-
-* **parse:** shorten the images_to_save field description ([#23807](https://github.com/run-llama/llama-parse-cli/issues/23807)) ([2f78313](https://github.com/run-llama/llama-parse-cli/commit/2f78313313a0e6d93e204ecac4f3f207dee4a315))
-
-
-### Refactors
-
-* remove Depends(get_db) from permissions endpoints ([#22635](https://github.com/run-llama/llama-parse-cli/issues/22635)) ([087b803](https://github.com/run-llama/llama-parse-cli/commit/087b8037dcbe78b1abc643c38d7ce73de48241b0))
-
 ## [1.4.0](https://github.com/run-llama/llama-parse-cli/compare/v1.3.0...v1.4.0) (2026-07-22)
 
 
