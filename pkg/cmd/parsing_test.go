@@ -31,7 +31,6 @@ func TestParsingCreate(t *testing.T) {
 			"--input-options", "{html: {make_all_elements_visible: true, remove_fixed_elements: true, remove_navigation_elements: true}, image: {camera_photo_correction: true}, pdf: {}, presentation: {out_of_bounds_content: true, skip_embedded_data: true}, spreadsheet: {detect_sub_tables_in_sheets: true, force_formula_computation_in_sheets: true, include_hidden_sheets: true}}",
 			"--output-options", "{additional_outputs: [stripped_md, concatenated_stripped_txt, word_bbox], extract_printed_page_number: true, granular_bboxes: [word, line, cell], images_to_save: [embedded], markdown: {annotate_links: true, annotate_revisions: true, inline_images: true, tables: {compact_markdown_tables: true, markdown_table_multiline_separator: markdown_table_multiline_separator, merge_continued_tables: true, output_tables_as_markdown: true}}, save_output_pdf: true, spatial_text: {do_not_unroll_columns: true, preserve_layout_alignment_across_pages: true, preserve_very_small_text: true}, tables_as_spreadsheet: {enable: true, guess_sheet_name: true}}",
 			"--page-ranges", "{max_pages: 1, target_pages: target_pages}",
-			"--preset", "preset",
 			"--processing-control", "{job_failure_conditions: {allowed_page_failure_ratio: 1, fail_on_buggy_font: true, fail_on_image_extraction_error: true, fail_on_image_ocr_error: true, fail_on_markdown_reconstruction_error: true}, timeouts: {base_in_seconds: 1, extra_time_per_page_in_seconds: 1}}",
 			"--processing-options", "{aggressive_table_extraction: true, auto_mode_configuration: [{parsing_conf: {adaptive_long_table: true, aggressive_table_extraction: true, crop_box: {bottom: 0, left: 0, right: 0, top: 0}, custom_prompt: custom_prompt, extract_layout: true, high_res_ocr: true, ignore: {ignore_diagonal_text: true, ignore_hidden_text: true}, language: language, outlined_table_extraction: true, presentation: {out_of_bounds_content: true, skip_embedded_data: true}, spatial_text: {do_not_unroll_columns: true, preserve_layout_alignment_across_pages: true, preserve_very_small_text: true}, specialized_chart_parsing: agentic, tier: agentic, version: latest}, filename_match_glob: '*.txt', filename_match_glob_list: [string], filename_regexp: filename_regexp, filename_regexp_mode: filename_regexp_mode, full_page_image_in_page: true, full_page_image_in_page_threshold: 0, image_in_page: true, layout_element_in_page: layout_element_in_page, layout_element_in_page_confidence_threshold: 0, page_contains_at_least_n_charts: 0, page_contains_at_least_n_images: 0, page_contains_at_least_n_layout_elements: 0, page_contains_at_least_n_lines: 0, page_contains_at_least_n_links: 0, page_contains_at_least_n_numbers: 0, page_contains_at_least_n_percent_numbers: 0, page_contains_at_least_n_tables: 0, page_contains_at_least_n_words: 0, page_contains_at_most_n_charts: 0, page_contains_at_most_n_images: 0, page_contains_at_most_n_layout_elements: 0, page_contains_at_most_n_lines: 0, page_contains_at_most_n_links: 0, page_contains_at_most_n_numbers: 0, page_contains_at_most_n_percent_numbers: 0, page_contains_at_most_n_tables: 0, page_contains_at_most_n_words: 0, page_longer_than_n_chars: 0, page_md_error: true, page_shorter_than_n_chars: 0, regexp_in_page: regexp_in_page, regexp_in_page_mode: regexp_in_page_mode, table_in_page: true, text_in_page: text_in_page, trigger_mode: trigger_mode}], confidence_score_effort: high, cost_optimizer: {enable: true}, disable_heuristics: true, forms: enrich, ignore: {ignore_diagonal_text: true, ignore_hidden_text: true, ignore_text_in_image: true}, ocr_parameters: {languages: [abq]}, specialized_chart_parsing: agentic}",
 			"--source-url", "https:",
@@ -80,7 +79,6 @@ func TestParsingCreate(t *testing.T) {
 			"--output-options.tables-as-spreadsheet", "{enable: true, guess_sheet_name: true}",
 			"--page-ranges.max-pages", "1",
 			"--page-ranges.target-pages", "target_pages",
-			"--preset", "preset",
 			"--processing-control.job-failure-conditions", "{allowed_page_failure_ratio: 1, fail_on_buggy_font: true, fail_on_image_extraction_error: true, fail_on_image_ocr_error: true, fail_on_markdown_reconstruction_error: true}",
 			"--processing-control.timeouts", "{base_in_seconds: 1, extra_time_per_page_in_seconds: 1}",
 			"--processing-options.aggressive-table-extraction=true",
@@ -168,7 +166,6 @@ func TestParsingCreate(t *testing.T) {
 			"page_ranges:\n" +
 			"  max_pages: 1\n" +
 			"  target_pages: target_pages\n" +
-			"preset: preset\n" +
 			"processing_control:\n" +
 			"  job_failure_conditions:\n" +
 			"    allowed_page_failure_ratio: 1\n" +
