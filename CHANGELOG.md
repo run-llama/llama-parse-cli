@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.5.1](https://github.com/run-llama/llama-parse-cli/compare/v1.5.0...v1.5.1) (2026-08-20)
+
+
+### Features
+
+* **parse:** expose legal-document preset in v2 ([#24192](https://github.com/run-llama/llama-parse-cli/issues/24192)) ([0907de9](https://github.com/run-llama/llama-parse-cli/commit/0907de9633a645929c42e5ae2dfff7be2d6b240b))
+
+
+### Bug Fixes
+
+* **parse:** restore inline_images on cost_effective (new version 2026-08-11) ([#23804](https://github.com/run-llama/llama-parse-cli/issues/23804)) ([d708ab4](https://github.com/run-llama/llama-parse-cli/commit/d708ab41cd3f1ba13d5efb3ee76ea21a1e15c394))
+
+
+### Reverts
+
+* expose legal-document preset in v2 ([3b7af27](https://github.com/run-llama/llama-parse-cli/commit/3b7af27a1cf4dc08995eb3e815fc444465de29ae))
+
 ## [1.4.0](https://github.com/run-llama/llama-parse-cli/compare/v1.3.0...v1.4.0) (2026-07-22)
 
 
