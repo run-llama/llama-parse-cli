@@ -120,6 +120,10 @@ var pipelinesCreate = requestflag.WithInnerFlags(cli.Command{
 			InnerField: "aggressive_table_extraction",
 		},
 		&requestflag.InnerFlag[*bool]{
+			Name:       "llama-parse-parameters.annotate-line-numbers",
+			InnerField: "annotate_line_numbers",
+		},
+		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.annotate-links",
 			InnerField: "annotate_links",
 		},
@@ -791,6 +795,10 @@ var pipelinesUpdate = requestflag.WithInnerFlags(cli.Command{
 		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.aggressive-table-extraction",
 			InnerField: "aggressive_table_extraction",
+		},
+		&requestflag.InnerFlag[*bool]{
+			Name:       "llama-parse-parameters.annotate-line-numbers",
+			InnerField: "annotate_line_numbers",
 		},
 		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.annotate-links",
@@ -1672,6 +1680,10 @@ var pipelinesUpsert = requestflag.WithInnerFlags(cli.Command{
 		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.aggressive-table-extraction",
 			InnerField: "aggressive_table_extraction",
+		},
+		&requestflag.InnerFlag[*bool]{
+			Name:       "llama-parse-parameters.annotate-line-numbers",
+			InnerField: "annotate_line_numbers",
 		},
 		&requestflag.InnerFlag[*bool]{
 			Name:       "llama-parse-parameters.annotate-links",

@@ -400,18 +400,6 @@ func init() {
 				},
 			},
 			{
-				Name:     "beta:sheets",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&betaSheetsCreate,
-					&betaSheetsList,
-					&betaSheetsDeleteJob,
-					&betaSheetsGet,
-					&betaSheetsGetResultTable,
-				},
-			},
-			{
 				Name:     "beta:directories",
 				Category: "API RESOURCE",
 				Suggest:  true,
