@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/run-llama/llama-parse-cli/compare/v1.5.1...v1.6.0) (2026-08-28)
+
+
+### Features
+
+* **extract:** publish the turbo tier on the public API surface (LI-8873) ([#25281](https://github.com/run-llama/llama-parse-cli/issues/25281)) ([b1cd5ba](https://github.com/run-llama/llama-parse-cli/commit/b1cd5bab214238266501ed3878c99a61ce1b5d21))
+
 ## [1.5.1](https://github.com/run-llama/llama-parse-cli/compare/v1.5.0...v1.5.1) (2026-08-20)
 
 
