@@ -18,6 +18,7 @@ func TestPipelinesDocumentsCreate(t *testing.T) {
 			"pipelines:documents", "create",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--body", "{metadata: {foo: bar}, text: text, id: id, excluded_embed_metadata_keys: [string], excluded_llm_metadata_keys: [string], page_positions: [0]}",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 
@@ -37,6 +38,7 @@ func TestPipelinesDocumentsCreate(t *testing.T) {
 			"--body.excluded-embed-metadata-keys", "[string]",
 			"--body.excluded-llm-metadata-keys", "[string]",
 			"--body.page-positions", "[0]",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 
@@ -58,6 +60,7 @@ func TestPipelinesDocumentsCreate(t *testing.T) {
 			"--api-key", "string",
 			"pipelines:documents", "create",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -75,6 +78,7 @@ func TestPipelinesDocumentsList(t *testing.T) {
 			"--limit", "0",
 			"--only-api-data-source-documents=true",
 			"--only-direct-upload=true",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--skip", "0",
 			"--status-refresh-policy", "cached",
 		)
@@ -90,6 +94,7 @@ func TestPipelinesDocumentsDelete(t *testing.T) {
 			"pipelines:documents", "delete",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--document-id", "document_id",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -103,6 +108,7 @@ func TestPipelinesDocumentsGet(t *testing.T) {
 			"pipelines:documents", "get",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--document-id", "document_id",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -116,6 +122,7 @@ func TestPipelinesDocumentsGetChunks(t *testing.T) {
 			"pipelines:documents", "get-chunks",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--document-id", "document_id",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -129,6 +136,7 @@ func TestPipelinesDocumentsGetStatus(t *testing.T) {
 			"pipelines:documents", "get-status",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--document-id", "document_id",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -144,6 +152,7 @@ func TestPipelinesDocumentsGetStatusCounts(t *testing.T) {
 			"--data-source-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--file-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--only-direct-upload=true",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -157,6 +166,7 @@ func TestPipelinesDocumentsSync(t *testing.T) {
 			"pipelines:documents", "sync",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--document-id", "document_id",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -170,6 +180,7 @@ func TestPipelinesDocumentsUpsert(t *testing.T) {
 			"pipelines:documents", "upsert",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--body", "{metadata: {foo: bar}, text: text, id: id, excluded_embed_metadata_keys: [string], excluded_llm_metadata_keys: [string], page_positions: [0]}",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 
@@ -189,6 +200,7 @@ func TestPipelinesDocumentsUpsert(t *testing.T) {
 			"--body.excluded-embed-metadata-keys", "[string]",
 			"--body.excluded-llm-metadata-keys", "[string]",
 			"--body.page-positions", "[0]",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 
@@ -210,6 +222,7 @@ func TestPipelinesDocumentsUpsert(t *testing.T) {
 			"--api-key", "string",
 			"pipelines:documents", "upsert",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }

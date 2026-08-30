@@ -16,6 +16,7 @@ func TestPipelinesSyncCreate(t *testing.T) {
 			"--api-key", "string",
 			"pipelines:sync", "create",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -28,6 +29,7 @@ func TestPipelinesSyncCancel(t *testing.T) {
 			"--api-key", "string",
 			"pipelines:sync", "cancel",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
