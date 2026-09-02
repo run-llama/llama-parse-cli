@@ -710,6 +710,10 @@ var pipelinesUpdate = requestflag.WithInnerFlags(cli.Command{
 			Required:  true,
 			PathParam: "pipeline_id",
 		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
 		&requestflag.Flag[map[string]any]{
 			Name:     "data-sink",
 			Usage:    "Schema for creating a data sink.",
@@ -1418,6 +1422,10 @@ var pipelinesDelete = cli.Command{
 			Required:  true,
 			PathParam: "pipeline_id",
 		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
 	},
 	Action:          handlePipelinesDelete,
 	HideHelpCommand: true,
@@ -1432,6 +1440,10 @@ var pipelinesGet = cli.Command{
 			Name:      "pipeline-id",
 			Required:  true,
 			PathParam: "pipeline_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
 		},
 	},
 	Action:          handlePipelinesGet,
@@ -1451,6 +1463,10 @@ var pipelinesGetStatus = cli.Command{
 		&requestflag.Flag[*bool]{
 			Name:      "full-details",
 			QueryPath: "full_details",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
 		},
 	},
 	Action:          handlePipelinesGetStatus,
@@ -2415,7 +2431,14 @@ func handlePipelinesDelete(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	return client.Pipelines.Delete(ctx, cmd.Value("pipeline-id").(string), options...)
+	params := llamacloud.PipelineDeleteParams{}
+
+	return client.Pipelines.Delete(
+		ctx,
+		cmd.Value("pipeline-id").(string),
+		params,
+		options...,
+	)
 }
 
 func handlePipelinesGet(ctx context.Context, cmd *cli.Command) error {
@@ -2440,9 +2463,16 @@ func handlePipelinesGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
+	params := llamacloud.PipelineGetParams{}
+
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Pipelines.Get(ctx, cmd.Value("pipeline-id").(string), options...)
+	_, err = client.Pipelines.Get(
+		ctx,
+		cmd.Value("pipeline-id").(string),
+		params,
+		options...,
+	)
 	if err != nil {
 		return err
 	}

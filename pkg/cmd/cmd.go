@@ -136,17 +136,6 @@ func init() {
 				},
 			},
 			{
-				Name:     "classifier:jobs",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&classifierJobsCreate,
-					&classifierJobsList,
-					&classifierJobsGet,
-					&classifierJobsGetResults,
-				},
-			},
-			{
 				Name:     "batches",
 				Category: "API RESOURCE",
 				Suggest:  true,

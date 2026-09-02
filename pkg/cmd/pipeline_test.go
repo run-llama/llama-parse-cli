@@ -418,6 +418,7 @@ func TestPipelinesUpdate(t *testing.T) {
 			"--api-key", "string",
 			"pipelines", "update",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--data-sink", "{component: {foo: bar}, name: name, sink_type: ASTRA_DB}",
 			"--data-sink-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--embedding-config", "{component: {additional_kwargs: {foo: bar}, api_base: api_base, api_key: api_key, api_version: api_version, azure_deployment: azure_deployment, azure_endpoint: azure_endpoint, class_name: class_name, default_headers: {foo: string}, dimensions: 0, embed_batch_size: 1, max_retries: 0, model_name: model_name, num_workers: 0, reuse_client: true, timeout: 0}, type: AZURE_EMBEDDING}",
@@ -443,6 +444,7 @@ func TestPipelinesUpdate(t *testing.T) {
 			"--api-key", "string",
 			"pipelines", "update",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--data-sink.component", "{foo: bar}",
 			"--data-sink.name", "name",
 			"--data-sink.sink-type", "ASTRA_DB",
@@ -801,6 +803,7 @@ func TestPipelinesUpdate(t *testing.T) {
 			"--api-key", "string",
 			"pipelines", "update",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -829,6 +832,7 @@ func TestPipelinesDelete(t *testing.T) {
 			"--api-key", "string",
 			"pipelines", "delete",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -841,6 +845,7 @@ func TestPipelinesGet(t *testing.T) {
 			"--api-key", "string",
 			"pipelines", "get",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -854,6 +859,7 @@ func TestPipelinesGetStatus(t *testing.T) {
 			"pipelines", "get-status",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--full-details=true",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }

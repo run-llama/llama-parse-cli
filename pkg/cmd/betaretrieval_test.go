@@ -22,7 +22,7 @@ func TestBetaRetrievalRetrieve(t *testing.T) {
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--custom-filters", "{foo: {operator: eq, value: string}}",
 			"--full-text-pipeline-weight", "0",
-			"--num-candidates", "0",
+			"--num-candidates", "1",
 			"--rerank", "{enabled: true, top_n: 5}",
 			"--score-threshold", "0",
 			"--static-filters", "{parsed_directory_file_id: {operator: eq, value: string}}",
@@ -46,7 +46,7 @@ func TestBetaRetrievalRetrieve(t *testing.T) {
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--custom-filters", "{foo: {operator: eq, value: string}}",
 			"--full-text-pipeline-weight", "0",
-			"--num-candidates", "0",
+			"--num-candidates", "1",
 			"--rerank.enabled=true",
 			"--rerank.top-n", "5",
 			"--score-threshold", "0",
@@ -66,7 +66,7 @@ func TestBetaRetrievalRetrieve(t *testing.T) {
 			"    operator: eq\n" +
 			"    value: string\n" +
 			"full_text_pipeline_weight: 0\n" +
-			"num_candidates: 0\n" +
+			"num_candidates: 1\n" +
 			"rerank:\n" +
 			"  enabled: true\n" +
 			"  top_n: 5\n" +

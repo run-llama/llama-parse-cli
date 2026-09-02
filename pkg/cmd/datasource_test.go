@@ -53,6 +53,7 @@ func TestDataSourcesUpdate(t *testing.T) {
 			"data-sources", "update",
 			"--data-source-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--source-type", "AZURE_STORAGE_BLOB",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--component", "{foo: bar}",
 			"--custom-metadata", "{foo: {foo: bar}}",
 			"--name", "name",
@@ -74,6 +75,7 @@ func TestDataSourcesUpdate(t *testing.T) {
 			"--api-key", "string",
 			"data-sources", "update",
 			"--data-source-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -99,6 +101,7 @@ func TestDataSourcesDelete(t *testing.T) {
 			"--api-key", "string",
 			"data-sources", "delete",
 			"--data-source-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -111,6 +114,7 @@ func TestDataSourcesGet(t *testing.T) {
 			"--api-key", "string",
 			"data-sources", "get",
 			"--data-source-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }

@@ -66,6 +66,10 @@ var dataSinksUpdate = cli.Command{
 			Required: true,
 			BodyPath: "sink_type",
 		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
 		&requestflag.Flag[map[string]any]{
 			Name:     "component",
 			Usage:    "Component that implements the data sink",
@@ -109,6 +113,10 @@ var dataSinksDelete = cli.Command{
 			Required:  true,
 			PathParam: "data_sink_id",
 		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
 	},
 	Action:          handleDataSinksDelete,
 	HideHelpCommand: true,
@@ -123,6 +131,10 @@ var dataSinksGet = cli.Command{
 			Name:      "data-sink-id",
 			Required:  true,
 			PathParam: "data_sink_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
 		},
 	},
 	Action:          handleDataSinksGet,
@@ -282,7 +294,14 @@ func handleDataSinksDelete(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	return client.DataSinks.Delete(ctx, cmd.Value("data-sink-id").(string), options...)
+	params := llamacloud.DataSinkDeleteParams{}
+
+	return client.DataSinks.Delete(
+		ctx,
+		cmd.Value("data-sink-id").(string),
+		params,
+		options...,
+	)
 }
 
 func handleDataSinksGet(ctx context.Context, cmd *cli.Command) error {
@@ -307,9 +326,16 @@ func handleDataSinksGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
+	params := llamacloud.DataSinkGetParams{}
+
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.DataSinks.Get(ctx, cmd.Value("data-sink-id").(string), options...)
+	_, err = client.DataSinks.Get(
+		ctx,
+		cmd.Value("data-sink-id").(string),
+		params,
+		options...,
+	)
 	if err != nil {
 		return err
 	}

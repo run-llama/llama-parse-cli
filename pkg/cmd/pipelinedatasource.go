@@ -29,6 +29,10 @@ var pipelinesDataSourcesUpdate = cli.Command{
 			Required:  true,
 			PathParam: "data_source_id",
 		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
 		&requestflag.Flag[*float64]{
 			Name:     "sync-interval",
 			Usage:    "The interval at which the data source should be synced.",
@@ -48,6 +52,10 @@ var pipelinesDataSourcesGetDataSources = cli.Command{
 			Name:      "pipeline-id",
 			Required:  true,
 			PathParam: "pipeline_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
 		},
 	},
 	Action:          handlePipelinesDataSourcesGetDataSources,
@@ -69,6 +77,10 @@ var pipelinesDataSourcesGetStatus = cli.Command{
 			Required:  true,
 			PathParam: "data_source_id",
 		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
 	},
 	Action:          handlePipelinesDataSourcesGetStatus,
 	HideHelpCommand: true,
@@ -88,6 +100,10 @@ var pipelinesDataSourcesSync = cli.Command{
 			Name:      "data-source-id",
 			Required:  true,
 			PathParam: "data_source_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
 		},
 		&requestflag.Flag[any]{
 			Name:     "pipeline-file-id",
@@ -112,6 +128,10 @@ var pipelinesDataSourcesUpdateDataSources = requestflag.WithInnerFlags(cli.Comma
 			Name:     "body",
 			Required: true,
 			BodyRoot: true,
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
 		},
 	},
 	Action:          handlePipelinesDataSourcesUpdateDataSources,
@@ -204,9 +224,16 @@ func handlePipelinesDataSourcesGetDataSources(ctx context.Context, cmd *cli.Comm
 		return err
 	}
 
+	params := llamacloud.PipelineDataSourceGetDataSourcesParams{}
+
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Pipelines.DataSources.GetDataSources(ctx, cmd.Value("pipeline-id").(string), options...)
+	_, err = client.Pipelines.DataSources.GetDataSources(
+		ctx,
+		cmd.Value("pipeline-id").(string),
+		params,
+		options...,
+	)
 	if err != nil {
 		return err
 	}

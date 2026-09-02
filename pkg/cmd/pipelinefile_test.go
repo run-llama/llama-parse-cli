@@ -18,6 +18,7 @@ func TestPipelinesFilesCreate(t *testing.T) {
 			"pipelines:files", "create",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--body", "{file_id: 182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e, custom_metadata: {foo: {foo: bar}}}",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 
@@ -33,6 +34,7 @@ func TestPipelinesFilesCreate(t *testing.T) {
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--body.file-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--body.custom-metadata", "{foo: {foo: bar}}",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 
@@ -48,6 +50,7 @@ func TestPipelinesFilesCreate(t *testing.T) {
 			"--api-key", "string",
 			"pipelines:files", "create",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -61,6 +64,7 @@ func TestPipelinesFilesUpdate(t *testing.T) {
 			"pipelines:files", "update",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--file-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--custom-metadata", "{foo: {foo: bar}}",
 		)
 	})
@@ -77,6 +81,7 @@ func TestPipelinesFilesUpdate(t *testing.T) {
 			"pipelines:files", "update",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--file-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -96,7 +101,8 @@ func TestPipelinesFilesList(t *testing.T) {
 			"--offset", "0",
 			"--only-manually-uploaded=true",
 			"--order-by", "order_by",
-			"--status", "[NOT_STARTED, IN_PROGRESS]",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--status", "[CANCELLED, ERROR]",
 		)
 	})
 }
@@ -110,6 +116,7 @@ func TestPipelinesFilesDelete(t *testing.T) {
 			"pipelines:files", "delete",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--file-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -123,6 +130,7 @@ func TestPipelinesFilesGetStatus(t *testing.T) {
 			"pipelines:files", "get-status",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--file-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -137,6 +145,7 @@ func TestPipelinesFilesGetStatusCounts(t *testing.T) {
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--data-source-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--only-manually-uploaded=true",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }

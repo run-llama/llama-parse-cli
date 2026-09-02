@@ -426,7 +426,7 @@ var parsingGet = cli.Command{
 
 var parsingListVersions = cli.Command{
 	Name:            "list-versions",
-	Usage:           "List the parse versions accepted by each tier.",
+	Usage:           "List the parse versions accepted by each tier and what `latest` resolves to.",
 	Suggest:         true,
 	Flags:           []cli.Flag{},
 	Action:          handleParsingListVersions,
