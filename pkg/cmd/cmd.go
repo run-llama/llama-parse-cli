@@ -116,6 +116,7 @@ func init() {
 				Commands: []*cli.Command{
 					&parsingCreate,
 					&parsingList,
+					&parsingDelete,
 					&parsingCancel,
 					&parsingGet,
 					&parsingListVersions,
@@ -242,6 +243,7 @@ func init() {
 					&pipelinesDelete,
 					&pipelinesGet,
 					&pipelinesGetStatus,
+					&pipelinesListPaginated,
 					&pipelinesRunSearch,
 					&pipelinesUpsert,
 				},
