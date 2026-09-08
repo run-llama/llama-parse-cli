@@ -71,6 +71,10 @@ var dataSourcesUpdate = cli.Command{
 			Required: true,
 			BodyPath: "source_type",
 		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
 		&requestflag.Flag[map[string]any]{
 			Name:     "component",
 			Usage:    "Component that implements the data source",
@@ -119,6 +123,10 @@ var dataSourcesDelete = cli.Command{
 			Required:  true,
 			PathParam: "data_source_id",
 		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
 	},
 	Action:          handleDataSourcesDelete,
 	HideHelpCommand: true,
@@ -133,6 +141,10 @@ var dataSourcesGet = cli.Command{
 			Name:      "data-source-id",
 			Required:  true,
 			PathParam: "data_source_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
 		},
 	},
 	Action:          handleDataSourcesGet,
@@ -292,7 +304,14 @@ func handleDataSourcesDelete(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	return client.DataSources.Delete(ctx, cmd.Value("data-source-id").(string), options...)
+	params := llamacloud.DataSourceDeleteParams{}
+
+	return client.DataSources.Delete(
+		ctx,
+		cmd.Value("data-source-id").(string),
+		params,
+		options...,
+	)
 }
 
 func handleDataSourcesGet(ctx context.Context, cmd *cli.Command) error {
@@ -317,9 +336,16 @@ func handleDataSourcesGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
+	params := llamacloud.DataSourceGetParams{}
+
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.DataSources.Get(ctx, cmd.Value("data-source-id").(string), options...)
+	_, err = client.DataSources.Get(
+		ctx,
+		cmd.Value("data-source-id").(string),
+		params,
+		options...,
+	)
 	if err != nil {
 		return err
 	}

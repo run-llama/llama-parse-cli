@@ -18,6 +18,7 @@ func TestPipelinesMetadataCreate(t *testing.T) {
 			"pipelines:metadata", "create",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--upload-file", mocktest.TestFile(t, "Example data"),
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 
@@ -32,6 +33,7 @@ func TestPipelinesMetadataCreate(t *testing.T) {
 			"--api-key", "string",
 			"pipelines:metadata", "create",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -44,6 +46,7 @@ func TestPipelinesMetadataDeleteAll(t *testing.T) {
 			"--api-key", "string",
 			"pipelines:metadata", "delete-all",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }

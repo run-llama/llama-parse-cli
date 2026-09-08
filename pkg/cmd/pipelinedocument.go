@@ -29,6 +29,10 @@ var pipelinesDocumentsCreate = requestflag.WithInnerFlags(cli.Command{
 			Required: true,
 			BodyRoot: true,
 		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
 	},
 	Action:          handlePipelinesDocumentsCreate,
 	HideHelpCommand: true,
@@ -91,6 +95,10 @@ var pipelinesDocumentsList = cli.Command{
 			Default:   requestflag.Ptr[bool](false),
 			QueryPath: "only_direct_upload",
 		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
 		&requestflag.Flag[int64]{
 			Name:      "skip",
 			Default:   0,
@@ -126,6 +134,10 @@ var pipelinesDocumentsDelete = cli.Command{
 			Required:  true,
 			PathParam: "document_id",
 		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
 	},
 	Action:          handlePipelinesDocumentsDelete,
 	HideHelpCommand: true,
@@ -145,6 +157,10 @@ var pipelinesDocumentsGet = cli.Command{
 			Name:      "document-id",
 			Required:  true,
 			PathParam: "document_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
 		},
 	},
 	Action:          handlePipelinesDocumentsGet,
@@ -166,6 +182,10 @@ var pipelinesDocumentsGetChunks = cli.Command{
 			Required:  true,
 			PathParam: "document_id",
 		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
 	},
 	Action:          handlePipelinesDocumentsGetChunks,
 	HideHelpCommand: true,
@@ -185,6 +205,10 @@ var pipelinesDocumentsGetStatus = cli.Command{
 			Name:      "document-id",
 			Required:  true,
 			PathParam: "document_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
 		},
 	},
 	Action:          handlePipelinesDocumentsGetStatus,
@@ -214,6 +238,10 @@ var pipelinesDocumentsGetStatusCounts = cli.Command{
 			Default:   false,
 			QueryPath: "only_direct_upload",
 		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
 	},
 	Action:          handlePipelinesDocumentsGetStatusCounts,
 	HideHelpCommand: true,
@@ -234,6 +262,10 @@ var pipelinesDocumentsSync = cli.Command{
 			Required:  true,
 			PathParam: "document_id",
 		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
 	},
 	Action:          handlePipelinesDocumentsSync,
 	HideHelpCommand: true,
@@ -253,6 +285,10 @@ var pipelinesDocumentsUpsert = requestflag.WithInnerFlags(cli.Command{
 			Name:     "body",
 			Required: true,
 			BodyRoot: true,
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
 		},
 	},
 	Action:          handlePipelinesDocumentsUpsert,

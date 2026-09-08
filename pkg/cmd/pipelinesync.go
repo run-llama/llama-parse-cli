@@ -24,6 +24,10 @@ var pipelinesSyncCreate = cli.Command{
 			Required:  true,
 			PathParam: "pipeline_id",
 		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
 	},
 	Action:          handlePipelinesSyncCreate,
 	HideHelpCommand: true,
@@ -38,6 +42,10 @@ var pipelinesSyncCancel = cli.Command{
 			Name:      "pipeline-id",
 			Required:  true,
 			PathParam: "pipeline_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
 		},
 	},
 	Action:          handlePipelinesSyncCancel,
@@ -66,9 +74,16 @@ func handlePipelinesSyncCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
+	params := llamacloud.PipelineSyncNewParams{}
+
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Pipelines.Sync.New(ctx, cmd.Value("pipeline-id").(string), options...)
+	_, err = client.Pipelines.Sync.New(
+		ctx,
+		cmd.Value("pipeline-id").(string),
+		params,
+		options...,
+	)
 	if err != nil {
 		return err
 	}
@@ -108,9 +123,16 @@ func handlePipelinesSyncCancel(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
+	params := llamacloud.PipelineSyncCancelParams{}
+
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Pipelines.Sync.Cancel(ctx, cmd.Value("pipeline-id").(string), options...)
+	_, err = client.Pipelines.Sync.Cancel(
+		ctx,
+		cmd.Value("pipeline-id").(string),
+		params,
+		options...,
+	)
 	if err != nil {
 		return err
 	}

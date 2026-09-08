@@ -19,7 +19,7 @@ func TestSplitCreate(t *testing.T) {
 			"--file-input", "dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--configuration", "{categories: [{name: x, description: x}], splitting_strategy: {allow_uncategorized: forbid}}",
+			"--configuration", "{categories: [{name: x, description: x}], splitting_strategy: {allow_uncategorized: forbid, custom_instructions: Start a new segment at every signature page., min_pages_per_split: 1}}",
 			"--configuration-id", "cfg-11111111-2222-3333-4444-555555555555",
 			"--transaction-id", "tx-unique-idempotency-key",
 			"--webhook-configuration-id", "[whc-..., whc-...]",
@@ -40,7 +40,7 @@ func TestSplitCreate(t *testing.T) {
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--configuration.categories", "[{name: x, description: x}]",
-			"--configuration.splitting-strategy", "{allow_uncategorized: forbid}",
+			"--configuration.splitting-strategy", "{allow_uncategorized: forbid, custom_instructions: Start a new segment at every signature page., min_pages_per_split: 1}",
 			"--configuration-id", "cfg-11111111-2222-3333-4444-555555555555",
 			"--transaction-id", "tx-unique-idempotency-key",
 			"--webhook-configuration-id", "[whc-..., whc-...]",
@@ -62,6 +62,8 @@ func TestSplitCreate(t *testing.T) {
 			"      description: x\n" +
 			"  splitting_strategy:\n" +
 			"    allow_uncategorized: forbid\n" +
+			"    custom_instructions: Start a new segment at every signature page.\n" +
+			"    min_pages_per_split: 1\n" +
 			"configuration_id: cfg-11111111-2222-3333-4444-555555555555\n" +
 			"transaction_id: tx-unique-idempotency-key\n" +
 			"webhook_configuration_ids:\n" +

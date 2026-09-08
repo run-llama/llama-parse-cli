@@ -29,6 +29,10 @@ var pipelinesFilesCreate = requestflag.WithInnerFlags(cli.Command{
 			Required: true,
 			BodyRoot: true,
 		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
 	},
 	Action:          handlePipelinesFilesCreate,
 	HideHelpCommand: true,
@@ -61,6 +65,10 @@ var pipelinesFilesUpdate = cli.Command{
 			Name:      "file-id",
 			Required:  true,
 			PathParam: "file_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
 		},
 		&requestflag.Flag[map[string]any]{
 			Name:     "custom-metadata",
@@ -107,6 +115,10 @@ var pipelinesFilesList = cli.Command{
 			Name:      "order-by",
 			QueryPath: "order_by",
 		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
 		&requestflag.Flag[any]{
 			Name:      "status",
 			Usage:     "Filter by file statuses",
@@ -136,6 +148,10 @@ var pipelinesFilesDelete = cli.Command{
 			Required:  true,
 			PathParam: "file_id",
 		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
 	},
 	Action:          handlePipelinesFilesDelete,
 	HideHelpCommand: true,
@@ -155,6 +171,10 @@ var pipelinesFilesGetStatus = cli.Command{
 			Name:      "file-id",
 			Required:  true,
 			PathParam: "file_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
 		},
 	},
 	Action:          handlePipelinesFilesGetStatus,
@@ -179,6 +199,10 @@ var pipelinesFilesGetStatusCounts = cli.Command{
 			Name:      "only-manually-uploaded",
 			Default:   false,
 			QueryPath: "only_manually_uploaded",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
 		},
 	},
 	Action:          handlePipelinesFilesGetStatusCounts,

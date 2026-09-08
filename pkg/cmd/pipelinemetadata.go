@@ -30,6 +30,10 @@ var pipelinesMetadataCreate = cli.Command{
 			BodyPath:  "upload_file",
 			FileInput: true,
 		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
 	},
 	Action:          handlePipelinesMetadataCreate,
 	HideHelpCommand: true,
@@ -44,6 +48,10 @@ var pipelinesMetadataDeleteAll = cli.Command{
 			Name:      "pipeline-id",
 			Required:  true,
 			PathParam: "pipeline_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
 		},
 	},
 	Action:          handlePipelinesMetadataDeleteAll,
@@ -121,5 +129,12 @@ func handlePipelinesMetadataDeleteAll(ctx context.Context, cmd *cli.Command) err
 		return err
 	}
 
-	return client.Pipelines.Metadata.DeleteAll(ctx, cmd.Value("pipeline-id").(string), options...)
+	params := llamacloud.PipelineMetadataDeleteAllParams{}
+
+	return client.Pipelines.Metadata.DeleteAll(
+		ctx,
+		cmd.Value("pipeline-id").(string),
+		params,
+		options...,
+	)
 }

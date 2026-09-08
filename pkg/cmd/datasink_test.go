@@ -48,7 +48,8 @@ func TestDataSinksUpdate(t *testing.T) {
 			"--api-key", "string",
 			"data-sinks", "update",
 			"--data-sink-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--sink-type", "PINECONE",
+			"--sink-type", "ASTRA_DB",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--component", "{foo: bar}",
 			"--name", "name",
 		)
@@ -66,6 +67,7 @@ func TestDataSinksUpdate(t *testing.T) {
 			"--api-key", "string",
 			"data-sinks", "update",
 			"--data-sink-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -91,6 +93,7 @@ func TestDataSinksDelete(t *testing.T) {
 			"--api-key", "string",
 			"data-sinks", "delete",
 			"--data-sink-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -103,6 +106,7 @@ func TestDataSinksGet(t *testing.T) {
 			"--api-key", "string",
 			"data-sinks", "get",
 			"--data-sink-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }

@@ -71,7 +71,7 @@ var betaRetrievalRetrieve = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.Flag[*int64]{
 			Name:     "top-k",
-			Usage:    "Maximum number of results to return.",
+			Usage:    "Maximum number of results to return. Values above 500 are capped at 500.",
 			BodyPath: "top_k",
 		},
 		&requestflag.Flag[*float64]{

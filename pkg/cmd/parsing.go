@@ -27,7 +27,7 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.Flag[string]{
 			Name:     "version",
-			Usage:    "Version for the selected tier. Use `latest`, or pin one of that tier's dated versions.\n\nCurrent `latest` by tier:\n- `fast`: `2026-06-15`\n- `cost_effective`: `2026-08-19`\n- `agentic`: `2026-08-19`\n- `agentic_plus`: `2026-08-19`\n\nFull list: `GET /api/v2/parse/versions`.",
+			Usage:    "Version for the selected tier. Use `latest`, or pin one of that tier's dated versions.\n\nCurrent `latest` by tier:\n- `fast`: `2026-06-15`\n- `cost_effective`: `2026-08-19`\n- `agentic`: `2026-09-07`\n- `agentic_plus`: `2026-08-19`\n\nFull list: `GET /api/v2/parse/versions`.",
 			Required: true,
 			BodyPath: "version",
 		},
@@ -368,6 +368,29 @@ var parsingList = cli.Command{
 	HideHelpCommand: true,
 }
 
+var parsingDelete = cli.Command{
+	Name:    "delete",
+	Usage:   "Delete a parse job and its results.",
+	Suggest: true,
+	Flags: []cli.Flag{
+		&requestflag.Flag[string]{
+			Name:      "job-id",
+			Required:  true,
+			PathParam: "job_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "organization-id",
+			QueryPath: "organization_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
+	},
+	Action:          handleParsingDelete,
+	HideHelpCommand: true,
+}
+
 var parsingCancel = cli.Command{
 	Name:    "cancel",
 	Usage:   "Cancel a running parse job.",
@@ -426,7 +449,7 @@ var parsingGet = cli.Command{
 
 var parsingListVersions = cli.Command{
 	Name:            "list-versions",
-	Usage:           "List the parse versions accepted by each tier.",
+	Usage:           "List the parse versions accepted by each tier and what `latest` resolves to.",
 	Suggest:         true,
 	Flags:           []cli.Flag{},
 	Action:          handleParsingListVersions,
@@ -527,6 +550,55 @@ func handleParsingList(ctx context.Context, cmd *cli.Command) error {
 			Transform:      transform,
 		})
 	}
+}
+
+func handleParsingDelete(ctx context.Context, cmd *cli.Command) error {
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
+	unusedArgs := cmd.Args().Slice()
+	if !cmd.IsSet("job-id") && len(unusedArgs) > 0 {
+		cmd.Set("job-id", unusedArgs[0])
+		unusedArgs = unusedArgs[1:]
+	}
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
+
+	options, err := flagOptions(
+		cmd,
+		apiquery.NestedQueryFormatBrackets,
+		apiquery.ArrayQueryFormatRepeat,
+		EmptyBody,
+		false,
+	)
+	if err != nil {
+		return err
+	}
+
+	params := llamacloud.ParsingDeleteParams{}
+
+	var res []byte
+	options = append(options, option.WithResponseBodyInto(&res))
+	_, err = client.Parsing.Delete(
+		ctx,
+		cmd.Value("job-id").(string),
+		params,
+		options...,
+	)
+	if err != nil {
+		return err
+	}
+
+	obj := gjson.ParseBytes(res)
+	format := cmd.Root().String("format")
+	explicitFormat := cmd.Root().IsSet("format")
+	transform := cmd.Root().String("transform")
+	return ShowJSON(obj, ShowJSONOpts{
+		ExplicitFormat: explicitFormat,
+		Format:         format,
+		RawOutput:      cmd.Root().Bool("raw-output"),
+		Title:          "parsing delete",
+		Transform:      transform,
+	})
 }
 
 func handleParsingCancel(ctx context.Context, cmd *cli.Command) error {

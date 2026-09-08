@@ -35,7 +35,7 @@ var webhookConfigsCreate = cli.Command{
 		},
 		&requestflag.Flag[any]{
 			Name:     "webhook-event",
-			Usage:    "Events to subscribe to. If null, all events are delivered.",
+			Usage:    "Events to subscribe to. If null, all events are delivered. An empty list subscribes to nothing and is rejected.",
 			BodyPath: "webhook_events",
 		},
 		&requestflag.Flag[map[string]any]{
@@ -101,7 +101,7 @@ var webhookConfigsUpdate = cli.Command{
 		},
 		&requestflag.Flag[any]{
 			Name:     "webhook-event",
-			Usage:    "Updated event subscriptions.",
+			Usage:    "Updated event subscriptions. Omit to leave unchanged; [] is rejected.",
 			BodyPath: "webhook_events",
 		},
 		&requestflag.Flag[map[string]any]{

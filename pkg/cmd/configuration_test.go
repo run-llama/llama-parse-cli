@@ -105,7 +105,7 @@ func TestConfigurationsList(t *testing.T) {
 			"--latest-only=true",
 			"--name", "name",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--page-size", "0",
+			"--page-size", "1",
 			"--page-token", "page_token",
 			"--product-type", "[split_v1, extract_v2]",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",

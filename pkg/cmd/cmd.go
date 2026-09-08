@@ -116,6 +116,7 @@ func init() {
 				Commands: []*cli.Command{
 					&parsingCreate,
 					&parsingList,
+					&parsingDelete,
 					&parsingCancel,
 					&parsingGet,
 					&parsingListVersions,
@@ -133,17 +134,6 @@ func init() {
 					&extractGenerateSchema,
 					&extractGet,
 					&extractValidateSchema,
-				},
-			},
-			{
-				Name:     "classifier:jobs",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&classifierJobsCreate,
-					&classifierJobsList,
-					&classifierJobsGet,
-					&classifierJobsGetResults,
 				},
 			},
 			{
@@ -253,6 +243,7 @@ func init() {
 					&pipelinesDelete,
 					&pipelinesGet,
 					&pipelinesGetStatus,
+					&pipelinesListPaginated,
 					&pipelinesRunSearch,
 					&pipelinesUpsert,
 				},

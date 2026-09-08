@@ -18,6 +18,7 @@ func TestPipelinesDataSourcesUpdate(t *testing.T) {
 			"pipelines:data-sources", "update",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--data-source-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--sync-interval", "0",
 		)
 	})
@@ -31,6 +32,7 @@ func TestPipelinesDataSourcesUpdate(t *testing.T) {
 			"pipelines:data-sources", "update",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--data-source-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -43,6 +45,7 @@ func TestPipelinesDataSourcesGetDataSources(t *testing.T) {
 			"--api-key", "string",
 			"pipelines:data-sources", "get-data-sources",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -56,6 +59,7 @@ func TestPipelinesDataSourcesGetStatus(t *testing.T) {
 			"pipelines:data-sources", "get-status",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--data-source-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -69,6 +73,7 @@ func TestPipelinesDataSourcesSync(t *testing.T) {
 			"pipelines:data-sources", "sync",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--data-source-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--pipeline-file-id", "[182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e]",
 		)
 	})
@@ -84,6 +89,7 @@ func TestPipelinesDataSourcesSync(t *testing.T) {
 			"pipelines:data-sources", "sync",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--data-source-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
@@ -97,6 +103,7 @@ func TestPipelinesDataSourcesUpdateDataSources(t *testing.T) {
 			"pipelines:data-sources", "update-data-sources",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--body", "{data_source_id: 182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e, sync_interval: 0}",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 
@@ -112,6 +119,7 @@ func TestPipelinesDataSourcesUpdateDataSources(t *testing.T) {
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--body.data-source-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--body.sync-interval", "0",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 
@@ -125,6 +133,7 @@ func TestPipelinesDataSourcesUpdateDataSources(t *testing.T) {
 			"--api-key", "string",
 			"pipelines:data-sources", "update-data-sources",
 			"--pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
