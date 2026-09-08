@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.7.1](https://github.com/run-llama/llama-parse-cli/compare/v1.7.0...v1.7.1) (2026-09-08)
+
+
+### Documentation
+
+* **changelog:** record the classify v1 job command removal in 1.7.0 (LI-9592) ([83f5280](https://github.com/run-llama/llama-parse-cli/commit/83f5280e06ac019f6894e80ee596f67ac8d506fa))
+* **changelog:** record the classify v1 job command removal in 1.7.0 (LI-9592) ([7b73541](https://github.com/run-llama/llama-parse-cli/commit/7b735418531fa4fba6e5d03a9100fcebe816855d))
+
 ## [1.7.0](https://github.com/run-llama/llama-parse-cli/compare/v1.6.0...v1.7.0) (2026-09-08)
 
 
