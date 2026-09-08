@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.7.0](https://github.com/run-llama/llama-parse-cli/compare/v1.6.0...v1.7.0) (2026-09-08)
+
+
+### Features
+
+* **api:** map DELETE /api/v2/parse/{job_id} and GET /api/v2/pipelines into the SDKs (LI-9569) ([4d53048](https://github.com/run-llama/llama-parse-cli/commit/4d53048dd54094fe50fb943064b8bf71334aab76))
+
+
+### Chores
+
+* **deps:** bump llama-parse-go to v1.7.0 ([bb97772](https://github.com/run-llama/llama-parse-cli/commit/bb97772dbda5326b11ff50a49a2a455e11dbff86))
+
 ## [1.6.0](https://github.com/run-llama/llama-parse-cli/compare/v1.5.1...v1.6.0) (2026-08-28)
 
 
