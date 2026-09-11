@@ -218,6 +218,15 @@ func init() {
 					&dataSinksList,
 					&dataSinksDelete,
 					&dataSinksGet,
+					&dataSinksListPaginated,
+				},
+			},
+			{
+				Name:     "extraction-agents",
+				Category: "API RESOURCE",
+				Suggest:  true,
+				Commands: []*cli.Command{
+					&extractionAgentsList,
 				},
 			},
 			{
