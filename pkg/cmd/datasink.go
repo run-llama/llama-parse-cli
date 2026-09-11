@@ -87,7 +87,7 @@ var dataSinksUpdate = cli.Command{
 
 var dataSinksList = cli.Command{
 	Name:    "list",
-	Usage:   "List data sinks for a given project.",
+	Usage:   "List a project's data sinks. Returns at most the first 50.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[*string]{
