@@ -33,7 +33,7 @@ var dataSourcesCreate = cli.Command{
 		},
 		&requestflag.Flag[string]{
 			Name:     "source-type",
-			Usage:    `Allowed values: "S3", "AZURE_STORAGE_BLOB", "GOOGLE_DRIVE", "MICROSOFT_ONEDRIVE", "MICROSOFT_SHAREPOINT", "SLACK", "NOTION_PAGE", "CONFLUENCE", "JIRA", "JIRA_V2", "BOX".`,
+			Usage:    `Allowed values: "AZURE_STORAGE_BLOB", "BOX", "CONFLUENCE", "GOOGLE_DRIVE", "JIRA", "JIRA_V2", "MICROSOFT_ONEDRIVE", "MICROSOFT_SHAREPOINT", "NOTION_PAGE", "S3", "SLACK".`,
 			Required: true,
 			BodyPath: "source_type",
 		},
@@ -67,7 +67,7 @@ var dataSourcesUpdate = cli.Command{
 		},
 		&requestflag.Flag[string]{
 			Name:     "source-type",
-			Usage:    `Allowed values: "S3", "AZURE_STORAGE_BLOB", "GOOGLE_DRIVE", "MICROSOFT_ONEDRIVE", "MICROSOFT_SHAREPOINT", "SLACK", "NOTION_PAGE", "CONFLUENCE", "JIRA", "JIRA_V2", "BOX".`,
+			Usage:    `Allowed values: "AZURE_STORAGE_BLOB", "BOX", "CONFLUENCE", "GOOGLE_DRIVE", "JIRA", "JIRA_V2", "MICROSOFT_ONEDRIVE", "MICROSOFT_SHAREPOINT", "NOTION_PAGE", "S3", "SLACK".`,
 			Required: true,
 			BodyPath: "source_type",
 		},
