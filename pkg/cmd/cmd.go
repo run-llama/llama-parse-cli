@@ -201,14 +201,6 @@ func init() {
 				},
 			},
 			{
-				Name:     "job-data-points",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&jobDataPointsList,
-				},
-			},
-			{
 				Name:     "data-sinks",
 				Category: "API RESOURCE",
 				Suggest:  true,
