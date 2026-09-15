@@ -16,7 +16,7 @@ import (
 
 var splitCreate = requestflag.WithInnerFlags(cli.Command{
 	Name:    "create",
-	Usage:   "Create a document split job.",
+	Usage:   "Create a split job.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
@@ -67,6 +67,16 @@ var splitCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:       "configuration.categories",
 			Usage:      "Categories to split documents into.",
 			InnerField: "categories",
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:       "configuration.parse-config-id",
+			Usage:      "Saved parse configuration ID controlling how the document is read before splitting. Takes precedence over parse_tier. Configurations restricted to a page subset (target_pages or max_pages) are rejected, since split results always number pages relative to the full document. Ignored when a completed parse job is supplied as file_input.",
+			InnerField: "parse_config_id",
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:       "configuration.parse-tier",
+			Usage:      "Parse tier used to read the document before splitting. Defaults to fast. Ignored when a completed parse job is supplied as file_input.",
+			InnerField: "parse_tier",
 		},
 		&requestflag.InnerFlag[map[string]any]{
 			Name:       "configuration.splitting-strategy",
