@@ -106,7 +106,7 @@ var pipelinesCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.InnerFlag[string]{
 			Name:       "data-sink.sink-type",
-			Usage:      `Allowed values: "ASTRA_DB", "AZUREAI_SEARCH", "MILVUS", "MONGODB_ATLAS", "PINECONE", "POSTGRES", "QDRANT".`,
+			Usage:      `Allowed values: "PINECONE", "POSTGRES", "QDRANT", "AZUREAI_SEARCH", "MONGODB_ATLAS", "MILVUS", "ASTRA_DB".`,
 			InnerField: "sink_type",
 		},
 	},
@@ -653,7 +653,7 @@ var pipelinesCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.InnerFlag[string]{
 			Name:       "preset-retrieval-parameters.retrieval-mode",
-			Usage:      `Allowed values: "auto_routed", "chunks", "files_via_content", "files_via_metadata".`,
+			Usage:      `Allowed values: "chunks", "files_via_metadata", "files_via_content", "auto_routed".`,
 			InnerField: "retrieval_mode",
 		},
 		&requestflag.InnerFlag[bool]{
@@ -787,7 +787,7 @@ var pipelinesUpdate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.InnerFlag[string]{
 			Name:       "data-sink.sink-type",
-			Usage:      `Allowed values: "ASTRA_DB", "AZUREAI_SEARCH", "MILVUS", "MONGODB_ATLAS", "PINECONE", "POSTGRES", "QDRANT".`,
+			Usage:      `Allowed values: "PINECONE", "POSTGRES", "QDRANT", "AZUREAI_SEARCH", "MONGODB_ATLAS", "MILVUS", "ASTRA_DB".`,
 			InnerField: "sink_type",
 		},
 	},
@@ -1334,7 +1334,7 @@ var pipelinesUpdate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.InnerFlag[string]{
 			Name:       "preset-retrieval-parameters.retrieval-mode",
-			Usage:      `Allowed values: "auto_routed", "chunks", "files_via_content", "files_via_metadata".`,
+			Usage:      `Allowed values: "chunks", "files_via_metadata", "files_via_content", "auto_routed".`,
 			InnerField: "retrieval_mode",
 		},
 		&requestflag.InnerFlag[bool]{
@@ -1577,7 +1577,7 @@ var pipelinesRunSearch = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.Flag[string]{
 			Name:     "retrieval-mode",
-			Usage:    `Allowed values: "auto_routed", "chunks", "files_via_content", "files_via_metadata".`,
+			Usage:    `Allowed values: "chunks", "files_via_metadata", "files_via_content", "auto_routed".`,
 			BodyPath: "retrieval_mode",
 		},
 		&requestflag.Flag[bool]{
@@ -1723,7 +1723,7 @@ var pipelinesUpsert = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.InnerFlag[string]{
 			Name:       "data-sink.sink-type",
-			Usage:      `Allowed values: "ASTRA_DB", "AZUREAI_SEARCH", "MILVUS", "MONGODB_ATLAS", "PINECONE", "POSTGRES", "QDRANT".`,
+			Usage:      `Allowed values: "PINECONE", "POSTGRES", "QDRANT", "AZUREAI_SEARCH", "MONGODB_ATLAS", "MILVUS", "ASTRA_DB".`,
 			InnerField: "sink_type",
 		},
 	},
@@ -2270,7 +2270,7 @@ var pipelinesUpsert = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.InnerFlag[string]{
 			Name:       "preset-retrieval-parameters.retrieval-mode",
-			Usage:      `Allowed values: "auto_routed", "chunks", "files_via_content", "files_via_metadata".`,
+			Usage:      `Allowed values: "chunks", "files_via_metadata", "files_via_content", "auto_routed".`,
 			InnerField: "retrieval_mode",
 		},
 		&requestflag.InnerFlag[bool]{

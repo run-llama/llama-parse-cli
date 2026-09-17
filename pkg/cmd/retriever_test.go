@@ -19,7 +19,7 @@ func TestRetrieversCreate(t *testing.T) {
 			"--name", "x",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--pipeline", "{description: description, name: x, pipeline_id: 182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e, preset_retrieval_parameters: {alpha: 0, class_name: class_name, dense_similarity_cutoff: 0, dense_similarity_top_k: 1, enable_reranking: true, files_top_k: 1, rerank_top_n: 1, retrieval_mode: auto_routed, retrieve_image_nodes: true, retrieve_page_figure_nodes: true, retrieve_page_screenshot_nodes: true, search_filters: {filters: [{key: key, value: 0, operator: '!='}], condition: and}, search_filters_inference_schema: {foo: {foo: bar}}, sparse_similarity_top_k: 1}}",
+			"--pipeline", "{description: description, name: x, pipeline_id: 182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e, preset_retrieval_parameters: {alpha: 0, class_name: class_name, dense_similarity_cutoff: 0, dense_similarity_top_k: 1, enable_reranking: true, files_top_k: 1, rerank_top_n: 1, retrieval_mode: chunks, retrieve_image_nodes: true, retrieve_page_figure_nodes: true, retrieve_page_screenshot_nodes: true, search_filters: {filters: [{key: key, value: 0, operator: '=='}], condition: and}, search_filters_inference_schema: {foo: {foo: bar}}, sparse_similarity_top_k: 1}}",
 		)
 	})
 
@@ -38,7 +38,7 @@ func TestRetrieversCreate(t *testing.T) {
 			"--pipeline.description", "description",
 			"--pipeline.name", "x",
 			"--pipeline.pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--pipeline.preset-retrieval-parameters", "{alpha: 0, class_name: class_name, dense_similarity_cutoff: 0, dense_similarity_top_k: 1, enable_reranking: true, files_top_k: 1, rerank_top_n: 1, retrieval_mode: auto_routed, retrieve_image_nodes: true, retrieve_page_figure_nodes: true, retrieve_page_screenshot_nodes: true, search_filters: {filters: [{key: key, value: 0, operator: '!='}], condition: and}, search_filters_inference_schema: {foo: {foo: bar}}, sparse_similarity_top_k: 1}",
+			"--pipeline.preset-retrieval-parameters", "{alpha: 0, class_name: class_name, dense_similarity_cutoff: 0, dense_similarity_top_k: 1, enable_reranking: true, files_top_k: 1, rerank_top_n: 1, retrieval_mode: chunks, retrieve_image_nodes: true, retrieve_page_figure_nodes: true, retrieve_page_screenshot_nodes: true, search_filters: {filters: [{key: key, value: 0, operator: '=='}], condition: and}, search_filters_inference_schema: {foo: {foo: bar}}, sparse_similarity_top_k: 1}",
 		)
 	})
 
@@ -58,7 +58,7 @@ func TestRetrieversCreate(t *testing.T) {
 			"      enable_reranking: true\n" +
 			"      files_top_k: 1\n" +
 			"      rerank_top_n: 1\n" +
-			"      retrieval_mode: auto_routed\n" +
+			"      retrieval_mode: chunks\n" +
 			"      retrieve_image_nodes: true\n" +
 			"      retrieve_page_figure_nodes: true\n" +
 			"      retrieve_page_screenshot_nodes: true\n" +
@@ -66,7 +66,7 @@ func TestRetrieversCreate(t *testing.T) {
 			"        filters:\n" +
 			"          - key: key\n" +
 			"            value: 0\n" +
-			"            operator: '!='\n" +
+			"            operator: '=='\n" +
 			"        condition: and\n" +
 			"      search_filters_inference_schema:\n" +
 			"        foo:\n" +
@@ -90,7 +90,7 @@ func TestRetrieversUpdate(t *testing.T) {
 			"--api-key", "string",
 			"retrievers", "update",
 			"--retriever-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--pipeline", "[{description: description, name: x, pipeline_id: 182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e, preset_retrieval_parameters: {alpha: 0, class_name: class_name, dense_similarity_cutoff: 0, dense_similarity_top_k: 1, enable_reranking: true, files_top_k: 1, rerank_top_n: 1, retrieval_mode: auto_routed, retrieve_image_nodes: true, retrieve_page_figure_nodes: true, retrieve_page_screenshot_nodes: true, search_filters: {filters: [{key: key, value: 0, operator: '!='}], condition: and}, search_filters_inference_schema: {foo: {foo: bar}}, sparse_similarity_top_k: 1}}]",
+			"--pipeline", "[{description: description, name: x, pipeline_id: 182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e, preset_retrieval_parameters: {alpha: 0, class_name: class_name, dense_similarity_cutoff: 0, dense_similarity_top_k: 1, enable_reranking: true, files_top_k: 1, rerank_top_n: 1, retrieval_mode: chunks, retrieve_image_nodes: true, retrieve_page_figure_nodes: true, retrieve_page_screenshot_nodes: true, search_filters: {filters: [{key: key, value: 0, operator: '=='}], condition: and}, search_filters_inference_schema: {foo: {foo: bar}}, sparse_similarity_top_k: 1}}]",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--name", "name",
@@ -110,7 +110,7 @@ func TestRetrieversUpdate(t *testing.T) {
 			"--pipeline.description", "description",
 			"--pipeline.name", "x",
 			"--pipeline.pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--pipeline.preset-retrieval-parameters", "{alpha: 0, class_name: class_name, dense_similarity_cutoff: 0, dense_similarity_top_k: 1, enable_reranking: true, files_top_k: 1, rerank_top_n: 1, retrieval_mode: auto_routed, retrieve_image_nodes: true, retrieve_page_figure_nodes: true, retrieve_page_screenshot_nodes: true, search_filters: {filters: [{key: key, value: 0, operator: '!='}], condition: and}, search_filters_inference_schema: {foo: {foo: bar}}, sparse_similarity_top_k: 1}",
+			"--pipeline.preset-retrieval-parameters", "{alpha: 0, class_name: class_name, dense_similarity_cutoff: 0, dense_similarity_top_k: 1, enable_reranking: true, files_top_k: 1, rerank_top_n: 1, retrieval_mode: chunks, retrieve_image_nodes: true, retrieve_page_figure_nodes: true, retrieve_page_screenshot_nodes: true, search_filters: {filters: [{key: key, value: 0, operator: '=='}], condition: and}, search_filters_inference_schema: {foo: {foo: bar}}, sparse_similarity_top_k: 1}",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--name", "name",
@@ -132,7 +132,7 @@ func TestRetrieversUpdate(t *testing.T) {
 			"      enable_reranking: true\n" +
 			"      files_top_k: 1\n" +
 			"      rerank_top_n: 1\n" +
-			"      retrieval_mode: auto_routed\n" +
+			"      retrieval_mode: chunks\n" +
 			"      retrieve_image_nodes: true\n" +
 			"      retrieve_page_figure_nodes: true\n" +
 			"      retrieve_page_screenshot_nodes: true\n" +
@@ -140,7 +140,7 @@ func TestRetrieversUpdate(t *testing.T) {
 			"        filters:\n" +
 			"          - key: key\n" +
 			"            value: 0\n" +
-			"            operator: '!='\n" +
+			"            operator: '=='\n" +
 			"        condition: and\n" +
 			"      search_filters_inference_schema:\n" +
 			"        foo:\n" +
@@ -200,6 +200,24 @@ func TestRetrieversGet(t *testing.T) {
 	})
 }
 
+func TestRetrieversListPaginated(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
+	t.Run("regular flags", func(t *testing.T) {
+		mocktest.TestRunMockTestWithFlags(
+			t,
+			"--api-key", "string",
+			"retrievers", "list-paginated",
+			"--max-items", "10",
+			"--include-total=true",
+			"--name", "name",
+			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--page-size", "1",
+			"--page-token", "page_token",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+		)
+	})
+}
+
 func TestRetrieversSearch(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
@@ -210,9 +228,9 @@ func TestRetrieversSearch(t *testing.T) {
 			"--query", "x",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--mode", "full",
-			"--pipeline", "{description: description, name: x, pipeline_id: 182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e, preset_retrieval_parameters: {alpha: 0, class_name: class_name, dense_similarity_cutoff: 0, dense_similarity_top_k: 1, enable_reranking: true, files_top_k: 1, rerank_top_n: 1, retrieval_mode: auto_routed, retrieve_image_nodes: true, retrieve_page_figure_nodes: true, retrieve_page_screenshot_nodes: true, search_filters: {filters: [{key: key, value: 0, operator: '!='}], condition: and}, search_filters_inference_schema: {foo: {foo: bar}}, sparse_similarity_top_k: 1}}",
-			"--rerank-config", "{top_n: 1, type: bedrock}",
+			"--mode", "routing",
+			"--pipeline", "{description: description, name: x, pipeline_id: 182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e, preset_retrieval_parameters: {alpha: 0, class_name: class_name, dense_similarity_cutoff: 0, dense_similarity_top_k: 1, enable_reranking: true, files_top_k: 1, rerank_top_n: 1, retrieval_mode: chunks, retrieve_image_nodes: true, retrieve_page_figure_nodes: true, retrieve_page_screenshot_nodes: true, search_filters: {filters: [{key: key, value: 0, operator: '=='}], condition: and}, search_filters_inference_schema: {foo: {foo: bar}}, sparse_similarity_top_k: 1}}",
+			"--rerank-config", "{top_n: 1, type: system_default}",
 			"--rerank-top-n", "0",
 		)
 	})
@@ -229,13 +247,13 @@ func TestRetrieversSearch(t *testing.T) {
 			"--query", "x",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--mode", "full",
+			"--mode", "routing",
 			"--pipeline.description", "description",
 			"--pipeline.name", "x",
 			"--pipeline.pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--pipeline.preset-retrieval-parameters", "{alpha: 0, class_name: class_name, dense_similarity_cutoff: 0, dense_similarity_top_k: 1, enable_reranking: true, files_top_k: 1, rerank_top_n: 1, retrieval_mode: auto_routed, retrieve_image_nodes: true, retrieve_page_figure_nodes: true, retrieve_page_screenshot_nodes: true, search_filters: {filters: [{key: key, value: 0, operator: '!='}], condition: and}, search_filters_inference_schema: {foo: {foo: bar}}, sparse_similarity_top_k: 1}",
+			"--pipeline.preset-retrieval-parameters", "{alpha: 0, class_name: class_name, dense_similarity_cutoff: 0, dense_similarity_top_k: 1, enable_reranking: true, files_top_k: 1, rerank_top_n: 1, retrieval_mode: chunks, retrieve_image_nodes: true, retrieve_page_figure_nodes: true, retrieve_page_screenshot_nodes: true, search_filters: {filters: [{key: key, value: 0, operator: '=='}], condition: and}, search_filters_inference_schema: {foo: {foo: bar}}, sparse_similarity_top_k: 1}",
 			"--rerank-config.top-n", "1",
-			"--rerank-config.type", "bedrock",
+			"--rerank-config.type", "system_default",
 			"--rerank-top-n", "0",
 		)
 	})
@@ -244,7 +262,7 @@ func TestRetrieversSearch(t *testing.T) {
 		// Test piping YAML data over stdin
 		pipeData := []byte("" +
 			"query: x\n" +
-			"mode: full\n" +
+			"mode: routing\n" +
 			"pipelines:\n" +
 			"  - description: description\n" +
 			"    name: x\n" +
@@ -257,7 +275,7 @@ func TestRetrieversSearch(t *testing.T) {
 			"      enable_reranking: true\n" +
 			"      files_top_k: 1\n" +
 			"      rerank_top_n: 1\n" +
-			"      retrieval_mode: auto_routed\n" +
+			"      retrieval_mode: chunks\n" +
 			"      retrieve_image_nodes: true\n" +
 			"      retrieve_page_figure_nodes: true\n" +
 			"      retrieve_page_screenshot_nodes: true\n" +
@@ -265,7 +283,7 @@ func TestRetrieversSearch(t *testing.T) {
 			"        filters:\n" +
 			"          - key: key\n" +
 			"            value: 0\n" +
-			"            operator: '!='\n" +
+			"            operator: '=='\n" +
 			"        condition: and\n" +
 			"      search_filters_inference_schema:\n" +
 			"        foo:\n" +
@@ -273,7 +291,7 @@ func TestRetrieversSearch(t *testing.T) {
 			"      sparse_similarity_top_k: 1\n" +
 			"rerank_config:\n" +
 			"  top_n: 1\n" +
-			"  type: bedrock\n" +
+			"  type: system_default\n" +
 			"rerank_top_n: 0\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
@@ -295,7 +313,7 @@ func TestRetrieversUpsert(t *testing.T) {
 			"--name", "x",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--pipeline", "{description: description, name: x, pipeline_id: 182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e, preset_retrieval_parameters: {alpha: 0, class_name: class_name, dense_similarity_cutoff: 0, dense_similarity_top_k: 1, enable_reranking: true, files_top_k: 1, rerank_top_n: 1, retrieval_mode: auto_routed, retrieve_image_nodes: true, retrieve_page_figure_nodes: true, retrieve_page_screenshot_nodes: true, search_filters: {filters: [{key: key, value: 0, operator: '!='}], condition: and}, search_filters_inference_schema: {foo: {foo: bar}}, sparse_similarity_top_k: 1}}",
+			"--pipeline", "{description: description, name: x, pipeline_id: 182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e, preset_retrieval_parameters: {alpha: 0, class_name: class_name, dense_similarity_cutoff: 0, dense_similarity_top_k: 1, enable_reranking: true, files_top_k: 1, rerank_top_n: 1, retrieval_mode: chunks, retrieve_image_nodes: true, retrieve_page_figure_nodes: true, retrieve_page_screenshot_nodes: true, search_filters: {filters: [{key: key, value: 0, operator: '=='}], condition: and}, search_filters_inference_schema: {foo: {foo: bar}}, sparse_similarity_top_k: 1}}",
 		)
 	})
 
@@ -314,7 +332,7 @@ func TestRetrieversUpsert(t *testing.T) {
 			"--pipeline.description", "description",
 			"--pipeline.name", "x",
 			"--pipeline.pipeline-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--pipeline.preset-retrieval-parameters", "{alpha: 0, class_name: class_name, dense_similarity_cutoff: 0, dense_similarity_top_k: 1, enable_reranking: true, files_top_k: 1, rerank_top_n: 1, retrieval_mode: auto_routed, retrieve_image_nodes: true, retrieve_page_figure_nodes: true, retrieve_page_screenshot_nodes: true, search_filters: {filters: [{key: key, value: 0, operator: '!='}], condition: and}, search_filters_inference_schema: {foo: {foo: bar}}, sparse_similarity_top_k: 1}",
+			"--pipeline.preset-retrieval-parameters", "{alpha: 0, class_name: class_name, dense_similarity_cutoff: 0, dense_similarity_top_k: 1, enable_reranking: true, files_top_k: 1, rerank_top_n: 1, retrieval_mode: chunks, retrieve_image_nodes: true, retrieve_page_figure_nodes: true, retrieve_page_screenshot_nodes: true, search_filters: {filters: [{key: key, value: 0, operator: '=='}], condition: and}, search_filters_inference_schema: {foo: {foo: bar}}, sparse_similarity_top_k: 1}",
 		)
 	})
 
@@ -334,7 +352,7 @@ func TestRetrieversUpsert(t *testing.T) {
 			"      enable_reranking: true\n" +
 			"      files_top_k: 1\n" +
 			"      rerank_top_n: 1\n" +
-			"      retrieval_mode: auto_routed\n" +
+			"      retrieval_mode: chunks\n" +
 			"      retrieve_image_nodes: true\n" +
 			"      retrieve_page_figure_nodes: true\n" +
 			"      retrieve_page_screenshot_nodes: true\n" +
@@ -342,7 +360,7 @@ func TestRetrieversUpsert(t *testing.T) {
 			"        filters:\n" +
 			"          - key: key\n" +
 			"            value: 0\n" +
-			"            operator: '!='\n" +
+			"            operator: '=='\n" +
 			"        condition: and\n" +
 			"      search_filters_inference_schema:\n" +
 			"        foo:\n" +

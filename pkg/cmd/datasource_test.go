@@ -17,7 +17,7 @@ func TestDataSourcesCreate(t *testing.T) {
 			"data-sources", "create",
 			"--component", "{foo: bar}",
 			"--name", "name",
-			"--source-type", "AZURE_STORAGE_BLOB",
+			"--source-type", "S3",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--custom-metadata", "{foo: {foo: bar}}",

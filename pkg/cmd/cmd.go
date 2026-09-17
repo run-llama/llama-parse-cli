@@ -180,6 +180,7 @@ func init() {
 					&webhookConfigsUpdate,
 					&webhookConfigsList,
 					&webhookConfigsDelete,
+					&webhookConfigsListPaginated,
 				},
 			},
 			{
@@ -210,15 +211,6 @@ func init() {
 					&dataSinksList,
 					&dataSinksDelete,
 					&dataSinksGet,
-					&dataSinksListPaginated,
-				},
-			},
-			{
-				Name:     "extraction-agents",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&extractionAgentsList,
 				},
 			},
 			{
@@ -329,6 +321,7 @@ func init() {
 					&retrieversList,
 					&retrieversDelete,
 					&retrieversGet,
+					&retrieversListPaginated,
 					&retrieversSearch,
 					&retrieversUpsert,
 				},

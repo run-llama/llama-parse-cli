@@ -70,7 +70,7 @@ var splitCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.InnerFlag[*string]{
 			Name:       "configuration.parse-config-id",
-			Usage:      "Saved parse configuration ID controlling how the document is read before splitting. Takes precedence over parse_tier. Configurations restricted to a page subset (target_pages or max_pages) are rejected, since split results always number pages relative to the full document. Ignored when a completed parse job is supplied as file_input.",
+			Usage:      "Saved parse configuration ID to control how the document is parsed before splitting. Takes precedence over parse_tier. Configurations that restrict pages (`target_pages` or `max_pages` on the parse configuration) are rejected: split results number pages relative to the full document. Ignored when a completed parse job is supplied as file_input.",
 			InnerField: "parse_config_id",
 		},
 		&requestflag.InnerFlag[*string]{
@@ -82,6 +82,11 @@ var splitCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:       "configuration.splitting-strategy",
 			Usage:      "Strategy for splitting documents.",
 			InnerField: "splitting_strategy",
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:       "configuration.target-pages",
+			Usage:      "Comma-separated page numbers or ranges to split (1-based). Omit to split all pages. Requires a completed parse job as file_input.",
+			InnerField: "target_pages",
 		},
 	},
 	"webhook-configuration": {
