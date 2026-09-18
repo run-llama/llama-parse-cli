@@ -108,6 +108,7 @@ func TestBetaChatStream(t *testing.T) {
 			"--prompt", "What were the main findings in Q3?",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--require-all-indexes=true",
 		)
 	})
 
@@ -117,7 +118,8 @@ func TestBetaChatStream(t *testing.T) {
 			"index_ids:\n" +
 			"  - idx-abc123\n" +
 			"  - idx-def456\n" +
-			"prompt: What were the main findings in Q3?\n")
+			"prompt: What were the main findings in Q3?\n" +
+			"require_all_indexes: true\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",

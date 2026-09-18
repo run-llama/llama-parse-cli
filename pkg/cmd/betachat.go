@@ -166,6 +166,12 @@ var betaChatStream = cli.Command{
 			Name:      "project-id",
 			QueryPath: "project_id",
 		},
+		&requestflag.Flag[bool]{
+			Name:     "require-all-indexes",
+			Usage:    "Fail the turn if any requested index cannot be queried.",
+			Default:  false,
+			BodyPath: "require_all_indexes",
+		},
 	},
 	Action:          handleBetaChatStream,
 	HideHelpCommand: true,
