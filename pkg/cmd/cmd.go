@@ -154,6 +154,7 @@ func init() {
 				Commands: []*cli.Command{
 					&classifyCreate,
 					&classifyList,
+					&classifyDelete,
 					&classifyCancel,
 					&classifyGet,
 				},
