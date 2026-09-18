@@ -18,6 +18,7 @@ func TestBetaChatCreate(t *testing.T) {
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--index-id", "[idx-abc123, idx-def456]",
+			"--shared-access", "read_only",
 		)
 	})
 
@@ -26,7 +27,8 @@ func TestBetaChatCreate(t *testing.T) {
 		pipeData := []byte("" +
 			"index_ids:\n" +
 			"  - idx-abc123\n" +
-			"  - idx-def456\n")
+			"  - idx-def456\n" +
+			"shared_access: read_only\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",

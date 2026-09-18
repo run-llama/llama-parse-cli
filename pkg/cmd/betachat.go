@@ -32,6 +32,11 @@ var betaChatCreate = cli.Command{
 			Usage:    "Indexes this session will retrieve from. Once set and the first message has been sent, the source set is locked for the session's lifetime. Leave null to create an unbound session.",
 			BodyPath: "index_ids",
 		},
+		&requestflag.Flag[*string]{
+			Name:     "shared-access",
+			Usage:    "What this chat's share link grants: read_only (transcript only) or query (viewers may ask new questions). Null follows the deployment default.",
+			BodyPath: "shared_access",
+		},
 	},
 	Action:          handleBetaChatCreate,
 	HideHelpCommand: true,
