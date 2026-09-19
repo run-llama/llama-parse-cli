@@ -70,6 +70,11 @@ var betaSplitCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "Strategy for splitting documents.",
 			InnerField: "splitting_strategy",
 		},
+		&requestflag.InnerFlag[*string]{
+			Name:       "configuration.version",
+			Usage:      "Split version to run. Omit for the current release. Preview versions are selectable by name and never resolved automatically.",
+			InnerField: "version",
+		},
 	},
 })
 

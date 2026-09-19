@@ -88,6 +88,11 @@ var splitCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "Comma-separated page numbers or ranges to split (1-based). Omit to split all pages. Requires a completed parse job as file_input.",
 			InnerField: "target_pages",
 		},
+		&requestflag.InnerFlag[*string]{
+			Name:       "configuration.version",
+			Usage:      "Split version to run. Omit for the current release. Preview versions are selectable by name and never resolved automatically.",
+			InnerField: "version",
+		},
 	},
 	"webhook-configuration": {
 		&requestflag.InnerFlag[any]{
