@@ -32,6 +32,11 @@ var betaChatCreate = cli.Command{
 			Usage:    "Indexes this session will retrieve from. Once set and the first message has been sent, the source set is locked for the session's lifetime. Leave null to create an unbound session.",
 			BodyPath: "index_ids",
 		},
+		&requestflag.Flag[*string]{
+			Name:     "shared-access",
+			Usage:    "What this chat's share link grants: read_only (transcript only) or query (viewers may ask new questions). Null follows the deployment default.",
+			BodyPath: "shared_access",
+		},
 	},
 	Action:          handleBetaChatCreate,
 	HideHelpCommand: true,
@@ -165,6 +170,12 @@ var betaChatStream = cli.Command{
 		&requestflag.Flag[*string]{
 			Name:      "project-id",
 			QueryPath: "project_id",
+		},
+		&requestflag.Flag[bool]{
+			Name:     "require-all-indexes",
+			Usage:    "Fail the turn if any requested index cannot be queried.",
+			Default:  false,
+			BodyPath: "require_all_indexes",
 		},
 	},
 	Action:          handleBetaChatStream,

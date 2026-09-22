@@ -154,6 +154,7 @@ func init() {
 				Commands: []*cli.Command{
 					&classifyCreate,
 					&classifyList,
+					&classifyDelete,
 					&classifyCancel,
 					&classifyGet,
 				},
@@ -180,6 +181,7 @@ func init() {
 					&webhookConfigsUpdate,
 					&webhookConfigsList,
 					&webhookConfigsDelete,
+					&webhookConfigsListPaginated,
 				},
 			},
 			{
@@ -198,14 +200,6 @@ func init() {
 				Commands: []*cli.Command{
 					&v2ProjectsList,
 					&v2ProjectsGet,
-				},
-			},
-			{
-				Name:     "job-data-points",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&jobDataPointsList,
 				},
 			},
 			{
@@ -328,6 +322,7 @@ func init() {
 					&retrieversList,
 					&retrieversDelete,
 					&retrieversGet,
+					&retrieversListPaginated,
 					&retrieversSearch,
 					&retrieversUpsert,
 				},
