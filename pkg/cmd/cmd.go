@@ -372,6 +372,15 @@ func init() {
 				},
 			},
 			{
+				Name:     "beta:attachments",
+				Category: "API RESOURCE",
+				Suggest:  true,
+				Commands: []*cli.Command{
+					&betaAttachmentsList,
+					&betaAttachmentsGet,
+				},
+			},
+			{
 				Name:     "beta:agent-data",
 				Category: "API RESOURCE",
 				Suggest:  true,
