@@ -28,7 +28,7 @@ func TestParsingCreate(t *testing.T) {
 			"--fast-options", "{}",
 			"--file-id", "file_id",
 			"--http-proxy", "https:",
-			"--input-options", "{html: {make_all_elements_visible: true, remove_fixed_elements: true, remove_navigation_elements: true}, image: {camera_photo_correction: true}, pdf: {}, presentation: {out_of_bounds_content: true, skip_embedded_data: true}, spreadsheet: {detect_sub_tables_in_sheets: true, force_formula_computation_in_sheets: true, include_hidden_sheets: true}}",
+			"--input-options", "{html: {make_all_elements_visible: true, remove_fixed_elements: true, remove_navigation_elements: true}, image: {camera_photo_correction: true}, pdf: {}, presentation: {include_hidden_slides: true, out_of_bounds_content: true, skip_embedded_data: true}, spreadsheet: {detect_sub_tables_in_sheets: true, force_formula_computation_in_sheets: true, include_hidden_sheets: true}}",
 			"--output-options", "{additional_outputs: [stripped_md, concatenated_stripped_txt, word_bbox], extract_printed_page_number: true, granular_bboxes: [word, line, cell], images_to_save: [embedded], markdown: {annotate_line_numbers: true, annotate_links: true, annotate_revisions: true, inline_images: true, tables: {compact_markdown_tables: true, markdown_table_multiline_separator: markdown_table_multiline_separator, merge_continued_tables: true, output_tables_as_markdown: true}}, save_output_pdf: true, spatial_text: {do_not_unroll_columns: true, preserve_layout_alignment_across_pages: true, preserve_very_small_text: true}, tables_as_spreadsheet: {enable: true, guess_sheet_name: true}, watermark_handling: remove}",
 			"--page-ranges", "{max_pages: 1, target_pages: target_pages}",
 			"--processing-control", "{job_failure_conditions: {allowed_page_failure_ratio: 1, fail_on_buggy_font: true, fail_on_image_extraction_error: true, fail_on_image_ocr_error: true, fail_on_markdown_reconstruction_error: true}, timeouts: {base_in_seconds: 1, extra_time_per_page_in_seconds: 1}}",
@@ -67,7 +67,7 @@ func TestParsingCreate(t *testing.T) {
 			"--input-options.html", "{make_all_elements_visible: true, remove_fixed_elements: true, remove_navigation_elements: true}",
 			"--input-options.image", "{camera_photo_correction: true}",
 			"--input-options.pdf", "{}",
-			"--input-options.presentation", "{out_of_bounds_content: true, skip_embedded_data: true}",
+			"--input-options.presentation", "{include_hidden_slides: true, out_of_bounds_content: true, skip_embedded_data: true}",
 			"--input-options.spreadsheet", "{detect_sub_tables_in_sheets: true, force_formula_computation_in_sheets: true, include_hidden_sheets: true}",
 			"--output-options.additional-outputs", "[stripped_md, concatenated_stripped_txt, word_bbox]",
 			"--output-options.extract-printed-page-number=true",
@@ -129,6 +129,7 @@ func TestParsingCreate(t *testing.T) {
 			"    camera_photo_correction: true\n" +
 			"  pdf: {}\n" +
 			"  presentation:\n" +
+			"    include_hidden_slides: true\n" +
 			"    out_of_bounds_content: true\n" +
 			"    skip_embedded_data: true\n" +
 			"  spreadsheet:\n" +
