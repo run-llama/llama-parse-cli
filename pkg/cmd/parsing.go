@@ -27,7 +27,7 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.Flag[string]{
 			Name:     "version",
-			Usage:    "Version for the selected tier. Use `latest`, or pin one of that tier's dated versions.\n\nCurrent `latest` by tier:\n- `fast`: `2026-06-15`\n- `cost_effective`: `2026-08-19`\n- `agentic`: `2026-09-24`\n- `agentic_plus`: `2026-09-24`\n\nFull list: `GET /api/v2/parse/versions`.",
+			Usage:    "Version for the selected tier. Use `latest`, or pin one of that tier's dated versions.\n\nCurrent `latest` by tier:\n- `fast`: `2026-06-15`\n- `cost_effective`: `2026-09-28`\n- `agentic`: `2026-09-28`\n- `agentic_plus`: `2026-09-28`\n\nFull list: `GET /api/v2/parse/versions`.",
 			Required: true,
 			BodyPath: "version",
 		},
@@ -224,6 +224,11 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:       "output-options.tables-as-spreadsheet",
 			Usage:      "Options for exporting tables as XLSX spreadsheets",
 			InnerField: "tables_as_spreadsheet",
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:       "output-options.watermark-handling",
+			Usage:      "What to do with watermark text stamped across the page (e.g., 'CONFIDENTIAL', 'DRAFT'): 'move_to_end' (default) keeps it as the last block of the page's markdown and text output, 'move_to_start' as the first block, and 'remove' drops it. In every mode the detected text is reported in the page's `watermark` metadata. Requires version 2026-09-28 or later on the cost_effective, agentic, and agentic_plus tiers; ignored otherwise",
+			InnerField: "watermark_handling",
 		},
 	},
 	"page-ranges": {
