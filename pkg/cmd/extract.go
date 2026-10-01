@@ -125,7 +125,7 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.InnerFlag[string]{
 			Name:       "configuration.version",
-			Usage:      "Use 'latest' for the latest release for the selected tier or a date string (YYYY-MM-DD format) to pin to the nearest release at or before that date.",
+			Usage:      "Extract version name, such as '2.5'. Use 'latest' for the newest compatible release for the selected tier. Dates (YYYY-MM-DD) are also supported, which will use the latest version on or before the specified date.",
 			InnerField: "version",
 		},
 	},
