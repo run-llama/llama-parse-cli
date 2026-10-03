@@ -80,7 +80,7 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.InnerFlag[string]{
 			Name:       "configuration.extraction-target",
-			Usage:      "Granularity of extraction: per_doc returns one object per document, per_page returns one object per page, per_table_row returns one object per table row",
+			Usage:      "Deprecated. Applies only to Agentic and Cost Effective versions 2.0 or earlier. Granularity of extraction: per_doc returns one object per document, per_page returns one object per page, per_table_row returns one object per table row. Agentic Plus supports per_doc only.",
 			InnerField: "extraction_target",
 		},
 		&requestflag.InnerFlag[*int64]{
