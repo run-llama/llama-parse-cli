@@ -85,7 +85,7 @@ var splitCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.InnerFlag[*string]{
 			Name:       "configuration.target-pages",
-			Usage:      "Comma-separated page numbers or ranges to split (1-based). Omit to split all pages. Requires a completed parse job as file_input.",
+			Usage:      "Comma-separated page numbers or ranges to split (1-based). Pages are split in the order listed. Omit to split all pages. Requires a completed parse job as file_input.",
 			InnerField: "target_pages",
 		},
 		&requestflag.InnerFlag[*string]{
