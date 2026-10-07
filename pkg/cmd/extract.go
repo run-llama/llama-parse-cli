@@ -242,13 +242,18 @@ var extractList = cli.Command{
 
 var extractDelete = cli.Command{
 	Name:    "delete",
-	Usage:   "Delete an extraction job and its results.",
+	Usage:   "Delete an extraction job and its results. A non-terminal job is refused; cancel\nit first, or pass force=true to delete a job whose workflow is gone.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
 			Name:      "job-id",
 			Required:  true,
 			PathParam: "job_id",
+		},
+		&requestflag.Flag[bool]{
+			Name:      "force",
+			Default:   false,
+			QueryPath: "force",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
