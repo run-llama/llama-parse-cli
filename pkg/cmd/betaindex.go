@@ -152,6 +152,11 @@ var betaIndexesGet = cli.Command{
 			Required:  true,
 			PathParam: "index_id",
 		},
+		&requestflag.Flag[[]string]{
+			Name:      "expand",
+			Usage:     "Fields to expand. Supported value: sync_in_progress.",
+			QueryPath: "expand",
+		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",

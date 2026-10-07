@@ -112,6 +112,7 @@ func TestBetaIndexesGet(t *testing.T) {
 			"--api-key", "string",
 			"beta:indexes", "get",
 			"--index-id", "index_id",
+			"--expand", "sync_in_progress",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
