@@ -50,7 +50,7 @@ var betaSplitCreate = requestflag.WithInnerFlags(cli.Command{
 	"document-input": {
 		&requestflag.InnerFlag[string]{
 			Name:       "document-input.type",
-			Usage:      "Type of document input. Valid values are: file_id",
+			Usage:      "The beta `POST /api/v1/beta/split/jobs` endpoint accepts only `file_id`. To use a Parse job as input, call `POST /api/v1/split/jobs` instead, where you can pass the Parse job ID as `file_input`.",
 			InnerField: "type",
 		},
 		&requestflag.InnerFlag[string]{
@@ -69,6 +69,11 @@ var betaSplitCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:       "configuration.splitting-strategy",
 			Usage:      "Strategy for splitting documents.",
 			InnerField: "splitting_strategy",
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:       "configuration.version",
+			Usage:      "Split version to run. Omit for the current release. Preview versions are selectable by name and never resolved automatically.",
+			InnerField: "version",
 		},
 	},
 })

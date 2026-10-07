@@ -80,7 +80,7 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.InnerFlag[string]{
 			Name:       "configuration.extraction-target",
-			Usage:      "Granularity of extraction: per_doc returns one object per document, per_page returns one object per page, per_table_row returns one object per table row",
+			Usage:      "Deprecated. Applies only to Agentic and Cost Effective versions 2.0 or earlier. Granularity of extraction: per_doc returns one object per document, per_page returns one object per page, per_table_row returns one object per table row. Agentic Plus supports per_doc only.",
 			InnerField: "extraction_target",
 		},
 		&requestflag.InnerFlag[*int64]{
@@ -125,7 +125,7 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.InnerFlag[string]{
 			Name:       "configuration.version",
-			Usage:      "Use 'latest' for the latest release for the selected tier or a date string (YYYY-MM-DD format) to pin to the nearest release at or before that date.",
+			Usage:      "Extract version name, such as '2.5'. Use 'latest' for the newest compatible release for the selected tier. Dates (YYYY-MM-DD) are also supported, which will use the latest version on or before the specified date.",
 			InnerField: "version",
 		},
 	},
@@ -242,13 +242,18 @@ var extractList = cli.Command{
 
 var extractDelete = cli.Command{
 	Name:    "delete",
-	Usage:   "Delete an extraction job and its results.",
+	Usage:   "Delete an extraction job and its results. A non-terminal job is refused; cancel\nit first, or pass force=true to delete a job whose workflow is gone.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
 			Name:      "job-id",
 			Required:  true,
 			PathParam: "job_id",
+		},
+		&requestflag.Flag[bool]{
+			Name:      "force",
+			Default:   false,
+			QueryPath: "force",
 		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",

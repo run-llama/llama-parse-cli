@@ -195,6 +195,49 @@ var retrieversGet = cli.Command{
 	HideHelpCommand: true,
 }
 
+var retrieversListPaginated = cli.Command{
+	Name:    "list-paginated",
+	Usage:   "List the retrievers in a project, newest first.",
+	Suggest: true,
+	Flags: []cli.Flag{
+		&requestflag.Flag[bool]{
+			Name:      "include-total",
+			Usage:     "Return `total_size`, a count of every row matching the filter. It is a second query on every page, so it is off unless asked for.",
+			Default:   false,
+			QueryPath: "include_total",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "name",
+			QueryPath: "name",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "organization-id",
+			QueryPath: "organization_id",
+		},
+		&requestflag.Flag[int64]{
+			Name:      "page-size",
+			Usage:     "Number of items per page",
+			Default:   50,
+			QueryPath: "page_size",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "page-token",
+			Usage:     "Cursor from the previous page's `next_page_token`.",
+			QueryPath: "page_token",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
+		&requestflag.Flag[int64]{
+			Name:  "max-items",
+			Usage: "The maximum number of items to return (use -1 for unlimited).",
+		},
+	},
+	Action:          handleRetrieversListPaginated,
+	HideHelpCommand: true,
+}
+
 var retrieversSearch = requestflag.WithInnerFlags(cli.Command{
 	Name:    "search",
 	Usage:   "Retrieve data using specified pipelines without creating a persistent retriever.",
@@ -535,6 +578,61 @@ func handleRetrieversGet(ctx context.Context, cmd *cli.Command) error {
 		Title:          "retrievers get",
 		Transform:      transform,
 	})
+}
+
+func handleRetrieversListPaginated(ctx context.Context, cmd *cli.Command) error {
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
+	unusedArgs := cmd.Args().Slice()
+
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
+
+	options, err := flagOptions(
+		cmd,
+		apiquery.NestedQueryFormatBrackets,
+		apiquery.ArrayQueryFormatRepeat,
+		EmptyBody,
+		false,
+	)
+	if err != nil {
+		return err
+	}
+
+	params := llamacloud.RetrieverListPaginatedParams{}
+
+	format := cmd.Root().String("format")
+	explicitFormat := cmd.Root().IsSet("format")
+	transform := cmd.Root().String("transform")
+	if format == "raw" {
+		var res []byte
+		options = append(options, option.WithResponseBodyInto(&res))
+		_, err = client.Retrievers.ListPaginated(ctx, params, options...)
+		if err != nil {
+			return err
+		}
+		obj := gjson.ParseBytes(res)
+		return ShowJSON(obj, ShowJSONOpts{
+			ExplicitFormat: explicitFormat,
+			Format:         format,
+			RawOutput:      cmd.Root().Bool("raw-output"),
+			Title:          "retrievers list-paginated",
+			Transform:      transform,
+		})
+	} else {
+		iter := client.Retrievers.ListPaginatedAutoPaging(ctx, params, options...)
+		maxItems := int64(-1)
+		if cmd.IsSet("max-items") {
+			maxItems = cmd.Value("max-items").(int64)
+		}
+		return ShowJSONIterator(iter, maxItems, ShowJSONOpts{
+			ExplicitFormat: explicitFormat,
+			Format:         format,
+			RawOutput:      cmd.Root().Bool("raw-output"),
+			Title:          "retrievers list-paginated",
+			Transform:      transform,
+		})
+	}
 }
 
 func handleRetrieversSearch(ctx context.Context, cmd *cli.Command) error {

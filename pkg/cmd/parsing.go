@@ -27,7 +27,7 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.Flag[string]{
 			Name:     "version",
-			Usage:    "Version for the selected tier. Use `latest`, or pin one of that tier's dated versions.\n\nCurrent `latest` by tier:\n- `fast`: `2026-06-15`\n- `cost_effective`: `2026-08-19`\n- `agentic`: `2026-09-07`\n- `agentic_plus`: `2026-08-19`\n\nFull list: `GET /api/v2/parse/versions`.",
+			Usage:    "Version for the selected tier. Use `latest`, or pin one of that tier's dated versions.\n\nCurrent `latest` by tier:\n- `fast`: `2026-06-15`\n- `cost_effective`: `2026-09-28`\n- `agentic`: `2026-09-29`\n- `agentic_plus`: `2026-09-28`\n\nFull list: `GET /api/v2/parse/versions`.",
 			Required: true,
 			BodyPath: "version",
 		},
@@ -48,6 +48,11 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:     "client-name",
 			Usage:    "Identifier for the client/application making the request. Used for analytics and debugging. Example: 'my-app-v2'",
 			BodyPath: "client_name",
+		},
+		&requestflag.Flag[*string]{
+			Name:     "configuration-id",
+			Usage:    "ID of a saved parse configuration. When set, `tier` and `version` default to the saved configuration's values — omit them or pass `'configured'`.",
+			BodyPath: "configuration_id",
 		},
 		&requestflag.Flag[map[string]any]{
 			Name:     "crop-box",
@@ -158,6 +163,11 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "HTML/web page parsing options (applies to .html, .htm files)",
 			InnerField: "html",
 		},
+		&requestflag.InnerFlag[map[string]any]{
+			Name:       "input-options.image",
+			Usage:      "Image parsing options (applies to .jpg, .jpeg, .png, .webp files)",
+			InnerField: "image",
+		},
 		&requestflag.InnerFlag[any]{
 			Name:       "input-options.pdf",
 			Usage:      "PDF-specific parsing options (applies to .pdf files)",
@@ -214,6 +224,11 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:       "output-options.tables-as-spreadsheet",
 			Usage:      "Options for exporting tables as XLSX spreadsheets",
 			InnerField: "tables_as_spreadsheet",
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:       "output-options.watermark-handling",
+			Usage:      "What to do with watermark text stamped across the page (e.g., 'CONFIDENTIAL', 'DRAFT'): 'move_to_end' (default) keeps it as the last block of the page's markdown, 'move_to_start' as the first block, and 'remove' drops it. The text output follows the same choice where the watermark is a line of its own in the PDF text layer. In every mode the detected text is reported in the page's `watermark` metadata. Requires version 2026-09-28 or later on the cost_effective, agentic, and agentic_plus tiers; ignored otherwise",
+			InnerField: "watermark_handling",
 		},
 	},
 	"page-ranges": {

@@ -148,6 +148,7 @@ func TestExtractDelete(t *testing.T) {
 			"--api-key", "string",
 			"extract", "delete",
 			"--job-id", "job_id",
+			"--force=true",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
