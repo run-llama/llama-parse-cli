@@ -1,0 +1,134 @@
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+package cmd
+
+import (
+	"testing"
+
+	"github.com/run-llama/llama-parse-cli/internal/mocktest"
+)
+
+func TestChatCreate(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
+	t.Run("regular flags", func(t *testing.T) {
+		mocktest.TestRunMockTestWithFlags(
+			t,
+			"--api-key", "string",
+			"chat", "create",
+			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--index-id", "[idx-abc123, idx-def456]",
+			"--shared-access", "read_only",
+		)
+	})
+
+	t.Run("piping data", func(t *testing.T) {
+		// Test piping YAML data over stdin
+		pipeData := []byte("" +
+			"index_ids:\n" +
+			"  - idx-abc123\n" +
+			"  - idx-def456\n" +
+			"shared_access: read_only\n")
+		mocktest.TestRunMockTestWithPipeAndFlags(
+			t, pipeData,
+			"--api-key", "string",
+			"chat", "create",
+			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+		)
+	})
+}
+
+func TestChatRetrieve(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
+	t.Run("regular flags", func(t *testing.T) {
+		mocktest.TestRunMockTestWithFlags(
+			t,
+			"--api-key", "string",
+			"chat", "retrieve",
+			"--session-id", "session_id",
+			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+		)
+	})
+}
+
+func TestChatList(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
+	t.Run("regular flags", func(t *testing.T) {
+		mocktest.TestRunMockTestWithFlags(
+			t,
+			"--api-key", "string",
+			"chat", "list",
+			"--max-items", "10",
+			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--page-size", "0",
+			"--page-token", "page_token",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+		)
+	})
+}
+
+func TestChatDelete(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
+	t.Run("regular flags", func(t *testing.T) {
+		mocktest.TestRunMockTestWithFlags(
+			t,
+			"--api-key", "string",
+			"chat", "delete",
+			"--session-id", "session_id",
+			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+		)
+	})
+}
+
+func TestChatGetSummary(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
+	t.Run("regular flags", func(t *testing.T) {
+		mocktest.TestRunMockTestWithFlags(
+			t,
+			"--api-key", "string",
+			"chat", "get-summary",
+			"--session-id", "session_id",
+			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+		)
+	})
+}
+
+func TestChatStream(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
+	t.Run("regular flags", func(t *testing.T) {
+		mocktest.TestRunMockTestWithFlags(
+			t,
+			"--api-key", "string",
+			"chat", "stream",
+			"--session-id", "session_id",
+			"--index-id", "idx-abc123",
+			"--index-id", "idx-def456",
+			"--prompt", "What were the main findings in Q3?",
+			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--require-all-indexes=true",
+		)
+	})
+
+	t.Run("piping data", func(t *testing.T) {
+		// Test piping YAML data over stdin
+		pipeData := []byte("" +
+			"index_ids:\n" +
+			"  - idx-abc123\n" +
+			"  - idx-def456\n" +
+			"prompt: What were the main findings in Q3?\n" +
+			"require_all_indexes: true\n")
+		mocktest.TestRunMockTestWithPipeAndFlags(
+			t, pipeData,
+			"--api-key", "string",
+			"chat", "stream",
+			"--session-id", "session_id",
+			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+		)
+	})
+}

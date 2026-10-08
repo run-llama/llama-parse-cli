@@ -336,6 +336,43 @@ func init() {
 				},
 			},
 			{
+				Name:     "indexes",
+				Category: "API RESOURCE",
+				Suggest:  true,
+				Commands: []*cli.Command{
+					&indexesCreate,
+					&indexesList,
+					&indexesDelete,
+					&indexesCancelSync,
+					&indexesGet,
+					&indexesSync,
+				},
+			},
+			{
+				Name:     "retrieval",
+				Category: "API RESOURCE",
+				Suggest:  true,
+				Commands: []*cli.Command{
+					&retrievalRetrieve,
+					&retrievalFind,
+					&retrievalGrep,
+					&retrievalRead,
+				},
+			},
+			{
+				Name:     "chat",
+				Category: "API RESOURCE",
+				Suggest:  true,
+				Commands: []*cli.Command{
+					&chatCreate,
+					&chatRetrieve,
+					&chatList,
+					&chatDelete,
+					&chatGetSummary,
+					&chatStream,
+				},
+			},
+			{
 				Name:     "beta:indexes",
 				Category: "API RESOURCE",
 				Suggest:  true,
