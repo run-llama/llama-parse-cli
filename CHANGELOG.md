@@ -1,5 +1,40 @@
 # Changelog
 
+## [1.8.0](https://github.com/run-llama/llama-parse-cli/compare/v1.7.0...v1.8.0) (2026-10-07)
+
+
+### Features
+
+* add redline prompt changes to new prod version ([#27635](https://github.com/run-llama/llama-parse-cli/issues/27635)) ([30df048](https://github.com/run-llama/llama-parse-cli/commit/30df048e5a4acefa85c1679d653c733c1704b175))
+* **chat:** let a chat session refuse queries from its share link ([#27012](https://github.com/run-llama/llama-parse-cli/issues/27012)) ([200379d](https://github.com/run-llama/llama-parse-cli/commit/200379d50fb14e615083b7b1c573b61376bb3598))
+* **parse:** add option to include hidden PPTX slides ([#27938](https://github.com/run-llama/llama-parse-cli/issues/27938)) ([11368da](https://github.com/run-llama/llama-parse-cli/commit/11368da140781fdb9c6702896ac2b8ffccc0aee1))
+* **parse:** agentic 2026-09-09 — cache-stable prompt order + Flash Lite MINIMAL thinking ([#26273](https://github.com/run-llama/llama-parse-cli/issues/26273)) ([3125104](https://github.com/run-llama/llama-parse-cli/commit/3125104e30788fdd49b306ac0d47a2d3e3b04e60))
+* **parse:** apply watermark_handling to text output; add watermark e2e test ([#27932](https://github.com/run-llama/llama-parse-cli/issues/27932)) ([7ac7ed7](https://github.com/run-llama/llama-parse-cli/commit/7ac7ed7baee93bce3119a384ff0b4499dbb7b671))
+* **parse:** remove_watermark output option with 2026-09-28 tier versions ([#27813](https://github.com/run-llama/llama-parse-cli/issues/27813)) ([67c5f4a](https://github.com/run-llama/llama-parse-cli/commit/67c5f4affb4f5730c3b99b2c8131549e4c77358c))
+* **sdk:** publish beta.attachments list and get ([0755af8](https://github.com/run-llama/llama-parse-cli/commit/0755af8219e67064d28b2c4d3e41f3c8d7ff164b))
+* **split:** target_pages page selection when splitting a parse job ([#26921](https://github.com/run-llama/llama-parse-cli/issues/26921)) ([0b72df4](https://github.com/run-llama/llama-parse-cli/commit/0b72df4926afb4dc6fa4654fae0fa24e5116f13a))
+
+
+### Bug Fixes
+
+* **chat:** report every index a chat turn could not query ([#26981](https://github.com/run-llama/llama-parse-cli/issues/26981)) ([3c1645b](https://github.com/run-llama/llama-parse-cli/commit/3c1645b8e24e702eb79c1fa39c95dc7f767e0656))
+* **classifier:** drop the dead classify v1 job mappings (methods were removed from the SDKs in 2.16.0 / 1.7.0) ([20bd589](https://github.com/run-llama/llama-parse-cli/commit/20bd589c618aea25d00c9f03f2d46a946ff752e2))
+* **extract:** refuse to delete a non-terminal job (LI-8700) ([#23793](https://github.com/run-llama/llama-parse-cli/issues/23793)) ([c95af7f](https://github.com/run-llama/llama-parse-cli/commit/c95af7f9a57c2a8d7cd0593d2506253735453d62))
+* **split:** process target_pages in the order written, matching Extract ([#28173](https://github.com/run-llama/llama-parse-cli/issues/28173)) ([efbd797](https://github.com/run-llama/llama-parse-cli/commit/efbd7975c1f470613f930f3393d4c179cf925031))
+
+
+### Chores
+
+* **deps:** bump llama-parse-go to v1.8.0 ([0d1da10](https://github.com/run-llama/llama-parse-cli/commit/0d1da106e0c30645d9c654d31b206e55c2ad4e65))
+* **sync:** resolve back-sync conflicts with production ([3fcfcbd](https://github.com/run-llama/llama-parse-cli/commit/3fcfcbd0d0d6af9160583e55a206e7429bd20f9d))
+
+
+### Documentation
+
+* **changelog:** record the classify v1 job command removal in 1.7.0 (LI-9592) ([83f5280](https://github.com/run-llama/llama-parse-cli/commit/83f5280e06ac019f6894e80ee596f67ac8d506fa))
+* **changelog:** record the classify v1 job command removal in 1.7.0 (LI-9592) ([7b73541](https://github.com/run-llama/llama-parse-cli/commit/7b735418531fa4fba6e5d03a9100fcebe816855d))
+* update Extract versions and pricing ([#28128](https://github.com/run-llama/llama-parse-cli/issues/28128)) ([51934da](https://github.com/run-llama/llama-parse-cli/commit/51934da3a6cea8d0c60d4e8a628f921116c6e58f))
+
 ## [1.7.0](https://github.com/run-llama/llama-parse-cli/compare/v1.6.0...v1.7.0) (2026-09-08)
 
 
