@@ -14,7 +14,7 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
-var betaIndexesCreate = requestflag.WithInnerFlags(cli.Command{
+var indexesCreate = requestflag.WithInnerFlags(cli.Command{
 	Name:    "create",
 	Usage:   "Create a searchable index over a source directory.",
 	Suggest: true,
@@ -66,7 +66,7 @@ var betaIndexesCreate = requestflag.WithInnerFlags(cli.Command{
 			BodyPath: "vector_target",
 		},
 	},
-	Action:          handleBetaIndexesCreate,
+	Action:          handleIndexesCreate,
 	HideHelpCommand: true,
 }, map[string][]requestflag.HasOuterFlag{
 	"product": {
@@ -85,7 +85,7 @@ var betaIndexesCreate = requestflag.WithInnerFlags(cli.Command{
 	},
 })
 
-var betaIndexesList = cli.Command{
+var indexesList = cli.Command{
 	Name:    "list",
 	Usage:   "List indexes for the current project.",
 	Suggest: true,
@@ -115,11 +115,11 @@ var betaIndexesList = cli.Command{
 			Usage: "The maximum number of items to return (use -1 for unlimited).",
 		},
 	},
-	Action:          handleBetaIndexesList,
+	Action:          handleIndexesList,
 	HideHelpCommand: true,
 }
 
-var betaIndexesDelete = cli.Command{
+var indexesDelete = cli.Command{
 	Name:    "delete",
 	Usage:   "Delete an index.",
 	Suggest: true,
@@ -138,11 +138,34 @@ var betaIndexesDelete = cli.Command{
 			QueryPath: "project_id",
 		},
 	},
-	Action:          handleBetaIndexesDelete,
+	Action:          handleIndexesDelete,
 	HideHelpCommand: true,
 }
 
-var betaIndexesGet = cli.Command{
+var indexesCancelSync = cli.Command{
+	Name:    "cancel-sync",
+	Usage:   "Cancel the running sync for an index. Returns 409 if no sync is running.",
+	Suggest: true,
+	Flags: []cli.Flag{
+		&requestflag.Flag[string]{
+			Name:      "index-id",
+			Required:  true,
+			PathParam: "index_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "organization-id",
+			QueryPath: "organization_id",
+		},
+		&requestflag.Flag[*string]{
+			Name:      "project-id",
+			QueryPath: "project_id",
+		},
+	},
+	Action:          handleIndexesCancelSync,
+	HideHelpCommand: true,
+}
+
+var indexesGet = cli.Command{
 	Name:    "get",
 	Usage:   "Get an index by ID.",
 	Suggest: true,
@@ -166,11 +189,11 @@ var betaIndexesGet = cli.Command{
 			QueryPath: "project_id",
 		},
 	},
-	Action:          handleBetaIndexesGet,
+	Action:          handleIndexesGet,
 	HideHelpCommand: true,
 }
 
-var betaIndexesSync = cli.Command{
+var indexesSync = cli.Command{
 	Name:    "sync",
 	Usage:   "Trigger a sync and export for an existing index, re-parsing changed files and\nexporting updated chunks.",
 	Suggest: true,
@@ -189,11 +212,11 @@ var betaIndexesSync = cli.Command{
 			QueryPath: "project_id",
 		},
 	},
-	Action:          handleBetaIndexesSync,
+	Action:          handleIndexesSync,
 	HideHelpCommand: true,
 }
 
-func handleBetaIndexesCreate(ctx context.Context, cmd *cli.Command) error {
+func handleIndexesCreate(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
@@ -212,11 +235,11 @@ func handleBetaIndexesCreate(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloud.BetaIndexNewParams{}
+	params := llamacloud.IndexNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Beta.Indexes.New(ctx, params, options...)
+	_, err = client.Indexes.New(ctx, params, options...)
 	if err != nil {
 		return err
 	}
@@ -229,12 +252,12 @@ func handleBetaIndexesCreate(ctx context.Context, cmd *cli.Command) error {
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "beta:indexes create",
+		Title:          "indexes create",
 		Transform:      transform,
 	})
 }
 
-func handleBetaIndexesList(ctx context.Context, cmd *cli.Command) error {
+func handleIndexesList(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
@@ -253,7 +276,7 @@ func handleBetaIndexesList(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloud.BetaIndexListParams{}
+	params := llamacloud.IndexListParams{}
 
 	format := cmd.Root().String("format")
 	explicitFormat := cmd.Root().IsSet("format")
@@ -261,7 +284,7 @@ func handleBetaIndexesList(ctx context.Context, cmd *cli.Command) error {
 	if format == "raw" {
 		var res []byte
 		options = append(options, option.WithResponseBodyInto(&res))
-		_, err = client.Beta.Indexes.List(ctx, params, options...)
+		_, err = client.Indexes.List(ctx, params, options...)
 		if err != nil {
 			return err
 		}
@@ -270,11 +293,11 @@ func handleBetaIndexesList(ctx context.Context, cmd *cli.Command) error {
 			ExplicitFormat: explicitFormat,
 			Format:         format,
 			RawOutput:      cmd.Root().Bool("raw-output"),
-			Title:          "beta:indexes list",
+			Title:          "indexes list",
 			Transform:      transform,
 		})
 	} else {
-		iter := client.Beta.Indexes.ListAutoPaging(ctx, params, options...)
+		iter := client.Indexes.ListAutoPaging(ctx, params, options...)
 		maxItems := int64(-1)
 		if cmd.IsSet("max-items") {
 			maxItems = cmd.Value("max-items").(int64)
@@ -283,13 +306,13 @@ func handleBetaIndexesList(ctx context.Context, cmd *cli.Command) error {
 			ExplicitFormat: explicitFormat,
 			Format:         format,
 			RawOutput:      cmd.Root().Bool("raw-output"),
-			Title:          "beta:indexes list",
+			Title:          "indexes list",
 			Transform:      transform,
 		})
 	}
 }
 
-func handleBetaIndexesDelete(ctx context.Context, cmd *cli.Command) error {
+func handleIndexesDelete(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("index-id") && len(unusedArgs) > 0 {
@@ -311,9 +334,9 @@ func handleBetaIndexesDelete(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloud.BetaIndexDeleteParams{}
+	params := llamacloud.IndexDeleteParams{}
 
-	return client.Beta.Indexes.Delete(
+	return client.Indexes.Delete(
 		ctx,
 		cmd.Value("index-id").(string),
 		params,
@@ -321,7 +344,7 @@ func handleBetaIndexesDelete(ctx context.Context, cmd *cli.Command) error {
 	)
 }
 
-func handleBetaIndexesGet(ctx context.Context, cmd *cli.Command) error {
+func handleIndexesCancelSync(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("index-id") && len(unusedArgs) > 0 {
@@ -343,11 +366,11 @@ func handleBetaIndexesGet(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloud.BetaIndexGetParams{}
+	params := llamacloud.IndexCancelSyncParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Beta.Indexes.Get(
+	_, err = client.Indexes.CancelSync(
 		ctx,
 		cmd.Value("index-id").(string),
 		params,
@@ -365,12 +388,12 @@ func handleBetaIndexesGet(ctx context.Context, cmd *cli.Command) error {
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "beta:indexes get",
+		Title:          "indexes cancel-sync",
 		Transform:      transform,
 	})
 }
 
-func handleBetaIndexesSync(ctx context.Context, cmd *cli.Command) error {
+func handleIndexesGet(ctx context.Context, cmd *cli.Command) error {
 	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("index-id") && len(unusedArgs) > 0 {
@@ -392,11 +415,11 @@ func handleBetaIndexesSync(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	params := llamacloud.BetaIndexSyncParams{}
+	params := llamacloud.IndexGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Beta.Indexes.Sync(
+	_, err = client.Indexes.Get(
 		ctx,
 		cmd.Value("index-id").(string),
 		params,
@@ -414,7 +437,56 @@ func handleBetaIndexesSync(ctx context.Context, cmd *cli.Command) error {
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "beta:indexes sync",
+		Title:          "indexes get",
+		Transform:      transform,
+	})
+}
+
+func handleIndexesSync(ctx context.Context, cmd *cli.Command) error {
+	client := llamacloud.NewClient(getDefaultRequestOptions(cmd)...)
+	unusedArgs := cmd.Args().Slice()
+	if !cmd.IsSet("index-id") && len(unusedArgs) > 0 {
+		cmd.Set("index-id", unusedArgs[0])
+		unusedArgs = unusedArgs[1:]
+	}
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
+
+	options, err := flagOptions(
+		cmd,
+		apiquery.NestedQueryFormatBrackets,
+		apiquery.ArrayQueryFormatRepeat,
+		EmptyBody,
+		false,
+	)
+	if err != nil {
+		return err
+	}
+
+	params := llamacloud.IndexSyncParams{}
+
+	var res []byte
+	options = append(options, option.WithResponseBodyInto(&res))
+	_, err = client.Indexes.Sync(
+		ctx,
+		cmd.Value("index-id").(string),
+		params,
+		options...,
+	)
+	if err != nil {
+		return err
+	}
+
+	obj := gjson.ParseBytes(res)
+	format := cmd.Root().String("format")
+	explicitFormat := cmd.Root().IsSet("format")
+	transform := cmd.Root().String("transform")
+	return ShowJSON(obj, ShowJSONOpts{
+		ExplicitFormat: explicitFormat,
+		Format:         format,
+		RawOutput:      cmd.Root().Bool("raw-output"),
+		Title:          "indexes sync",
 		Transform:      transform,
 	})
 }

@@ -9,13 +9,13 @@ import (
 	"github.com/run-llama/llama-parse-cli/internal/requestflag"
 )
 
-func TestBetaIndexesCreate(t *testing.T) {
+func TestIndexesCreate(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"beta:indexes", "create",
+			"indexes", "create",
 			"--source-directory-id", "dir-abc123",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -30,13 +30,13 @@ func TestBetaIndexesCreate(t *testing.T) {
 
 	t.Run("inner flags", func(t *testing.T) {
 		// Check that inner flags have been set up correctly
-		requestflag.CheckInnerFlags(betaIndexesCreate)
+		requestflag.CheckInnerFlags(indexesCreate)
 
 		// Alternative argument passing style using inner flags
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"beta:indexes", "create",
+			"indexes", "create",
 			"--source-directory-id", "dir-abc123",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -66,20 +66,20 @@ func TestBetaIndexesCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"beta:indexes", "create",
+			"indexes", "create",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)
 	})
 }
 
-func TestBetaIndexesList(t *testing.T) {
+func TestIndexesList(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"beta:indexes", "list",
+			"indexes", "list",
 			"--max-items", "10",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--page-size", "0",
@@ -90,13 +90,13 @@ func TestBetaIndexesList(t *testing.T) {
 	})
 }
 
-func TestBetaIndexesDelete(t *testing.T) {
+func TestIndexesDelete(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"beta:indexes", "delete",
+			"indexes", "delete",
 			"--index-id", "index_id",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -104,13 +104,27 @@ func TestBetaIndexesDelete(t *testing.T) {
 	})
 }
 
-func TestBetaIndexesGet(t *testing.T) {
+func TestIndexesCancelSync(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"beta:indexes", "get",
+			"indexes", "cancel-sync",
+			"--index-id", "index_id",
+			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+		)
+	})
+}
+
+func TestIndexesGet(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
+	t.Run("regular flags", func(t *testing.T) {
+		mocktest.TestRunMockTestWithFlags(
+			t,
+			"--api-key", "string",
+			"indexes", "get",
 			"--index-id", "index_id",
 			"--expand", "sync_in_progress",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -119,13 +133,13 @@ func TestBetaIndexesGet(t *testing.T) {
 	})
 }
 
-func TestBetaIndexesSync(t *testing.T) {
+func TestIndexesSync(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"beta:indexes", "sync",
+			"indexes", "sync",
 			"--index-id", "index_id",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
