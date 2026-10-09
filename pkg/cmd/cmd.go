@@ -467,6 +467,18 @@ func init() {
 				},
 			},
 			{
+				Name:     "alpha:verify",
+				Category: "API RESOURCE",
+				Suggest:  true,
+				Commands: []*cli.Command{
+					&alphaVerifyCreate,
+					&alphaVerifyList,
+					&alphaVerifyCancel,
+					&alphaVerifyGet,
+					&alphaVerifyGetDetails,
+				},
+			},
+			{
 				Name:            "@manpages",
 				Usage:           "Generate documentation for 'man'",
 				UsageText:       "llp @manpages [-o llp.1] [--gzip]",
