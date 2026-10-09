@@ -67,7 +67,7 @@ snapshot:
 
 nfpms:
   - license: MIT
-    maintainer: 
+    maintainer:
     bindir: /usr
     formats:
       - apk
@@ -78,3 +78,18 @@ nfpms:
     contents:
       - src: man/man1/*.1.gz
         dst: /usr/share/man/man1/
+
+homebrew_casks:
+  - name: llp
+    repository:
+      owner: run-llama
+      name: homebrew-llp
+      branch: main
+      token: "{{ .Env.TAP_GITHUB_TOKEN }}"
+    binary: llp
+    hooks:
+      post:
+        install: |
+          if OS.mac?
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/llp"]
+          end
