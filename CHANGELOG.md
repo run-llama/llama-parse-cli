@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.9.0](https://github.com/run-llama/llama-parse-cli/compare/v1.8.0...v1.9.0) (2026-10-09)
+
+
+### Features
+
+* **sdk:** move Index v2 indexes, retrieval and chat out of beta (PROD-10331) ([0059b16](https://github.com/run-llama/llama-parse-cli/commit/0059b16f5ec5d49228df01598440a493c2ea1a8d))
+* **sdk:** publish Verify as client.alpha.verify (PROD-10334) ([ee4c82d](https://github.com/run-llama/llama-parse-cli/commit/ee4c82d2863bd6b08b99acb2f34786e80a07496a))
+
+
+### Bug Fixes
+
+* **sdk:** one FormText model for the forms text node (PROD-10339) ([6a5e981](https://github.com/run-llama/llama-parse-cli/commit/6a5e981baa6acf93c5bbfc08edc1fbc39bc6574f))
+
 ## [1.8.0](https://github.com/run-llama/llama-parse-cli/compare/v1.7.0...v1.8.0) (2026-10-07)
 
 
