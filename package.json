@@ -1,0 +1,37 @@
+{
+  "name": "@llamaindex/llama-parse-cli",
+  "version": "1.2.0",
+  "description": "The official CLI for the LlamaParse REST API",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "golang-npm install",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/run-llama/llama-parse-cli.git"
+  },
+  "keywords": [
+    "cli",
+    "parsing",
+    "text-extraction",
+    "classification",
+    "structured-data-extraction",
+    "retrieval",
+    "llamaparse"
+  ],
+  "author": "LlamaIndex",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/run-llama/llama-parse-cli/issues"
+  },
+  "homepage": "https://github.com/run-llama/llama-parse-cli#readme",
+  "dependencies": {
+    "@cle-does-things/golang-npm": "^0.3.0"
+  },
+  "goBinary": {
+    "name": "llp",
+    "path": "./bin",
+    "url": "https://github.com/run-llama/llama-parse-cli/releases/download/v{{version}}/llp_{{version}}_{{platform}}_{{arch}}.tar.gz"
+  }
+}
