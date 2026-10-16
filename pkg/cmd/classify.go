@@ -235,6 +235,11 @@ var classifyGet = cli.Command{
 			Required:  true,
 			PathParam: "job_id",
 		},
+		&requestflag.Flag[[]string]{
+			Name:      "expand",
+			Usage:     "Additional fields to include: usage",
+			QueryPath: "expand",
+		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",

@@ -19,6 +19,12 @@ var alphaVerifyCreate = requestflag.WithInnerFlags(cli.Command{
 	Usage:   "Create a Verify job.",
 	Suggest: true,
 	Flags: []cli.Flag{
+		&requestflag.Flag[string]{
+			Name:     "file-input",
+			Usage:    "File ID of the document to analyze",
+			Required: true,
+			BodyPath: "file_input",
+		},
 		&requestflag.Flag[*string]{
 			Name:      "organization-id",
 			QueryPath: "organization_id",
@@ -31,16 +37,6 @@ var alphaVerifyCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:     "configuration",
 			Usage:    "Configuration for a Verify job.",
 			BodyPath: "configuration",
-		},
-		&requestflag.Flag[*string]{
-			Name:     "file-id",
-			Usage:    "Deprecated: use file_input instead",
-			BodyPath: "file_id",
-		},
-		&requestflag.Flag[*string]{
-			Name:     "file-input",
-			Usage:    "File ID of the document to analyze",
-			BodyPath: "file_input",
 		},
 		&requestflag.Flag[*string]{
 			Name:     "transaction-id",
