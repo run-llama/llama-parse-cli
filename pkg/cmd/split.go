@@ -180,7 +180,7 @@ var splitList = cli.Command{
 
 var splitDelete = cli.Command{
 	Name:    "delete",
-	Usage:   "Delete a split job and its results.",
+	Usage:   "Delete a split job and its results. A job that is not in a terminal state is\nrefused with 409; cancel it first.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{

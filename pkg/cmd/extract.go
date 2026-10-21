@@ -64,6 +64,11 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 			InnerField: "data_schema",
 		},
 		&requestflag.InnerFlag[bool]{
+			Name:       "configuration.advanced-citations",
+			Usage:      "More precise citation bounding boxes. Set to false for faster extraction with less precise boxes.",
+			InnerField: "advanced_citations",
+		},
+		&requestflag.InnerFlag[bool]{
 			Name:       "configuration.cite-sources",
 			Usage:      "Include citations in results. Returned under `extract_metadata` (auto-included when set). Text-level on `turbo` (no bounding boxes).",
 			InnerField: "cite_sources",
