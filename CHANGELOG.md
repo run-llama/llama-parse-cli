@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.10.0](https://github.com/run-llama/llama-parse-cli/compare/v1.9.0...v1.10.0) (2026-10-21)
+
+
+### Features
+
+* **classify:** add expand=usage to GET /api/v2/classify/{job_id} ([#29577](https://github.com/run-llama/llama-parse-cli/issues/29577)) ([5e0b39b](https://github.com/run-llama/llama-parse-cli/commit/5e0b39b5aef0fa6b4e61caa4643a3a8b13326ec8))
+
+
+### Bug Fixes
+
+* **parse:** apply watermark and wrapped-word rules to Lite fallbacks ([#30128](https://github.com/run-llama/llama-parse-cli/issues/30128)) ([12b45a5](https://github.com/run-llama/llama-parse-cli/commit/12b45a5be9f5714241683da6717c9af78b7fb83f))
+* **split:** refuse to delete a non-terminal job ([#29785](https://github.com/run-llama/llama-parse-cli/issues/29785)) ([63542c3](https://github.com/run-llama/llama-parse-cli/commit/63542c3052b98b0ffa8df5402fa73bae7787710d))
+
 ## [1.9.0](https://github.com/run-llama/llama-parse-cli/compare/v1.8.0...v1.9.0) (2026-10-09)
 
 
