@@ -121,7 +121,7 @@ var parsingCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.Flag[[]map[string]any]{
 			Name:     "webhook-configuration",
-			Usage:    "Webhook endpoints for job status notifications. Multiple webhooks can be configured for different events or services",
+			Usage:    "Webhook endpoints for job notifications. Maximum 10 total, including webhook_configuration_ids.",
 			BodyPath: "webhook_configurations",
 		},
 	},
