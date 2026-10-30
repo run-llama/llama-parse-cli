@@ -83,6 +83,11 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "Disable reuse and storage of Extract results",
 			InnerField: "disable_cache",
 		},
+		&requestflag.InnerFlag[*string]{
+			Name:       "configuration.effort",
+			Usage:      "Use 'max' for additional processing effort on agentic_plus. Bills by model usage with the page charge as a minimum. Omit or set to null for the tier's default behavior.",
+			InnerField: "effort",
+		},
 		&requestflag.InnerFlag[string]{
 			Name:       "configuration.extraction-target",
 			Usage:      "Deprecated. Applies only to Agentic and Cost Effective versions 2.0 or earlier. Granularity of extraction: per_doc returns one object per document, per_page returns one object per page, per_table_row returns one object per table row. Agentic Plus supports per_doc only.",
