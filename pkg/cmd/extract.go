@@ -83,6 +83,11 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:      "Disable reuse and storage of Extract results",
 			InnerField: "disable_cache",
 		},
+		&requestflag.InnerFlag[*string]{
+			Name:       "configuration.effort",
+			Usage:      "Use 'max' for additional processing effort on agentic_plus. Bills by model usage with the page charge as a minimum. Omit or set to null for the tier's default behavior.",
+			InnerField: "effort",
+		},
 		&requestflag.InnerFlag[string]{
 			Name:       "configuration.extraction-target",
 			Usage:      "Deprecated. Applies only to Agentic and Cost Effective versions 2.0 or earlier. Granularity of extraction: per_doc returns one object per document, per_page returns one object per page, per_table_row returns one object per table row. Agentic Plus supports per_doc only.",
@@ -110,7 +115,7 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.InnerFlag[bool]{
 			Name:       "configuration.spreadsheet-mode",
-			Usage:      "Beta. When true, extract structured data directly from a spreadsheet workbook (.xlsx/.xls/.csv) — the agent reads cells straight from the workbook instead of the standard document path. Off by default (spreadsheets keep the standard path). Requires the agentic_plus tier. Billed on the standard per-page extract rate, against a page count derived from workbook size. Citations and confidence scores are not available in this mode.",
+			Usage:      "Extract structured data directly from spreadsheet cells (.xlsx/.xls/.csv). Billed at the standard per-page Extract rate, with page count derived from workbook size.",
 			InnerField: "spreadsheet_mode",
 		},
 		&requestflag.InnerFlag[*string]{
