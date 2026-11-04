@@ -237,6 +237,11 @@ var extractList = cli.Command{
 			QueryPath: "project_id",
 		},
 		&requestflag.Flag[*string]{
+			Name:      "review-status",
+			Usage:     "Filter by review status; none is a job without a review",
+			QueryPath: "review_status",
+		},
+		&requestflag.Flag[*string]{
 			Name:      "status",
 			Usage:     "Filter by status",
 			QueryPath: "status",
