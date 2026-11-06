@@ -143,7 +143,7 @@ var betaDirectoriesList = cli.Command{
 
 var betaDirectoriesDelete = cli.Command{
 	Name:    "delete",
-	Usage:   "Permanently delete a directory.",
+	Usage:   "Permanently delete a directory, and the files in it that no other directory or\nindex uses.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
