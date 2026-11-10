@@ -85,7 +85,7 @@ var extractCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.InnerFlag[*string]{
 			Name:       "configuration.effort",
-			Usage:      "Use 'max' for additional processing effort on agentic_plus. Bills by model usage with the page charge as a minimum. Omit or set to null for the tier's default behavior.",
+			Usage:      "Use 'max' for additional processing effort on agentic_plus. Priced by the processing each document needs, with the page price as the minimum. Omit or set to null for the tier's default behavior.",
 			InnerField: "effort",
 		},
 		&requestflag.InnerFlag[string]{
