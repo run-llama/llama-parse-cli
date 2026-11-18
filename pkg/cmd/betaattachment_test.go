@@ -18,7 +18,7 @@ func TestBetaAttachmentsList(t *testing.T) {
 			"--max-items", "10",
 			"--source-id", "source_id",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--page-size", "0",
+			"--page-size", "1",
 			"--page-token", "page_token",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 		)

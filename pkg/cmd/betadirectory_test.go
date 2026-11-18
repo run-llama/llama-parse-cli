@@ -88,7 +88,7 @@ func TestBetaDirectoriesList(t *testing.T) {
 			"--include-deleted=true",
 			"--name", "name",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--page-size", "0",
+			"--page-size", "1",
 			"--page-token", "page_token",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--type", "user",
