@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.11.0](https://github.com/run-llama/llama-parse-cli/compare/v1.10.0...v1.11.0) (2026-11-20)
+
+
+### Features
+
+* **extract:** expose Max effort in the public API ([#30756](https://github.com/run-llama/llama-parse-cli/issues/30756)) ([7ec24f7](https://github.com/run-llama/llama-parse-cli/commit/7ec24f72272d48980773652d8198ac26073a8b42))
+* **parse:** add document page count bounds ([#34227](https://github.com/run-llama/llama-parse-cli/issues/34227)) ([069ddbf](https://github.com/run-llama/llama-parse-cli/commit/069ddbf383a64143f9f7c96b8de3b5b8d2880804))
+* **parse:** Agentic and Cost Effective 2026-11-09 lead with OCRIA 1.5 ([#33718](https://github.com/run-llama/llama-parse-cli/issues/33718)) ([7c7d46c](https://github.com/run-llama/llama-parse-cli/commit/7c7d46ceedaaa0357562b7d3dafff8b177bc7bb3))
+* **split:** category segment boundary in 1.3.0 ([#35081](https://github.com/run-llama/llama-parse-cli/issues/35081)) ([7ae0622](https://github.com/run-llama/llama-parse-cli/commit/7ae0622b230c39092856b5c095d0caba88586616))
+* **webhooks:** keep a saved webhook's masked credentials by its id ([#32736](https://github.com/run-llama/llama-parse-cli/issues/32736)) ([6bbba66](https://github.com/run-llama/llama-parse-cli/commit/6bbba66f6e7e29e02d8aa6464b0686584318a502))
+
+
+### Bug Fixes
+
+* **api:** reject a page_size below 1 on every list route's pagination query (PROD-10603) ([#30406](https://github.com/run-llama/llama-parse-cli/issues/30406)) ([388e578](https://github.com/run-llama/llama-parse-cli/commit/388e5788e97294984b8fd8f25c9697dfc3cd6505))
+* **split:** reject category names that make segment labels ambiguous (PROD-10501) ([#29963](https://github.com/run-llama/llama-parse-cli/issues/29963)) ([2782a79](https://github.com/run-llama/llama-parse-cli/commit/2782a79041e05171fc4dead7149a27c05e7f73d7))
+
+
+### Documentation
+
+* **extract:** describe Max effort pricing by the processing each document needs ([#33403](https://github.com/run-llama/llama-parse-cli/issues/33403)) ([bce1713](https://github.com/run-llama/llama-parse-cli/commit/bce1713ef4ab308ad6631eca3bbf700889eca4de))
+
 ## [1.10.0](https://github.com/run-llama/llama-parse-cli/compare/v1.9.0...v1.10.0) (2026-10-21)
 
 
