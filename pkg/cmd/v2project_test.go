@@ -18,7 +18,7 @@ func TestV2ProjectsList(t *testing.T) {
 			"--max-items", "10",
 			"--name", "name",
 			"--organization-id", "organization_id",
-			"--page-size", "0",
+			"--page-size", "1",
 			"--page-token", "page_token",
 		)
 	})

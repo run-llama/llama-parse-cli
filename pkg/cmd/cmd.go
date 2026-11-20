@@ -137,6 +137,20 @@ func init() {
 				},
 			},
 			{
+				Name:     "extract:review",
+				Category: "API RESOURCE",
+				Suggest:  true,
+				Commands: []*cli.Command{
+					&extractReviewCreate,
+					&extractReviewApprove,
+					&extractReviewChangeFields,
+					&extractReviewGet,
+					&extractReviewListEvents,
+					&extractReviewReject,
+					&extractReviewReopen,
+				},
+			},
+			{
 				Name:     "batches",
 				Category: "API RESOURCE",
 				Suggest:  true,

@@ -65,7 +65,7 @@ var splitCreate = requestflag.WithInnerFlags(cli.Command{
 	"configuration": {
 		&requestflag.InnerFlag[[]map[string]any]{
 			Name:       "configuration.categories",
-			Usage:      "Categories to split documents into.",
+			Usage:      "Categories to split documents into. Names must be unique; 'uncategorized' is reserved unless allow_uncategorized is 'forbid'.",
 			InnerField: "categories",
 		},
 		&requestflag.InnerFlag[*string]{
