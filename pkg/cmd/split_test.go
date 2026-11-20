@@ -19,7 +19,7 @@ func TestSplitCreate(t *testing.T) {
 			"--file-input", "dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--configuration", "{categories: [{name: x, description: x}], parse_config_id: cfg-11111111-2222-3333-4444-555555555555, parse_tier: fast, splitting_strategy: {allow_uncategorized: forbid, custom_instructions: Start a new segment at every signature page., min_pages_per_split: 1}, target_pages: '1,3,5-7', version: latest}",
+			"--configuration", "{categories: [{name: x, description: x}], parse_config_id: cfg-11111111-2222-3333-4444-555555555555, parse_tier: fast, splitting_strategy: {allow_uncategorized: forbid, custom_instructions: Start a new segment at every signature page., min_pages_per_split: 1, segment_boundary: category}, target_pages: '1,3,5-7', version: latest}",
 			"--configuration-id", "cfg-11111111-2222-3333-4444-555555555555",
 			"--transaction-id", "tx-unique-idempotency-key",
 			"--webhook-configuration-id", "[whc-..., whc-...]",
@@ -42,7 +42,7 @@ func TestSplitCreate(t *testing.T) {
 			"--configuration.categories", "[{name: x, description: x}]",
 			"--configuration.parse-config-id", "cfg-11111111-2222-3333-4444-555555555555",
 			"--configuration.parse-tier", "fast",
-			"--configuration.splitting-strategy", "{allow_uncategorized: forbid, custom_instructions: Start a new segment at every signature page., min_pages_per_split: 1}",
+			"--configuration.splitting-strategy", "{allow_uncategorized: forbid, custom_instructions: Start a new segment at every signature page., min_pages_per_split: 1, segment_boundary: category}",
 			"--configuration.target-pages", "1,3,5-7",
 			"--configuration.version", "latest",
 			"--configuration-id", "cfg-11111111-2222-3333-4444-555555555555",
@@ -70,6 +70,7 @@ func TestSplitCreate(t *testing.T) {
 			"    allow_uncategorized: forbid\n" +
 			"    custom_instructions: Start a new segment at every signature page.\n" +
 			"    min_pages_per_split: 1\n" +
+			"    segment_boundary: category\n" +
 			"  target_pages: 1,3,5-7\n" +
 			"  version: latest\n" +
 			"configuration_id: cfg-11111111-2222-3333-4444-555555555555\n" +

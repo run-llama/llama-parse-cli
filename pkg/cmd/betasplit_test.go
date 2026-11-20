@@ -19,7 +19,7 @@ func TestBetaSplitCreate(t *testing.T) {
 			"--document-input", "{type: type, value: value}",
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-			"--configuration", "{categories: [{name: x, description: x}], splitting_strategy: {allow_uncategorized: forbid, custom_instructions: Start a new segment at every signature page., min_pages_per_split: 1}, version: latest}",
+			"--configuration", "{categories: [{name: x, description: x}], splitting_strategy: {allow_uncategorized: forbid, custom_instructions: Start a new segment at every signature page., min_pages_per_split: 1, segment_boundary: category}, version: latest}",
 			"--configuration-id", "configuration_id",
 		)
 	})
@@ -38,7 +38,7 @@ func TestBetaSplitCreate(t *testing.T) {
 			"--organization-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--project-id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 			"--configuration.categories", "[{name: x, description: x}]",
-			"--configuration.splitting-strategy", "{allow_uncategorized: forbid, custom_instructions: Start a new segment at every signature page., min_pages_per_split: 1}",
+			"--configuration.splitting-strategy", "{allow_uncategorized: forbid, custom_instructions: Start a new segment at every signature page., min_pages_per_split: 1, segment_boundary: category}",
 			"--configuration.version", "latest",
 			"--configuration-id", "configuration_id",
 		)
@@ -58,6 +58,7 @@ func TestBetaSplitCreate(t *testing.T) {
 			"    allow_uncategorized: forbid\n" +
 			"    custom_instructions: Start a new segment at every signature page.\n" +
 			"    min_pages_per_split: 1\n" +
+			"    segment_boundary: category\n" +
 			"  version: latest\n" +
 			"configuration_id: configuration_id\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
